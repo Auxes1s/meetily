@@ -572,6 +572,7 @@ jobs:
 
 
       - name: Build unsigned candidate
+        id: unsigned-candidate
         if: startsWith(inputs.asset-prefix, 'meetily-v0-candidate')
         shell: bash
         env:
@@ -625,6 +626,9 @@ jobs:
           cargo test --locked --release -p meetily --lib "${native_target[@]}" ${{ steps.build-features.outputs.features }} --no-run
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             python scripts/qa/stage-test-runtime.py target/release target/release/deps
+            for test_binary in target/release/deps/app_lib-*.exe; do
+              python scripts/qa/windows-loader-check.py "$test_binary" target/v0-native-diagnostics/loader-resolution.json
+            done
           fi
           cargo test --locked --release -p meetily --lib "${native_target[@]}" ${{ steps.build-features.outputs.features }}
           cargo test --locked --release -p llama-helper "${helper_features[@]}"
@@ -756,7 +760,7 @@ jobs:
           retention-days: 30
 
       - name: Upload artifacts (Windows)
-        if: inputs.upload-artifacts && contains(inputs.platform, 'windows')
+        if: always() && inputs.upload-artifacts && contains(inputs.platform, 'windows') && (steps.unsigned-candidate.outcome == 'success' || steps.tauri-build.outcome == 'success')
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.asset-prefix }}-${{ inputs.target }}
