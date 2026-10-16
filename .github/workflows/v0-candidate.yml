@@ -36,6 +36,7 @@ jobs:
       - run: node tests/lib/onboarding-summary-model.test.mjs
         working-directory: frontend
       - run: node --test .github/verify-portable-ggml.test.cjs
+      - run: python3 -m unittest discover -s scripts/qa/tests
       - run: pnpm lint
         working-directory: frontend
       - run: pnpm build

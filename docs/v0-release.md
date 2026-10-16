@@ -11,7 +11,7 @@ its automated package checks pass; full v0 acceptance remains separate.
 | Target | Package | Acceptance status |
 | --- | --- | --- |
 | Windows 11 x64, AVX2-capable CPU | MSI and NSIS setup | Native build and installed WebView2 smoke configured on Windows Server 2022 CI. This does not establish Windows 11 physical capture, installer upgrade or permission behavior. |
-| macOS Apple Silicon | app and DMG | Local macOS UI and workflow evidence exists; fresh candidate build and native checks are recorded below. Intel Macs are not an accepted target. |
+| macOS 14.2 or later, Apple Silicon | app and DMG | Local macOS UI and workflow evidence exists; fresh candidate build and native checks are recorded below. Intel Macs are not an accepted target. |
 
 The candidate uses the existing app identifier and library, with the existing
 migration-backup behavior. Quit other Meetily copies before opening it. A normal
@@ -39,7 +39,11 @@ behavioral tests, onboarding model checks, portable GGML checks, lint, productio
 static export and TypeScript before building both targets. It reuses the existing
 Metal/CoreML macOS and Vulkan Windows paths, FFmpeg downloader, verified ONNX
 runtime staging and portable Windows CPU checks. The matching llama helper is
-built from the same locked source.
+built from the same locked source. Windows bundles the pinned official x64 Vulkan
+loader and its redistribution license, with the archive checked against
+[LunarG's published checksum](https://vulkan.lunarg.com/sdk/files.json). The
+candidate enforces a 480×400 minimum window size, matching the smallest tested
+layout, and advertises macOS 14.2 to match the compiled binary's deployment target.
 
 Windows smoke installs the actual NSIS package on a disposable CI host, opens
 the installed executable in WebView2 through

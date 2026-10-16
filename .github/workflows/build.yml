@@ -135,6 +135,13 @@ jobs:
                 cwd = $env:GITHUB_WORKSPACE
               }
             }
+            bundle = @{
+              resources = @{
+                templates = 'templates'
+                'binaries/onnxruntime' = '.'
+                'vulkan-runtime' = '.'
+              }
+            }
           } | ConvertTo-Json -Depth 4 | Set-Content -Path $configPath -Encoding utf8
           "args=--config `"$configPath`"" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
 
@@ -219,56 +226,11 @@ jobs:
 
       - name: Copy Vulkan runtime for bundling (Windows)
         if: contains(inputs.platform, 'windows')
+        timeout-minutes: 5
         shell: pwsh
         run: |
-          # Create runtime directory
-          $runtimeDir = "frontend/src-tauri/vulkan-runtime"
-          if (!(Test-Path $runtimeDir)) {
-            New-Item -ItemType Directory -Force -Path $runtimeDir | Out-Null
-          }
-
-          # Find Vulkan SDK - check multiple possible locations
-          $vulkanSdk = $env:VULKAN_SDK
-          Write-Host "VULKAN_SDK env: $vulkanSdk"
-
-          # Common installation paths
-          $possiblePaths = @(
-            "$vulkanSdk\Bin\vulkan-1.dll",
-            "$vulkanSdk\runtime\x64\vulkan-1.dll",
-            "C:\VulkanSDK\1.4.309.0\Bin\vulkan-1.dll",
-            "C:\VulkanSDK\1.4.309.0\runtime\x64\vulkan-1.dll",
-            "$env:ProgramFiles\VulkanSDK\Bin\vulkan-1.dll",
-            "$env:SystemRoot\System32\vulkan-1.dll"
-          )
-
-          $vulkanDll = $null
-          foreach ($path in $possiblePaths) {
-            Write-Host "Checking: $path"
-            if (Test-Path $path) {
-              $vulkanDll = $path
-              Write-Host "Found vulkan-1.dll at: $path"
-              break
-            }
-          }
-
-          if ($vulkanDll) {
-            Copy-Item $vulkanDll -Destination $runtimeDir
-            Write-Host "Copied vulkan-1.dll to $runtimeDir"
-          } else {
-            Write-Host "Searching for vulkan-1.dll on system..."
-            $found = Get-ChildItem -Path "C:\" -Filter "vulkan-1.dll" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
-            if ($found) {
-              Write-Host "Found at: $($found.FullName)"
-              Copy-Item $found.FullName -Destination $runtimeDir
-            } else {
-              Write-Warning "vulkan-1.dll not found - Vulkan apps may not work without it"
-              Write-Host "System will use the user's installed Vulkan runtime"
-            }
-          }
-
-          # Verify
-          Write-Host "Contents of vulkan-runtime directory:"
-          Get-ChildItem $runtimeDir -ErrorAction SilentlyContinue
+          python scripts/qa/stage-vulkan-runtime.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Setup DigiCert Environment
         if: contains(inputs.platform, 'windows') && inputs.sign-binaries
