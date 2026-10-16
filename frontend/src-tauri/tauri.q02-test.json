@@ -1,0 +1,8 @@
+{
+  "productName": "Meetily Q02 Test",
+  "identifier": "com.meetily.q02.test",
+  "build": { "beforeBuildCommand": "" },
+  "app": { "windows": [{ "title": "Meetily Q02 Test", "width": 1100, "height": 700 }] },
+  "bundle": { "targets": ["app"], "createUpdaterArtifacts": false },
+  "plugins": { "updater": { "endpoints": [] } }
+}

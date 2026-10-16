@@ -638,8 +638,11 @@ async fn run_import<R: Runtime>(
         .try_state::<AppState>()
         .ok_or_else(|| anyhow!("App state not available"))?;
 
-    let meeting_id = create_meeting_with_transcripts(
+    let meeting_id = format!("meeting-{}", Uuid::new_v4());
+    let _artifact_write = crate::database::deletion::lock_meeting_artifacts(&meeting_id).await;
+    create_meeting_with_transcripts(
         app_state.db_manager.pool(),
+        &meeting_id,
         &title,
         &segments,
         meeting_folder.to_string_lossy().to_string(),
@@ -690,11 +693,11 @@ fn emit_progress<R: Runtime>(app: &AppHandle<R>, stage: &str, progress: u32, mes
 /// Create a new meeting with transcripts in the database
 async fn create_meeting_with_transcripts(
     pool: &sqlx::SqlitePool,
+    meeting_id: &str,
     title: &str,
     segments: &[TranscriptSegment],
     folder_path: String,
-) -> Result<String> {
-    let meeting_id = format!("meeting-{}", Uuid::new_v4());
+) -> Result<()> {
     let now = chrono::Utc::now();
 
     // Start transaction
@@ -720,8 +723,8 @@ async fn create_meeting_with_transcripts(
     // Insert transcripts
     for segment in segments {
         sqlx::query(
-            "INSERT INTO transcripts (id, meeting_id, transcript, timestamp, audio_start_time, audio_end_time, duration)
-             VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO transcripts (id, meeting_id, transcript, timestamp, audio_start_time, audio_end_time, duration, speaker)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         )
         .bind(&segment.id)
         .bind(&meeting_id)
@@ -730,6 +733,7 @@ async fn create_meeting_with_transcripts(
         .bind(segment.audio_start_time)
         .bind(segment.audio_end_time)
         .bind(segment.duration)
+        .bind(segment.audio_source.unwrap_or_default().storage_value())
         .execute(&mut *tx)
         .await
         .map_err(|e| anyhow!("Failed to insert transcript: {}", e))?;
@@ -745,7 +749,7 @@ async fn create_meeting_with_transcripts(
         segments.len()
     );
 
-    Ok(meeting_id)
+    Ok(())
 }
 
 /// Get or initialize the Whisper engine
@@ -1118,6 +1122,7 @@ mod tests {
             start_timestamp_ms: 0.0,
             end_timestamp_ms: 1000.0,
             confidence: 0.9,
+            is_final: true,
         };
         let result = split_segment_at_silence(&segment, 25 * 16000);
         assert_eq!(result.len(), 1);
@@ -1137,6 +1142,7 @@ mod tests {
             start_timestamp_ms: 0.0,
             end_timestamp_ms: 60_000.0,
             confidence: 0.9,
+            is_final: true,
         };
 
         let result = split_segment_at_silence(&segment, 25 * 16000);
@@ -1161,6 +1167,7 @@ mod tests {
             start_timestamp_ms: 0.0,
             end_timestamp_ms: 60_000.0,
             confidence: 0.9,
+            is_final: true,
         };
 
         let result = split_segment_at_silence(&segment, 25 * 16000);
@@ -1176,6 +1183,8 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let segments = vec![
             TranscriptSegment {
+                sequence_id: None,
+                audio_source: Some(crate::audio::source::AudioSource::Mixed),
                 id: "t-1".to_string(),
                 text: "Hello world".to_string(),
                 timestamp: "2024-01-01T00:00:00Z".to_string(),
@@ -1184,6 +1193,8 @@ mod tests {
                 duration: Some(1.5),
             },
             TranscriptSegment {
+                sequence_id: None,
+                audio_source: Some(crate::audio::source::AudioSource::System),
                 id: "t-2".to_string(),
                 text: "Second segment".to_string(),
                 timestamp: "2024-01-01T00:00:01Z".to_string(),
@@ -1203,11 +1214,13 @@ mod tests {
         let content = std::fs::read_to_string(&path).unwrap();
         let parsed: serde_json::Value = serde_json::from_str(&content).unwrap();
         assert_eq!(parsed["total_segments"], 2);
-        assert_eq!(parsed["version"], "1.0");
+        assert_eq!(parsed["version"], "1.1");
         assert_eq!(parsed["segments"][0]["text"], "Hello world");
         assert_eq!(parsed["segments"][1]["text"], "Second segment");
         assert_eq!(parsed["segments"][0]["sequence_id"], 0);
         assert_eq!(parsed["segments"][1]["sequence_id"], 1);
+        assert_eq!(parsed["segments"][0]["audio_source"], "mixed");
+        assert_eq!(parsed["segments"][1]["audio_source"], "system");
 
         // Verify temp file was cleaned up
         assert!(!dir.path().join(".transcripts.json.tmp").exists());

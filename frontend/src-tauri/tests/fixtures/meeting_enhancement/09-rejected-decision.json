@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "fx-09",
+  "category": "rejected-decision",
+  "meeting_id": "e08-fx-09",
+  "template_id": "project_board",
+  "summary_language": "en",
+  "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+  "notes": [
+    {
+      "id": "fx-09-n1",
+      "text": "Priority: preserve the rejection of Option A and the selection of Option B."
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "fx-09-t1",
+      "text": "The board rejected Option A because it removes offline access.",
+      "audio_start_time": 0.0,
+      "audio_end_time": 9.0,
+      "audio_source": "unknown"
+    },
+    {
+      "id": "fx-09-t2",
+      "text": "We agreed to use Option B.",
+      "audio_start_time": 10.0,
+      "audio_end_time": 19.0,
+      "audio_source": "unknown"
+    }
+  ],
+  "annotations": {
+    "relevant_decisions_actions": [
+      {
+        "id": "fx-09-e1",
+        "kind": "decision",
+        "text": "Reject Option A.",
+        "agreement_status": "rejected",
+        "owner": null,
+        "deadline": null,
+        "uncertainty": "none",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-09-t1",
+            "excerpt": "The board rejected Option A because it removes offline access."
+          }
+        ]
+      },
+      {
+        "id": "fx-09-e2",
+        "kind": "decision",
+        "text": "Use Option B.",
+        "agreement_status": "agreed",
+        "owner": null,
+        "deadline": null,
+        "uncertainty": "none",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-09-t2",
+            "excerpt": "We agreed to use Option B."
+          }
+        ]
+      }
+    ],
+    "user_priorities": [
+      {
+        "id": "fx-09-p1",
+        "topic": "rejection of Option A and offline-access reason",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-09-n1",
+            "excerpt": "Priority: preserve the rejection of Option A and the selection of Option B."
+          },
+          {
+            "source_id": "transcript:fx-09-t1",
+            "excerpt": "The board rejected Option A because it removes offline access."
+          }
+        ]
+      },
+      {
+        "id": "fx-09-p2",
+        "topic": "selection of Option B",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-09-n1",
+            "excerpt": "Priority: preserve the rejection of Option A and the selection of Option B."
+          },
+          {
+            "source_id": "transcript:fx-09-t2",
+            "excerpt": "We agreed to use Option B."
+          }
+        ]
+      }
+    ],
+    "forbidden_inferences": [
+      "Option A approved",
+      "Option A action assigned"
+    ]
+  }
+}

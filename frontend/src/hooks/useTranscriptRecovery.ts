@@ -5,6 +5,7 @@
  * Provides functionality to detect, preview, and recover meetings from IndexedDB.
  */
 
+import { normalizeAudioSource } from '@/lib/transcript-audio-source';
 import { useState, useCallback } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import { indexedDBService, MeetingMetadata, StoredTranscript } from '@/services/indexedDBService';
@@ -115,6 +116,12 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
       if (!metadata) {
         throw new Error('Meeting metadata not found');
       }
+      if (!metadata.canonicalMeetingId) {
+        const stable = await invoke<{ meeting_id: string; recording_session_id: string }>('api_ensure_recovery_meeting', { recoveryKey: meetingId, title: metadata.title });
+        metadata.canonicalMeetingId = stable.meeting_id;
+        metadata.recordingSessionId = stable.recording_session_id;
+        await indexedDBService.saveMeetingMetadata(metadata);
+      }
 
       // 2. Load all transcripts
       const transcripts = await loadMeetingTranscripts(meetingId);
@@ -141,7 +148,7 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
         try {
           audioRecoveryStatus = await invoke<AudioRecoveryStatus>(
             'recover_audio_from_checkpoints',
-            { meetingFolder: folderPath, sampleRate: 48000 }
+            { meetingFolder: folderPath, meetingId: metadata.canonicalMeetingId, sampleRate: 48000 }
           );
         } catch (error) {
           console.error('Audio recovery failed:', error);
@@ -166,7 +173,8 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
         id: t.id?.toString() || `${Date.now()}-${index}`,
         text: t.text,
         timestamp: t.timestamp,
-        sequence_id: t.sequenceId || index,
+        sequence_id: t.sequence_id ?? t.sequenceId ?? index,
+        audio_source: normalizeAudioSource(t.audio_source),
         chunk_start_time: (t as any).chunk_start_time,
         is_partial: (t as any).is_partial || false,
         confidence: t.confidence,
@@ -179,7 +187,9 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
       const saveResponse = await storageService.saveMeeting(
         metadata.title,
         formattedTranscripts,
-        folderPath ?? null
+        folderPath ?? null,
+        metadata.canonicalMeetingId ?? null,
+        metadata.recordingSessionId ?? null,
       );
 
       const savedMeetingId = saveResponse.meeting_id;

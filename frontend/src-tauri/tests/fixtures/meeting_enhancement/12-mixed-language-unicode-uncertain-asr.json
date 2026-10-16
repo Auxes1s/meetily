@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "id": "fx-12",
+  "category": "mixed-language-unicode-uncertain-asr",
+  "meeting_id": "e08-fx-12",
+  "template_id": "highlights",
+  "summary_language": "en",
+  "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+  "notes": [
+    {
+      "id": "fx-12-n1",
+      "text": "Priority: panatilihin ang offline access; huwag hulaan ang pangalan. Japanese label: 安全確認. Café résumé — Δ."
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "fx-12-t1",
+      "text": "Napagkasunduan: panatilihin ang offline access.",
+      "audio_start_time": 0.0,
+      "audio_end_time": 9.0,
+      "audio_source": "unknown"
+    },
+    {
+      "id": "fx-12-t2",
+      "text": "ASR uncertain: [Mara? Nara?] might check 安全確認 next week; hindi pa tiyak at hindi napagkasunduan.",
+      "audio_start_time": 10.0,
+      "audio_end_time": 19.0,
+      "audio_source": "unknown"
+    }
+  ],
+  "annotations": {
+    "relevant_decisions_actions": [
+      {
+        "id": "fx-12-e1",
+        "kind": "decision",
+        "text": "Keep offline access.",
+        "agreement_status": "agreed",
+        "owner": null,
+        "deadline": null,
+        "uncertainty": "none",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-12-t1",
+            "excerpt": "Napagkasunduan: panatilihin ang offline access."
+          }
+        ]
+      },
+      {
+        "id": "fx-12-e2",
+        "kind": "action",
+        "text": "Someone might check 安全確認 next week; name and acceptance are uncertain.",
+        "agreement_status": "proposed",
+        "owner": null,
+        "deadline": "next week",
+        "uncertainty": "uncertain ASR name and tentative action",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-12-t2",
+            "excerpt": "ASR uncertain: [Mara? Nara?] might check 安全確認 next week; hindi pa tiyak at hindi napagkasunduan."
+          }
+        ]
+      }
+    ],
+    "user_priorities": [
+      {
+        "id": "fx-12-p1",
+        "topic": "offline access",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-12-n1",
+            "excerpt": "Priority: panatilihin ang offline access; huwag hulaan ang pangalan. Japanese label: 安全確認. Café résumé — Δ."
+          },
+          {
+            "source_id": "transcript:fx-12-t1",
+            "excerpt": "Napagkasunduan: panatilihin ang offline access."
+          }
+        ]
+      },
+      {
+        "id": "fx-12-p2",
+        "topic": "uncertain name and 安全確認",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-12-n1",
+            "excerpt": "Priority: panatilihin ang offline access; huwag hulaan ang pangalan. Japanese label: 安全確認. Café résumé — Δ."
+          },
+          {
+            "source_id": "transcript:fx-12-t2",
+            "excerpt": "ASR uncertain: [Mara? Nara?] might check 安全確認 next week; hindi pa tiyak at hindi napagkasunduan."
+          }
+        ]
+      },
+      {
+        "id": "fx-12-p3",
+        "topic": "Café résumé and Δ notation",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-12-n1",
+            "excerpt": "Priority: panatilihin ang offline access; huwag hulaan ang pangalan. Japanese label: 安全確認. Café résumé — Δ."
+          }
+        ]
+      }
+    ],
+    "forbidden_inferences": [
+      "Confirmed Mara or Nara as owner",
+      "Confirmed safety-check assignment",
+      "Calendar date inferred from next week",
+      "Dropping Unicode content"
+    ]
+  }
+}

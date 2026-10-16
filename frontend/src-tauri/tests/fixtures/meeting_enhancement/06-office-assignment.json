@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "id": "fx-06",
+  "category": "office-assignment",
+  "meeting_id": "e08-fx-06",
+  "template_id": "project_board",
+  "summary_language": "en",
+  "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+  "notes": [
+    {
+      "id": "fx-06-n1",
+      "text": "Priority: the assignment is to an office; no individual was named."
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "fx-06-t1",
+      "text": "The board assigns the Procurement Office to prepare the options memo. No deadline was specified.",
+      "audio_start_time": 0.0,
+      "audio_end_time": 9.0,
+      "audio_source": "unknown"
+    }
+  ],
+  "annotations": {
+    "relevant_decisions_actions": [
+      {
+        "id": "fx-06-e1",
+        "kind": "action",
+        "text": "Prepare the options memo.",
+        "agreement_status": "agreed",
+        "owner": "Procurement Office",
+        "deadline": null,
+        "uncertainty": "individual and deadline missing",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-06-t1",
+            "excerpt": "The board assigns the Procurement Office to prepare the options memo. No deadline was specified."
+          }
+        ]
+      }
+    ],
+    "user_priorities": [
+      {
+        "id": "fx-06-p1",
+        "topic": "office assignment",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-06-n1",
+            "excerpt": "Priority: the assignment is to an office; no individual was named."
+          },
+          {
+            "source_id": "transcript:fx-06-t1",
+            "excerpt": "The board assigns the Procurement Office to prepare the options memo. No deadline was specified."
+          }
+        ]
+      },
+      {
+        "id": "fx-06-p2",
+        "topic": "options memo",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-06-t1",
+            "excerpt": "The board assigns the Procurement Office to prepare the options memo. No deadline was specified."
+          }
+        ]
+      }
+    ],
+    "forbidden_inferences": [
+      "Inventing a named staff member",
+      "Inventing a deadline"
+    ]
+  }
+}

@@ -1,16 +1,33 @@
-import React from 'react';
-import { Lock, Sparkles, Cpu } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { Lock, Sparkles, Cpu, NotebookPen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { OnboardingContainer } from '../OnboardingContainer';
 import { useOnboarding } from '@/contexts/OnboardingContext';
+import { toast } from 'sonner';
 
 export function WelcomeStep() {
-  const { goNext } = useOnboarding();
+  const { goNext, completeNotesOnlySetup } = useOnboarding();
+  const [isCompleting, setIsCompleting] = useState(false);
+  const completing = useRef(false);
+
+  const useNotesOnly = async () => {
+    if (completing.current) return;
+    completing.current = true;
+    setIsCompleting(true);
+    try {
+      await completeNotesOnlySetup();
+      window.location.reload();
+    } catch (error) {
+      toast.error('Could not finish setup', { description: String(error) });
+      completing.current = false;
+      setIsCompleting(false);
+    }
+  };
 
   const features = [
     {
       icon: Lock,
-      title: 'Your data never leaves your device',
+      title: 'Local processing by default',
     },
     {
       icon: Sparkles,
@@ -18,7 +35,7 @@ export function WelcomeStep() {
     },
     {
       icon: Cpu,
-      title: 'Works offline, no cloud required',
+      title: 'Works offline after model downloads',
     },
   ];
 
@@ -29,22 +46,23 @@ export function WelcomeStep() {
       step={1}
       hideProgress={true}
     >
-      <div className="flex flex-col items-center space-y-10">
-        {/* Divider */}
-        <div className="w-16 h-px bg-gray-300" />
+      <div className="flex flex-col items-center space-y-7">
+        <div aria-hidden="true" className="glass-surface flex h-16 w-16 items-center justify-center rounded-3xl border border-primary/15 text-primary">
+          <NotebookPen className="h-7 w-7" />
+        </div>
 
         {/* Features Card */}
-        <div className="w-full max-w-md bg-white rounded-lg border border-gray-200 shadow-sm p-6 space-y-4">
+        <div className="paper-surface w-full max-w-md rounded-3xl border border-border p-6 space-y-5">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <div key={index} className="flex items-start gap-3">
                 <div className="flex-shrink-0 mt-0.5">
-                  <div className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center">
-                    <Icon className="w-3 h-3 text-gray-700" />
+                  <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Icon className="w-4 h-4 text-primary" />
                   </div>
                 </div>
-                <p className="text-sm text-gray-700 leading-relaxed">{feature.title}</p>
+                <p className="pt-1 text-sm text-foreground leading-relaxed">{feature.title}</p>
               </div>
             );
           })}
@@ -54,11 +72,15 @@ export function WelcomeStep() {
         <div className="w-full max-w-xs space-y-3">
           <Button
             onClick={goNext}
-            className="w-full h-11 bg-gray-900 hover:bg-gray-800 text-white"
+            disabled={isCompleting}
+            className="w-full h-11"
           >
             Get Started
           </Button>
-          <p className="text-xs text-center text-gray-500">Takes less than 3 minutes</p>
+          <Button variant="outline" className="w-full" disabled={isCompleting} onClick={useNotesOnly}>
+            {isCompleting ? 'Finishing setup…' : 'Use notes only'}
+          </Button>
+          <p className="text-xs text-center text-muted-foreground">Notes need no downloads. AI setup time depends on your connection.</p>
         </div>
       </div>
     </OnboardingContainer>

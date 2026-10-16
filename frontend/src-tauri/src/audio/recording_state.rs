@@ -24,6 +24,21 @@ pub struct AudioChunk {
     pub device_type: DeviceType,
 }
 
+/// An ASR work item carries provenance independently of raw capture device
+/// types. In particular, combined recording chunks use a legacy Mic placeholder.
+#[derive(Debug, Clone)]
+pub struct TranscriptionChunk {
+    pub audio: AudioChunk,
+    pub audio_source: super::source::AudioSource,
+    /// None preserves batch-provider behavior. Some carries incremental audio.
+    pub stream_end: Option<bool>,
+}
+
+impl std::ops::Deref for TranscriptionChunk {
+    type Target = AudioChunk;
+    fn deref(&self) -> &Self::Target { &self.audio }
+}
+
 /// Processed audio chunk (post-VAD) for recording
 #[derive(Debug, Clone)]
 pub struct ProcessedAudioChunk {
@@ -93,16 +108,18 @@ pub struct RecordingStats {
 
 /// Unified state management for audio recording
 pub struct RecordingState {
+    pub overlapping_transcription: AtomicBool,
     // Core recording state
     is_recording: AtomicBool,
     is_paused: AtomicBool,
+    pub audio_position_millis: std::sync::atomic::AtomicU64,
 
     // Audio devices
     microphone_device: Mutex<Option<Arc<AudioDevice>>>,
     system_device: Mutex<Option<Arc<AudioDevice>>>,
 
     // Audio pipeline
-    audio_sender: Mutex<Option<mpsc::UnboundedSender<AudioChunk>>>,
+    audio_sender: Mutex<Option<crate::audio::queue::PcmSender<AudioChunk>>>,
 
     // Memory optimization
     buffer_pool: AudioBufferPool,
@@ -126,8 +143,10 @@ pub struct RecordingState {
 impl RecordingState {
     pub fn new() -> Arc<Self> {
         Arc::new(Self {
+            overlapping_transcription: AtomicBool::new(false),
             is_recording: AtomicBool::new(false),
             is_paused: AtomicBool::new(false),
+            audio_position_millis: std::sync::atomic::AtomicU64::new(0),
             microphone_device: Mutex::new(None),
             system_device: Mutex::new(None),
             audio_sender: Mutex::new(None),
@@ -145,6 +164,7 @@ impl RecordingState {
 
     // Recording control
     pub fn start_recording(&self) -> Result<()> {
+        self.audio_position_millis.store(0, Ordering::SeqCst);
         self.is_recording.store(true, Ordering::SeqCst);
         *self.recording_start.lock().unwrap() = Some(Instant::now());
         self.error_count.store(0, Ordering::SeqCst);
@@ -231,7 +251,7 @@ impl RecordingState {
     }
 
     // Audio pipeline management
-    pub fn set_audio_sender(&self, sender: mpsc::UnboundedSender<AudioChunk>) {
+    pub fn set_audio_sender(&self, sender: crate::audio::queue::PcmSender<AudioChunk>) {
         *self.audio_sender.lock().unwrap() = Some(sender);
     }
 
@@ -241,8 +261,14 @@ impl RecordingState {
             return Ok(()); // Silently discard chunks while paused
         }
 
-        if let Some(sender) = self.audio_sender.lock().unwrap().as_ref() {
-            sender.send(chunk).map_err(|_| anyhow::anyhow!("Failed to send audio chunk"))?;
+        let sender = self.audio_sender.lock().unwrap().clone();
+        if let Some(sender) = sender {
+            let result = sender.send(chunk);
+            if let Err(error) = result {
+                self.is_recording.store(false, Ordering::SeqCst);
+                self.report_error(AudioError::ChannelClosed);
+                return Err(error);
+            }
 
             // Update statistics
             let mut stats = self.stats.lock().unwrap();
@@ -388,8 +414,10 @@ impl RecordingState {
 impl Default for RecordingState {
     fn default() -> Self {
         Self {
+            overlapping_transcription: AtomicBool::new(false),
             is_recording: AtomicBool::new(false),
             is_paused: AtomicBool::new(false),
+            audio_position_millis: std::sync::atomic::AtomicU64::new(0),
             microphone_device: Mutex::new(None),
             system_device: Mutex::new(None),
             audio_sender: Mutex::new(None),

@@ -10,6 +10,14 @@ import { listen, UnlistenFn } from '@tauri-apps/api/event';
 import { TranscriptUpdate, Transcript } from '@/types';
 
 export interface TranscriptionStatus {
+  meeting_id?: string;
+  recording_session_id?: string;
+  pending_audio_seconds?: number;
+  in_memory_audio_bytes?: number;
+  retained_audio_bytes?: number;
+  drained?: boolean;
+  storage_error?: string | null;
+  continuity_repairs?: number;
   chunks_in_queue: number;
   is_processing: boolean;
   last_activity_ms: number;

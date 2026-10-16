@@ -9,6 +9,8 @@ pub struct MeetingModel {
     pub created_at: DateTimeUtc,
     pub updated_at: DateTimeUtc,
     pub folder_path: Option<String>,
+    pub status: String,
+    pub recording_session_id: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, sqlx::Type)]
@@ -28,6 +30,8 @@ pub struct Transcript {
     pub meeting_id: String,
     pub transcript: String,
     pub timestamp: String,
+    #[serde(default, rename = "audio_source", serialize_with = "crate::audio::source::serialize_storage_source", deserialize_with = "crate::audio::source::deserialize_storage_source")]
+    pub speaker: Option<String>,
     pub summary: Option<String>,
     pub action_items: Option<String>,
     pub key_points: Option<String>,
@@ -35,6 +39,13 @@ pub struct Transcript {
     pub audio_start_time: Option<f64>,
     pub audio_end_time: Option<f64>,
     pub duration: Option<f64>,
+    #[serde(default)]
+    pub recording_session_id: Option<String>,
+    #[serde(default)]
+    pub sequence_id: Option<i64>,
+    #[sqlx(default)]
+    #[serde(default)]
+    pub timeline_offset: f64,
 }
 
 #[derive(Debug, Clone, FromRow, Serialize, Deserialize)]

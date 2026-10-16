@@ -150,6 +150,7 @@ pub struct LoudnessNormalizer {
     gain_linear: f32,
     loudness_buffer: Vec<f32>,
     true_peak_limit: f32,
+    max_gain_linear: f32,
 }
 
 impl LoudnessNormalizer {
@@ -173,7 +174,15 @@ impl LoudnessNormalizer {
             gain_linear: 1.0,
             loudness_buffer: Vec::with_capacity(ANALYZE_CHUNK_SIZE),
             true_peak_limit,
+            max_gain_linear: f32::INFINITY,
         })
+    }
+
+    /// Bound microphone gain after echo cancellation so a quiet residual echo
+    /// cannot be amplified back to speech level.
+    pub(crate) fn with_max_gain_db(mut self, gain_db: f32) -> Self {
+        self.max_gain_linear = 10_f32.powf(gain_db / 20.0);
+        self
     }
 
     /// Normalize loudness using EBU R128 standard with true peak limiting
@@ -206,7 +215,7 @@ impl LoudnessNormalizer {
                     if let Ok(current_lufs) = self.ebur128.loudness_global() {
                         if current_lufs.is_finite() && current_lufs < 0.0 {
                             let gain_db = TARGET_LUFS - current_lufs;
-                            self.gain_linear = 10_f32.powf(gain_db as f32 / 20.0);
+                            self.gain_linear = 10_f32.powf(gain_db as f32 / 20.0).min(self.max_gain_linear);
                         }
                     }
                 }

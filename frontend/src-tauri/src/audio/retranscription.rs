@@ -179,6 +179,11 @@ async fn run_retranscription<R: Runtime>(
     provider: Option<String>,
 ) -> Result<RetranscriptionResult> {
     let folder_path = PathBuf::from(&meeting_folder_path);
+    let app_state=app.try_state::<AppState>().ok_or_else(||anyhow!("App state not available"))?;
+    let session:crate::database::recording_sessions::RecordingSession=sqlx::query_as("SELECT * FROM recording_sessions WHERE meeting_id=? AND folder_path=? AND status IN ('completed','interrupted')")
+        .bind(&meeting_id).bind(&meeting_folder_path).fetch_optional(app_state.db_manager.pool()).await?
+        .ok_or_else(||anyhow!("Select a saved recording owned by this meeting"))?;
+
     let audio_path = find_audio_file(&folder_path)?;
 
     // Determine which provider to use (default to whisper)
@@ -420,7 +425,9 @@ async fn run_retranscription<R: Runtime>(
     emit_progress(&app, &meeting_id, "saving", 80, "Saving transcripts...");
 
     // Create transcript segments with proper timestamps from VAD
-    let segments = create_transcript_segments(&all_transcripts);
+    let mut segments = create_transcript_segments(&all_transcripts);
+    let file_source = super::source::AudioSource::recording_file_source(&folder_path);
+    for segment in &mut segments { segment.audio_source = Some(file_source); }
 
     // Save to database
     let app_state = app
@@ -429,21 +436,25 @@ async fn run_retranscription<R: Runtime>(
 
     // Wrap delete+insert+update in a transaction to prevent data loss
     let pool = app_state.db_manager.pool();
+    let _artifact_write = crate::database::deletion::acquire_meeting_artifact_write(pool, &meeting_id)
+        .await.map_err(|e| anyhow!(e))?;
     let mut conn = pool.acquire().await.map_err(|e| anyhow!("DB error: {}", e))?;
     let mut tx = sqlx::Connection::begin(&mut *conn)
         .await
         .map_err(|e| anyhow!("Failed to start transaction: {}", e))?;
 
-    sqlx::query("DELETE FROM transcripts WHERE meeting_id = ?")
-        .bind(&meeting_id)
+    sqlx::query("DELETE FROM transcripts WHERE meeting_id = ? AND recording_session_id=?")
+        .bind(&meeting_id).bind(&session.id)
         .execute(&mut *tx)
         .await
         .map_err(|e| anyhow!("Failed to delete existing transcripts: {}", e))?;
 
-    for segment in &segments {
+    for (sequence,segment) in segments.iter_mut().enumerate() {
+        segment.id=format!("transcript-{}-{sequence}",session.id);
+        segment.sequence_id=Some(sequence as i64);
         sqlx::query(
-            "INSERT INTO transcripts (id, meeting_id, transcript, timestamp, audio_start_time, audio_end_time, duration)
-             VALUES (?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO transcripts (id, meeting_id, transcript, timestamp, audio_start_time, audio_end_time, duration, speaker,recording_session_id,sequence_id)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         )
         .bind(&segment.id)
         .bind(&meeting_id)
@@ -452,11 +463,15 @@ async fn run_retranscription<R: Runtime>(
         .bind(segment.audio_start_time)
         .bind(segment.audio_end_time)
         .bind(segment.duration)
+        .bind(segment.audio_source.unwrap_or_default().storage_value())
+        .bind(&session.id).bind(segment.sequence_id)
         .execute(&mut *tx)
         .await
         .map_err(|e| anyhow!("Failed to insert transcript: {}", e))?;
     }
 
+    sqlx::query("UPDATE meeting_note_links SET transcript_id=(SELECT id FROM transcripts t WHERE t.meeting_id=meeting_note_links.meeting_id AND t.recording_session_id=meeting_note_links.recording_session_id AND t.audio_start_time<=meeting_note_links.recording_offset AND t.audio_end_time>=meeting_note_links.recording_offset ORDER BY t.audio_start_time DESC LIMIT 1) WHERE meeting_id=? AND recording_session_id=?")
+        .bind(&meeting_id).bind(&session.id).execute(&mut *tx).await?;
     tx.commit().await
         .map_err(|e| anyhow!("Failed to commit transaction: {}", e))?;
 
@@ -787,6 +802,8 @@ pub async fn start_retranscription_command<R: Runtime>(
     provider: Option<String>,
 ) -> Result<RetranscriptionStarted, String> {
 
+    let capture=crate::audio::recording_commands::get_recording_state().await;
+    if capture["is_recording"]==true || capture["phase"]=="starting" || capture["phase"]=="finalizing" {return Err("End recording and wait for saving before retranscribing".into());}
     // Check if retranscription is already in progress (guard will be acquired in start_retranscription)
     if RETRANSCRIPTION_IN_PROGRESS.load(Ordering::SeqCst) {
         return Err("Retranscription already in progress".to_string());

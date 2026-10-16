@@ -78,7 +78,7 @@ impl SummaryProcessesRepository {
         meeting_id: &str,
     ) -> Result<Option<SummaryProcess>, sqlx::Error> {
         sqlx::query_as::<_, SummaryProcess>(
-            "SELECT p.* FROM summary_processes p JOIN transcript_chunks t ON p.meeting_id = t.meeting_id WHERE p.meeting_id = ?",
+            "SELECT * FROM summary_processes WHERE meeting_id = ?",
         )
         .bind(meeting_id)
         .fetch_optional(pool)
@@ -138,6 +138,8 @@ impl SummaryProcessesRepository {
             UPDATE summary_processes
             SET status = 'completed', result = ?, updated_at = ?, end_time = ?, chunk_count = ?, processing_time = ?, error = NULL, result_backup = NULL, result_backup_timestamp = NULL
             WHERE meeting_id = ? AND start_time = ? AND LOWER(status) = 'pending'
+              AND NOT EXISTS (SELECT 1 FROM meeting_enhancement_settings e WHERE e.meeting_id=summary_processes.meeting_id AND e.approved_version_id IS NOT NULL)
+              AND EXISTS (SELECT 1 FROM meetings m WHERE m.id=summary_processes.meeting_id AND m.status != 'deleting')
             "#
         )
         .bind(result_str)
@@ -241,6 +243,8 @@ mod tests {
         .execute(&pool)
         .await
         .unwrap();
+        sqlx::query("CREATE TABLE meetings(id TEXT PRIMARY KEY,status TEXT NOT NULL DEFAULT 'completed')").execute(&pool).await.unwrap();
+        sqlx::query("CREATE TABLE meeting_enhancement_settings(meeting_id TEXT PRIMARY KEY,approved_version_id TEXT)").execute(&pool).await.unwrap();
         pool
     }
 
@@ -251,6 +255,7 @@ mod tests {
         result: Option<&str>,
         result_backup: Option<&str>,
     ) {
+        sqlx::query("INSERT OR IGNORE INTO meetings(id) VALUES(?)").bind(meeting_id).execute(pool).await.unwrap();
         sqlx::query(
             "INSERT INTO summary_processes (
                 meeting_id, status, created_at, updated_at, start_time, result, result_backup

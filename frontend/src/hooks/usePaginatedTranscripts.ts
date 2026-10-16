@@ -1,3 +1,4 @@
+import { transcriptToSegment, transcriptTime } from '@/lib/transcript-audio-source';
 import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { Transcript, MeetingMetadata, PaginatedTranscriptsResponse, TranscriptSegmentData } from "@/types";
@@ -31,13 +32,7 @@ interface UsePaginatedTranscriptsReturn {
  * Convert Transcript array to TranscriptSegmentData for virtualized display
  */
 function convertTranscriptsToSegments(transcripts: Transcript[]): TranscriptSegmentData[] {
-    return transcripts.map(t => ({
-        id: t.id,
-        timestamp: t.audio_start_time ?? 0,
-        endTime: t.audio_end_time,
-        text: t.text,
-        confidence: t.confidence,
-    }));
+    return transcripts.map(transcriptToSegment);
 }
 
 export function usePaginatedTranscripts({
@@ -126,7 +121,7 @@ export function usePaginatedTranscripts({
                     const uniqueNew = newTranscripts.filter(t => !existingIds.has(t.id));
                     // Sort by audio_start_time
                     return [...prev, ...uniqueNew].sort((a, b) =>
-                        (a.audio_start_time ?? 0) - (b.audio_start_time ?? 0)
+                        (transcriptTime(a) ?? 0) - (transcriptTime(b) ?? 0)
                     );
                 });
             } else {
@@ -199,6 +194,16 @@ export function usePaginatedTranscripts({
             activeMeetingIdRef.current = null;
         };
     }, [meetingId, reset, refetch]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const changed = (event: Event) => {
+            const id = (event as CustomEvent<{ meetingId?: string }>).detail?.meetingId;
+            if (!id || id === meetingId) void refetch();
+        };
+        window.addEventListener('meeting-data-changed', changed);
+        return () => window.removeEventListener('meeting-data-changed', changed);
+    }, [meetingId, refetch]);
 
     // Convert to segments (memoized)
     const segments = useMemo(() =>

@@ -1,3 +1,8 @@
+import { CoalescedWriteQueue } from '@/lib/coalesced-write-queue';
+import { mergeTranscript } from '@/lib/transcript-audio-source';
+import type { AudioSource } from '@/types';
+import { normalizeAudioSource } from '@/lib/transcript-audio-source';
+import { isMeetingDeletionBlocked } from './meetingDeletionService';
 /**
  * IndexedDB Service for Transcript Recovery
  * Provides browser-based persistence for meeting transcripts and metadata
@@ -6,6 +11,8 @@
 
 // Database schema interfaces
 export interface MeetingMetadata {
+  canonicalMeetingId?: string;
+  recordingSessionId?: string;
   meetingId: string;          // Primary key: "meeting-{timestamp}"
   title: string;              // Meeting title
   startTime: number;          // Unix timestamp (ms)
@@ -16,11 +23,12 @@ export interface MeetingMetadata {
 }
 
 export interface StoredTranscript {
-  id?: number;                // Auto-increment primary key
+  id?: number | string;       // Legacy numeric key or stable session/sequence key
   meetingId: string;          // Foreign key to meetings store
   text: string;               // Transcript text
   timestamp: string;          // ISO 8601 timestamp
   confidence: number;         // Whisper confidence score
+  audio_source?: AudioSource;
   sequenceId: number;         // Sequence number for ordering
   storedAt: number;           // Unix timestamp when saved
   audio_start_time?: number;  // Recording-relative start time in seconds
@@ -31,6 +39,12 @@ export interface StoredTranscript {
 
 class IndexedDBService {
   private db: IDBDatabase | null = null;
+  private transcriptWrites = new CoalescedWriteQueue<{ meetingId: string; transcript: any }>(
+    item => this.writeTranscript(item.meetingId, item.transcript),
+    (old, incoming) => ({ ...incoming, transcript: mergeTranscript(old.transcript, incoming.transcript) }),
+  );
+  flushTranscriptWrites(): Promise<void> { return this.transcriptWrites.flush(); }
+
   private readonly DB_NAME = 'MeetilyRecoveryDB';
   private readonly DB_VERSION = 1;
   private initPromise: Promise<void> | null = null;
@@ -99,19 +113,22 @@ class IndexedDBService {
    */
   async saveMeetingMetadata(metadata: MeetingMetadata): Promise<void> {
     try {
+      if (isMeetingDeletionBlocked(metadata.meetingId, metadata.recordingSessionId) || (metadata.canonicalMeetingId && isMeetingDeletionBlocked(metadata.canonicalMeetingId))) return;
       if (!this.db) await this.init();
+      if (isMeetingDeletionBlocked(metadata.meetingId, metadata.recordingSessionId) || (metadata.canonicalMeetingId && isMeetingDeletionBlocked(metadata.canonicalMeetingId))) return;
 
       const transaction = this.db!.transaction(['meetings'], 'readwrite');
       const store = transaction.objectStore('meetings');
 
       await new Promise<void>((resolve, reject) => {
         const request = store.put(metadata);
-        request.onsuccess = () => resolve();
+        transaction.oncomplete = () => resolve();
+        transaction.onabort = () => reject(transaction.error ?? new Error('Recovery metadata transaction aborted'));
         request.onerror = () => reject(request.error);
       });
     } catch (error) {
       console.warn('Failed to save meeting metadata to IndexedDB:', error);
-      // Fail silently - don't interrupt recording
+      throw error;
     }
   }
 
@@ -120,6 +137,7 @@ class IndexedDBService {
    */
   async getMeetingMetadata(meetingId: string): Promise<MeetingMetadata | null> {
     try {
+      if (isMeetingDeletionBlocked(meetingId)) return null;
       if (!this.db) await this.init();
 
       const transaction = this.db!.transaction(['meetings'], 'readonly');
@@ -127,7 +145,10 @@ class IndexedDBService {
 
       return new Promise((resolve, reject) => {
         const request = store.get(meetingId);
-        request.onsuccess = () => resolve(request.result || null);
+        request.onsuccess = () => {
+          const value = request.result as MeetingMetadata | undefined;
+          resolve(value && !isMeetingDeletionBlocked(value.meetingId, value.recordingSessionId) && !(value.canonicalMeetingId && isMeetingDeletionBlocked(value.canonicalMeetingId)) ? value : null);
+        };
         request.onerror = () => reject(request.error);
       });
     } catch (error) {
@@ -151,7 +172,7 @@ class IndexedDBService {
         request.onsuccess = () => {
           const allMeetings = request.result as MeetingMetadata[];
           // Filter for unsaved meetings (savedToSQLite = false)
-          const unsavedMeetings = allMeetings.filter(m => m.savedToSQLite === false);
+          const unsavedMeetings = allMeetings.filter(m => m.savedToSQLite === false && !isMeetingDeletionBlocked(m.meetingId, m.recordingSessionId) && !(m.canonicalMeetingId && isMeetingDeletionBlocked(m.canonicalMeetingId)));
 
           // Sort by most recent first
           unsavedMeetings.sort((a, b) => b.lastUpdated - a.lastUpdated);
@@ -176,6 +197,8 @@ class IndexedDBService {
       const store = transaction.objectStore('meetings');
 
       return new Promise((resolve, reject) => {
+        transaction.oncomplete = () => resolve();
+        transaction.onabort = () => reject(transaction.error ?? new Error('Recovery metadata transaction aborted'));
         const getRequest = store.get(meetingId);
         getRequest.onsuccess = () => {
           const meeting = getRequest.result;
@@ -183,16 +206,14 @@ class IndexedDBService {
             meeting.savedToSQLite = true;
             meeting.lastUpdated = Date.now();
             const putRequest = store.put(meeting);
-            putRequest.onsuccess = () => resolve();
             putRequest.onerror = () => reject(putRequest.error);
-          } else {
-            resolve();
           }
         };
         getRequest.onerror = () => reject(getRequest.error);
       });
     } catch (error) {
       console.warn('Failed to mark meeting as saved:', error);
+      throw error;
     }
   }
 
@@ -227,23 +248,47 @@ class IndexedDBService {
   /**
    * Save a transcript segment
    */
-  async saveTranscript(meetingId: string, transcript: any): Promise<void> {
+  saveTranscript(meetingId: string, transcript: any): Promise<void> {
+    return this.transcriptWrites.enqueue(`${meetingId}:${transcript.recording_session_id ?? ''}:${transcript.sequence_id ?? transcript.sequenceId ?? transcript.id}`, { meetingId, transcript });
+  }
+  private async writeTranscript(meetingId: string, transcript: any): Promise<void> {
     try {
+      if (isMeetingDeletionBlocked(meetingId, transcript.recording_session_id) || (transcript.meeting_id && isMeetingDeletionBlocked(transcript.meeting_id))) return;
       if (!this.db) await this.init();
+      if (isMeetingDeletionBlocked(meetingId, transcript.recording_session_id)) return;
 
       const storedTranscript: StoredTranscript = {
         ...transcript,
+        audio_source: normalizeAudioSource(transcript.audio_source),
+        sequenceId: transcript.sequence_id ?? transcript.sequenceId,
+        ...(transcript.recording_session_id && typeof transcript.sequence_id === 'number'
+          ? { id: `transcript-${transcript.recording_session_id}-${transcript.sequence_id}` }
+          : {}),
         meetingId,
         storedAt: Date.now()
       };
 
       const transaction = this.db!.transaction(['transcripts', 'meetings'], 'readwrite');
+      const committed = new Promise<void>((resolve, reject) => {
+        transaction.oncomplete = () => resolve();
+        transaction.onabort = () => reject(transaction.error ?? new Error('Transcript recovery transaction aborted'));
+        transaction.onerror = () => reject(transaction.error ?? new Error('Transcript recovery transaction failed'));
+      });
+      void committed.catch(() => {});
       const transcriptsStore = transaction.objectStore('transcripts');
       const meetingsStore = transaction.objectStore('meetings');
 
-      // Save transcript
+      // New recordings have a stable primary key; the existing store also
+      // continues to accept legacy numeric keys without a schema migration.
+      const previous = storedTranscript.id === undefined ? undefined : await new Promise<StoredTranscript | undefined>((resolve, reject) => {
+        const request = transcriptsStore.get(storedTranscript.id!);
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+      const merged = mergeTranscript(previous as any, storedTranscript as any);
+      if (isMeetingDeletionBlocked(meetingId, transcript.recording_session_id)) { transaction.abort(); return; }
       await new Promise<void>((resolve, reject) => {
-        const request = transcriptsStore.add(storedTranscript);
+        const request = transcriptsStore.put(merged);
         request.onsuccess = () => resolve();
         request.onerror = () => reject(request.error);
       });
@@ -257,16 +302,17 @@ class IndexedDBService {
 
       if (meeting) {
         meeting.lastUpdated = Date.now();
-        meeting.transcriptCount += 1;
+        if (!previous) meeting.transcriptCount += 1;
         await new Promise<void>((resolve, reject) => {
           const request = meetingsStore.put(meeting);
           request.onsuccess = () => resolve();
           request.onerror = () => reject(request.error);
         });
       }
+      await committed;
     } catch (error) {
       console.warn('Failed to save transcript to IndexedDB:', error);
-      // Fail silently - don't interrupt recording
+      throw error;
     }
   }
 
@@ -275,6 +321,7 @@ class IndexedDBService {
    */
   async getTranscripts(meetingId: string): Promise<StoredTranscript[]> {
     try {
+      if (isMeetingDeletionBlocked(meetingId)) return [];
       if (!this.db) await this.init();
 
       const transaction = this.db!.transaction(['transcripts'], 'readonly');
@@ -284,6 +331,7 @@ class IndexedDBService {
       return new Promise((resolve, reject) => {
         const request = index.getAll(meetingId);
         request.onsuccess = () => {
+          if (isMeetingDeletionBlocked(meetingId)) { resolve([]); return; }
           const transcripts = request.result as StoredTranscript[];
           // Sort by sequence ID
           transcripts.sort((a, b) => a.sequenceId - b.sequenceId);
@@ -302,6 +350,7 @@ class IndexedDBService {
    */
   async getTranscriptCount(meetingId: string): Promise<number> {
     try {
+      if (isMeetingDeletionBlocked(meetingId)) return 0;
       if (!this.db) await this.init();
 
       const transaction = this.db!.transaction(['transcripts'], 'readonly');
@@ -310,7 +359,7 @@ class IndexedDBService {
 
       return new Promise((resolve, reject) => {
         const request = index.count(meetingId);
-        request.onsuccess = () => resolve(request.result);
+        request.onsuccess = () => resolve(isMeetingDeletionBlocked(meetingId) ? 0 : request.result);
         request.onerror = () => reject(request.error);
       });
     } catch (error) {

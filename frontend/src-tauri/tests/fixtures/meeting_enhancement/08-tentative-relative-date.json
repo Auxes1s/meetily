@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "fx-08",
+  "category": "tentative-relative-date",
+  "meeting_id": "e08-fx-08",
+  "template_id": "standard_meeting",
+  "summary_language": "en",
+  "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+  "notes": [
+    {
+      "id": "fx-08-n1",
+      "text": "Priority: retain the tentative schedule and its unresolved date anchor."
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "fx-08-t1",
+      "text": "Maybe we could review the prototype next Friday, if the data arrive. This was not agreed.",
+      "audio_start_time": 0.0,
+      "audio_end_time": 9.0,
+      "audio_source": "unknown"
+    }
+  ],
+  "annotations": {
+    "relevant_decisions_actions": [
+      {
+        "id": "fx-08-e1",
+        "kind": "action",
+        "text": "Possibly review the prototype next Friday if data arrive.",
+        "agreement_status": "proposed",
+        "owner": null,
+        "deadline": "next Friday",
+        "uncertainty": "tentative, conditional, no meeting-date anchor",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-08-t1",
+            "excerpt": "Maybe we could review the prototype next Friday, if the data arrive. This was not agreed."
+          }
+        ]
+      }
+    ],
+    "user_priorities": [
+      {
+        "id": "fx-08-p1",
+        "topic": "tentative prototype review",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-08-n1",
+            "excerpt": "Priority: retain the tentative schedule and its unresolved date anchor."
+          },
+          {
+            "source_id": "transcript:fx-08-t1",
+            "excerpt": "Maybe we could review the prototype next Friday, if the data arrive. This was not agreed."
+          }
+        ]
+      },
+      {
+        "id": "fx-08-p2",
+        "topic": "unresolved relative date",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-08-n1",
+            "excerpt": "Priority: retain the tentative schedule and its unresolved date anchor."
+          },
+          {
+            "source_id": "transcript:fx-08-t1",
+            "excerpt": "Maybe we could review the prototype next Friday, if the data arrive. This was not agreed."
+          }
+        ]
+      }
+    ],
+    "forbidden_inferences": [
+      "A confirmed review",
+      "Converting next Friday to a calendar date",
+      "Treating the relative date as a binding deadline"
+    ]
+  }
+}

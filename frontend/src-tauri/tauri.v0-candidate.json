@@ -1,0 +1,34 @@
+{
+  "productName": "Meetily",
+  "version": "0.5.0-rc.1",
+  "app": {
+    "windows": [{
+      "title": "Meetily",
+      "width": 1100,
+      "height": 700,
+      "minWidth": 480,
+      "minHeight": 400,
+      "resizable": true,
+      "fullscreen": false,
+      "theme": "Light",
+      "decorations": true
+    }]
+  },
+  "bundle": {
+    "createUpdaterArtifacts": false,
+    "macOS": {
+      "minimumSystemVersion": "14.2"
+    },
+    "windows": {
+      "signCommand": null,
+      "wix": {
+        "version": "0.5.0.1"
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": []
+    }
+  }
+}

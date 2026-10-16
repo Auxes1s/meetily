@@ -230,12 +230,12 @@ impl RecordingManager {
         microphone_device: Option<Arc<AudioDevice>>,
         system_device: Option<Arc<AudioDevice>>,
         auto_save: bool,
-    ) -> std::result::Result<mpsc::UnboundedReceiver<AudioChunk>, RecordingStartError> {
+    ) -> std::result::Result<crate::audio::queue::PcmReceiver<super::recording_state::TranscriptionChunk>, RecordingStartError> {
         info!("Starting recording manager (auto_save: {})", auto_save);
 
         // Set up transcription channel
-        let (transcription_sender, transcription_receiver) = mpsc::unbounded_channel::<AudioChunk>();
-        let (recording_sender, recording_receiver) = mpsc::unbounded_channel::<AudioChunk>();
+        let (transcription_sender, transcription_receiver) = crate::audio::queue::pcm_channel::<super::recording_state::TranscriptionChunk>();
+        let (recording_sender, recording_receiver) = crate::audio::queue::channel_with_budget::<AudioChunk>(48000 * 30 * 4);
 
         // Start recording state first
         self.state.start_recording()?;
@@ -352,16 +352,14 @@ impl RecordingManager {
 
         // CRITICAL: Force pipeline to flush ALL accumulated audio before stopping
         debug!("💨 Forcing pipeline to flush accumulated audio immediately");
-        if let Err(e) = self.pipeline_manager.force_flush_and_stop().await {
-            error!("Error during force flush: {}", e);
-        }
+        let pipeline_result = self.pipeline_manager.force_flush_and_stop().await;
 
         // CRITICAL: Full cleanup to release all Arc references and resources
         // This ensures microphone is released even if Drop is delayed
         self.state.cleanup();
 
-        info!("✅ Recording streams stopped with immediate flush completed");
-        Ok(())
+        info!("Recording streams stopped; pipeline drain result retained");
+        pipeline_result
     }
 
     /// Save recording after transcription is complete
@@ -369,7 +367,8 @@ impl RecordingManager {
         debug!("Saving recording with transcript chunks");
 
         // Get actual recording duration from state
-        let recording_duration = self.state.get_active_recording_duration();
+        let recorded_position=self.state.audio_position_millis.load(std::sync::atomic::Ordering::SeqCst) as f64 / 1000.0;
+        let recording_duration = (recorded_position>0.0).then_some(recorded_position).or_else(||self.state.get_active_recording_duration());
         info!("Recording duration from state: {:?}s", recording_duration);
 
         // Save the recording with actual duration
@@ -382,7 +381,7 @@ impl RecordingManager {
             }
             Err(e) => {
                 error!("Failed to save recording: {}", e);
-                // Don't fail the stop operation if saving fails
+                return Err(anyhow::anyhow!(e));
             }
         }
 
@@ -421,7 +420,7 @@ impl RecordingManager {
             }
             Err(e) => {
                 error!("Failed to save recording: {}", e);
-                // Don't fail the stop operation if saving fails
+                return Err(anyhow::anyhow!(e));
             }
         }
 
@@ -510,6 +509,14 @@ impl RecordingManager {
     }
 
     /// Set the meeting name for this recording session
+    pub fn set_identity(&mut self, meeting_id: Option<String>, session_id: Option<String>) {
+        self.recording_saver.set_identity(meeting_id, session_id);
+    }
+    pub fn set_recordings_folder(&mut self, folder: std::path::PathBuf) {
+        self.recording_saver.set_recordings_folder(folder);
+    }
+    pub fn identity(&self) -> (Option<String>, Option<String>) { self.recording_saver.identity() }
+    pub fn transcript_sink(&self) -> RecordingSaver { self.recording_saver.clone() }
     pub fn set_meeting_name(&mut self, name: Option<String>) {
         self.recording_saver.set_meeting_name(name);
     }

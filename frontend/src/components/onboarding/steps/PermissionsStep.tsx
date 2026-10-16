@@ -1,14 +1,17 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import { Mic, Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { OnboardingContainer } from '../OnboardingContainer';
 import { PermissionRow } from '../shared';
 import { useOnboarding } from '@/contexts/OnboardingContext';
+import { toast } from 'sonner';
 
 export function PermissionsStep() {
   const { setPermissionStatus, setPermissionsSkipped, permissions, completeOnboarding } = useOnboarding();
   const [isPending, setIsPending] = useState(false);
+  const [isFinishing, setIsFinishing] = useState(false);
+  const finishingRef = useRef(false);
 
   // Check permissions - only logs current state, doesn't auto-authorize
   // Actual permission checks are done via explicit user actions (clicking Enable)
@@ -94,11 +97,17 @@ export function PermissionsStep() {
   };
 
   const handleFinish = async () => {
+    if (finishingRef.current || isPending) return;
+    finishingRef.current = true;
+    setIsFinishing(true);
     try {
       await completeOnboarding();
       window.location.reload();
     } catch (error) {
       console.error('Failed to complete onboarding:', error);
+      toast.error('Could not finish setup', { description: 'Please try again. Your setup choices are still available.' });
+      finishingRef.current = false;
+      setIsFinishing(false);
     }
   };
 
@@ -129,7 +138,7 @@ export function PermissionsStep() {
             title="Microphone"
             description="Required to capture your voice during meetings"
             status={permissions.microphone}
-            isPending={isPending}
+            isPending={isPending || isFinishing}
             onAction={handleMicrophoneAction}
           />
 
@@ -139,20 +148,21 @@ export function PermissionsStep() {
             title="System Audio"
             description="Click Enable to grant Audio Capture permission"
             status={permissions.systemAudio}
-            isPending={isPending}
+            isPending={isPending || isFinishing}
             onAction={handleSystemAudioAction}
           />
         </div>
 
         {/* Action Buttons */}
         <div className="flex flex-col gap-3 pt-4">
-          <Button onClick={handleFinish} disabled={!allPermissionsGranted} className="w-full h-11">
-            Finish Setup
+          <Button onClick={handleFinish} disabled={!allPermissionsGranted || isPending || isFinishing} className="w-full h-11">
+            {isFinishing ? 'Finishing setup…' : 'Finish Setup'}
           </Button>
 
           <button
             onClick={handleSkip}
-            className="text-sm text-neutral-500 hover:text-neutral-700 transition-colors"
+            disabled={isPending || isFinishing}
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             I'll do this later
           </button>

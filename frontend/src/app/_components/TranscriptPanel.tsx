@@ -1,9 +1,10 @@
+import { transcriptToSegment } from '@/lib/transcript-audio-source';
 import { VirtualizedTranscriptView } from '@/components/VirtualizedTranscriptView';
 import { PermissionWarning } from '@/components/PermissionWarning';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Copy, GlobeIcon } from 'lucide-react';
-import { useTranscripts } from '@/contexts/TranscriptContext';
+import { useTranscriptRows } from '@/contexts/TranscriptContext';
 import { useConfig } from '@/contexts/ConfigContext';
 import { useRecordingState } from '@/contexts/RecordingStateContext';
 import { usePermissionCheck } from '@/hooks/usePermissionCheck';
@@ -31,7 +32,7 @@ export function TranscriptPanel({
   showModal
 }: TranscriptPanelProps) {
   // Contexts
-  const { transcripts, transcriptContainerRef, copyTranscript } = useTranscripts();
+  const { ids, store, transcriptContainerRef, copyTranscript } = useTranscriptRows();
   const { transcriptModelConfig } = useConfig();
   const { isRecording, isPaused } = useRecordingState();
   const { checkPermissions, isChecking, hasSystemAudio, hasMicrophone } = usePermissionCheck();
@@ -39,25 +40,20 @@ export function TranscriptPanel({
 
   // Convert transcripts to segments for virtualized view
   const segments = useMemo(() =>
-    transcripts.map(t => ({
-      id: t.id,
-      timestamp: t.audio_start_time ?? 0,
-      endTime: t.audio_end_time,
-      text: t.text,
-      confidence: t.confidence,
-    })),
-    [transcripts]
+    ids.map(id => transcriptToSegment(store.get(id)!)),
+    [ids, store]
   );
 
   return (
-    <div ref={transcriptContainerRef} className="w-full border-r border-gray-200 bg-white flex flex-col overflow-y-auto">
+    <div ref={transcriptContainerRef} className="transcript-panel paper-surface flex h-full min-h-0 min-w-0 w-full flex-col overflow-hidden border-r border-border @container">
       {/* Title area - Sticky header */}
-      <div className="sticky top-0 z-10 bg-white p-4 border-gray-200">
+      <div className="transcript-toolbar glass-surface z-10 shrink-0 border-b border-border p-3">
         <div className="flex flex-col space-y-3">
           <div className="flex  flex-col space-y-2">
-            <div className="flex justify-center  items-center space-x-2">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="px-1 text-sm font-semibold tracking-tight">Transcript</h2>
               <ButtonGroup>
-                {transcripts?.length > 0 && (
+                {ids.length > 0 && (
                   <Button
                     variant="outline"
                     size="sm"
@@ -65,7 +61,7 @@ export function TranscriptPanel({
                     title="Copy Transcript"
                   >
                     <Copy />
-                    <span className='hidden md:inline'>
+                    <span className='hidden @[22rem]:inline'>
                       Copy
                     </span>
                   </Button>
@@ -78,7 +74,7 @@ export function TranscriptPanel({
                     title="Language"
                   >
                     <GlobeIcon />
-                    <span className='hidden md:inline'>
+                    <span className='hidden @[22rem]:inline'>
                       Language
                     </span>
                   </Button>
@@ -91,7 +87,7 @@ export function TranscriptPanel({
 
       {/* Permission Warning - Not needed on Linux */}
       {!isRecording && !isChecking && !isLinux && (
-        <div className="flex justify-center px-4 pt-4">
+        <div className="max-h-[30%] overflow-auto shrink-0 flex justify-center px-3">
           <PermissionWarning
             hasMicrophone={hasMicrophone}
             hasSystemAudio={hasSystemAudio}
@@ -102,11 +98,10 @@ export function TranscriptPanel({
       )}
 
       {/* Transcript content */}
-      <div className="pb-20">
-        <div className="flex justify-center">
-          <div className="w-2/3 max-w-[750px]">
+      <div className="flex-1 min-h-0 min-w-0">
             <VirtualizedTranscriptView
               segments={segments}
+              liveStore={store}
               isRecording={isRecording}
               isPaused={isPaused}
               isProcessing={isProcessingStop}
@@ -114,8 +109,6 @@ export function TranscriptPanel({
               enableStreaming={isRecording}
               showConfidence={true}
             />
-          </div>
-        </div>
       </div>
     </div>
   );
