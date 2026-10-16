@@ -131,6 +131,20 @@ def run(app, output, expect_windows_11=False):
                 (output / f'onboarding-{width}x{height}.png').write_bytes(base64.b64decode(shot))
                 report['cases'].append({'view': 'onboarding', 'requested_size': [width, height],
                                         'viewport': driver.js('return [innerWidth, innerHeight]')})
+            driver.click_text('Get Started')
+            driver.wait(lambda: driver.js("return [...document.querySelectorAll('h1')].some(n => n.textContent === 'Setup Overview')"), 'AI setup overview')
+            for width, height in [(1100, 700), (480, 400), (1100, 400)]:
+                driver.command('POST', '/window/rect', {'width': width, 'height': height})
+                time.sleep(.3)
+                driver.js("[...document.querySelectorAll('button')].find(b => b.textContent.trim() === \"Let's Go\").scrollIntoView()")
+                if not driver.js('return document.documentElement.scrollWidth <= innerWidth + 1'):
+                    raise RuntimeError('AI setup overview overflows horizontally')
+                (output / f'onboarding-overview-{width}x{height}.png').write_bytes(base64.b64decode(driver.command('GET', '/screenshot')))
+                report['cases'].append({'view': 'onboarding-overview', 'requested_size': [width, height],
+                                        'viewport': driver.js('return [innerWidth, innerHeight]')})
+            driver.click('[aria-label="Setup step 1, completed"]')
+            driver.wait(lambda: driver.js("return [...document.querySelectorAll('h1')].some(n => n.textContent === 'Welcome to Meetily')"), 'onboarding back navigation')
+            report['onboarding_overview_and_back_navigation'] = True
             driver.click_text('Use notes only')
             driver.wait(lambda: driver.js('return !!document.querySelector(\'[aria-label="Meeting title"]\')'), 'notes workspace')
             if not driver.invoke('get_onboarding_status')['completed']:
@@ -226,6 +240,12 @@ def run(app, output, expect_windows_11=False):
             report['ok'] = True
         except Exception as error:
             report['error'] = str(error)
+            if driver.session:
+                try:
+                    (output / 'failure.png').write_bytes(base64.b64decode(driver.command('GET', '/screenshot')))
+                    (output / 'failure-body.txt').write_text(driver.js('return document.body.innerText'), encoding='utf-8')
+                except (OSError, RuntimeError):
+                    pass
             raise
         finally:
             if driver.session:
