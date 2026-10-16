@@ -8,7 +8,7 @@ on:
       candidate_run_id:
         description: Successful V0 candidate run containing the x64 installer
         required: true
-        default: '38917269797'
+        default: '38922370227'
         type: string
 
 permissions:
@@ -16,7 +16,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: v0-windows11-${{ inputs.candidate_run_id || '38917269797' }}
+  group: v0-windows11-${{ inputs.candidate_run_id || '38922370227' }}
   cancel-in-progress: false
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
     runs-on: windows-11-arm
     timeout-minutes: 60
     env:
-      CANDIDATE_RUN_ID: ${{ inputs.candidate_run_id || '38917269797' }}
+      CANDIDATE_RUN_ID: ${{ inputs.candidate_run_id || '38922370227' }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
@@ -61,6 +61,50 @@ jobs:
           name: meetily-v0-windows11-emulation-evidence
           path: |
             target/v0-windows11-qa
+            candidate-source.json
+          if-no-files-found: error
+          retention-days: 30
+
+  upgraded-windows11:
+    needs: installed-windows11
+    runs-on: windows-11-arm
+    timeout-minutes: 40
+    env:
+      CANDIDATE_RUN_ID: ${{ inputs.candidate_run_id || '38922370227' }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install native WebDriver proxy
+        shell: pwsh
+        run: |
+          cargo install tauri-driver --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:EDGEWEBDRIVER >> $env:GITHUB_PATH
+      - name: Fetch previous release and verified preview
+        shell: pwsh
+        run: |
+          if ($env:CANDIDATE_RUN_ID -notmatch '^\d+$') { throw 'Invalid candidate run ID' }
+          gh run download $env:CANDIDATE_RUN_ID --repo $env:GITHUB_REPOSITORY --name meetily-v0-candidate-x86_64-pc-windows-msvc --dir installers
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          gh run view $env:CANDIDATE_RUN_ID --repo $env:GITHUB_REPOSITORY --json headSha,url,conclusion | Out-File candidate-source.json -Encoding utf8
+          gh release download v0.4.1 --repo Zackriya-Solutions/meetily --pattern meetily_0.4.1_x64-setup.exe --dir previous-release
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Verify real installer upgrade and preserved source data
+        shell: pwsh
+        run: |
+          $installer = @(Get-ChildItem installers -Recurse -Filter '*-setup.exe')
+          if ($installer.Count -ne 1) { throw 'Expected one x64 preview installer' }
+          $destination = Join-Path $env:RUNNER_TEMP 'meetily-v0-upgrade'
+          python scripts/qa/windows-upgrade.py --old-installer previous-release/meetily_0.4.1_x64-setup.exe --installer $installer[0].FullName --destination $destination --output target/v0-windows11-upgrade
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Retain upgrade acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: meetily-v0-windows11-upgrade-evidence
+          path: |
+            target/v0-windows11-upgrade
             candidate-source.json
           if-no-files-found: error
           retention-days: 30
