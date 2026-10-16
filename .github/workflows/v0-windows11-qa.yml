@@ -28,12 +28,9 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - name: Install native WebDriver proxy
+      - name: Use image-matched Edge WebDriver
         shell: pwsh
         run: |
-          cargo install tauri-driver --locked
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           $env:EDGEWEBDRIVER >> $env:GITHUB_PATH
       - name: Fetch the verified x64 candidate
         shell: pwsh
@@ -77,12 +74,9 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - name: Install native WebDriver proxy
+      - name: Use image-matched Edge WebDriver
         shell: pwsh
         run: |
-          cargo install tauri-driver --locked
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           $env:EDGEWEBDRIVER >> $env:GITHUB_PATH
       - name: Fetch previous release and verified preview
         shell: pwsh

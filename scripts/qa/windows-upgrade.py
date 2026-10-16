@@ -23,43 +23,16 @@ def install(installer, destination):
 
 
 def launch(app, logfile):
-    log = logfile.open('w')
-    process = subprocess.Popen(['tauri-driver'], stdout=log, stderr=subprocess.STDOUT,
-                               env={**os.environ, 'TAURI_WEBVIEW_AUTOMATION': 'true'})
-    driver = native.Driver()
-    try:
-        for _ in range(100):
-            if process.poll() is not None:
-                raise RuntimeError('Driver stopped before session creation')
-            try:
-                driver.request('GET', '/status')
-                break
-            except (OSError, RuntimeError):
-                time.sleep(.2)
-        result = driver.request('POST', '/session', {'capabilities': {'alwaysMatch': {'tauri:options': {'application': str(app)}}}})
-        driver.session = result['sessionId']
-        driver.command('POST', '/timeouts', {'script': 60000})
-        driver.wait(lambda: driver.js('return !!window.__TAURI_INTERNALS__'), 'native transport')
-        return driver, process, log
-    except Exception:
-        process.terminate(); process.wait(timeout=15); log.close()
-        raise
+    return native.attach_installed(app, logfile.parent, logfile.stem + '-')
 
 
-def close(app, driver, process, log):
-    try:
-        driver.command('DELETE', '')
-    except (OSError, RuntimeError):
-        pass
-    if process.poll() is None:
-        process.terminate(); process.wait(timeout=15)
-    # All changes have already been acknowledged by native SQLite/store commits.
-    # Limit termination to the exact test installation on this disposable host.
+def close(app, handles):
+    native.close_installed(handles)
+    # Limit cleanup to the exact test installation on this disposable host.
     escaped = str(app).replace("'", "''")
     subprocess.run(['powershell', '-NoProfile', '-Command',
         "Get-CimInstance Win32_Process | Where-Object { $_.ExecutablePath -eq '" + escaped +
         "' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }"], check=True)
-    log.close()
 
 
 def snapshot(database, ids):
@@ -86,10 +59,10 @@ def run(old_installer, installer, destination, output):
               'new_installer_sha256': hashlib.sha256(installer.read_bytes()).hexdigest(),
               'host': platform.platform(), 'physical_capture_tested': False}
     app = destination / 'meetily.exe'
-    driver = process = log = None
+    handles = None
     try:
         install(old_installer, destination)
-        driver, process, log = launch(app, output / 'old-driver.log')
+        handles = launch(app, output / 'old-driver.log'); driver = handles[0]
         if driver.invoke('plugin:app|version') != '0.4.1':
             raise RuntimeError('Previous installed app has the wrong version')
         database = profile / 'meeting_minutes.sqlite'
@@ -120,9 +93,9 @@ def run(old_installer, installer, destination, output):
                 notes = json.dumps([{'id': f'original-{index}', 'type': 'paragraph', 'content': [{'type': 'text', 'text': f'Original notes {index} — 日本語 café', 'styles': {'bold': True}}], 'children': []}], ensure_ascii=False)
                 db.execute("INSERT INTO meeting_notes(meeting_id,notes_json,notes_markdown,created_at,updated_at) VALUES(?,?,'Authoritative original','2026-10-16','2026-10-16')", (meeting_id, notes))
         before = snapshot(database, ids)
-        close(app, driver, process, log); driver = process = log = None
+        close(app, handles); handles = None
         install(installer, destination)
-        driver, process, log = launch(app, output / 'new-driver.log')
+        handles = launch(app, output / 'new-driver.log'); driver = handles[0]
         if driver.invoke('plugin:app|version') != '0.5.0-rc.1':
             raise RuntimeError('Upgraded installed app has the wrong version')
         driver.wait(lambda: driver.js('return !!document.querySelector(\'[aria-label="Meeting title"]\')'), 'upgraded workspace')
@@ -150,8 +123,8 @@ def run(old_installer, installer, destination, output):
         report['error'] = str(error)
         raise
     finally:
-        if driver is not None:
-            close(app, driver, process, log)
+        if handles is not None:
+            close(app, handles)
         (output / 'upgrade-result.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
 
 
