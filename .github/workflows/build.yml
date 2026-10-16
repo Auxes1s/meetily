@@ -570,8 +570,18 @@ jobs:
           key: ${{ runner.os }}-onnxruntime-${{ inputs.target }}-${{ hashFiles('frontend/src-tauri/build/onnxruntime.rs') }}
 
 
+      - name: Build unsigned candidate
+        if: startsWith(inputs.asset-prefix, 'meetily-v0-candidate')
+        shell: bash
+        env:
+          NEXT_PUBLIC_MEETILY_LOCAL_BUILD: '1'
+          CMAKE_DISABLE_FIND_PACKAGE_OpenSSL: 'TRUE'
+        run: |
+          pnpm --dir frontend exec tauri build ${{ inputs.build-args }} ${{ steps.build-features.outputs.features }} ${{ steps.windows-portability.outputs.args }}
+
       - name: Build with Tauri
         id: tauri-build
+        if: "!startsWith(inputs.asset-prefix, 'meetily-v0-candidate')"
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

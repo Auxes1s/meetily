@@ -12,7 +12,7 @@ import {
 
 export function SetupOverviewStep() {
   const { goNext } = useOnboarding();
-  const [isMac, setIsMac] = useState(false);
+  const [isMac, setIsMac] = useState<boolean | null>(null);
 
   useEffect(() => {
     const checkPlatform = async () => {
@@ -87,7 +87,7 @@ export function SetupOverviewStep() {
           </div>
         </div>
 
-        {!isMac && (
+        {isMac === false && (
           <p className="max-w-md text-sm text-muted-foreground">
             On Windows 11, allow desktop apps to access your microphone in Settings → Privacy &amp; security → Microphone.
             You can choose microphone and system audio devices in Meetily’s recording settings.

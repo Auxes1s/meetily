@@ -36,7 +36,7 @@ export function DownloadProgressStep() {
     completeOnboarding,
   } = useOnboarding();
 
-  const [isMac, setIsMac] = useState(false);
+  const [isMac, setIsMac] = useState<boolean | null>(null);
 
   const [parakeetState, setParakeetState] = useState<DownloadState>({
     status: parakeetDownloaded ? 'completed' : 'waiting',
@@ -339,7 +339,7 @@ export function DownloadProgressStep() {
   };
 
   const handleContinue = async () => {
-    if (continuingRef.current) return;
+    if (continuingRef.current || isMac === null) return;
     continuingRef.current = true;
     setIsCompleting(true);
     try {
@@ -356,10 +356,9 @@ export function DownloadProgressStep() {
           status: 'completed',
           progress: 100,
         }));
-      } else if (
-        !actuallyAvailable &&
-        (parakeetState.status === 'error' || parakeetState.status === 'cancelled')
-      ) {
+      } else if (!actuallyAvailable) {
+        setParakeetDownloaded(false);
+        setParakeetState(prev => ({ ...prev, status: 'error', error: 'The downloaded transcription model could not be found. Please retry the download.' }));
         toast.error('Transcription engine required', {
           description: 'Please retry the download before continuing.',
         });
@@ -367,6 +366,8 @@ export function DownloadProgressStep() {
       }
     } catch (error) {
       console.warn('[DownloadProgressStep] Failed to verify model:', error);
+      toast.error('Could not verify transcription engine', { description: 'Please try Continue again.' });
+      return;
     }
 
     // Check if downloads are complete for toast notification
@@ -544,7 +545,7 @@ export function DownloadProgressStep() {
         <div className="w-full max-w-xs">
           <Button
             onClick={handleContinue}
-            disabled={!parakeetDownloaded || isCompleting}
+            disabled={!parakeetDownloaded || isCompleting || isMac === null}
             className="w-full h-11 bg-primary hover:bg-primary/90 text-white disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {(isCompleting || !parakeetDownloaded) && <Loader2 aria-hidden="true" className="w-4 h-4 mr-2 animate-spin" />}

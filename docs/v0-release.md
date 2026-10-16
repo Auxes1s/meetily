@@ -29,7 +29,8 @@ explicit remote providers receive the selected source text.
 Current fixes prevent initial defaults from replacing a slowly loaded setup,
 serialize progress saves before completion, deduplicate Finish requests and
 allow retry after persistence failures. A resumed macOS-only step returns to the
-download screen on Windows. Long or short windows retain scrollable onboarding
+download screen on Windows. Native model verification prevents a stale download
+flag or failed availability check from finishing setup. Long or short windows retain scrollable onboarding
 actions and bounded notes/transcript/library/settings content.
 
 ## Build and verification
@@ -44,6 +45,10 @@ loader and its redistribution license, with the archive checked against
 [LunarG's published checksum](https://vulkan.lunarg.com/sdk/files.json). The
 candidate enforces a 480×400 minimum window size, matching the smallest tested
 layout, and advertises macOS 14.2 to match the compiled binary's deployment target.
+The application version remains `0.5.0-rc.1`; MSI uses the equivalent numeric
+installer version `0.5.0.1` because Windows Installer rejects text prerelease IDs.
+The unsigned candidate build leaves Apple certificate variables unset so Tauri
+uses ad-hoc signing rather than trying to import an empty certificate.
 
 Windows smoke installs the actual NSIS package on a disposable CI host, opens
 the installed executable in WebView2 through
