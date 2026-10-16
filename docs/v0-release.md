@@ -60,7 +60,7 @@ Reproduce frontend checks:
 
 ```sh
 pnpm --dir frontend install --frozen-lockfile
-(cd frontend && bun test tests && node tests/lib/onboarding-summary-model.test.mjs)
+(cd frontend && pnpm test && node tests/lib/onboarding-summary-model.test.mjs)
 node --test .github/verify-portable-ggml.test.cjs
 pnpm --dir frontend lint
 NEXT_PUBLIC_MEETILY_LOCAL_BUILD=1 pnpm --dir frontend build
