@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import struct
 import subprocess
 import time
 import urllib.error
@@ -69,14 +70,25 @@ class Driver:
         raise RuntimeError('Timed out: ' + label)
 
 
-def run(app, output):
+def run(app, output, expect_windows_11=False):
     if platform.system() != 'Windows' or os.environ.get('GITHUB_ACTIONS') != 'true':
         raise RuntimeError('This writes disposable fixtures and requires a fresh Windows GitHub Actions runner')
     if not app.is_file():
         raise RuntimeError('Installed application is missing: ' + str(app))
+    host = json.loads(subprocess.check_output(['powershell', '-NoProfile', '-Command',
+        'Get-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,BuildNumber,ProductType,OSArchitecture | ConvertTo-Json -Compress'], text=True))
+    windows_11 = host['ProductType'] == 1 and int(host['BuildNumber']) >= 22000 and 'Windows 11' in host['Caption']
+    if expect_windows_11 and not windows_11:
+        raise RuntimeError('This acceptance run requires an actual Windows 11 client OS')
+    binary = app.read_bytes()
+    offset = struct.unpack_from('<I', binary, 0x3c)[0]
+    if binary[:2] != b'MZ' or binary[offset:offset + 4] != b'PE\0\0' or struct.unpack_from('<H', binary, offset + 4)[0] != 0x8664:
+        raise RuntimeError('Expected the existing x64 candidate executable')
     output.mkdir(parents=True, exist_ok=False)
     report = {'ok': False, 'host': platform.platform(), 'app': str(app), 'cases': [],
-              'physical_capture_tested': False, 'windows_11_tested': False}
+              'physical_capture_tested': False, 'windows_11_tested': windows_11,
+              'os': host, 'host_architecture': platform.machine(), 'artifact_architecture': 'x64',
+              'x64_under_arm_emulation': platform.machine().lower() in ('arm64', 'aarch64')}
     driver = Driver()
     with (output / 'driver.log').open('w') as log:
         process = subprocess.Popen(['tauri-driver'], stdout=log, stderr=subprocess.STDOUT,
@@ -114,6 +126,7 @@ def run(app, output):
             if not driver.invoke('get_onboarding_status')['completed']:
                 raise RuntimeError('Notes-only completion was not persisted')
             marker = 'Native Windows v0 QA — 日本語 café'
+            driver.wait(lambda: driver.js('return !!document.querySelector(\'section[aria-label="My notes"] [contenteditable="true"]\')'), 'hydrated notes editor')
             editor = driver.click('section[aria-label="My notes"] [contenteditable="true"]')
             driver.command('POST', '/element/' + editor + '/value', {'text': marker})
             meeting_id = driver.js("return sessionStorage.getItem('workspace_meeting_id')")
@@ -167,5 +180,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--app', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--expect-windows-11', action='store_true')
     args = parser.parse_args()
-    run(args.app.resolve(), args.output.resolve())
+    run(args.app.resolve(), args.output.resolve(), args.expect_windows_11)

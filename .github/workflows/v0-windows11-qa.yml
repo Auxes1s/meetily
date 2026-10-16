@@ -1,0 +1,66 @@
+name: V0 Windows 11 installed QA
+
+on:
+  push:
+    branches: ['qa/windows11-validation']
+  workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: Successful V0 candidate run containing the x64 installer
+        required: true
+        default: '38917269797'
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: v0-windows11-${{ inputs.candidate_run_id || '38917269797' }}
+  cancel-in-progress: false
+
+jobs:
+  installed-windows11:
+    runs-on: windows-11-arm
+    timeout-minutes: 60
+    env:
+      CANDIDATE_RUN_ID: ${{ inputs.candidate_run_id || '38917269797' }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install native WebDriver proxy
+        shell: pwsh
+        run: |
+          cargo install tauri-driver --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:EDGEWEBDRIVER >> $env:GITHUB_PATH
+      - name: Fetch the verified x64 candidate
+        shell: pwsh
+        run: |
+          if ($env:CANDIDATE_RUN_ID -notmatch '^\d+$') { throw 'Invalid candidate run ID' }
+          gh run watch $env:CANDIDATE_RUN_ID --repo $env:GITHUB_REPOSITORY --interval 20 --exit-status
+          if ($LASTEXITCODE -ne 0) { throw 'Candidate package run did not pass' }
+          gh run view $env:CANDIDATE_RUN_ID --repo $env:GITHUB_REPOSITORY --json headSha,url,conclusion | Out-File candidate-source.json -Encoding utf8
+          gh run download $env:CANDIDATE_RUN_ID --repo $env:GITHUB_REPOSITORY --name meetily-v0-candidate-x86_64-pc-windows-msvc --dir installers
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Install and check x64 preview on Windows 11
+        shell: pwsh
+        run: |
+          $installer = @(Get-ChildItem installers -Recurse -Filter '*-setup.exe')
+          if ($installer.Count -ne 1) { throw 'Expected one x64 NSIS installer' }
+          $destination = Join-Path $env:RUNNER_TEMP 'meetily-v0-installed'
+          $install = Start-Process -FilePath $installer[0].FullName -ArgumentList @('/S', "/D=$destination") -Wait -PassThru
+          if ($install.ExitCode -ne 0) { throw "Installer failed: $($install.ExitCode)" }
+          python scripts/qa/windows-native.py --app "$destination/meetily.exe" --output target/v0-windows11-qa --expect-windows-11
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Retain actual host and WebView2 verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: meetily-v0-windows11-emulation-evidence
+          path: |
+            target/v0-windows11-qa
+            candidate-source.json
+          if-no-files-found: error
+          retention-days: 30
