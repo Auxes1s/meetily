@@ -13,7 +13,10 @@ RUNTIMES = [
 
 
 def stage(destinations):
-    for source in RUNTIMES:
+    msvc = ROOT / 'frontend/src-tauri/binaries/msvc-runtime'
+    if not (msvc / 'msvcp140.dll').is_file():
+        raise RuntimeError('Verified Microsoft C++ runtime has not been staged')
+    for source in RUNTIMES + list(msvc.glob('*.dll')):
         if not source.is_file():
             raise RuntimeError('Verified staged runtime missing: ' + str(source))
         digest = hashlib.sha256(source.read_bytes()).hexdigest()

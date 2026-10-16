@@ -142,11 +142,13 @@ def run(app, output):
             if not any(response.get('protocol_version') == 2 and response.get('structured_generation') for response in responses):
                 raise RuntimeError('Installed helper lacks the required protocol')
             report['helper_protocol_2'] = True
-            for name in ['onnxruntime.dll', 'onnxruntime_providers_shared.dll', 'vulkan-1.dll', 'VulkanRT-License.txt']:
+            for name in ['onnxruntime.dll', 'onnxruntime_providers_shared.dll', 'vulkan-1.dll', 'VulkanRT-License.txt',
+                         'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll', 'MSVC-runtime-manifest.json']:
                 if not (app.parent / name).is_file():
                     raise RuntimeError('Installed runtime resource missing: ' + name)
             report['installed_onnx_files_present'] = True
             report['installed_vulkan_loader_and_license_present'] = True
+            report['installed_microsoft_cpp_runtime_present'] = True
             report['ok'] = True
         except Exception as error:
             report['error'] = str(error)

@@ -139,6 +139,7 @@ jobs:
               resources = @{
                 templates = 'templates'
                 'binaries/onnxruntime' = '.'
+                'binaries/msvc-runtime' = '.'
                 'vulkan-runtime' = '.'
               }
             }
@@ -524,6 +525,11 @@ jobs:
           Write-Host "Copied llama-helper to frontend/src-tauri/binaries/"
           Get-ChildItem "frontend/src-tauri/binaries/"
 
+      - name: Stage signed Microsoft C++ runtime for Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/qa/stage-msvc-runtime.ps1
+
       - name: Build llama-helper sidecar (macOS/Linux)
         if: "!contains(inputs.platform, 'windows')"
         shell: bash
@@ -627,6 +633,7 @@ jobs:
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             python scripts/qa/stage-test-runtime.py target/release target/release/deps
             for test_binary in target/release/deps/app_lib-*.exe; do
+              python scripts/qa/prepare-windows-test-manifest.py "$test_binary"
               python scripts/qa/windows-loader-check.py "$test_binary" target/v0-native-diagnostics/loader-resolution.json
             done
           fi

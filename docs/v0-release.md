@@ -43,6 +43,9 @@ runtime staging and portable Windows CPU checks. The matching llama helper is
 built from the same locked source. Windows bundles the pinned official x64 Vulkan
 loader and its redistribution license, with the archive checked against
 [LunarG's published checksum](https://vulkan.lunarg.com/sdk/files.json). The
+installer also includes the matching x64 Microsoft C++ redistributable DLLs from
+the build toolset, with Microsoft Authenticode signatures and copied-file hashes
+verified during staging. They are serviced with each application release. The
 candidate enforces a 480×400 minimum window size, matching the smallest tested
 layout, and advertises macOS 14.2 to match the compiled binary's deployment target.
 The application version remains `0.5.0-rc.1`; MSI uses the equivalent numeric
