@@ -10,11 +10,13 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import struct
 import subprocess
 import time
 import urllib.error
 import urllib.request
+import uuid
 
 
 class Driver:
@@ -58,8 +60,16 @@ class Driver:
         return element_id
 
     def click_text(self, text):
-        self.js('''const target = [...document.querySelectorAll('button')].find(b => b.textContent.trim() === arguments[0]);
-          if (!target) throw Error('Missing button: ' + arguments[0]); target.scrollIntoView(); target.click();''', text)
+        element = self.js('''const target = [...document.querySelectorAll('button')].find(b => b.textContent.trim() === arguments[0]);
+          if (!target) throw Error('Missing button: ' + arguments[0]); target.scrollIntoView(); return target;''', text)
+        self.command('POST', '/element/' + element['element-6066-11e4-a52e-4f735466cecf'] + '/click', {})
+
+    def key(self, value, control=False):
+        keys = ([{'type': 'keyDown', 'value': '\ue009'}] if control else [])
+        keys += [{'type': 'keyDown', 'value': value}, {'type': 'keyUp', 'value': value}]
+        if control:
+            keys.append({'type': 'keyUp', 'value': '\ue009'})
+        self.command('POST', '/actions', {'actions': [{'type': 'key', 'id': 'qa-keyboard', 'actions': keys}]})
 
     def wait(self, predicate, label):
         for _ in range(300):
@@ -128,6 +138,7 @@ def run(app, output, expect_windows_11=False):
             marker = 'Native Windows v0 QA — 日本語 café'
             driver.wait(lambda: driver.js('return !!document.querySelector(\'section[aria-label="My notes"] [contenteditable="true"]\')'), 'hydrated notes editor')
             editor = driver.click('section[aria-label="My notes"] [contenteditable="true"]')
+            driver.js('window.__qaOriginalEditor = document.querySelector(\'section[aria-label="My notes"] [contenteditable="true"]\')')
             driver.command('POST', '/element/' + editor + '/value', {'text': marker})
             meeting_id = driver.js("return sessionStorage.getItem('workspace_meeting_id')")
             driver.wait(lambda: marker in ((driver.invoke('api_get_meeting_notes', {'meetingId': meeting_id}) or {}).get('notes_json') or ''), 'native note commit')
@@ -138,14 +149,66 @@ def run(app, output, expect_windows_11=False):
                     raise RuntimeError(f'Workspace overflow at {width}x{height}')
                 if not driver.js('return document.body.innerText.includes(arguments[0])', marker):
                     raise RuntimeError('Resizing lost visible note content')
+                if not driver.js('return window.__qaOriginalEditor === document.querySelector(\'section[aria-label="My notes"] [contenteditable="true"]\')'):
+                    raise RuntimeError('Resizing remounted the original editor')
                 shot = driver.command('GET', '/screenshot')
                 (output / f'workspace-{width}x{height}.png').write_bytes(base64.b64decode(shot))
                 report['cases'].append({'view': 'workspace', 'requested_size': [width, height],
                                         'viewport': driver.js('return [innerWidth, innerHeight]')})
+            driver.click('section[aria-label="My notes"] [contenteditable="true"]')
+            driver.key('z', control=True)
+            driver.wait(lambda: not driver.js('return document.body.innerText.includes(arguments[0])', marker), 'undo after resize')
+            driver.key('y', control=True)
+            driver.wait(lambda: driver.js('return document.body.innerText.includes(arguments[0])', marker), 'redo after resize')
+            driver.wait(lambda: marker in ((driver.invoke('api_get_meeting_notes', {'meetingId': meeting_id}) or {}).get('notes_json') or ''), 'redo native commit')
+            report['undo_redo_after_resize'] = True
             driver.command('POST', '/refresh', {})
             driver.wait(lambda: driver.js('return document.body.innerText.includes(arguments[0])', marker), 'reloaded notes')
             report['notes_only_onboarding'] = True
             report['editor_native_commit_and_reload'] = True
+            report['editor_identity_preserved_during_resize'] = True
+
+            def snapshot(view, width, height):
+                driver.command('POST', '/window/rect', {'width': width, 'height': height})
+                time.sleep(.5)
+                if not driver.js('return document.documentElement.scrollWidth <= innerWidth + 1'):
+                    raise RuntimeError(f'{view} overflows horizontally at {width}x{height}')
+                name = f'{view}-{width}x{height}.png'
+                (output / name).write_bytes(base64.b64decode(driver.command('GET', '/screenshot')))
+                report['cases'].append({'view': view, 'requested_size': [width, height],
+                                        'viewport': driver.js('return [innerWidth, innerHeight]')})
+
+            driver.invoke('api_save_transcript', {
+                'meetingTitle': 'Native Windows QA — 日本語 café', 'meetingId': meeting_id,
+                'recordingSessionId': str(uuid.uuid4()), 'folderPath': None,
+                'transcripts': [{'id': 'windows-qa-' + str(uuid.uuid4()), 'text': 'Disposable system transcript — 日本語 café ' * 30,
+                                 'timestamp': '00:01', 'audio_source': 'system', 'audio_start_time': 1.0,
+                                 'audio_end_time': 2.0, 'duration': 1.0, 'sequence_id': 1}],
+            })
+            driver.command('POST', '/refresh', {})
+            driver.wait(lambda: driver.js('return !!document.querySelector(\'[aria-controls="meeting-transcript-panel"]\')'), 'transcript toggle')
+            driver.click('[aria-controls="meeting-transcript-panel"]')
+            driver.wait(lambda: driver.js("return [...document.querySelectorAll('.transcript-scroll')].some(n => n.getClientRects().length && n.textContent.includes('Disposable system transcript'))"), 'native saved transcript')
+            for width, height in [(1440, 900), (480, 400), (1100, 400)]:
+                snapshot('transcript', width, height)
+                if not driver.js("return [...document.querySelectorAll('.transcript-scroll')].some(n => n.getClientRects().length && n.clientHeight >= 40 && n.scrollWidth <= n.clientWidth + 1)"):
+                    raise RuntimeError('Transcript scroll area is unusable at the requested size')
+            driver.click('[aria-controls="meeting-transcript-panel"]')
+            report['native_transcript_drawer_responsive'] = True
+            driver.js("location.href='/library'")
+            driver.wait(lambda: driver.js("return !!document.querySelector('.meeting-library')"), 'meeting library')
+            for width, height in [(1440, 900), (480, 400), (1100, 400)]:
+                snapshot('library', width, height)
+            report['library_responsive'] = True
+            driver.js("location.href='/settings'")
+            driver.wait(lambda: driver.js("return document.querySelectorAll('[role=tab]').length >= 5"), 'settings categories')
+            labels = driver.js("return [...document.querySelectorAll('[role=tab]')].map(n => n.textContent.trim())")
+            for label in labels:
+                element = driver.js("const n = [...document.querySelectorAll('[role=tab]')].find(n => n.textContent.trim() === arguments[0]); n.scrollIntoView(); return n", label)
+                driver.command('POST', '/element/' + element['element-6066-11e4-a52e-4f735466cecf'] + '/click', {})
+                for width, height in [(1100, 700), (480, 400), (1100, 400)]:
+                    snapshot('settings-' + re.sub('[^a-z]+', '-', label.lower()).strip('-'), width, height)
+            report['settings_categories_responsive'] = labels
             # Verify sidecars from the installed directory, without loading a model.
             ffmpeg = subprocess.run([str(app.parent / 'ffmpeg.exe'), '-version'], capture_output=True, text=True, check=True, timeout=30)
             report['ffmpeg'] = ffmpeg.stdout.splitlines()[0]
