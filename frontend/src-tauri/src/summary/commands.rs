@@ -1,33 +1,25 @@
 use crate::database::repositories::{
-    meeting::MeetingsRepository,
-    summary::SummaryProcessesRepository, transcript_chunk::TranscriptChunksRepository,
+    meeting::MeetingsRepository, summary::SummaryProcessesRepository,
 };
 use crate::state::AppState;
+use crate::summary::language_detection::{detect_summary_language, SummaryLanguageDetection};
 use crate::summary::metadata::{
     read_detected_summary_language_from_metadata, read_summary_language_from_metadata,
     write_detected_summary_language_to_metadata, write_summary_language_to_metadata,
 };
-use crate::summary::language_detection::{
-    detect_summary_language, SummaryLanguageDetection,
-};
 use crate::summary::processor::{clean_llm_markdown_detailed, contains_reasoning_marker};
 use crate::summary::service::SummaryService;
-use log::{error as log_error, info as log_info, warn as log_warn};
 use chrono::{DateTime, Duration, SecondsFormat, Utc};
+use log::{error as log_error, info as log_info, warn as log_warn};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 use tauri::{AppHandle, Runtime};
 
-
-static SUMMARY_START_LOCK: LazyLock<tokio::sync::Mutex<()>> =
-    LazyLock::new(|| tokio::sync::Mutex::new(()));
 static LAST_SUMMARY_START: LazyLock<Mutex<Option<DateTime<Utc>>>> =
     LazyLock::new(|| Mutex::new(None));
 fn next_summary_start(now: DateTime<Utc>) -> DateTime<Utc> {
-    let mut last = LAST_SUMMARY_START
-        .lock()
-        .unwrap_or_else(|poisoned| poisoned.into_inner());
+    let mut last = LAST_SUMMARY_START.lock().unwrap_or_else(|p| p.into_inner());
     let next = match *last {
         Some(previous) if now <= previous => previous + Duration::nanoseconds(1),
         _ => now,
@@ -45,6 +37,9 @@ pub struct SummaryResponse {
     pub end: Option<String>,
     pub data: Option<serde_json::Value>,
     pub error: Option<String>,
+    pub version_id: Option<String>,
+    pub revision: Option<i64>,
+    pub generation_progress: Option<crate::summary::enhancement::GenerationProgress>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -98,36 +93,31 @@ pub async fn api_save_meeting_summary<R: Runtime>(
     meeting_id: String,
     summary: serde_json::Value,
     _auth_token: Option<String>,
+    version_id: Option<String>,
+    base_revision: Option<i64>,
+    commit_id: Option<String>,
 ) -> Result<serde_json::Value, String> {
-    log_info!(
-        "api_save_meeting_summary (native) called for meeting_id: {}",
-        meeting_id
-    );
-    if !summary_is_renderable(&summary) {
-        return Err("Summary contains no visible content or model reasoning markers and was not saved.".into());
-    }
-    let pool = state.db_manager.pool();
-
-
-    match SummaryProcessesRepository::update_meeting_summary(pool, &meeting_id, &summary).await {
-        Ok(true) => {
-            log_info!("Summary saved successfully for meeting_id: {}", meeting_id);
-            Ok(serde_json::json!({
-                "message": "Meeting summary saved successfully"
-            }))
-        }
-        Ok(false) => {
-            log_warn!(
-                "Meeting not found or invalid JSON for meeting_id: {}",
-                meeting_id
-            );
-            Err("Meeting not found or can't convert the json".into())
-        }
-        Err(e) => {
-            log_error!("Failed to save meeting summary for {}: {}", meeting_id, e);
-            Err(e.to_string())
-        }
-    }
+    let _ = (_app, _auth_token);
+    crate::database::repositories::enhancement::adopt_legacy(state.db_manager.pool(), &meeting_id)
+        .await?;
+    let version_id = version_id
+        .ok_or("Use the enhancement editor to save with a document version and revision")?;
+    let expected_revision =
+        base_revision.ok_or("Reload the saved document revision before saving")?;
+    let version = crate::database::repositories::enhancement::save_version(
+        state.db_manager.pool(),
+        crate::database::repositories::enhancement::VersionSave {
+            meeting_id,
+            version_id,
+            expected_revision,
+            document: summary,
+            commit_id,
+        },
+    )
+    .await?;
+    Ok(
+        serde_json::json!({"message":"Meeting summary saved successfully","version_id":version.id,"revision":version.revision}),
+    )
 }
 
 /// Gets the per-meeting summary language override from metadata.json.
@@ -189,9 +179,11 @@ pub async fn api_get_meeting_detected_summary_language<R: Runtime>(
     );
 
     match resolve_meeting_folder(state.db_manager.pool(), &meeting_id).await? {
-        MeetingFolderResolution::Folder(folder) => read_detected_summary_language_from_metadata(&folder)
-            .map(MeetingSummaryLanguagePreference::metadata)
-            .map_err(|e| e.to_string()),
+        MeetingFolderResolution::Folder(folder) => {
+            read_detected_summary_language_from_metadata(&folder)
+                .map(MeetingSummaryLanguagePreference::metadata)
+                .map_err(|e| e.to_string())
+        }
         MeetingFolderResolution::NoFolder => Ok(MeetingSummaryLanguagePreference::local_fallback()),
     }
 }
@@ -212,8 +204,11 @@ pub async fn api_save_meeting_detected_summary_language<R: Runtime>(
 
     match resolve_meeting_folder(state.db_manager.pool(), &meeting_id).await? {
         MeetingFolderResolution::Folder(folder) => {
-            write_detected_summary_language_to_metadata(&folder, detected_summary_language.as_deref())
-                .map_err(|e| e.to_string())?;
+            write_detected_summary_language_to_metadata(
+                &folder,
+                detected_summary_language.as_deref(),
+            )
+            .map_err(|e| e.to_string())?;
             read_detected_summary_language_from_metadata(&folder)
                 .map(MeetingSummaryLanguagePreference::metadata)
                 .map_err(|e| e.to_string())
@@ -283,10 +278,10 @@ fn summary_contains_reasoning_marker(value: &serde_json::Value) -> bool {
     match value {
         serde_json::Value::Array(items) => items.iter().any(summary_contains_reasoning_marker),
         serde_json::Value::Object(object) => object.iter().any(|(key, value)| match key.as_str() {
-            "markdown" | "text" | "content" => value
-                .as_str()
-                .is_some_and(contains_reasoning_marker)
-                || value.is_array() && summary_contains_reasoning_marker(value),
+            "markdown" | "text" | "content" => {
+                value.as_str().is_some_and(contains_reasoning_marker)
+                    || value.is_array() && summary_contains_reasoning_marker(value)
+            }
             "summary_json" | "children" => summary_contains_reasoning_marker(value),
             _ => false,
         }),
@@ -302,9 +297,11 @@ fn summary_is_renderable(value: &serde_json::Value) -> bool {
         return false;
     }
     if let Some(markdown) = object.get("markdown") {
-        return markdown
+        if markdown
             .as_str()
-            .is_some_and(|markdown| !clean_llm_markdown_detailed(markdown).markdown.is_empty());
+            .is_some_and(|markdown| !clean_llm_markdown_detailed(markdown).markdown.is_empty()) {
+            return true;
+        }
     }
     if let Some(blocks) = object.get("summary_json") {
         return blocknote_has_visible_text(blocks);
@@ -344,9 +341,31 @@ fn redact_flagged_reasoning(mut result: serde_json::Value) -> serde_json::Value 
         reasoning_stripped |= sanitize_markdown_value(cache.get_mut("markdown"));
     }
     if reasoning_stripped {
-        object.insert("reasoning_stripped".to_string(), serde_json::Value::Bool(true));
+        object.insert(
+            "reasoning_stripped".to_string(),
+            serde_json::Value::Bool(true),
+        );
     }
     result
+}
+
+fn version_response_data(
+    version: &crate::database::repositories::enhancement::EnhancementVersion,
+) -> Option<serde_json::Value> {
+    let mut document: serde_json::Value =
+        serde_json::from_str(version.document_json.as_deref()?).ok()?;
+    // Some historical versions stored an already serialized JSON document.
+    if let Some(encoded) = document.as_str() {
+        document = serde_json::from_str(encoded).ok()?;
+    }
+    let mut document = redact_flagged_reasoning(document);
+    let object = document.as_object_mut()?;
+    object.insert(
+        "_enhancement_version_id".into(),
+        serde_json::Value::String(version.id.clone()),
+    );
+    object.insert("_enhancement_revision".into(), version.revision.into());
+    Some(document)
 }
 
 /// Gets summary status and data (Native SQLx implementation)
@@ -358,13 +377,80 @@ pub async fn api_get_summary<R: Runtime>(
     state: tauri::State<'_, AppState>,
     meeting_id: String,
     _auth_token: Option<String>,
+    process_id: Option<String>,
 ) -> Result<SummaryResponse, String> {
     log_info!(
         "api_get_summary (native) called for meeting_id: {}",
         meeting_id
     );
     let pool = state.db_manager.pool();
+    if let Some(process_id) = process_id.filter(|id| uuid::Uuid::parse_str(id).is_ok()) {
+        let version =
+            crate::database::repositories::enhancement::get_version(pool, &meeting_id, &process_id)
+                .await?;
+        let meeting_name = MeetingsRepository::get_meeting_metadata(pool, &meeting_id)
+            .await
+            .map_err(|e| e.to_string())?
+            .map(|m| m.title);
+        let status = match version.status.as_str() {
+            "generating" => "pending",
+            "ready" => "completed",
+            other => other,
+        }
+        .to_owned();
+        let data = version_response_data(&version);
+        return Ok(SummaryResponse {
+            status,
+            meeting_name,
+            meeting_id,
+            start: Some(version.id.clone()),
+            end: if version.status == "generating" {
+                None
+            } else {
+                Some(version.updated_at.clone())
+            },
+            data,
+            error: version.error,
+            version_id: Some(version.id),
+            revision: Some(version.revision),
+            generation_progress: crate::summary::enhancement::work::progress(pool, &process_id).await?,
+        });
+    }
+    let versions = crate::database::repositories::enhancement::list(pool, &meeting_id).await?;
+    if let Some(latest) = versions.versions.first().filter(|v| v.state == "candidate" && matches!(v.status.as_str(), "generating"|"failed"|"cancelled"|"ready")) {
+        let approved = versions.approved_version_id.as_ref().and_then(|id| versions.versions.iter().find(|v| &v.id==id));
+        let data = if latest.status == "ready" { version_response_data(latest) } else { approved.and_then(version_response_data) };
+        return Ok(SummaryResponse {
+            status: if latest.status=="generating" {"pending".into()} else if latest.status=="ready" {"completed".into()} else {latest.status.clone()},
+            meeting_name: MeetingsRepository::get_meeting_metadata(pool,&meeting_id).await.map_err(|_|"Cannot read meeting")?.map(|m|m.title),
+            meeting_id, start: Some(latest.id.clone()), end: if latest.status=="generating" {None} else {Some(latest.updated_at.clone())},
+            data, error: latest.error.clone(), version_id: Some(latest.id.clone()), revision: Some(latest.revision),
+            generation_progress: crate::summary::enhancement::work::progress(pool,&latest.id).await?,
+        });
+    }
 
+    if let Some(selected) = versions
+        .approved_version_id
+        .as_ref()
+        .and_then(|id| versions.versions.iter().find(|v| &v.id == id))
+    {
+        let meeting_name = MeetingsRepository::get_meeting_metadata(pool, &meeting_id)
+            .await
+            .map_err(|e| e.to_string())?
+            .map(|m| m.title);
+        return Ok(SummaryResponse {
+            status: "completed".into(),
+            meeting_name,
+            meeting_id,
+            start: Some(selected.created_at.clone()),
+            end: Some(selected.updated_at.clone()),
+            data: version_response_data(selected),
+            error: None,
+            version_id: Some(selected.id.clone()),
+            revision: Some(selected.revision),
+            generation_progress: None,
+        });
+    }
     match SummaryProcessesRepository::get_summary_data_for_meeting(pool, &meeting_id).await {
         Ok(Some(process)) => {
             let mut status = process.status.to_lowercase();
@@ -395,7 +481,7 @@ pub async fn api_get_summary<R: Runtime>(
             // Fetch meeting title from database
             let meeting_name = match MeetingsRepository::get_meeting(pool, &meeting_id).await {
                 Ok(Some(meeting_details)) => {
-                    log_info!("Fetched meeting title: {}", &meeting_details.title);
+                    log_info!("Fetched meeting title metadata");
                     Some(meeting_details.title)
                 }
                 Ok(None) => {
@@ -418,14 +504,17 @@ pub async fn api_get_summary<R: Runtime>(
                 end: process.end_time.map(|time| time.to_rfc3339()),
                 data,
                 error,
+                version_id: None,
+                revision: None,
+                generation_progress: None,
             };
 
             log_info!(
-                "Summary status for {}: {}, has_data: {}, meeting_name: {:?}",
+                "Summary status for {}: {}, has_data: {}, has_title: {}",
                 meeting_id,
                 status,
                 response.data.is_some(),
-                response.meeting_name
+                response.meeting_name.is_some()
             );
             Ok(response)
         }
@@ -446,6 +535,9 @@ pub async fn api_get_summary<R: Runtime>(
                 end: None,
                 data: None,
                 error: None,
+                version_id: None,
+                revision: None,
+                generation_progress: None,
             })
         }
         Err(e) => {
@@ -472,81 +564,38 @@ pub async fn api_process_transcript<R: Runtime>(
     template_id: Option<String>,
     summary_language: Option<String>,
     _auth_token: Option<String>,
+    retry_of_version_id: Option<String>,
 ) -> Result<ProcessTranscriptResponse, String> {
-    use uuid::Uuid;
-
-    let m_id = meeting_id.unwrap_or_else(|| format!("meeting-{}", Uuid::new_v4()));
-    log_info!(
-        "api_process_transcript (native) called for meeting_id: {}, model: {}",
-        &m_id,
-        &model
-    );
-
-    let pool = state.db_manager.pool().clone();
-    let final_prompt = custom_prompt.unwrap_or_else(|| "".to_string());
-    let final_template_id = template_id.unwrap_or_else(|| "daily_standup".to_string());
-
-    // Normalise empty / whitespace-only to None so "" and null behave identically
-    let summary_language = summary_language.and_then(|s| {
-        let t = s.trim();
-        if t.is_empty() { None } else { Some(t.to_string()) }
-    });
-
-    // ponytail: summary starts are rare; use per-meeting locks only if start contention is measured.
-    let _start_guard = SUMMARY_START_LOCK.lock().await;
-    let started_at = next_summary_start(Utc::now());
-    SummaryProcessesRepository::create_or_reset_process(&pool, &m_id, started_at)
-        .await
-        .map_err(|e| format!("Failed to initialize process: {}", e))?;
-
-    let chunk_size = _chunk_size.unwrap_or(40000);
-    let overlap = _overlap.unwrap_or(1000);
-    if let Err(error) = TranscriptChunksRepository::save_transcript_data(
-        &pool,
-        &m_id,
-        &text,
-        &model,
-        &model_name,
-        chunk_size,
-        overlap,
+    let m_id = meeting_id.ok_or("Save the meeting before enhancement")?;
+    // The compatibility command now generates a separate candidate exclusively
+    // from committed native sources. Supplied transcript text is not canonical.
+    let _ = (text, _chunk_size, _overlap);
+    let revision: i64 = sqlx::query_scalar(
+        "SELECT COALESCE((SELECT revision FROM meeting_notes WHERE meeting_id=?),0)",
     )
+    .bind(&m_id)
+    .fetch_one(state.db_manager.pool())
     .await
-    {
-        let message = format!("Failed to save transcript data: {}", error);
-        let _ = SummaryProcessesRepository::update_process_failed(
-            &pool,
-            &m_id,
-            started_at,
-            &message,
-        )
-        .await;
-        return Err(message);
-    }
-
-    let cancellation_token =
-        SummaryService::register_cancellation_token(&m_id, started_at);
-    let meeting_id_clone = m_id.clone();
-    tauri::async_runtime::spawn(async move {
-        SummaryService::process_transcript_background(
-            app,
-            pool,
-            meeting_id_clone,
-            started_at,
-            cancellation_token,
-            text,
+    .map_err(|e| e.to_string())?;
+    let result = crate::summary::enhancement::start(
+        app,
+        state.db_manager.pool().clone(),
+        crate::summary::enhancement::EnhancementStart {
+            meeting_id: m_id,
+            expected_notes_revision: revision,
             model,
             model_name,
-            final_prompt,
-            final_template_id,
+            template_id,
+            instructions: custom_prompt,
+            remote_destination: None,
             summary_language,
-        )
-        .await;
-    });
-
-    log_info!("🚀 Background task spawned for meeting_id: {}", &m_id);
+            retry_of_version_id,
+        },
+    )
+    .await?;
     Ok(ProcessTranscriptResponse {
-        message: "Summary generation started".to_string(),
-        process_id: started_at.to_rfc3339_opts(SecondsFormat::Nanos, true),
+        message: "Enhancement candidate generation started".into(),
+        process_id: result.version_id,
     })
 }
 
@@ -561,6 +610,15 @@ pub async fn api_cancel_summary<R: Runtime>(
     meeting_id: String,
     process_id: String,
 ) -> Result<serde_json::Value, String> {
+    if uuid::Uuid::parse_str(&process_id).is_ok() {
+        let version = crate::summary::enhancement::api_cancel_meeting_enhancement(
+            state, meeting_id, process_id,
+        )
+        .await?;
+        return Ok(
+            serde_json::json!({"message":"Cancellation requested","cancelled":version.status=="cancelled"}),
+        );
+    }
     let started_at = DateTime::parse_from_rfc3339(&process_id)
         .map_err(|_| "Invalid summary process ID".to_string())?
         .with_timezone(&Utc);
@@ -573,15 +631,25 @@ pub async fn api_cancel_summary<R: Runtime>(
             .await
         {
             Ok(true) => {
-                log_info!("Successfully cancelled summary generation for meeting_id: {}", meeting_id);
+                log_info!(
+                    "Successfully cancelled summary generation for meeting_id: {}",
+                    meeting_id
+                );
                 true
             }
             Ok(false) => {
-                log_info!("Summary generation was already terminal for meeting_id: {}", meeting_id);
+                log_info!(
+                    "Summary generation was already terminal for meeting_id: {}",
+                    meeting_id
+                );
                 false
             }
             Err(error) => {
-                log_error!("Failed to update cancellation status for {}: {}", meeting_id, error);
+                log_error!(
+                    "Failed to update cancellation status for {}: {}",
+                    meeting_id,
+                    error
+                );
                 return Err(format!("Failed to update cancellation status: {}", error));
             }
         }
@@ -608,6 +676,25 @@ mod tests {
     use serde_json::json;
 
     #[test]
+    fn compatibility_response_binds_double_encoded_document_to_its_displayed_revision() {
+        let original = json!({"markdown":"Saved edits","extension":{"keep":17}});
+        let raw = serde_json::to_string(&original.to_string()).unwrap();
+        let version = serde_json::from_value(json!({
+            "id":"saved-version", "meeting_id":"meeting-fixture", "state":"legacy",
+            "status":"unverified", "revision":7, "document_json":raw,
+            "template_id":"standard_meeting", "instructions":"",
+            "created_at":"2026-10-13", "updated_at":"2026-10-13", "source_stale":false,
+        }))
+        .unwrap();
+        let displayed = version_response_data(&version).unwrap();
+        assert_eq!(displayed["markdown"], "Saved edits");
+        assert_eq!(displayed["extension"]["keep"], 17);
+        assert_eq!(displayed["_enhancement_version_id"], "saved-version");
+        assert_eq!(displayed["_enhancement_revision"], 7);
+        assert_eq!(version.document_json, Some(raw));
+    }
+
+    #[test]
     fn redacts_only_flagged_historical_reasoning() {
         assert_eq!(
             redact_flagged_reasoning(json!({
@@ -627,14 +714,12 @@ mod tests {
     #[test]
     fn summary_start_tokens_are_monotonic_with_identical_clock_inputs() {
         let first = next_summary_start(Utc::now());
-        assert_eq!(
-            next_summary_start(first),
-            first + Duration::nanoseconds(1)
-        );
+        assert_eq!(next_summary_start(first), first + Duration::nanoseconds(1));
     }
 
     #[test]
     fn summary_validation_rejects_blank_and_reasoning_content() {
+        assert!(summary_is_renderable(&json!({"markdown":null,"summary_json":[{"content":[{"type":"text","text":"Saved JSON after conversion failure"}]}]})));
         assert!(!summary_is_renderable(&json!({"markdown": "   "})));
         assert!(!summary_is_renderable(&json!({"markdown": "```\r\n```"})));
         assert!(!summary_is_renderable(&json!({

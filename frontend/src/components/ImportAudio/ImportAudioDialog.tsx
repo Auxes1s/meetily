@@ -83,6 +83,9 @@ export function ImportAudioDialog({
   // Do NOT initialize from the `open` prop: if the component mounts with open=true
   // (e.g. drag-drop path), we still need the initialization effect to run.
   const prevOpenRef = useRef(false);
+  const dialogSession = useRef(0);
+  const importAdmissionPending = useRef(false);
+  const cancelPending = useRef(false);
 
   // Use centralized model fetching hook
   const {
@@ -115,6 +118,7 @@ export function ImportAudioDialog({
     error,
     isProcessing,
     isBusy,
+    isCancelling,
     selectFile,
     validateFile,
     startImport,
@@ -133,6 +137,7 @@ export function ImportAudioDialog({
 
     // Only initialize when transitioning from closed (false) to open (true)
     if (open && !wasOpen) {
+      const owner = ++dialogSession.current;
       reset();
       resetSelection();
       setTitle('');
@@ -143,7 +148,7 @@ export function ImportAudioDialog({
       // Validate preselected file if provided
       if (preselectedFile) {
         validateFile(preselectedFile).then((info) => {
-          if (info) {
+          if (info && dialogSession.current === owner) {
             setTitle(info.filename);
           }
         });
@@ -151,6 +156,9 @@ export function ImportAudioDialog({
 
       // Fetch available models using centralized hook
       fetchModels();
+    } else if (!open && wasOpen) {
+      dialogSession.current++;
+      reset();
     }
   }, [open, preselectedFile, selectedLanguage, transcriptModelConfig, reset, resetSelection, validateFile, fetchModels]);
 
@@ -178,42 +186,51 @@ export function ImportAudioDialog({
   }, [isParakeetModel, selectedLang]);
 
   const handleSelectFile = async () => {
+    const owner = dialogSession.current;
     const info = await selectFile();
-    if (info) {
+    if (info && dialogSession.current === owner) {
       setTitle(info.filename);
     }
   };
 
   const handleStartImport = async () => {
-    if (!fileInfo) return;
-
-    await startImport(
-      fileInfo.path,
-      title || fileInfo.filename,
-      isParakeetModel ? null : selectedLang === 'auto' ? null : selectedLang,
-      selectedModel?.name || null,
-      selectedModel?.provider || null
-    );
+    if (!fileInfo || importAdmissionPending.current || isBusy) return;
+    importAdmissionPending.current = true;
+    try {
+      await startImport(
+        fileInfo.path,
+        title || fileInfo.filename,
+        isParakeetModel ? null : selectedLang === 'auto' ? null : selectedLang,
+        selectedModel?.name || null,
+        selectedModel?.provider || null
+      );
+    } finally { importAdmissionPending.current = false; }
   };
 
   const handleCancel = async () => {
-    if (isProcessing) {
-      await cancelImport();
-      toast.info('Import cancelled');
-    }
-    onOpenChange(false);
+    if (cancelPending.current) return;
+    cancelPending.current = true;
+    try {
+      if (isProcessing || importAdmissionPending.current) {
+        await cancelImport();
+        toast.info('Import cancelled');
+      }
+      onOpenChange(false);
+    } catch (cause) {
+      toast.error('Import could not be cancelled', { description: String(cause) });
+    } finally { cancelPending.current = false; }
   };
 
   // Prevent closing during processing
   const handleOpenChange = (newOpen: boolean) => {
-    if (!newOpen && isProcessing) {
+    if (!newOpen && (isProcessing || importAdmissionPending.current || cancelPending.current)) {
       return;
     }
     onOpenChange(newOpen);
   };
 
   const handleEscapeKeyDown = (event: KeyboardEvent) => {
-    if (isProcessing) {
+    if (isProcessing || importAdmissionPending.current || cancelPending.current) {
       event.preventDefault();
     }
   };
@@ -235,7 +252,7 @@ export function ImportAudioDialog({
           <DialogTitle className="flex items-center gap-2">
             {isProcessing ? (
               <>
-                <Loader2 className="h-5 w-5 animate-spin text-blue-600" />
+                <Loader2 className="h-5 w-5 animate-spin text-primary" />
                 Importing Audio...
               </>
             ) : error ? (
@@ -245,12 +262,12 @@ export function ImportAudioDialog({
               </>
             ) : status === 'complete' ? (
               <>
-                <CheckCircle2 className="h-5 w-5 text-green-600" />
+                <CheckCircle2 className="h-5 w-5 text-primary" />
                 Import Complete
               </>
             ) : (
               <>
-                <Upload className="h-5 w-5 text-blue-600" />
+                <Upload className="h-5 w-5 text-primary" />
                 Import Audio File
               </>
             )}
@@ -269,12 +286,12 @@ export function ImportAudioDialog({
           {!isProcessing && !error && (
             <>
               {fileInfo ? (
-                <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                <div className="paper-surface rounded-2xl border border-border p-4 space-y-3">
                   <div className="flex items-start gap-3">
-                    <FileAudio className="h-8 w-8 text-blue-600 flex-shrink-0" />
+                    <FileAudio className="h-8 w-8 text-primary flex-shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 truncate">{fileInfo.filename}</p>
-                      <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
+                      <p className="font-medium text-foreground truncate">{fileInfo.filename}</p>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground mt-1">
                         <span className="flex items-center gap-1">
                           <Clock className="h-3.5 w-3.5" />
                           {formatDuration(fileInfo.duration_seconds)}
@@ -283,14 +300,14 @@ export function ImportAudioDialog({
                           <HardDrive className="h-3.5 w-3.5" />
                           {formatFileSize(fileInfo.size_bytes)}
                         </span>
-                        <span className="text-blue-600 font-medium">{fileInfo.format}</span>
+                        <span className="text-primary font-medium">{fileInfo.format}</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Editable title */}
                   <div className="space-y-1">
-                    <label className="text-sm font-medium text-gray-700">Meeting Title</label>
+                    <label className="text-sm font-medium text-foreground">Meeting Title</label>
                     <Input
                       value={title}
                       onChange={(e) => {
@@ -301,13 +318,13 @@ export function ImportAudioDialog({
                     />
                   </div>
 
-                  <Button variant="outline" size="sm" onClick={handleSelectFile} className="w-full">
+                  <Button variant="outline" size="sm" disabled={isBusy} onClick={handleSelectFile} className="w-full">
                     Choose Different File
                   </Button>
                 </div>
               ) : (
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                  <FileAudio className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <div className="border border-dashed border-primary/30 bg-primary/5 rounded-2xl p-6 sm:p-8 text-center">
+                  <FileAudio className="h-10 w-10 text-primary mx-auto mb-4" />
                   <Button onClick={handleSelectFile} disabled={status === 'validating'}>
                     {status === 'validating' ? (
                       <>
@@ -321,16 +338,16 @@ export function ImportAudioDialog({
                       </>
                     )}
                   </Button>
-                  <p className="text-sm text-gray-500 mt-2">MP4, WAV, MP3, FLAC, OGG, MKV, WebM, WMA</p>
+                  <p className="text-sm text-muted-foreground mt-2">MP4, WAV, MP3, FLAC, OGG, MKV, WebM, WMA</p>
                 </div>
               )}
 
               {/* Advanced options (collapsible) */}
               {fileInfo && (
-                <div className="border rounded-lg">
+                <div className="border border-border rounded-2xl overflow-hidden">
                   <button
                     onClick={() => setShowAdvanced(!showAdvanced)}
-                    className="w-full flex items-center justify-between p-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className="w-full flex items-center justify-between p-3 text-sm font-medium text-foreground hover:bg-muted/50"
                   >
                     <span>Advanced Options</span>
                     {showAdvanced ? (
@@ -413,13 +430,13 @@ export function ImportAudioDialog({
           {isProcessing && progress && (
             <div className="space-y-2">
               <div className="relative">
-                <div className="w-full bg-gray-200 rounded-full h-3">
+                <div className="w-full bg-secondary rounded-full h-3">
                   <div
-                    className="bg-blue-600 h-3 rounded-full transition-all duration-300 ease-out"
+                    className="bg-primary h-3 rounded-full transition-all duration-300 ease-out"
                     style={{ width: `${Math.min(progress.progress_percentage, 100)}%` }}
                   />
                 </div>
-                <div className="flex justify-between text-xs text-gray-600 mt-1">
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
                   <span>{progress.stage}</span>
                   <span>{Math.round(progress.progress_percentage)}%</span>
                 </div>
@@ -439,13 +456,13 @@ export function ImportAudioDialog({
         <DialogFooter>
           {!isProcessing && !error && (
             <>
-              <Button variant="outline" onClick={() => onOpenChange(false)}>
+              <Button variant="outline" onClick={() => handleOpenChange(false)}>
                 Cancel
               </Button>
               <Button
                 onClick={handleStartImport}
-                className="bg-blue-600 hover:bg-blue-700"
-                disabled={!fileInfo}
+                className="bg-primary hover:bg-primary/90"
+                disabled={!fileInfo || isBusy}
               >
                 <Upload className="h-4 w-4 mr-2" />
                 Import
@@ -453,9 +470,9 @@ export function ImportAudioDialog({
             </>
           )}
           {isProcessing && (
-            <Button variant="outline" onClick={handleCancel}>
+            <Button variant="outline" disabled={isCancelling} onClick={handleCancel}>
               <X className="h-4 w-4 mr-2" />
-              Cancel
+              {isCancelling ? 'Cancelling…' : 'Cancel'}
             </Button>
           )}
           {error && (

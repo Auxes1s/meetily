@@ -1,0 +1,7 @@
+{
+  "productName": "Meetily Workflow Test",
+  "identifier": "com.meetily.workflow.test",
+  "app": { "windows": [{ "title": "Meetily Workflow Test", "width": 1100, "height": 700 }] },
+  "bundle": { "targets": ["app"], "createUpdaterArtifacts": false },
+  "plugins": { "updater": { "endpoints": [] } }
+}

@@ -1,0 +1,24 @@
+{
+  "productName": "Meetily Summary Test",
+  "identifier": "com.meetily.summary.test",
+  "app": {
+    "windows": [
+      {
+        "title": "Meetily Summary Test",
+        "width": 1200,
+        "height": 800
+      }
+    ]
+  },
+  "bundle": {
+    "targets": [
+      "app"
+    ],
+    "createUpdaterArtifacts": false
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": []
+    }
+  }
+}

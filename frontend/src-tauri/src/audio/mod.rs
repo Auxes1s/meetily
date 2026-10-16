@@ -4,6 +4,9 @@ pub mod decoder;
 pub mod encode;
 pub mod ffmpeg;
 pub mod vad;
+pub mod source;
+pub(crate) mod source_vad;
+pub(crate) mod echo_cancellation;
 
 // Modularized device management
 pub mod devices;
@@ -17,6 +20,8 @@ pub mod ffmpeg_mixer;  // NEW: FFmpeg-style adaptive audio mixer
 
 // New simplified audio system
 pub mod recording_state;
+pub mod queue;
+pub mod recording_start;
 pub mod pipeline;
 pub mod stream;
 pub mod recording_manager;

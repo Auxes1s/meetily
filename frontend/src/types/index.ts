@@ -4,11 +4,15 @@ export interface Message {
   timestamp: string;
 }
 
+export type AudioSource = 'microphone' | 'system' | 'mixed' | 'unknown';
+
 export interface Transcript {
   id: string;
   text: string;
+  audio_source?: AudioSource;
   timestamp: string; // Wall-clock time (e.g., "14:30:05")
   sequence_id?: number;
+  update_revision?: number;
   chunk_start_time?: number; // Legacy field
   is_partial?: boolean;
   confidence?: number;
@@ -16,13 +20,19 @@ export interface Transcript {
   audio_start_time?: number; // Seconds from recording start (e.g., 125.3)
   audio_end_time?: number;   // Seconds from recording start (e.g., 128.6)
   duration?: number;          // Segment duration in seconds (e.g., 3.3)
+  recording_session_id?: string;
+  timeline_offset?: number;
 }
 
 export interface TranscriptUpdate {
+  meeting_id?: string;
+  recording_session_id?: string;
   text: string;
   timestamp: string; // Wall-clock time for reference
   source: string;
+  audio_source?: AudioSource;
   sequence_id: number;
+  update_revision?: number;
   chunk_start_time: number; // Legacy field
   is_partial: boolean;
   confidence: number;
@@ -110,6 +120,8 @@ export interface CancelSummaryResponse {
 }
 
 export interface SummaryProcessResponse {
+  generation_progress?: import('./enhancement').GenerationProgress | null;
+  version_id?: string | null;
   status: SummaryProcessStatus;
   meetingName: string | null;
   meeting_id: string;
@@ -126,6 +138,8 @@ export interface MeetingMetadata {
   created_at: string;
   updated_at: string;
   folder_path?: string;
+  status?: string;
+  recording_session_id?: string;
 }
 
 export interface PaginatedTranscriptsResponse {
@@ -140,5 +154,7 @@ export interface TranscriptSegmentData {
   timestamp: number; // audio_start_time in seconds
   endTime?: number; // audio_end_time in seconds
   text: string;
+  audio_source?: AudioSource;
   confidence?: number;
+  timestampAvailable?: boolean;
 }

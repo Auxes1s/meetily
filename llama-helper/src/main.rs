@@ -24,6 +24,10 @@ use serde::{Deserialize, Serialize};
 enum Request {
     Generate {
         prompt: String,
+        #[serde(default)]
+        request_id: Option<String>,
+        #[serde(default)]
+        grammar: Option<String>,
         max_tokens: Option<i32>,
         context_size: Option<u32>,
         model_path: Option<String>,
@@ -38,16 +42,31 @@ enum Request {
         stop_tokens: Option<Vec<String>>,
     },
     Ping,
+    Capabilities,
     Shutdown,
 }
 
 #[derive(Debug, Serialize)]
 #[serde(tag = "type", rename_all = "snake_case")]
 enum Response {
-    Response { text: String, error: Option<String> },
+    Response {
+        #[serde(flatten)]
+        generation: Generation,
+        error: Option<String>,
+        request_id: Option<String>,
+    },
+    Capabilities { protocol_version: u32, structured_generation: bool },
     Pong,
     Goodbye,
     Error { message: String },
+}
+
+#[derive(Debug, Default, Serialize)]
+struct Generation {
+    text: String,
+    finish_reason: String,
+    prompt_tokens: u64,
+    generated_tokens: u64,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -351,7 +370,8 @@ impl ModelState {
         max_tokens: i32,
         sampling: SamplingConfig,
         stop_tokens: Vec<String>,
-    ) -> Result<String> {
+        grammar: Option<&str>,
+    ) -> Result<Generation> {
         let start_time = Instant::now();
         let model = self.model.as_ref().context("Model not loaded")?;
 
@@ -380,6 +400,9 @@ impl ModelState {
             .str_to_token(&prompt, AddBos::Always)
             .with_context(|| "failed to tokenize prompt")?;
 
+        if max_tokens <= 0 || tokens_list.is_empty() || tokens_list.len().saturating_add(max_tokens as usize) > self.context_size as usize {
+            return Ok(Generation { finish_reason: "context_limit".into(), prompt_tokens: tokens_list.len() as u64, ..Default::default() });
+        }
         eprintln!("📝 Tokenized prompt: {} tokens", tokens_list.len());
 
         // Use context size for batch capacity to handle long prompts
@@ -410,7 +433,7 @@ impl ModelState {
             .duration_since(UNIX_EPOCH)
             .unwrap_or_default()
             .as_millis() as u32;
-        let sampler = if sampling.temperature <= 0.0 {
+        let mut sampler = if sampling.temperature <= 0.0 {
             if sampling.uses_penalties() {
                 LlamaSampler::chain_simple([
                     LlamaSampler::penalties(
@@ -445,7 +468,15 @@ impl ModelState {
                 LlamaSampler::dist(seed),
             ])
         };
+        if let Some(grammar) = grammar {
+            // Grammar must filter logits before the token-selection sampler.
+            let constrained = LlamaSampler::grammar(model, grammar, "root")
+                .context("Invalid structured generation grammar")?;
+            sampler = LlamaSampler::chain_simple([constrained, sampler]);
+        }
         let mut sampler = pin!(sampler);
+        let mut generated_tokens = 0u64;
+        let mut finish_reason = "length";
 
         loop {
             // Check if we've generated enough tokens
@@ -455,9 +486,10 @@ impl ModelState {
             }
 
             let token = sampler.as_mut().sample(&ctx, batch.n_tokens() - 1);
-            sampler.as_mut().accept(token);
+            // sample() already accepts the token; accepting twice corrupts grammar and penalties.
 
             if model.is_eog_token(token) {
+                finish_reason = "stop";
                 eprintln!(
                     "✓ End-of-generation token reached (generated {} chars)",
                     output.len()
@@ -465,6 +497,7 @@ impl ModelState {
                 break;
             }
 
+            generated_tokens += 1;
             let output_bytes = match model.token_to_piece_bytes(token, 32, true, None) {
                 Err(llama_cpp_2::TokenToStringError::InsufficientBufferSpace(size)) => {
                     let required_size: usize = size
@@ -498,6 +531,7 @@ impl ModelState {
                 }
             }
             if should_stop {
+                finish_reason = "stop";
                 break;
             }
 
@@ -530,7 +564,7 @@ impl ModelState {
         eprintln!("   • Speed: {:.2} tokens/sec", tokens_per_sec);
 
         self.update_activity();
-        Ok(output)
+        Ok(Generation { text: output, finish_reason: finish_reason.into(), prompt_tokens, generated_tokens })
     }
 }
 
@@ -589,6 +623,8 @@ fn main() -> Result<()> {
                 match serde_json::from_str::<Request>(line) {
                     Ok(Request::Generate {
                         prompt,
+                        request_id,
+                        grammar,
                         max_tokens,
                         context_size,
                         model_path,
@@ -620,7 +656,8 @@ fn main() -> Result<()> {
                             let path = PathBuf::from(path_str);
                             if let Err(e) = state.load_model_if_needed(path, context_size) {
                                 send_response(&Response::Response {
-                                    text: String::new(),
+                                    generation: Generation::default(),
+                                    request_id,
                                     error: Some(format!("Failed to load model: {}", e)),
                                 })?;
                                 continue;
@@ -633,17 +670,22 @@ fn main() -> Result<()> {
                             max_tokens,
                             sampling,
                             stop_tokens,
+                            grammar.as_deref(),
                         ) {
-                            Ok(text) => {
-                                send_response(&Response::Response { text, error: None })?;
+                            Ok(generation) => {
+                                send_response(&Response::Response { generation, error: None, request_id })?;
                             }
                             Err(e) => {
                                 send_response(&Response::Response {
-                                    text: String::new(),
+                                    generation: Generation::default(),
+                                    request_id,
                                     error: Some(format!("Generation failed: {}", e)),
                                 })?;
                             }
                         }
+                    }
+                    Ok(Request::Capabilities) => {
+                        send_response(&Response::Capabilities { protocol_version: 2, structured_generation: true })?;
                     }
                     Ok(Request::Ping) => {
                         state.update_activity();
@@ -676,6 +718,19 @@ fn main() -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn structured_protocol_preserves_identity_and_completion_limits() {
+        let request: Request=serde_json::from_str(r#"{"type":"generate","request_id":"job-1","grammar":"root ::= \"{}\"","prompt":"test"}"#).unwrap();
+        let Request::Generate {request_id,grammar,..}=request else {panic!("expected generation")};
+        assert_eq!(request_id.as_deref(),Some("job-1"));assert!(grammar.is_some());
+        let response=serde_json::to_value(Response::Response {generation:Generation {
+            text:"{\"claims\":[".into(),finish_reason:"length".into(),prompt_tokens:100,generated_tokens:4096,
+        },request_id,error:None}).unwrap();
+        assert_eq!(response["request_id"],"job-1");assert_eq!(response["finish_reason"],"length");
+        assert_eq!(response["generated_tokens"],4096);
+        assert_eq!(response["prompt_tokens"],100);
+    }
 
     #[test]
     fn generate_request_defaults_penalties_when_omitted() {

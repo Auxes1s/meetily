@@ -50,6 +50,9 @@ pub mod groq;
 pub mod openrouter;
 pub mod parakeet_engine;
 pub mod state;
+mod notepad_smoke;
+mod workflow_smoke;
+mod q02_validation;
 pub mod summary;
 pub mod tray;
 pub mod utils;
@@ -59,7 +62,7 @@ use audio::{list_audio_devices, AudioDevice, trigger_audio_permission};
 use log::{error as log_error, info as log_info};
 use notifications::commands::NotificationManagerState;
 use std::sync::Arc;
-use tauri::{AppHandle, Manager, Runtime};
+use tauri::{AppHandle, Emitter, Manager, Runtime};
 use tokio::sync::RwLock;
 
 static RECORDING_FLAG: AtomicBool = AtomicBool::new(false);
@@ -128,14 +131,11 @@ static LANGUAGE_PREFERENCE: std::sync::LazyLock<StdMutex<String>> =
 #[derive(Debug, Deserialize)]
 struct RecordingArgs {
     save_path: String,
+    #[serde(default)]
+    recording_session_id: Option<String>,
 }
 
-#[derive(Debug, Serialize, Clone)]
-struct TranscriptionStatus {
-    chunks_in_queue: usize,
-    is_processing: bool,
-    last_activity_ms: u64,
-}
+type TranscriptionStatus = audio::recording_commands::TranscriptionStatus;
 
 #[tauri::command]
 async fn start_recording<R: Runtime>(
@@ -162,6 +162,8 @@ async fn start_recording<R: Runtime>(
         mic_device_name,
         system_device_name,
         meeting_name.clone(),
+        None,
+        None,
     )
     .await
     {
@@ -213,6 +215,7 @@ async fn stop_recording<R: Runtime>(app: AppHandle<R>, args: RecordingArgs) -> R
         app.clone(),
         audio::recording_commands::RecordingArgs {
             save_path: args.save_path.clone(),
+            recording_session_id: args.recording_session_id,
         },
     )
     .await
@@ -269,11 +272,7 @@ async fn is_recording() -> bool {
 
 #[tauri::command]
 fn get_transcription_status() -> TranscriptionStatus {
-    TranscriptionStatus {
-        chunks_in_queue: 0,
-        is_processing: false,
-        last_activity_ms: 0,
-    }
+    audio::transcription::health::snapshot()
 }
 
 #[tauri::command]
@@ -357,7 +356,7 @@ async fn start_recording_with_devices<R: Runtime>(
     mic_device_name: Option<String>,
     system_device_name: Option<String>,
 ) -> Result<(), String> {
-    start_recording_with_devices_and_meeting(app, mic_device_name, system_device_name, None).await
+    start_recording_with_devices_and_meeting(app, mic_device_name, system_device_name, None, None, None).await.map(|_|())
 }
 
 #[tauri::command]
@@ -366,7 +365,9 @@ async fn start_recording_with_devices_and_meeting<R: Runtime>(
     mic_device_name: Option<String>,
     system_device_name: Option<String>,
     meeting_name: Option<String>,
-) -> Result<(), String> {
+    meeting_id: Option<String>,
+    recording_session_id: Option<String>,
+) -> Result<audio::recording_commands::RecordingStartResult, String> {
     log_info!("🚀 CALLED start_recording_with_devices_and_meeting - Mic: {:?}, System: {:?}, Meeting: {:?}",
              mic_device_name, system_device_name, meeting_name);
 
@@ -374,53 +375,23 @@ async fn start_recording_with_devices_and_meeting<R: Runtime>(
     let meeting_name_for_notification = meeting_name.clone();
 
     // Call the recording module functions that support meeting names
-    let recording_result = match (mic_device_name.clone(), system_device_name.clone()) {
-        (None, None) => {
-            log_info!(
-                "No devices specified, starting with defaults and meeting: {:?}",
-                meeting_name
-            );
-            audio::recording_commands::start_recording_with_meeting_name(app.clone(), meeting_name)
-                .await
-        }
-        _ => {
-            log_info!(
-                "Starting with specified devices: mic={:?}, system={:?}, meeting={:?}",
-                mic_device_name,
-                system_device_name,
-                meeting_name
-            );
-            audio::recording_commands::start_recording_with_devices_and_meeting(
-                app.clone(),
-                mic_device_name,
-                system_device_name,
-                meeting_name,
-            )
-            .await
-        }
-    };
+    let recording_result=audio::recording_commands::start_recording_with_devices_and_meeting(
+        app.clone(),mic_device_name,system_device_name,meeting_name,meeting_id,recording_session_id).await;
 
     match recording_result {
-        Ok(_) => {
+        Ok(result) => {
             log_info!("Recording started successfully via tauri command");
 
-            // Show recording started notification through NotificationManager
-            // This respects user's notification preferences
-            let notification_manager_state = app.state::<NotificationManagerState<R>>();
-            if let Err(e) = notifications::commands::show_recording_started_notification(
-                &app,
-                &notification_manager_state,
-                meeting_name_for_notification.clone(),
-            )
-            .await
-            {
-                log_error!(
-                    "Failed to show recording started notification: {}",
-                    e
-                );
-            }
+            let notification_app=app.clone();
+            tauri::async_runtime::spawn(async move {
+                let state=notification_app.state::<NotificationManagerState<R>>();
+                if let Err(error)=notifications::commands::show_recording_started_notification(
+                    &notification_app,&state,meeting_name_for_notification).await {
+                    log_error!("Recording notification unavailable: {error}");
+                }
+            });
 
-            Ok(())
+            Ok(result)
         }
         Err(e) => {
             log_error!("Failed to start recording via tauri command: {}", e);
@@ -597,6 +568,7 @@ pub fn run() {
 
             Ok(())
         })
+        .on_page_load(|webview, payload| notepad_smoke::run(webview, payload.event()))
         .on_window_event(|window, event| {
             if let tauri::WindowEvent::CloseRequested { api, .. } = event {
                 if window.label() == "main" {
@@ -610,7 +582,47 @@ pub fn run() {
             }
         })
         .invoke_handler(tauri::generate_handler![
+            database::workspace_commands::api_get_meeting_passage,
+            database::deletion::api_list_pending_meeting_deletions,
+            summary::enhancement::api_get_enhancement_destination,
+            summary::enhancement::api_get_meeting_enhancements,
+            summary::enhancement::api_get_enhancement_status,
+            summary::enhancement::api_save_enhancement_settings,
+            summary::enhancement::api_start_meeting_enhancement,
+            summary::enhancement::api_save_enhancement_version,
+            summary::enhancement::api_approve_enhancement_version,
+            summary::enhancement::api_discard_enhancement_version,
+            summary::enhancement::api_cancel_meeting_enhancement,
+            summary::template_commands::api_save_custom_template,
+            database::deletion::api_begin_meeting_deletion,
+            database::deletion::api_retry_meeting_deletion,
+            database::deletion::api_get_meeting_deletion_status,
+            database::deletion::api_ack_meeting_deletion_caches,
+            database::deletion::api_retry_pending_meeting_deletions,
+            database::library::api_search_meetings,
+            database::library::api_list_meetings,
+            database::library::api_update_meeting_metadata,
+            database::library::api_sync_meeting_search,
+            notepad_smoke::notepad_smoke_report,
+            notepad_smoke::transcript_smoke_run,
+            workflow_smoke::workflow_smoke_control,
+            workflow_smoke::workflow_smoke_benchmark,
+            q02_validation::q02_validation_control,
+            q02_validation::q02_validation_replay,
+            database::notes_commands::api_create_meeting_draft,
+            database::notes_commands::api_ensure_recovery_meeting,
+            database::notes_commands::api_get_meeting_notes,
+            database::notes_commands::api_save_meeting_notes,
+            database::notes_commands::api_get_note_passage,
+            database::notes_commands::api_export_meeting_notes,
+            database::export::api_get_meeting_export_options,
+            database::export::api_export_meeting,
+            database::notes_commands::complete_notes_only_setup,
+            database::notes_commands::confirm_workspace_quit,
+            database::notes_commands::cancel_workspace_quit,
             start_recording,
+            audio::transcription::preferences::get_continuous_transcription,
+            audio::transcription::preferences::set_continuous_transcription,
             stop_recording,
             is_recording,
             get_transcription_status,
@@ -692,6 +704,10 @@ pub fn run() {
             audio::recording_commands::resume_recording,
             audio::recording_commands::is_recording_paused,
             audio::recording_commands::get_recording_state,
+            notepad_smoke::recording_smoke_probe,
+            audio::recording_start::cancel_recording_start,
+            database::recording_sessions::api_get_recording_sessions,
+            database::recording_sessions::api_open_recording_session,
             audio::recording_commands::get_meeting_folder_path,
             // Reload sync commands (retrieve transcript history and meeting name)
             audio::recording_commands::get_transcript_history,
@@ -838,6 +854,23 @@ pub fn run() {
                 #[cfg(target_os = "macos")]
                 tauri::RunEvent::Reopen { .. } => {
                     tray::focus_main_window(_app_handle);
+                }
+                tauri::RunEvent::ExitRequested { api, .. } => {
+                    use database::notes_commands::{EXIT_CONFIRMED, EXIT_PENDING};
+                    if !EXIT_CONFIRMED.load(Ordering::SeqCst) {
+                        api.prevent_exit();
+                        if !EXIT_PENDING.swap(true, Ordering::SeqCst) {
+                            tray::focus_main_window(_app_handle);
+                            let _ = _app_handle.emit("workspace-flush-request", ());
+                            let app = _app_handle.clone();
+                            tauri::async_runtime::spawn(async move {
+                                tokio::time::sleep(std::time::Duration::from_secs(10)).await;
+                                if EXIT_PENDING.swap(false, Ordering::SeqCst) && !EXIT_CONFIRMED.load(Ordering::SeqCst) {
+                                    let _ = app.emit("workspace-quit-timeout", ());
+                                }
+                            });
+                        }
+                    }
                 }
                 tauri::RunEvent::Exit => {
                     log::info!("Application exiting, cleaning up resources...");

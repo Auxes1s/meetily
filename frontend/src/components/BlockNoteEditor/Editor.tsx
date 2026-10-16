@@ -4,36 +4,28 @@ import { useEffect } from "react";
 import type { PartialBlock, Block } from "@blocknote/core";
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/shadcn";
+import type { BlockNoteEditor } from '@blocknote/core';
 import "@blocknote/shadcn/style.css";
-import "@blocknote/core/fonts/inter.css";
 
 interface EditorProps {
   initialContent?: Block[];
   onChange?: (blocks: Block[]) => void;
   editable?: boolean;
+  onReady?: (editor: BlockNoteEditor) => void;
+  onMarkerClick?: (id: string) => void;
 }
 
-export default function Editor({ initialContent, onChange, editable = true }: EditorProps) {
-  console.log('📝 EDITOR: Initializing BlockNote editor with blocks:', {
-    hasContent: !!initialContent,
-    blocksCount: initialContent?.length || 0,
-    editable
-  });
-
+export default function Editor({ initialContent, onChange, editable = true, onReady, onMarkerClick }: EditorProps) {
   const editor = useCreateBlockNote({
-    initialContent: initialContent as PartialBlock[] | undefined,
+    initialContent: initialContent?.length ? initialContent as PartialBlock[] : undefined,
   });
-
-  console.log('📝 EDITOR: BlockNote editor created successfully');
+  useEffect(() => { onReady?.(editor); }, [editor, onReady]);
 
   // Handle content changes
   useEffect(() => {
     if (!onChange) return;
 
     const handleChange = () => {
-      console.log('📝 EDITOR: Content changed, notifying parent...', {
-        blocksCount: editor.document.length
-      });
       onChange(editor.document);
     };
 
@@ -41,11 +33,17 @@ export default function Editor({ initialContent, onChange, editable = true }: Ed
 
     return () => {
       if (typeof unsubscribe === 'function') {
-        console.log('📝 EDITOR: Cleaning up onChange listener');
         unsubscribe();
       }
     };
   }, [editor, onChange]);
 
-  return <BlockNoteView editor={editor} editable={editable} theme="light" />;
+  return <div className="note-editor-shell min-w-0 max-w-full" onClickCapture={event => {
+    const anchor = (event.target as HTMLElement).closest('a[href^="meetily-note://"]');
+    if (anchor) {
+      event.preventDefault();
+      event.stopPropagation();
+      onMarkerClick?.(anchor.getAttribute('href')!.slice('meetily-note://'.length));
+    }
+  }}><BlockNoteView editor={editor} editable={editable} theme="light" /></div>;
 }

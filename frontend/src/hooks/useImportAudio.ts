@@ -44,6 +44,7 @@ export interface UseImportAudioReturn {
   error: string | null;
   isProcessing: boolean;
   isBusy: boolean;
+  isCancelling: boolean;
   selectFile: () => Promise<AudioFileInfo | null>;
   validateFile: (path: string) => Promise<AudioFileInfo | null>;
   startImport: (
@@ -65,6 +66,12 @@ export function useImportAudio({
   const [fileInfo, setFileInfo] = useState<AudioFileInfo | null>(null);
   const [progress, setProgress] = useState<ImportProgress | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isCancelling, setIsCancelling] = useState(false);
+  const generation = useRef(0);
+  const validating = useRef(false);
+  const mounted = useRef(true);
+  const activeImport = useRef<{ submitted: boolean; submission: Promise<unknown> | null; terminal: boolean } | null>(null);
+  const cancellation = useRef<Promise<void> | null>(null);
 
   // Stable refs for callbacks to avoid listener re-registration on every render
   const onCompleteRef = useRef(onComplete);
@@ -77,6 +84,7 @@ export function useImportAudio({
 
   // Set up event listeners (registered once, use refs for callbacks)
   useEffect(() => {
+    mounted.current = true;
     const unlisteners: UnlistenFn[] = [];
     const cleanedUpRef = { current: false };
 
@@ -85,7 +93,7 @@ export function useImportAudio({
       const unlistenProgress = await listen<ImportProgress>(
         'import-progress',
         (event) => {
-          if (isCancelledRef.current) return;
+          if (isCancelledRef.current || !activeImport.current || activeImport.current.terminal) return;
           setProgress(event.payload);
           setStatus('processing');
         }
@@ -100,24 +108,29 @@ export function useImportAudio({
       const unlistenComplete = await listen<ImportResult>(
         'import-complete',
         async (event) => {
-          if (isCancelledRef.current) return;
-
-          await Analytics.track('import_audio_completed', {
-            success: 'true',
-            duration_seconds: event.payload.duration_seconds.toString(),
-            segments_count: event.payload.segments_count.toString()
-          });
-
-          setStatus('complete');
-          setProgress(null);
+          const owner = activeImport.current;
+          if (isCancelledRef.current || !owner || owner.terminal) return;
+          owner.terminal = true;
+          try {
+            await Analytics.track('import_audio_completed', {
+              success: 'true',
+              duration_seconds: event.payload.duration_seconds.toString(),
+              segments_count: event.payload.segments_count.toString()
+            });
+          } catch (cause) { console.warn('Failed to track completed import:', cause); }
+          if (!mounted.current || isCancelledRef.current || activeImport.current !== owner) return;
           try {
             await applyPinnedSummaryLanguageToMeeting(event.payload.meeting_id);
-          } catch (error) {
-            console.warn('Failed to apply pinned summary language to imported meeting:', error);
+          } catch (cause) {
+            console.warn('Failed to apply pinned summary language to imported meeting:', cause);
             toast.warning('Could not apply default summary language', {
               description: 'The imported meeting was saved, but the default summary language was not applied.',
             });
           }
+          if (!mounted.current || isCancelledRef.current || activeImport.current !== owner) return;
+          activeImport.current = null;
+          setStatus('complete');
+          setProgress(null);
           onCompleteRef.current?.(event.payload);
         }
       );
@@ -132,13 +145,14 @@ export function useImportAudio({
       const unlistenError = await listen<ImportError>(
         'import-error',
         async (event) => {
-          if (isCancelledRef.current) return;
-
-          await Analytics.trackError('import_audio_failed', event.payload.error);
-
+          const owner = activeImport.current;
+          if (isCancelledRef.current || !owner || owner.terminal) return;
+          owner.terminal = true;
+          activeImport.current = null;
           setStatus('error');
           setError(event.payload.error);
           onErrorRef.current?.(event.payload.error);
+          void Analytics.trackError('import_audio_failed', event.payload.error).catch(cause => console.warn('Failed to track import error:', cause));
         }
       );
       if (cleanedUpRef.current) {
@@ -153,53 +167,37 @@ export function useImportAudio({
 
     return () => {
       cleanedUpRef.current = true;
+      mounted.current = false;
+      generation.current++;
+      isCancelledRef.current = true;
       unlisteners.forEach((unlisten) => unlisten());
     };
   }, []);
 
-  // Select file using native file dialog
-  const selectFile = useCallback(async (): Promise<AudioFileInfo | null> => {
+  const validate = useCallback(async (command: string, args?: { path: string }): Promise<AudioFileInfo | null> => {
+    if (validating.current || activeImport.current) return null;
+    validating.current = true;
+    const owner = ++generation.current;
     setStatus('validating');
     setError(null);
-
     try {
-      const result = await invoke<AudioFileInfo | null>('select_and_validate_audio_command');
-      if (result) {
-        setFileInfo(result);
-        setStatus('idle');
-        return result;
-      } else {
-        // User cancelled
-        setStatus('idle');
-        return null;
-      }
-    } catch (err: any) {
-      setStatus('error');
-      const errorMsg = typeof err === 'string' ? err : (err?.message || String(err) || 'Failed to validate file');
-      setError(errorMsg);
-      onErrorRef.current?.(errorMsg);
-      return null;
-    }
-  }, []);
-
-  // Validate a file from a given path (for drag-drop)
-  const validateFile = useCallback(async (path: string): Promise<AudioFileInfo | null> => {
-    setStatus('validating');
-    setError(null);
-
-    try {
-      const result = await invoke<AudioFileInfo>('validate_audio_file_command', { path });
-      setFileInfo(result);
+      const result = await invoke<AudioFileInfo | null>(command, args);
+      if (!mounted.current || generation.current !== owner) return null;
+      if (result) setFileInfo(result);
       setStatus('idle');
       return result;
-    } catch (err: any) {
+    } catch (cause: any) {
+      if (!mounted.current || generation.current !== owner) return null;
+      const message = typeof cause === 'string' ? cause : cause?.message || String(cause);
       setStatus('error');
-      const errorMsg = typeof err === 'string' ? err : (err?.message || String(err) || 'Failed to validate file');
-      setError(errorMsg);
-      onErrorRef.current?.(errorMsg);
+      setError(message);
+      onErrorRef.current?.(message);
       return null;
-    }
+    } finally { validating.current = false; }
   }, []);
+
+  const selectFile = useCallback(() => validate('select_and_validate_audio_command'), [validate]);
+  const validateFile = useCallback((path: string) => validate('validate_audio_file_command', { path }), [validate]);
 
   // Start the import process
   const startImport = useCallback(
@@ -210,6 +208,9 @@ export function useImportAudio({
       model?: string | null,
       provider?: string | null
     ) => {
+      if (validating.current || activeImport.current || cancellation.current) return;
+      const owner = { submitted: false, submission: null as Promise<unknown> | null, terminal: false };
+      activeImport.current = owner;
       isCancelledRef.current = false;
       setStatus('processing');
       setError(null);
@@ -223,22 +224,28 @@ export function useImportAudio({
             language: language || 'auto',
             model_provider: provider || '',
             model_name: model || ''
-          });
+          }).catch(cause => console.warn('Failed to track import start:', cause));
         }
 
-        await invoke('start_import_audio_command', {
+        if (isCancelledRef.current || activeImport.current !== owner || !mounted.current) return;
+        owner.submitted = true;
+        owner.submission = invoke('start_import_audio_command', {
           sourcePath,
           title,
           language: language || null,
           model: model || null,
           provider: provider || null,
         });
+        await owner.submission;
       } catch (err: any) {
+        if (activeImport.current !== owner || !mounted.current) return;
+        activeImport.current = null;
+        if (isCancelledRef.current) return;
         setStatus('error');
         const errorMsg = typeof err === 'string' ? err : (err?.message || String(err) || 'Failed to start import');
         setError(errorMsg);
 
-        await Analytics.trackError('import_audio_failed', errorMsg);
+        void Analytics.trackError('import_audio_failed', errorMsg).catch(cause => console.warn('Failed to track import error:', cause));
 
         onErrorRef.current?.(errorMsg);
       }
@@ -246,21 +253,51 @@ export function useImportAudio({
     [fileInfo]
   );
 
-  // Cancel ongoing import
-  const cancelImport = useCallback(async () => {
+  // Cancellation retains admission until the native worker has released its owner.
+  const cancelImport = useCallback((): Promise<void> => {
+    if (cancellation.current) return cancellation.current;
+    const owner = activeImport.current;
+    if (!owner) return Promise.resolve();
     isCancelledRef.current = true;
-    try {
-      await invoke('cancel_import_command');
-      setStatus('idle');
-      setProgress(null);
-    } catch (err: any) {
-      console.error('Failed to cancel import:', err);
-    }
+    setIsCancelling(true);
+    const cancel = async () => {
+      try {
+        if (owner.submitted) {
+          await owner.submission;
+          await invoke('cancel_import_command');
+          const deadline = Date.now() + 30000;
+          while (await invoke<boolean>('is_import_in_progress_command')) {
+            if (Date.now() >= deadline) throw new Error('Import cancellation is still pending. Try cancelling again.');
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }
+        }
+        if (activeImport.current === owner) activeImport.current = null;
+        if (mounted.current) {
+          setStatus('idle');
+          setProgress(null);
+          setError(null);
+        }
+      } catch (cause) {
+        isCancelledRef.current = false;
+        if (mounted.current) {
+          if (!activeImport.current) setStatus('error');
+          setError(`Could not cancel import: ${String(cause)}`);
+        }
+        throw cause;
+      } finally {
+        cancellation.current = null;
+        if (mounted.current) setIsCancelling(false);
+      }
+    };
+    // Deferral lets duplicate same-tick callers observe this shared promise.
+    cancellation.current = Promise.resolve().then(cancel);
+    return cancellation.current;
   }, []);
 
-  // Reset all state
   const reset = useCallback(() => {
-    isCancelledRef.current = false;
+    if (activeImport.current || cancellation.current) return;
+    generation.current++;
+    isCancelledRef.current = true;
     setStatus('idle');
     setFileInfo(null);
     setProgress(null);
@@ -274,6 +311,7 @@ export function useImportAudio({
     error,
     isProcessing: status === 'processing',
     isBusy: status === 'processing' || status === 'validating',
+    isCancelling,
     selectFile,
     validateFile,
     startImport,

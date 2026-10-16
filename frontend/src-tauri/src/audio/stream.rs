@@ -43,7 +43,7 @@ impl AudioStream {
         device: Arc<AudioDevice>,
         state: Arc<RecordingState>,
         device_type: DeviceType,
-        recording_sender: Option<mpsc::UnboundedSender<super::recording_state::AudioChunk>>,
+        recording_sender: Option<crate::audio::queue::PcmSender<super::recording_state::AudioChunk>>,
     ) -> Result<Self> {
         // Get current backend from global config
         let backend_type = get_current_backend();
@@ -55,7 +55,7 @@ impl AudioStream {
         device: Arc<AudioDevice>,
         state: Arc<RecordingState>,
         device_type: DeviceType,
-        recording_sender: Option<mpsc::UnboundedSender<super::recording_state::AudioChunk>>,
+        recording_sender: Option<crate::audio::queue::PcmSender<super::recording_state::AudioChunk>>,
         backend_type: AudioCaptureBackend,
     ) -> Result<Self> {
         info!("🎵 Stream: Creating audio stream for device: {} with backend: {:?}, device_type: {:?}",
@@ -107,12 +107,14 @@ impl AudioStream {
         device: Arc<AudioDevice>,
         state: Arc<RecordingState>,
         device_type: DeviceType,
-        recording_sender: Option<mpsc::UnboundedSender<super::recording_state::AudioChunk>>,
+        recording_sender: Option<crate::audio::queue::PcmSender<super::recording_state::AudioChunk>>,
     ) -> Result<Self> {
+        let runtime=tokio::runtime::Handle::current();
+        tokio::task::spawn_blocking(move || {
         info!("Creating CPAL stream for device: {}", device.name);
 
         // Get the underlying cpal device and config
-        let (cpal_device, config) = get_device_and_config(&device).await?;
+        let (cpal_device, config) = runtime.block_on(get_device_and_config(&device))?;
 
         info!("Audio config - Sample rate: {}, Channels: {}, Format: {:?}",
               config.sample_rate().0, config.channels(), config.sample_format());
@@ -138,6 +140,7 @@ impl AudioStream {
             device,
             backend: StreamBackend::Cpal(stream),
         })
+        }).await.map_err(|e|anyhow::anyhow!("Audio device initialization failed: {e}"))?
     }
 
     /// Create a Core Audio stream (macOS only)
@@ -146,7 +149,7 @@ impl AudioStream {
         device: Arc<AudioDevice>,
         state: Arc<RecordingState>,
         device_type: DeviceType,
-        recording_sender: Option<mpsc::UnboundedSender<super::recording_state::AudioChunk>>,
+        recording_sender: Option<crate::audio::queue::PcmSender<super::recording_state::AudioChunk>>,
     ) -> Result<Self> {
         info!("🔊 Stream: Creating Core Audio stream for device: {}", device.name);
 
@@ -376,7 +379,7 @@ impl AudioStreamManager {
         &mut self,
         microphone_device: Option<Arc<AudioDevice>>,
         system_device: Option<Arc<AudioDevice>>,
-        recording_sender: Option<mpsc::UnboundedSender<super::recording_state::AudioChunk>>,
+        recording_sender: Option<crate::audio::queue::PcmSender<super::recording_state::AudioChunk>>,
     ) -> Result<()> {
         use super::capture::get_current_backend;
         let backend = get_current_backend();

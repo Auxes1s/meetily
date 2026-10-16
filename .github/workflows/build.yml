@@ -43,6 +43,10 @@ on:
         required: false
         type: boolean
         default: false
+      windows-native-smoke:
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -543,7 +547,7 @@ jobs:
           # llama-helper is for LLM inference and works fine on CPU
           Write-Host "Building llama-helper sidecar (CPU-only)..."
 
-          cargo build --release -p llama-helper
+          cargo build --release --locked -p llama-helper
 
           if ($LASTEXITCODE -ne 0) {
             Write-Error "Failed to build llama-helper"
@@ -568,12 +572,15 @@ jobs:
           if [[ "${{ inputs.platform }}" == *"macos"* ]]; then
             LLAMA_FEATURES="--features metal"
             echo "Using Metal GPU acceleration for macOS"
+            # The optional llama HTTPS helper is unused; it is incompatible
+            # with OpenSSL 4 on current Homebrew. Rust downloads the models.
+            export CMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE
           else
             echo "Using CPU-only mode for Linux"
           fi
 
           # Build llama-helper from workspace root
-          cargo build --release -p llama-helper $LLAMA_FEATURES
+          cargo build --release --locked -p llama-helper $LLAMA_FEATURES
 
           # Determine target triple and binary extension
           TARGET="${{ inputs.target }}"
@@ -606,6 +613,8 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT_PUBLIC_MEETILY_LOCAL_BUILD: ${{ startsWith(inputs.asset-prefix, 'meetily-v0-candidate') && '1' || '' }}
+          CMAKE_DISABLE_FIND_PACKAGE_OpenSSL: ${{ contains(inputs.platform, 'macos') && 'TRUE' || '' }}
           APPLE_ID: ${{ inputs.sign-binaries && secrets.APPLE_ID || '' }}
           APPLE_ID_PASSWORD: ${{ inputs.sign-binaries && secrets.APPLE_ID_PASSWORD || '' }}
           APPLE_PASSWORD: ${{ inputs.sign-binaries && secrets.APPLE_PASSWORD || '' }}
@@ -628,6 +637,48 @@ jobs:
           releaseId: ${{ inputs.release-id }}
           args: ${{ inputs.build-args }} ${{ steps.build-features.outputs.features }} ${{ steps.windows-portability.outputs.args }}
 
+      - name: Candidate native application and helper tests
+        if: startsWith(inputs.asset-prefix, 'meetily-v0-candidate')
+        shell: bash
+        env:
+          CMAKE_DISABLE_FIND_PACKAGE_OpenSSL: ${{ runner.os == 'macOS' && 'TRUE' || '' }}
+        run: |
+          cargo test --locked --release -p meetily --lib ${{ steps.build-features.outputs.features }}
+          cargo test --locked --release -p llama-helper
+
+      - name: Install native Windows test drivers
+        if: runner.os == 'Windows' && inputs.windows-native-smoke
+        shell: pwsh
+        run: |
+          cargo install tauri-driver --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo install --git https://github.com/chippers/msedgedriver-tool --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & "$HOME/.cargo/bin/msedgedriver-tool.exe"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $PWD.Path >> $env:GITHUB_PATH
+
+      - name: Verify installed Windows candidate in WebView2
+        if: runner.os == 'Windows' && inputs.windows-native-smoke
+        shell: pwsh
+        run: |
+          $installer = @(Get-ChildItem target/release/bundle/nsis/*-setup.exe)
+          if ($installer.Count -ne 1) { throw 'Expected exactly one NSIS installer' }
+          $destination = Join-Path $env:RUNNER_TEMP 'meetily-v0-installed'
+          $install = Start-Process -FilePath $installer[0].FullName -ArgumentList @('/S', "/D=$destination") -Wait -PassThru
+          if ($install.ExitCode -ne 0) { throw "Installer failed: $($install.ExitCode)" }
+          python scripts/qa/windows-native.py --app "$destination/meetily.exe" --output target/v0-windows-qa
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Retain Windows native verification evidence
+        if: always() && runner.os == 'Windows' && inputs.windows-native-smoke
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.asset-prefix }}-windows-native-evidence
+          path: target/v0-windows-qa
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Upload artifacts (macOS)
         if: inputs.upload-artifacts && contains(inputs.platform, 'macos')
         uses: actions/upload-artifact@v4
@@ -638,6 +689,7 @@ jobs:
             target/${{ inputs.target }}/${{ steps.build-profile.outputs.profile }}/bundle/macos/*.app
             target/${{ inputs.target }}/${{ steps.build-profile.outputs.profile }}/bundle/macos/*.app.tar.gz
             target/${{ inputs.target }}/${{ steps.build-profile.outputs.profile }}/bundle/macos/*.app.tar.gz.sig
+          if-no-files-found: error
           retention-days: 30
 
       - name: Install FUSE for AppImage processing
@@ -712,4 +764,5 @@ jobs:
             target/${{ steps.build-profile.outputs.profile }}/bundle/msi/*.msi.sig
             target/${{ steps.build-profile.outputs.profile }}/bundle/nsis/*.exe
             target/${{ steps.build-profile.outputs.profile }}/bundle/nsis/*.exe.sig
+          if-no-files-found: error
           retention-days: 30

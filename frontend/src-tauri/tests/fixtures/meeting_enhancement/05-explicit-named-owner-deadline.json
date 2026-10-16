@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "id": "fx-05",
+  "category": "explicit-named-owner-deadline",
+  "meeting_id": "e08-fx-05",
+  "template_id": "standard_meeting",
+  "summary_language": "en",
+  "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+  "notes": [
+    {
+      "id": "fx-05-n1",
+      "text": "Priority: retain the exact owner and literal due date for the inventory checklist."
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "fx-05-t1",
+      "text": "We agreed: Ana Cruz will submit the inventory checklist by 20 October 2026.",
+      "audio_start_time": 0.0,
+      "audio_end_time": 9.0,
+      "audio_source": "unknown"
+    }
+  ],
+  "annotations": {
+    "relevant_decisions_actions": [
+      {
+        "id": "fx-05-e1",
+        "kind": "action",
+        "text": "Submit the inventory checklist.",
+        "agreement_status": "agreed",
+        "owner": "Ana Cruz",
+        "deadline": "20 October 2026",
+        "uncertainty": "none",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-05-t1",
+            "excerpt": "We agreed: Ana Cruz will submit the inventory checklist by 20 October 2026."
+          }
+        ]
+      }
+    ],
+    "user_priorities": [
+      {
+        "id": "fx-05-p1",
+        "topic": "inventory checklist",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-05-n1",
+            "excerpt": "Priority: retain the exact owner and literal due date for the inventory checklist."
+          },
+          {
+            "source_id": "transcript:fx-05-t1",
+            "excerpt": "We agreed: Ana Cruz will submit the inventory checklist by 20 October 2026."
+          }
+        ]
+      },
+      {
+        "id": "fx-05-p2",
+        "topic": "exact owner and date",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-05-n1",
+            "excerpt": "Priority: retain the exact owner and literal due date for the inventory checklist."
+          },
+          {
+            "source_id": "transcript:fx-05-t1",
+            "excerpt": "We agreed: Ana Cruz will submit the inventory checklist by 20 October 2026."
+          }
+        ]
+      }
+    ],
+    "forbidden_inferences": [
+      "Changing the owner",
+      "Changing or converting the literal date"
+    ]
+  }
+}

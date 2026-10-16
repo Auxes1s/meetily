@@ -93,7 +93,8 @@ fn load_custom_template(template_id: &str) -> Option<String> {
 /// # Returns
 /// Parsed and validated Template struct
 pub fn get_template(template_id: &str) -> Result<Template, String> {
-    info!("Loading template: {}", template_id);
+    validate_template_id(template_id)?;
+    info!("Loading template definition");
 
     // Try custom template first, then bundled, then built-in
     let json_content = if let Some(custom_content) = load_custom_template(template_id) {
@@ -249,4 +250,26 @@ mod tests {
         let result = validate_and_parse_template("invalid json");
         assert!(result.is_err());
     }
+}
+
+/// Restrict identifiers before any path is constructed.
+pub fn validate_template_id(id: &str) -> Result<(), String> {
+    if id.is_empty() || id.len() > 100 || !id.bytes().all(|c|c.is_ascii_alphanumeric() || c == b'_' || c == b'-') {
+        return Err("Template ID must contain 1-100 letters, digits, underscores or hyphens".into());
+    }
+    Ok(())
+}
+pub fn save_custom_template(id: &str, json: &str) -> Result<Template,String> {
+    use std::io::Write;
+    validate_template_id(id)?;
+    if !id.starts_with("user_") { return Err("Custom template IDs must begin with user_".into()); }
+    if json.len() > 64 * 1024 { return Err("Template exceeds 64 KiB".into()); }
+    let template=validate_and_parse_template(json)?;
+    let dir=get_custom_templates_dir().ok_or("Local template directory is unavailable")?;
+    std::fs::create_dir_all(&dir).map_err(|_|"Cannot create local template directory")?;
+    let mut temp=tempfile::NamedTempFile::new_in(&dir).map_err(|_|"Cannot create template save file")?;
+    temp.write_all(json.as_bytes()).map_err(|_|"Cannot write template")?;
+    temp.as_file().sync_all().map_err(|_|"Cannot flush template")?;
+    temp.persist(dir.join(format!("{id}.json"))).map_err(|_|"Cannot commit local template")?;
+    Ok(template)
 }

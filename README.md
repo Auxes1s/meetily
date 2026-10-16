@@ -1,3 +1,8 @@
+This fork is preparing its first **unsigned v0 preview**. See the
+[release status and installation guide](docs/v0-release.md) for supported targets,
+checks and validation limits. Upstream download links below refer to the original
+project, not this fork's preview.
+
 <div align="center" style="border-bottom: none">
     <h1>
         <img src="docs/Meetily-6.png" style="border-radius: 10px;" />

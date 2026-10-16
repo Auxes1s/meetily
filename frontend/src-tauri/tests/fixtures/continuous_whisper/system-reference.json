@@ -1,0 +1,14 @@
+{
+  "source": "Locally authored synthetic system speech, created before decoder evaluation",
+  "voice": "macOS Samantha",
+  "rate_words_per_minute": 145,
+  "text": "System audio source. Budget budget. The café agenda remains provisional. No vote was taken. The system channel retains its timing. José will read the original notes tomorrow.",
+  "wav_sha256": "52476f2fbc8944e174c8c8e771b4c71a8a4c87fa06d5ef80d6fda9b0a91246ac",
+  "pcm_sha256": "1e0053198d7f567546780332cf49d763b366497953fd4dc4e51302ee35205f30",
+  "seconds": 15.129875,
+  "independent_audio_review": {
+    "status": "pending",
+    "reviewer": null
+  },
+  "purpose": "Distinct source-provenance diagnostic; final silence pads to microphone shared clock"
+}

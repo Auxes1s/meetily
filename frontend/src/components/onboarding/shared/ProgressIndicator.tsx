@@ -30,22 +30,24 @@ export function ProgressIndicator({ current, total, onStepClick }: ProgressIndic
             <React.Fragment key={step}>
               {/* Step Circle */}
               <button
+                aria-label={`Setup step ${step}${isCompleted ? ', completed' : ''}`}
+                aria-current={isActive ? 'step' : undefined}
                 onClick={() => isClickable && onStepClick(step)}
                 disabled={!isClickable}
                 className={`relative flex items-center justify-center transition-all duration-300 ${
                   isCompleted
-                    ? 'w-7 h-7 bg-green-600 rounded-full'
+                    ? 'w-7 h-7 bg-primary rounded-full'
                     : isActive
-                      ? 'w-8 h-8 bg-gray-900 rounded-full'
-                      : 'w-6 h-6 bg-gray-300 rounded-full'
-                } ${isClickable ? 'cursor-pointer hover:scale-110 hover:shadow-md' : 'cursor-default'}`}
+                      ? 'w-8 h-8 bg-primary rounded-full'
+                      : 'w-6 h-6 bg-border rounded-full'
+                } ${isClickable ? 'cursor-pointer hover:opacity-80' : 'cursor-default'} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`}
               >
                 {isCompleted ? (
                   <Check className="w-4 h-4 text-white" />
                 ) : (
                   <StepIcon
                     className={`transition-all duration-300 ${
-                      isActive ? 'w-4 h-4 text-white' : 'w-3 h-3 text-gray-600'
+                      isActive ? 'w-4 h-4 text-white' : 'w-3 h-3 text-muted-foreground'
                     }`}
                   />
                 )}
@@ -55,7 +57,7 @@ export function ProgressIndicator({ current, total, onStepClick }: ProgressIndic
               {index < visibleSteps.length - 1 && (
                 <div
                   className={`h-0.5 w-6 transition-all duration-300 ${
-                    isCompleted ? 'bg-green-600' : 'bg-gray-300'
+                    isCompleted ? 'bg-primary' : 'bg-border'
                   }`}
                 />
               )}

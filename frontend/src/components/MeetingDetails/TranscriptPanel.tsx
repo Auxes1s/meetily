@@ -1,12 +1,17 @@
 "use client";
 
+import { transcriptToSegment } from '@/lib/transcript-audio-source';
+
 import { Transcript, TranscriptSegmentData } from '@/types';
 import { TranscriptView } from '@/components/TranscriptView';
 import { VirtualizedTranscriptView } from '@/components/VirtualizedTranscriptView';
 import { TranscriptButtonGroup } from './TranscriptButtonGroup';
 import { useMemo } from 'react';
 
+import type { LiveTranscriptStore } from '@/lib/live-transcript-store';
+
 interface TranscriptPanelProps {
+  liveStore?: LiveTranscriptStore;
   transcripts: Transcript[];
   customPrompt: string;
   onPromptChange: (value: string) => void;
@@ -32,6 +37,7 @@ interface TranscriptPanelProps {
 
 export function TranscriptPanel({
   transcripts,
+  liveStore,
   customPrompt,
   onPromptChange,
   onCopyTranscript,
@@ -55,19 +61,14 @@ export function TranscriptPanel({
       return segments;
     }
     // Convert transcripts to segments for virtualization
-    return transcripts.map(t => ({
-      id: t.id,
-      timestamp: t.audio_start_time ?? 0,
-      endTime: t.audio_end_time,
-      text: t.text,
-      confidence: t.confidence,
-    }));
+    return transcripts.map(transcriptToSegment);
   }, [transcripts, usePagination, segments]);
 
   return (
-    <div className="flex h-full min-w-0 w-full bg-white flex-col relative @container">
+    <div className="transcript-panel paper-surface relative flex h-full min-h-0 min-w-0 w-full flex-col @container">
       {/* Title area */}
-      <div className="p-4 border-b border-gray-200">
+      <div className="transcript-toolbar glass-surface shrink-0 flex flex-wrap items-center gap-2 border-b border-border p-3">
+        <h2 className="mr-auto px-1 text-sm font-semibold tracking-tight">Transcript</h2>
         <TranscriptButtonGroup
           transcriptCount={usePagination ? (totalCount ?? convertedSegments.length) : (transcripts?.length || 0)}
           onCopyTranscript={onCopyTranscript}
@@ -79,14 +80,15 @@ export function TranscriptPanel({
       </div>
 
       {/* Transcript content - use virtualized view for better performance */}
-      <div className="flex-1 overflow-hidden pb-4">
+      <div className="flex-1 min-h-0 min-w-0 overflow-hidden">
         <VirtualizedTranscriptView
           segments={convertedSegments}
+          liveStore={liveStore}
           isRecording={isRecording}
           isPaused={false}
           isProcessing={false}
           isStopping={false}
-          enableStreaming={false}
+          enableStreaming={isRecording}
           showConfidence={true}
           disableAutoScroll={disableAutoScroll}
           hasMore={hasMore}
@@ -99,10 +101,12 @@ export function TranscriptPanel({
 
       {/* Custom prompt input at bottom of transcript section */}
       {!isRecording && convertedSegments.length > 0 && (
-        <div className="p-1 border-t border-gray-200">
+        <div className="transcript-context shrink-0 border-t border-border bg-muted/20 p-3">
           <textarea
             placeholder="Add context for AI summary. For example people involved, meeting overview, objective etc..."
-            className="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm min-h-[80px] resize-y"
+            aria-label="Context for AI summary"
+            rows={2}
+            className="min-h-12 max-h-32 w-full resize-y rounded-xl border border-input bg-card px-3 py-2.5 text-sm leading-relaxed shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
             value={customPrompt}
             onChange={(e) => onPromptChange(e.target.value)}
           />

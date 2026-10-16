@@ -9,7 +9,7 @@ pub struct MeetingsRepository;
 impl MeetingsRepository {
     pub async fn get_meetings(pool: &SqlitePool) -> Result<Vec<MeetingModel>, sqlx::Error> {
         let meetings =
-            sqlx::query_as::<_, MeetingModel>("SELECT * FROM meetings ORDER BY created_at DESC")
+            sqlx::query_as::<_, MeetingModel>("SELECT * FROM meetings WHERE status <> 'deleting' ORDER BY created_at DESC")
                 .fetch_all(pool)
                 .await?;
         Ok(meetings)
@@ -62,7 +62,7 @@ impl MeetingsRepository {
 
         // Get meeting details
         let meeting: Option<MeetingModel> =
-            sqlx::query_as("SELECT id, title, created_at, updated_at, folder_path FROM meetings WHERE id = ?")
+            sqlx::query_as("SELECT id, title, created_at, updated_at, folder_path, status, recording_session_id FROM meetings WHERE id = ? AND status <> 'deleting'")
                 .bind(meeting_id)
                 .fetch_optional(&mut *transaction)
                 .await?;
@@ -75,7 +75,7 @@ impl MeetingsRepository {
         if let Some(meeting) = meeting {
             // Get all transcripts for this meeting
             let transcripts =
-                sqlx::query_as::<_, Transcript>("SELECT * FROM transcripts WHERE meeting_id = ?")
+                sqlx::query_as::<_, Transcript>("SELECT t.*,COALESCE(s.timeline_offset,0.0) AS timeline_offset FROM transcripts t LEFT JOIN recording_sessions s ON s.id=t.recording_session_id AND s.meeting_id=t.meeting_id WHERE t.meeting_id=? ORDER BY COALESCE(s.ordinal,1),COALESCE(t.audio_start_time,1e99),t.sequence_id,t.id")
                     .bind(meeting_id)
                     .fetch_all(&mut *transaction)
                     .await?;
@@ -89,9 +89,13 @@ impl MeetingsRepository {
                     id: t.id,
                     text: t.transcript,
                     timestamp: t.timestamp,
+                    audio_source: Some(crate::audio::source::AudioSource::from_storage(t.speaker.as_deref())),
                     audio_start_time: t.audio_start_time,
                     audio_end_time: t.audio_end_time,
                     duration: t.duration,
+                    recording_session_id: t.recording_session_id,
+                    sequence_id: t.sequence_id,
+                    timeline_offset: t.timeline_offset,
                 })
                 .collect::<Vec<_>>();
 
@@ -120,7 +124,7 @@ impl MeetingsRepository {
         }
 
         let meeting: Option<MeetingModel> =
-            sqlx::query_as("SELECT id, title, created_at, updated_at, folder_path FROM meetings WHERE id = ?")
+            sqlx::query_as("SELECT id, title, created_at, updated_at, folder_path, status, recording_session_id FROM meetings WHERE id = ? AND status <> 'deleting'")
                 .bind(meeting_id)
                 .fetch_optional(pool)
                 .await?;
@@ -143,7 +147,7 @@ impl MeetingsRepository {
 
         // Get total count of transcripts for this meeting
         let total: (i64,) = sqlx::query_as(
-            "SELECT COUNT(*) FROM transcripts WHERE meeting_id = ?"
+            "SELECT COUNT(*) FROM transcripts WHERE meeting_id = ? AND EXISTS(SELECT 1 FROM meetings WHERE id=transcripts.meeting_id AND status <> 'deleting')"
         )
         .bind(meeting_id)
         .fetch_one(pool)
@@ -151,9 +155,10 @@ impl MeetingsRepository {
 
         // Get paginated transcripts ordered by audio_start_time
         let transcripts = sqlx::query_as::<_, Transcript>(
-            "SELECT * FROM transcripts
-             WHERE meeting_id = ?
-             ORDER BY audio_start_time ASC
+            "SELECT t.*,COALESCE(s.timeline_offset,0.0) AS timeline_offset FROM transcripts t
+             LEFT JOIN recording_sessions s ON s.id=t.recording_session_id AND s.meeting_id=t.meeting_id
+             WHERE t.meeting_id = ? AND EXISTS(SELECT 1 FROM meetings WHERE id=t.meeting_id AND status <> 'deleting')
+             ORDER BY COALESCE(s.ordinal,1),COALESCE(t.audio_start_time,1e99),t.sequence_id,t.id
              LIMIT ? OFFSET ?"
         )
         .bind(meeting_id)

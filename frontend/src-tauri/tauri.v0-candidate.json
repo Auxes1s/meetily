@@ -1,0 +1,15 @@
+{
+  "productName": "Meetily",
+  "version": "0.5.0-rc.1",
+  "bundle": {
+    "createUpdaterArtifacts": false,
+    "windows": {
+      "signCommand": null
+    }
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": []
+    }
+  }
+}

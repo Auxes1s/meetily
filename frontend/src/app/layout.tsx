@@ -8,7 +8,10 @@ import MainContent from '@/components/MainContent'
 import AnalyticsProvider from '@/components/AnalyticsProvider'
 import { Toaster, toast } from 'sonner'
 import "sonner/dist/styles.css"
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, Suspense } from 'react'
+import { MeetingWorkspace } from '@/components/MeetingWorkspace/MeetingWorkspace'
+import { MeetingDataMaintenance } from '@/components/MeetingWorkspace/MeetingDataMaintenance'
+import { RecordingCoordinatorProvider } from '@/contexts/RecordingCoordinatorContext'
 import { listen, UnlistenFn } from '@tauri-apps/api/event'
 import { invoke } from '@tauri-apps/api/core'
 import { TooltipProvider } from '@/components/ui/tooltip'
@@ -25,6 +28,7 @@ import { RecordingPostProcessingProvider } from '@/contexts/RecordingPostProcess
 import { ImportAudioDialog, ImportDropOverlay } from '@/components/ImportAudio'
 import { ImportDialogProvider } from '@/contexts/ImportDialogContext'
 import { isAudioExtension, getAudioFormatsDisplayList } from '@/constants/audioFormats'
+import { MotionConfig } from 'framer-motion'
 
 
 const sourceSans3 = Source_Sans_3({
@@ -70,6 +74,11 @@ export default function RootLayout({
 }) {
   const [showOnboarding, setShowOnboarding] = useState(false)
   const [onboardingCompleted, setOnboardingCompleted] = useState(false)
+  useEffect(() => {
+    if (!showOnboarding) return;
+    const listener = listen('workspace-flush-request', () => { void invoke('confirm_workspace_quit'); });
+    return () => { void listener.then(unlisten => unlisten()); };
+  }, [showOnboarding]);
 
   // Import audio state
   const [showDropOverlay, setShowDropOverlay] = useState(false)
@@ -233,6 +242,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sourceSans3.variable} font-sans antialiased`}>
+        {!showOnboarding && <a href="#meetily-main" className="skip-link">Skip to workspace</a>}
+        <MotionConfig reducedMotion="user">
         <AnalyticsProvider>
           <RecordingStateProvider>
             <TranscriptProvider>
@@ -246,16 +257,19 @@ export default function RootLayout({
                             <ImportDialogProvider onOpen={handleOpenImportDialog}>
                               {/* Download progress toast provider - listens for background downloads */}
                               <DownloadProgressToastProvider />
+                              <RecordingCoordinatorProvider>
 
                               {/* Show onboarding or main app */}
                               {showOnboarding ? (
                                 <OnboardingFlow onComplete={handleOnboardingComplete} />
                               ) : (
-                                <div className="flex">
+                                <div className="app-shell flex h-dvh min-h-0 min-w-0 overflow-hidden">
+                                  <MeetingDataMaintenance />
                                   <Sidebar />
-                                  <MainContent>{children}</MainContent>
+                                  <MainContent><Suspense fallback={<p className="p-6">Opening meeting…</p>}><MeetingWorkspace>{children}</MeetingWorkspace></Suspense></MainContent>
                                 </div>
                               )}
+                              </RecordingCoordinatorProvider>
                               {/* Import audio overlay and dialog */}
                               <ImportDropOverlay visible={showDropOverlay} />
                               <ConditionalImportDialog
@@ -277,6 +291,7 @@ export default function RootLayout({
         </AnalyticsProvider>
 
         <Toaster position="bottom-center" richColors closeButton />
+        </MotionConfig>
       </body>
     </html>
   )

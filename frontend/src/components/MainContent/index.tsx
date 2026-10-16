@@ -12,11 +12,13 @@ const MainContent: React.FC<MainContentProps> = ({ children }) => {
 
   return (
     <main
-      className={`flex-1 min-w-0 overflow-hidden transition-all duration-300 ${
+      id="meetily-main"
+      tabIndex={-1}
+      className={`app-main flex-1 min-h-0 min-w-0 h-full overflow-hidden transition-[margin] duration-200 ${
         isCollapsed ? 'ml-16' : 'ml-64'
       }`}
     >
-      <div className="pl-8 min-w-0 w-full max-w-full overflow-hidden">
+      <div className="min-h-0 min-w-0 h-full w-full max-w-full overflow-hidden">
         {children}
       </div>
     </main>

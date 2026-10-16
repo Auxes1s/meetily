@@ -18,6 +18,7 @@ import {
   readCachedDetectedSummaryLanguage,
 } from '@/lib/summary-language-preferences';
 import { parseSummaryContent, readSummaryMetadata } from '@/lib/summary-content';
+import { flushWorkspaceDocuments } from '@/lib/workspace-save';
 
 async function resolveSummaryLanguage(
   meetingId: string,
@@ -100,6 +101,8 @@ export function useSummaryGeneration({
       ? restored?.error || 'Summary generation failed. Please retry.'
       : null,
   );
+  const [generationProgress, setGenerationProgress] = useState(restored?.generation_progress ?? null);
+  const retryVersionRef = useRef<string | null>(restored?.status === 'failed' ? restored.start : null);
   const mountedRef = useRef(true);
   const visibleMeetingIdRef = useRef(meeting.id);
   visibleMeetingIdRef.current = meeting.id;
@@ -115,6 +118,9 @@ export function useSummaryGeneration({
   const { startSummaryPolling, stopSummaryPolling } = useSidebar();
 
   const getSummaryStatusMessage = useCallback((status: SummaryStatus) => {
+    if (generationProgress && ['processing', 'summarizing', 'regenerating'].includes(status)) {
+      return `Generating summary: ${generationProgress.completed_chunks} of ${generationProgress.total_chunks} parts complete`;
+    }
     switch (status) {
       case 'processing':
         return 'Processing transcript...';
@@ -129,7 +135,7 @@ export function useSummaryGeneration({
       default:
         return '';
     }
-  }, []);
+  }, [generationProgress]);
 
   const finishGeneration = useCallback(async (
     generationId: number,
@@ -140,6 +146,7 @@ export function useSummaryGeneration({
       return;
     }
     attempt.finished = true;
+    if (typeof window !== 'undefined') window.dispatchEvent?.(new Event('meeting-data-changed'));
     await Analytics.trackSummaryGenerationCompleted(
       attempt.provider,
       attempt.model,
@@ -174,6 +181,10 @@ export function useSummaryGeneration({
   ) => {
     if (!mountedRef.current || visibleMeetingIdRef.current !== meeting.id || generationId !== generationIdRef.current) {
       return;
+    }
+    setGenerationProgress(pollingResult.generation_progress ?? null);
+    if (['failed', 'error', 'cancelled'].includes(pollingResult.status)) {
+      retryVersionRef.current = pollingResult.start;
     }
     if (pollingResult.status === 'cancelled') {
       let existing: SummaryProcessResponse;
@@ -221,7 +232,7 @@ export function useSummaryGeneration({
         if (restoredSummary) {
           setAiSummary(restoredSummary);
           setSummaryStatus('completed');
-          setSummaryError(null);
+          setSummaryError(errorMessage);
           toast.error('Failed to regenerate summary', {
             description: `${errorMessage}. Your previous summary has been restored.`,
           });
@@ -291,6 +302,8 @@ export function useSummaryGeneration({
   useEffect(() => {
     if (!initialSummary || initialSummary.meeting_id !== meeting.id) return;
     const status = restoredSummaryStatus(initialSummary);
+    setGenerationProgress(initialSummary.generation_progress ?? null);
+    retryVersionRef.current = ['failed', 'cancelled', 'error'].includes(initialSummary.status) ? initialSummary.start : null;
     setSummaryStatus(status);
     setSummaryError(status === 'error'
       ? initialSummary.error || 'Summary generation failed. Please retry.'
@@ -324,12 +337,11 @@ export function useSummaryGeneration({
     activeProcessIdRef.current = null;
     setSummaryStatus(isRegeneration ? 'regenerating' : 'processing');
     setSummaryError(null);
+    setGenerationProgress(null);
 
     try {
-      if (!transcriptText.trim()) {
-        await failGeneration(generationId, isRegeneration, 'No transcript text available. Please add some text first.', 'empty_result');
-        return;
-      }
+      await flushWorkspaceDocuments();
+
 
       const timeSinceRecording = (Date.now() - new Date(meeting.created_at).getTime()) / 60000;
       trackedAttemptRef.current = {
@@ -371,8 +383,10 @@ export function useSummaryGeneration({
         customPrompt,
         templateId: selectedTemplate,
         summaryLanguage,
+        ...(retryVersionRef.current ? { retryOfVersionId: retryVersionRef.current } : {}),
       });
       const processId = result.process_id;
+      if (typeof window !== 'undefined') window.dispatchEvent?.(new Event('meeting-data-changed'));
       if (!mountedRef.current || visibleMeetingIdRef.current !== meeting.id) return;
       if (generationId !== generationIdRef.current) {
         await invokeTauri('api_cancel_summary', { meetingId: meeting.id, processId }).catch(() => {});
@@ -462,10 +476,6 @@ export function useSummaryGeneration({
       return;
     }
     const allTranscripts = await fetchAllTranscripts(meeting.id);
-    if (!allTranscripts.length) {
-      showPreflightError('No transcripts available for summary');
-      return;
-    }
 
     try {
       if (modelConfig.provider === 'ollama') {
@@ -518,12 +528,6 @@ export function useSummaryGeneration({
   const handleRegenerateSummary = useCallback(async () => {
     const allTranscripts = await fetchAllTranscripts(meeting.id);
 
-    if (!allTranscripts.length) {
-      console.error('No transcripts available for regeneration');
-      toast.error('No transcripts available for summary regeneration');
-      return;
-    }
-
     await processSummary({
       ...buildSummaryTranscriptPayload(allTranscripts),
       isRegeneration: true
@@ -556,6 +560,7 @@ export function useSummaryGeneration({
         return;
       }
       if (result.cancelled) {
+        retryVersionRef.current = processId;
         generationIdRef.current += 1;
         activeProcessIdRef.current = null;
         stopSummaryPolling(meeting.id, processId);

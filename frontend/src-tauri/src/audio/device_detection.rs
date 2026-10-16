@@ -439,9 +439,16 @@ mod tests {
     }
 
     #[test]
-    fn test_builtin_mic_detection() {
-        let kind = InputDeviceKind::detect("MacBook Pro Microphone", 0, 0);
-        // Should fall through to Unknown (no Bluetooth pattern, no buffer size)
+    fn test_builtin_mic_name_has_no_cross_platform_transport_hint() {
+        // Core Audio can correctly return Wired for a real built-in device.
+        // Name-only heuristics have no MacBook transport rule; test that layer
+        // directly instead of depending on the host's physical device list.
+        assert_eq!(InputDeviceKind::detect_by_name("MacBook Pro Microphone"), None);
+    }
+
+    #[test]
+    fn test_unknown_device_without_timing_uses_conservative_fallback() {
+        let kind = InputDeviceKind::detect("Meetily synthetic unrecognized input", 0, 0);
         assert_eq!(kind, InputDeviceKind::Unknown);
     }
 
