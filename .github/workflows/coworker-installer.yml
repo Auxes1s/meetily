@@ -1,0 +1,20 @@
+name: Coworker Windows installer
+
+on:
+  push:
+    branches: [build/coworker-installer-20261020]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  installer:
+    uses: ./.github/workflows/build.yml
+    with:
+      platform: windows-2022
+      target: x86_64-pc-windows-msvc
+      build-args: --config src-tauri/tauri.coworker.conf.json --bundles nsis
+      sign-binaries: false
+      upload-artifacts: true
+      asset-prefix: meetily-coworker
