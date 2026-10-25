@@ -39,6 +39,7 @@ export interface ModelDownloadCompletePayload {
  * Singleton service for managing transcription operations and transcript history
  */
 export class TranscriptService {
+  private statusRequest: Promise<TranscriptionStatus> | null = null;
   /**
    * Get transcript history from backend (for reload sync)
    * @returns Promise<Transcript[]>
@@ -51,8 +52,10 @@ export class TranscriptService {
    * Get current transcription queue status
    * @returns Promise with transcription status
    */
-  async getTranscriptionStatus(): Promise<TranscriptionStatus> {
-    return invoke<TranscriptionStatus>('get_transcription_status');
+  getTranscriptionStatus(): Promise<TranscriptionStatus> {
+    this.statusRequest ??= invoke<TranscriptionStatus>('get_transcription_status')
+      .finally(() => { this.statusRequest = null; });
+    return this.statusRequest;
   }
 
   // Event Listeners

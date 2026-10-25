@@ -1,16 +1,20 @@
 'use client';
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { MeetingNotesPanel } from './MeetingNotesPanel';
-import { EnhancementPanel } from './EnhancementPanel';
 import { flushAllEnhancements } from '@/lib/enhancement-session';
 import { noteSessions } from '@/lib/meeting-notes-session';
 import { MeetingExportButton } from './MeetingExportButton';
 
+const EnhancementPanel = dynamic(() => import('./EnhancementPanel').then(module => module.EnhancementPanel), { ssr: false, loading: () => <p className="p-4">Loading enhanced notes…</p> });
+
 export function MeetingDocuments({ meetingId, onCopyDraft }: { meetingId: string; onCopyDraft: () => Promise<void> }) {
   const params = useSearchParams();
   const [tab, setTab] = useState(['approved', 'enhanced'].includes(params.get('source') ?? '') ? 'enhanced' : 'original');
+  const [enhancedOpened, setEnhancedOpened] = useState(tab === 'enhanced');
+  useEffect(() => { if (tab === 'enhanced') setEnhancedOpened(true); }, [tab]);
   const [error, setError] = useState<string | null>(null);
   const [switching, setSwitching] = useState(false);
   const owner = useRef(0);
@@ -55,6 +59,6 @@ export function MeetingDocuments({ meetingId, onCopyDraft }: { meetingId: string
       {error && <p role="alert" className="text-sm text-red-700">{error} Unsaved edits are retained.</p>}
     </div>
     <div id="original-notes" role="tabpanel" aria-labelledby="original-notes-tab" hidden={tab !== 'original'} className="flex-1 min-h-0 min-w-0"><MeetingNotesPanel meetingId={meetingId} onCopyDraft={onCopyDraft} /></div>
-    <div id="enhanced-notes" role="tabpanel" aria-labelledby="enhanced-notes-tab" hidden={tab !== 'enhanced'} className="flex-1 min-h-0 min-w-0"><EnhancementPanel key={meetingId} meetingId={meetingId} /></div>
+    <div id="enhanced-notes" role="tabpanel" aria-labelledby="enhanced-notes-tab" hidden={tab !== 'enhanced'} className="flex-1 min-h-0 min-w-0">{(enhancedOpened || tab === 'enhanced') && <EnhancementPanel key={meetingId} meetingId={meetingId} />}</div>
   </div>;
 }

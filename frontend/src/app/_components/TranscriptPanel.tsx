@@ -6,7 +6,7 @@ import { ButtonGroup } from '@/components/ui/button-group';
 import { Copy, GlobeIcon } from 'lucide-react';
 import { useTranscriptRows } from '@/contexts/TranscriptContext';
 import { useConfig } from '@/contexts/ConfigContext';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
 import { usePermissionCheck } from '@/hooks/usePermissionCheck';
 import { ModalType } from '@/hooks/useModalState';
 import { useIsLinux } from '@/hooks/usePlatform';
@@ -34,7 +34,7 @@ export function TranscriptPanel({
   // Contexts
   const { ids, store, transcriptContainerRef, copyTranscript } = useTranscriptRows();
   const { transcriptModelConfig } = useConfig();
-  const { isRecording, isPaused } = useRecordingState();
+  const { isRecording, isPaused } = useRecordingControls();
   const { checkPermissions, isChecking, hasSystemAudio, hasMicrophone } = usePermissionCheck();
   const isLinux = useIsLinux();
 

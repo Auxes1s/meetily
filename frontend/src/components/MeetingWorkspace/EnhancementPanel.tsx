@@ -7,9 +7,9 @@ import { useSearchParams } from 'next/navigation';
 import type { Block } from '@blocknote/core';
 import { Button } from '@/components/ui/button';
 import { useConfig } from '@/contexts/ConfigContext';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
 import { loadNotesSession } from '@/hooks/useMeetingNotes';
-import { MeetingNotesSession } from '@/lib/meeting-notes-session';
+import { MeetingNotesSession, pruneDocumentSessions } from '@/lib/meeting-notes-session';
 import { createEnhancementSession, enhancementSessions } from '@/lib/enhancement-session';
 import { enhancementMarkdown, parseEnhancementDocument, type EnhancementDocument, type EnhancementVersion, type GenerationProgress, type MeetingEnhancements } from '@/types/enhancement';
 import { readMeetingSummaryLanguage } from '@/lib/summary-language-preferences';
@@ -27,6 +27,7 @@ function VersionEditor({ version, locked, onReload, onEdited }: { version: Enhan
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     let stale = false;
+    let release: (() => void) | undefined;
     const load = async () => {
       if (isMeetingDeletionBlocked(version.meeting_id)) return;
       let entry = enhancementSessions.get(version.id);
@@ -48,10 +49,10 @@ function VersionEditor({ version, locked, onReload, onEdited }: { version: Enhan
           enhancementSessions.set(version.id, entry);
         }
       }
-      if (!stale) setSession(entry.session);
+      if (!stale) { release = entry.session.retain(); setSession(entry.session); pruneDocumentSessions(enhancementSessions, entry => entry.session, version.id); }
     };
     void load().catch(error => { if (!stale) setError(message(error)); });
-    return () => { stale = true; };
+    return () => { stale = true; release?.(); queueMicrotask(() => pruneDocumentSessions(enhancementSessions, entry => entry.session)); };
   }, [version.id, version.meeting_id]);
   const snapshot = useSyncExternalStore(session?.subscribe ?? (() => () => {}), session?.getSnapshot ?? (() => null), () => null);
   useEffect(() => { if (snapshot && snapshot.status !== 'Saved') onEdited(version.id); }, [snapshot?.status, version.id, onEdited]);
@@ -74,10 +75,12 @@ export function EnhancementPanel({ meetingId }: { meetingId: string }) {
   const params = useSearchParams();
   const requestedVersion = params.get('source') === 'approved' ? params.get('sourceId') : null;
   const { modelConfig, isModelConfigLoading } = useConfig();
-  const recording = useRecordingState();
+  const recording = useRecordingControls();
   const [progress, setProgress] = useState<Record<string, GenerationProgress | null>>({});
   const [record, setRecord] = useState<MeetingEnhancements | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [detail, setDetail] = useState<EnhancementVersion | null>(null);
+  const [historyLoading, setHistoryLoading] = useState(false);
   const [templates, setTemplates] = useState<Array<{ id: string; name: string }>>([]);
   const [templateId, setTemplateId] = useState('standard_meeting');
   const [instructions, setInstructions] = useState('');
@@ -90,16 +93,17 @@ export function EnhancementPanel({ meetingId }: { meetingId: string }) {
   const [editedIds, setEditedIds] = useState(new Set<string>());
   const markEdited = useCallback((id: string) => setEditedIds(ids => ids.has(id) ? ids : new Set([...ids, id])), []);
   const owner = useRef(0);
+  const refreshRequest = useRef(0);
   const actionInFlight = useRef(false);
   const settingsLoaded = useRef<string | null>(null);
   const valid = record?.meeting_id === meetingId ? record : null;
   const refresh = useCallback(async () => {
     const epoch = owner.current;
-    const data = await invoke<MeetingEnhancements>('api_get_meeting_enhancements', { meetingId });
-    if (epoch !== owner.current || data.meeting_id !== meetingId) return;
+    const request = ++refreshRequest.current;
+    const data = await invoke<MeetingEnhancements>('api_get_meeting_enhancements', { meetingId, metadataOnly: true });
+    if (epoch !== owner.current || request !== refreshRequest.current || data.meeting_id !== meetingId) return;
     setRecord(data);
-    setSelected(previous => previous && data.versions.some(version => version.id === previous)
-      ? previous : data.versions.find(version => version.id === requestedVersion)?.id ?? data.approved_version_id ?? data.versions.find(version => version.state === 'candidate')?.id ?? data.versions[0]?.id ?? null);
+    setSelected(previous => previous ?? requestedVersion ?? data.approved_version_id ?? data.versions.find(version => version.state === 'candidate')?.id ?? data.versions[0]?.id ?? null);
     if (settingsLoaded.current !== meetingId) {
       settingsLoaded.current = meetingId;
       setTemplateId(data.settings.template_id);
@@ -113,7 +117,7 @@ export function EnhancementPanel({ meetingId }: { meetingId: string }) {
   useEffect(() => {
     owner.current++;
     settingsLoaded.current = null;
-    setRecord(null); setSelected(null); setError(null); setRemote(null);
+    setRecord(null); setSelected(null); setDetail(null); setHistoryLoading(false); setError(null); setRemote(null);
     void refresh().catch(error => setError(message(error)));
     void fetchTemplates().catch(error => setError(message(error)));
     return () => { owner.current++; };
@@ -123,6 +127,7 @@ export function EnhancementPanel({ meetingId }: { meetingId: string }) {
     const committed = (event: Event) => {
       const detail = (event as CustomEvent<{ meetingId: string; versionId: string; document: EnhancementDocument; revision: number; updatedAt: string }>).detail;
       if (detail.meetingId !== meetingId || isMeetingDeletionBlocked(meetingId)) return;
+      setDetail(version => version?.id === detail.versionId ? { ...version, document_json: JSON.stringify(detail.document), revision: detail.revision, updated_at: detail.updatedAt } : version);
       setRecord(record => record ? { ...record, versions: record.versions.map(version => version.id === detail.versionId ? {
         ...version, document_json: JSON.stringify(detail.document), revision: detail.revision, updated_at: detail.updatedAt,
       } : version) } : record);
@@ -147,7 +152,37 @@ export function EnhancementPanel({ meetingId }: { meetingId: string }) {
     }, 1500);
     return () => { alive = false; clearInterval(interval); };
   }, [generatingIds, meetingId, refresh]);
-  const current = valid?.versions.find(version => version.id === selected);
+  const summary = valid?.versions.find(version => version.id === selected);
+  const current = summary?.document_json != null ? summary
+    : detail?.meeting_id === meetingId && detail.id === selected && (!summary || (detail.revision === summary.revision && detail.state === summary.state && detail.status === summary.status && detail.updated_at === summary.updated_at))
+      ? { ...detail, source_stale: summary?.source_stale ?? detail.source_stale } : summary;
+  useEffect(() => {
+    if (!valid || !selected || summary?.document_json != null || (detail?.id === selected && detail.revision === summary?.revision && detail.state === summary.state && detail.status === summary.status && detail.updated_at === summary.updated_at)) return;
+    let alive = true;
+    void invoke<EnhancementVersion>('api_get_enhancement_version', { meetingId, versionId: selected }).then(version => {
+      if (!alive || version.meeting_id !== meetingId || version.id !== selected || isMeetingDeletionBlocked(meetingId)) return;
+      setDetail(version);
+      // A deep link or approved version can be older than the first history page.
+      setRecord(record => !record || record.meeting_id !== meetingId || record.versions.some(item => item.id === version.id) ? record : {
+        ...record, versions: [...record.versions, { ...version, document_json: null, source_snapshot_json: null }],
+      });
+    }).catch(error => { if (alive) setError(message(error)); });
+    return () => { alive = false; };
+  }, [meetingId, selected, !!valid, summary?.document_json, summary?.revision, summary?.state, summary?.status, summary?.updated_at, detail?.id, detail?.revision, detail?.state, detail?.status, detail?.updated_at]);
+  const loadHistory = async () => {
+    if (!valid?.next_cursor || historyLoading) return;
+    const epoch = owner.current;
+    setHistoryLoading(true);
+    try {
+      const page = await invoke<MeetingEnhancements>('api_get_meeting_enhancements', { meetingId, metadataOnly: true, cursor: valid.next_cursor });
+      if (epoch !== owner.current || page.meeting_id !== meetingId) return;
+      setRecord(record => record?.meeting_id === meetingId ? {
+        ...record, next_cursor: page.next_cursor,
+        versions: [...record.versions, ...page.versions.filter(version => !record.versions.some(previous => previous.id === version.id))],
+      } : record);
+    } catch (error) { if (epoch === owner.current) setError(message(error)); }
+    finally { if (epoch === owner.current) setHistoryLoading(false); }
+  };
   useEffect(() => {
     if (!current || current.status === 'generating') return;
     let alive = true;
@@ -169,6 +204,19 @@ export function EnhancementPanel({ meetingId }: { meetingId: string }) {
     if (current) await enhancementSessions.get(current.id)?.session.flush();
     return current ? enhancementSessions.get(current.id)?.session.getSnapshot().revision ?? current.revision : 0;
   };
+  const reloadVersion = () => action(async () => {
+    if (!current) return;
+    const epoch = owner.current;
+    const version = await invoke<EnhancementVersion>('api_get_enhancement_version', { meetingId, versionId: current.id });
+    if (epoch !== owner.current || version.meeting_id !== meetingId || version.id !== current.id || isMeetingDeletionBlocked(meetingId)) return;
+    // Load the authoritative body before replacing a conflicted local session.
+    setDetail(version);
+    setRecord(record => record?.meeting_id === meetingId ? { ...record, versions: record.versions.map(item => item.id === version.id ? { ...version, document_json: null, source_snapshot_json: null } : item) } : record);
+    enhancementSessions.get(version.id)?.session.dispose();
+    enhancementSessions.delete(version.id);
+    setEditedIds(ids => { const next = new Set(ids); next.delete(version.id); return next; });
+    setEditorEpoch(value => value + 1);
+  });
   const generate = (remoteDestination?: string) => action(async () => {
     if (!valid) throw new Error('Meeting enhancement settings have not loaded.');
     await flushAllLegacySummaries();
@@ -210,6 +258,7 @@ export function EnhancementPanel({ meetingId }: { meetingId: string }) {
     </div>
     {valid?.versions.length ? <div className="space-y-3 border-b border-border p-4 sm:px-5">
       <label className="text-sm font-medium">Document version<select disabled={busy} className={field} value={selected ?? ''} onChange={event => { const id = event.target.value; void action(async () => { await flushVersion(); setSelected(id); }); }}>{valid.versions.map(version => <option key={version.id} value={version.id}>{version.state} · {version.status} · {new Date(version.created_at).toLocaleString()}</option>)}</select></label>
+      {valid.next_cursor && <Button size="sm" variant="outline" disabled={historyLoading} onClick={() => { void loadHistory(); }}>{historyLoading ? 'Loading history…' : 'Load older versions'}</Button>}
       {current?.source_stale && <p className="text-sm text-amber-800">This version uses an earlier source revision. Review the changes or generate another candidate.</p>}
       {current && progress[current.id] && <p role="status" className="text-sm text-muted-foreground">{progress[current.id]!.completed_chunks} of {progress[current.id]!.total_chunks} parts complete.{progress[current.id]!.retryable ? ' Retry reuses completed work when sources and settings match.' : ''}</p>}
       {current?.error && <p role="alert" className="text-sm text-red-700">{current.error}</p>}
@@ -223,7 +272,7 @@ export function EnhancementPanel({ meetingId }: { meetingId: string }) {
       </div>
     </div> : <p className="m-4 rounded-xl border border-dashed border-border bg-muted/20 p-5 text-sm leading-relaxed text-muted-foreground">No enhanced versions yet. Notes-only meetings can also be enhanced.</p>}
     {inspectSources && showClaims && document?.claims && current && <ClaimSourcePanel key={current.id} meetingId={meetingId} claims={document.claims} snapshotJson={current.source_snapshot_json} />}
-    {current?.document_json && <VersionEditor key={`${current.id}:${current.state}:${editorEpoch}`} version={current} locked={busy} onEdited={markEdited} onReload={() => { void action(async () => { await refresh(); enhancementSessions.get(current.id)?.session.dispose(); enhancementSessions.delete(current.id); setEditedIds(ids => { const next = new Set(ids); next.delete(current.id); return next; }); setEditorEpoch(value => value + 1); }); }} />}
+    {current?.document_json && <VersionEditor key={`${current.id}:${current.state}:${editorEpoch}`} version={current} locked={busy} onEdited={markEdited} onReload={() => { void reloadVersion(); }} />}
     {current?.status === 'generating' && <p role="status" className="p-5 text-sm text-muted-foreground">Generating a separate candidate… Original notes remain editable.</p>}
   </section>;
 }

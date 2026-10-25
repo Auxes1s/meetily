@@ -11,7 +11,7 @@ interface EditorProps {
   initialContent?: Block[];
   onChange?: (blocks: Block[]) => void;
   editable?: boolean;
-  onReady?: (editor: BlockNoteEditor) => void;
+  onReady?: (editor: BlockNoteEditor) => void | (() => void);
   onMarkerClick?: (id: string) => void;
 }
 
@@ -19,7 +19,7 @@ export default function Editor({ initialContent, onChange, editable = true, onRe
   const editor = useCreateBlockNote({
     initialContent: initialContent?.length ? initialContent as PartialBlock[] : undefined,
   });
-  useEffect(() => { onReady?.(editor); }, [editor, onReady]);
+  useEffect(() => onReady?.(editor), [editor, onReady]);
 
   // Handle content changes
   useEffect(() => {

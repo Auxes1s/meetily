@@ -40,6 +40,7 @@ export interface MeetingEnhancements {
   approved_version_id: string | null;
   settings: EnhancementSettings;
   versions: EnhancementVersion[];
+  next_cursor?: string | null;
 }
 
 /** Older summaries may be JSON encoded twice; never silently replace malformed data. */

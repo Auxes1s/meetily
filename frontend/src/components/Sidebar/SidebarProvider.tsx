@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Analytics from '@/lib/analytics';
 import { invoke } from '@tauri-apps/api/core';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
 import type { SummaryProcessResponse } from '@/types';
 import type { LibraryPage, LibrarySourceHit } from '@/types/meeting-library';
 
@@ -99,7 +99,7 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const searchRequest = React.useRef(0);
 
   // Use recording state from RecordingStateContext (single source of truth)
-  const { isRecording } = useRecordingState();
+  const { isRecording } = useRecordingControls();
 
   const pathname = usePathname();
   const router = useRouter();
@@ -108,7 +108,7 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const fetchMeetings = React.useCallback(async () => {
     if (serverAddress) {
       try {
-        const meetings = await invoke('api_get_meetings') as Array<{ id: string, title: string }>;
+        const meetings = await invoke('api_get_meetings', { limit: 50 }) as Array<{ id: string, title: string }>;
         const transformedMeetings = meetings.map((meeting: any) => ({
           id: meeting.id,
           title: meeting.title
@@ -135,13 +135,15 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
     fetchSettings();
   }, []);
 
+  const visibleMeetings = currentMeeting && currentMeeting.id !== 'intro-call' && !meetings.some(meeting => meeting.id === currentMeeting.id)
+    ? [currentMeeting, ...meetings] : meetings;
   const baseItems: SidebarItem[] = [
     {
       id: 'meetings',
       title: 'Meeting Notes',
       type: 'folder' as const,
       children: [
-        ...meetings.map(meeting => ({ id: meeting.id, title: meeting.title, type: 'file' as const }))
+        ...visibleMeetings.map(meeting => ({ id: meeting.id, title: meeting.title, type: 'file' as const }))
       ]
     },
   ];
@@ -162,7 +164,7 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   // Update sidebar items when meetings change
   useEffect(() => {
     setSidebarItems(baseItems);
-  }, [meetings]);
+  }, [meetings, currentMeeting]);
 
   // Function to handle recording toggle from sidebar
   const handleRecordingToggle = () => {

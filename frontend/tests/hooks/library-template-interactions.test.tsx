@@ -38,7 +38,7 @@ mock.module('../../src/services/meetingDeletionService', () => ({ ...originals.d
   meetingDeletionService: { listPending: () => pendingRead?.promise ?? Promise.resolve(pending), retry: (jobId: string) => { const reply = deferred<DeletionStatus>(); retries.push({ jobId, reply }); return reply.promise; } },
 }));
 mock.module('../../src/hooks/useMeetingLibrary', () => ({ useMeetingLibrary: () => ({ page, loading: false, error: null, refresh }) }));
-mock.module('../../src/contexts/RecordingStateContext', () => ({ ...originals.recording, useRecordingState: () => ({ isRecording: false }) }));
+mock.module('../../src/contexts/RecordingStateContext', () => ({ ...originals.recording, useRecordingControls: () => ({ isRecording: false }), useRecordingState: () => ({ isRecording: false }) }));
 const container = ({ children }: any) => <div>{children}</div>;
 mock.module('../../src/components/ui/dialog', () => ({
   Dialog: ({ open, children, onOpenChange }: any) => open ? <div data-dialog>{children}</div> : null,

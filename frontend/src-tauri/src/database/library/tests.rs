@@ -25,6 +25,37 @@ async fn search(pool: &SqlitePool, query: &str) -> LibraryPage {
     search_meetings(pool, LibrarySearchRequest { query: query.into(), ..Default::default() }).await.unwrap()
 }
 
+#[tokio::test]
+#[ignore = "200000-source synthetic search benchmark; no production database"]
+async fn enrichment_performance_benchmark() {
+    let pool = fixture().await;
+    sqlx::raw_sql("WITH RECURSIVE n(i) AS (VALUES(0) UNION ALL SELECT i+1 FROM n WHERE i<9999)
+        INSERT INTO meetings(id,title,created_at,updated_at) SELECT printf('m-%05d',i),'Synthetic meeting','2026-10-25','2026-10-25' FROM n;
+        WITH RECURSIVE n(i) AS (VALUES(0) UNION ALL SELECT i+1 FROM n WHERE i<19)
+        INSERT INTO transcripts SELECT m.id||'-'||n.i,m.id,'Synthetic agenda decision and next steps. Synthetic agenda decision and next steps.',n.i*5,n.i*5+4 FROM meetings m CROSS JOIN n;
+        INSERT INTO meeting_search_sources(meeting_id,source_kind,source_id,text_content,audio_start_time,audio_end_time) SELECT meeting_id,'transcript',id,transcript,audio_start_time,audio_end_time FROM transcripts;")
+        .execute(&pool).await.unwrap();
+    let page = search(&pool,"agenda").await;
+    let mut before = Vec::new(); let mut after = Vec::new();
+    for _ in 0..11 {
+        let start = std::time::Instant::now();
+        for meeting in &page.meetings {
+            let legacy: Vec<LibrarySourceHit> = sqlx::query_as("SELECT s.source_kind,s.source_id,s.revision,snippet(meeting_search_fts,0,'','',' … ',40) AS snippet,s.audio_start_time,s.audio_end_time FROM meeting_search_fts JOIN meeting_search_sources s ON s.id=meeting_search_fts.rowid WHERE meeting_search_fts MATCH ? AND s.meeting_id=? ORDER BY CASE s.source_kind WHEN 'title' THEN 0 WHEN 'original' THEN 1 WHEN 'approved' THEN 2 ELSE 3 END,s.audio_start_time,s.id LIMIT 8")
+                .bind("\"agenda\"").bind(&meeting.id).fetch_all(&pool).await.unwrap();
+            assert_eq!(serde_json::to_value(legacy).unwrap(),serde_json::to_value(&meeting.hits).unwrap());
+        }
+        before.push(start.elapsed().as_secs_f64()*1000.);
+        let mut meetings = page.meetings.clone();
+        for meeting in &mut meetings { meeting.hits.clear(); meeting.tags.clear(); meeting.participants.clear(); }
+        let start = std::time::Instant::now();
+        let mut tx = pool.begin().await.unwrap();
+        enrich_page(&mut tx,&mut meetings,Some("\"agenda\"")).await.unwrap(); tx.commit().await.unwrap();
+        after.push(start.elapsed().as_secs_f64()*1000.);
+    }
+    before.sort_by(f64::total_cmp); after.sort_by(f64::total_cmp);
+    println!("200000 sources / 30 results: legacy snippet p50={:.3}ms p95={:.3}ms; batched enrichment p50={:.3}ms p95={:.3}ms",before[5],before[10],after[5],after[10]);
+}
+
 #[test]
 fn query_compiler_quotes_operator_words_punctuation_unicode_and_bounds() {
     assert_eq!(compile_query("OR 技術 \"technical-consultation\" O'Brien").unwrap(), vec!["\"OR\"", "\"技術\"", "\"technical-consultation\"", "\"O'Brien\""]);
@@ -51,6 +82,31 @@ async fn linked_fts_probe_searches_unicode_cross_sources_and_literal_operators()
     assert_eq!(search(&pool, "\"technical-consultation\"").await.meetings[0].hits[0].source_id, "t1");
     assert!(search(&pool, "\"OR plan\"").await.meetings[0].hits[0].snippet.contains("技術"));
     assert!(search_meetings(&pool, LibrarySearchRequest { query: "***".into(), ..Default::default() }).await.is_err());
+}
+
+#[tokio::test]
+async fn batched_enrichment_matches_per_meeting_hits_and_keeps_metadata_separate() {
+    let pool = fixture().await;
+    for id in ["a", "b", "c"] {
+        meeting(&pool, id, "common title", "2026-10-13T00:00:00Z").await;
+        update_metadata(&pool, id, vec![format!("{id} person")], vec![format!("{id} tag")]).await.unwrap();
+        for i in 0..15 {
+            sqlx::query("INSERT INTO transcripts VALUES (?, ?, ?, ?, ?)")
+                .bind(format!("{id}-{i}")).bind(id).bind(format!("common résumé passage {i}"))
+                .bind(i as f64).bind(i as f64 + 1.).execute(&pool).await.unwrap();
+        }
+    }
+    sync_search_index(&pool, 25).await.unwrap();
+    let page = search(&pool, "common résumé").await;
+    assert_eq!(page.meetings.len(), 3);
+    for meeting in page.meetings {
+        assert_eq!(meeting.participants, vec![format!("{} person", meeting.id)]);
+        assert_eq!(meeting.tags, vec![format!("{} tag", meeting.id)]);
+        let legacy: Vec<LibrarySourceHit> = sqlx::query_as("SELECT s.source_kind, s.source_id, s.revision, snippet(meeting_search_fts, 0, '', '', ' … ', 40) AS snippet, s.audio_start_time, s.audio_end_time FROM meeting_search_fts JOIN meeting_search_sources s ON s.id = meeting_search_fts.rowid WHERE meeting_search_fts MATCH ? AND s.meeting_id = ? ORDER BY CASE s.source_kind WHEN 'title' THEN 0 WHEN 'original' THEN 1 WHEN 'approved' THEN 2 ELSE 3 END, s.audio_start_time, s.id LIMIT 8")
+            .bind("\"common\" OR \"résumé\"").bind(&meeting.id).fetch_all(&pool).await.unwrap();
+        assert_eq!(meeting.hits.len(), 8);
+        assert_eq!(serde_json::to_value(&meeting.hits).unwrap(), serde_json::to_value(legacy).unwrap());
+    }
 }
 
 #[tokio::test]

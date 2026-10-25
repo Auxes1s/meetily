@@ -23,7 +23,7 @@ mock.module('../../src/components/Sidebar/SidebarProvider', () => ({ ...sidebar,
   handleRecordingToggle() {}, searchTranscripts: async () => {}, searchResults: [], isSearching: false,
   meetings: [], setMeetings() {}, serverAddress: '',
 }) }));
-mock.module('../../src/contexts/RecordingStateContext', () => ({ ...recording, useRecordingState: () => ({ isRecording: false }) }));
+mock.module('../../src/contexts/RecordingStateContext', () => ({ ...recording, useRecordingControls: () => ({ isRecording: false }), useRecordingState: () => ({ isRecording: false }) }));
 mock.module('../../src/contexts/ConfigContext', () => ({ ...config, useConfig: () => ({ betaFeatures: {} }) }));
 mock.module('../../src/contexts/ImportDialogContext', () => ({ ...imports, useImportDialog: () => ({ openImportDialog() {} }) }));
 mock.module('../../src/lib/workspace-save', () => ({ ...save, flushWorkspaceDocuments: () => new Promise<void>(resolve => pending.push(resolve)) }));

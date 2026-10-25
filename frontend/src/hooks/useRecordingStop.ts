@@ -5,7 +5,7 @@ import { listen } from '@tauri-apps/api/event';
 import { toast } from 'sonner';
 import { useTranscriptActions } from '@/contexts/TranscriptContext';
 import { useSidebar } from '@/components/Sidebar/SidebarProvider';
-import { useRecordingState, RecordingStatus } from '@/contexts/RecordingStateContext';
+import { useRecordingControls, RecordingStatus } from '@/contexts/RecordingStateContext';
 import { recordingService, type RecordingStoppedPayload } from '@/services/recordingService';
 import { storageService } from '@/services/storageService';
 import { flushAllNotes } from '@/lib/meeting-notes-session';
@@ -14,7 +14,7 @@ import Analytics from '@/lib/analytics';
 
 /** Native stop drains and commits final segments before it acknowledges completion. */
 export function useRecordingStop(setIsRecording: (value: boolean) => void, setIsRecordingDisabled: (value: boolean) => void) {
-  const state = useRecordingState();
+  const state = useRecordingControls();
   const { transcriptsRef, flushBuffer, clearTranscripts, meetingTitle, markMeetingAsSaved } = useTranscriptActions();
   const { refetchMeetings, setCurrentMeeting, setIsMeetingActive } = useSidebar();
   const router = useRouter();

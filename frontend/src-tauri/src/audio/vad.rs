@@ -24,6 +24,43 @@ pub struct SpeechSegment {
     pub is_final: bool,
 }
 
+/// Shared model and endpoint policy for live and disk-backed batch processing.
+pub(super) fn configured_session(input_sample_rate: u32, redemption_time_ms: u32) -> Result<VadSession> {
+        crate::ensure_onnx_runtime_available()?;
+
+        // Use STRICT settings to prevent silence from reaching Whisper
+        let mut config = VadConfig::default();
+        config.sample_rate = VAD_SAMPLE_RATE as usize;
+
+        // CONTINUOUS SPEECH FIX: Tuned for capturing complete 5+ second utterances
+        // Previous: 0.55/0.40 with 400ms redemption was fragmenting speech into 40ms segments
+        // New: More lenient thresholds + longer redemption for continuous speech
+        config.positive_speech_threshold = 0.50;  // Silero default - good for continuous speech
+        config.negative_speech_threshold = 0.35;  // Silero default - allows natural pauses
+
+        // Use the caller's redemption time without additional capping. The batch
+        // paths (`import.rs`, `retranscription.rs`) pass 2000ms to bridge natural
+        // pauses; the live path (`pipeline.rs`) passes 500ms to reduce pause-induced
+        // latency. Live callers also bound uninterrupted speech independently of
+        // silence, without resetting the VAD state or advancing the audio clock.
+        config.redemption_time = Duration::from_millis(redemption_time_ms as u64);
+        config.pre_speech_pad = Duration::from_millis(300);   // Pre-speech padding for context
+        config.post_speech_pad = Duration::from_millis(POST_SPEECH_PAD_MS);
+
+        // CRITICAL FIX: Increased min_speech_time to prevent tiny 40ms fragments
+        // Previous: 100ms allowed too-short segments that Whisper rejects
+        // New: 250ms ensures segments are substantial enough for Whisper (>100ms requirement)
+        config.min_speech_time = Duration::from_millis(250);  // Prevent tiny fragments
+
+        debug!("Creating VAD session with: sample_rate={}Hz, redemption={}ms, min_speech={}ms, input_rate={}Hz",
+               VAD_SAMPLE_RATE, redemption_time_ms, 250, input_sample_rate);
+
+        let session = VadSession::new(config)
+            .map_err(|e| anyhow!("Failed to create VAD session: {:?}", e))?;
+
+    Ok(session)
+}
+
 /// Processes audio in 30ms chunks but returns complete speech segments
 pub struct ContinuousVadProcessor {
     session: VadSession,
@@ -67,37 +104,7 @@ impl ContinuousVadProcessor {
         redemption_time_ms: u32,
         max_segment_samples: Option<usize>,
     ) -> Result<Self> {
-        crate::ensure_onnx_runtime_available()?;
-
-        // Use STRICT settings to prevent silence from reaching Whisper
-        let mut config = VadConfig::default();
-        config.sample_rate = VAD_SAMPLE_RATE as usize;
-
-        // CONTINUOUS SPEECH FIX: Tuned for capturing complete 5+ second utterances
-        // Previous: 0.55/0.40 with 400ms redemption was fragmenting speech into 40ms segments
-        // New: More lenient thresholds + longer redemption for continuous speech
-        config.positive_speech_threshold = 0.50;  // Silero default - good for continuous speech
-        config.negative_speech_threshold = 0.35;  // Silero default - allows natural pauses
-
-        // Use the caller's redemption time without additional capping. The batch
-        // paths (`import.rs`, `retranscription.rs`) pass 2000ms to bridge natural
-        // pauses; the live path (`pipeline.rs`) passes 500ms to reduce pause-induced
-        // latency. Live callers also bound uninterrupted speech independently of
-        // silence, without resetting the VAD state or advancing the audio clock.
-        config.redemption_time = Duration::from_millis(redemption_time_ms as u64);
-        config.pre_speech_pad = Duration::from_millis(300);   // Pre-speech padding for context
-        config.post_speech_pad = Duration::from_millis(POST_SPEECH_PAD_MS);
-
-        // CRITICAL FIX: Increased min_speech_time to prevent tiny 40ms fragments
-        // Previous: 100ms allowed too-short segments that Whisper rejects
-        // New: 250ms ensures segments are substantial enough for Whisper (>100ms requirement)
-        config.min_speech_time = Duration::from_millis(250);  // Prevent tiny fragments
-
-        debug!("Creating VAD session with: sample_rate={}Hz, redemption={}ms, min_speech={}ms, input_rate={}Hz",
-               VAD_SAMPLE_RATE, redemption_time_ms, 250, input_sample_rate);
-
-        let session = VadSession::new(config)
-            .map_err(|e| anyhow!("Failed to create VAD session: {:?}", e))?;
+        let session = configured_session(input_sample_rate, redemption_time_ms)?;
 
         // VAD uses 30ms chunks at 16kHz (480 samples)
         let vad_chunk_size = (VAD_SAMPLE_RATE as f32 * 0.03) as usize; // 480 samples

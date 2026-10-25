@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test } from 'bun:test';
 import type { Block } from '@blocknote/core';
-import { MeetingNotesSession, type SaveNotesInput, plainText } from '../../src/lib/meeting-notes-session';
+import { MeetingNotesSession, type SaveNotesInput, plainText, pruneDocumentSessions } from '../../src/lib/meeting-notes-session';
 
 const blocks = (text: string): Block[] => [{ id: 'block', type: 'paragraph', props: { backgroundColor: 'default', textColor: 'default', textAlignment: 'left' }, content: [{ type: 'text', text, styles: {} }], children: [] }] as Block[];
 const sessions: MeetingNotesSession[] = [];
@@ -14,6 +14,22 @@ afterEach(() => sessions.splice(0).forEach(value => value.dispose()));
 const tick = () => new Promise(resolve => setTimeout(resolve, 0));
 
 describe('acknowledged original-note saves', () => {
+  test('cache pruning releases only clean inactive sessions and detached converters', async () => {
+    const cache = new Map<string, MeetingNotesSession>();
+    for (let i = 0; i < 12; i++) {
+      const value = session(async () => ({ revision: 1, updated_at: 'one' }));
+      cache.set(String(i), value);
+    }
+    cache.get('0')!.edit(blocks('pending'));
+    const unsubscribe = cache.get('1')!.subscribe(() => {});
+    let conversions = 0;
+    const value = cache.get('11')!;
+    const detach = value.setConverter(async () => { conversions++; return 'projection'; });
+    detach(); value.edit(blocks('JSON only')); await value.flush();
+    pruneDocumentSessions(cache, value => value, '11');
+    expect(cache.size).toBe(8); expect(cache.has('0')).toBe(true); expect(cache.has('1')).toBe(true); expect(cache.has('11')).toBe(true);
+    expect(conversions).toBe(0); unsubscribe();
+  });
   test('disposing during a failed in-flight save prevents retries and further writes', async () => {
     let rejectWrite: (error: Error) => void = () => {};
     let calls = 0;
@@ -108,6 +124,22 @@ describe('acknowledged original-note saves', () => {
     value.edit(linked); await value.flush();
     expect(writes[2].links).toHaveLength(1);
   });
+  test('marker scan preserves history order, literal prefixes, and first nested block ownership', () => {
+    const value = session(async () => ({ revision: 1, updated_at: 'one' }));
+    const linked = blocks('meetily-note://marker-long meetily-note://unknown');
+    linked[0].id = 'parent';
+    linked[0].children = blocks('meetily-note://marker-long meetily-note://日本語');
+    linked[0].children[0].id = 'nested';
+    const marker = (id: string) => ({ id, block_id: 'old', recording_session_id: 'session', recording_offset: 12, transcript_id: null });
+    value.edit(linked, [marker('日本語'), marker('marker'), marker('marker-long')]);
+    expect(value.getSnapshot().links.map(link => [link.id, link.block_id])).toEqual([
+      ['marker', 'parent'], ['marker-long', 'parent'], ['日本語', 'nested'],
+    ]);
+    value.edit(blocks('removed'));
+    expect(value.getSnapshot().links).toEqual([]);
+    value.edit(linked);
+    expect(value.getSnapshot().links).toHaveLength(3);
+  });
   test('continuous editing reaches an acknowledged save within two seconds', async () => {
     let calls = 0;
     const value = session(async input => { calls++; return { revision: input.base_revision + 1, updated_at: 'one' }; });
@@ -119,5 +151,18 @@ describe('acknowledged original-note saves', () => {
   test('plain-text projection includes links and nested blocks', () => {
     const value = blocks('Parent'); value[0].children = blocks('Child');
     expect(plainText(value)).toBe('Parent\nChild');
+  });
+  test('pending render ownership prevents pruning until the final owner releases it', () => {
+    const value = session(async () => ({ revision: 1, updated_at: 'one' }));
+    const cache = new Map([['pending', value]]);
+    const releaseA = value.retain(), releaseB = value.retain();
+    pruneDocumentSessions(cache, entry => entry, undefined, 0);
+    expect(cache.has('pending')).toBe(true);
+    releaseA(); releaseA();
+    pruneDocumentSessions(cache, entry => entry, undefined, 0);
+    expect(cache.has('pending')).toBe(true);
+    releaseB();
+    pruneDocumentSessions(cache, entry => entry, undefined, 0);
+    expect(cache.size).toBe(0);
   });
 });

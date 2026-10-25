@@ -586,6 +586,7 @@ pub fn run() {
             database::deletion::api_list_pending_meeting_deletions,
             summary::enhancement::api_get_enhancement_destination,
             summary::enhancement::api_get_meeting_enhancements,
+            summary::enhancement::api_get_enhancement_version,
             summary::enhancement::api_get_enhancement_status,
             summary::enhancement::api_save_enhancement_settings,
             summary::enhancement::api_start_meeting_enhancement,
@@ -716,6 +717,7 @@ pub fn run() {
             audio::recording_commands::get_active_audio_output,
             // Audio recovery commands (for transcript recovery feature)
             audio::incremental_saver::recover_audio_from_checkpoints,
+            audio::transcript_journal::recover_transcript_history,
             audio::incremental_saver::cleanup_checkpoints,
             audio::incremental_saver::has_audio_checkpoints,
             console_utils::show_console,

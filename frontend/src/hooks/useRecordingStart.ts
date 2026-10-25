@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { useTranscriptActions } from '@/contexts/TranscriptContext';
 import { useSidebar } from '@/components/Sidebar/SidebarProvider';
 import { useConfig } from '@/contexts/ConfigContext';
-import { useRecordingState, RecordingStatus } from '@/contexts/RecordingStateContext';
+import { useRecordingControls, RecordingStatus } from '@/contexts/RecordingStateContext';
 import { recordingService } from '@/services/recordingService';
 import Analytics from '@/lib/analytics';
 import { showRecordingNotification } from '@/lib/recordingNotification';
@@ -26,7 +26,7 @@ export function useRecordingStart(
   const { setMeetingTitle } = useTranscriptActions();
   const { setIsMeetingActive } = useSidebar();
   const { selectedDevices } = useConfig();
-  const { setStatus, confirmRecordingStarted } = useRecordingState();
+  const { setStatus, confirmRecordingStarted } = useRecordingControls();
 
   const prepareModel = useCallback(async () => {
     const config = await invoke<{ provider?: string } | null>('api_get_transcript_config');

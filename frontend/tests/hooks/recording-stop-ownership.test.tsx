@@ -18,7 +18,7 @@ mock.module('../../src/contexts/TranscriptContext',()=>({...originals.transcript
   transcriptsRef:{get current(){return segments;}},flushBuffer(){},clearTranscripts(){cleared++;segments=[];},meetingTitle:'A',markMeetingAsSaved:()=>{marked++;return cache();},
 })}));
 mock.module('../../src/components/Sidebar/SidebarProvider',()=>({...originals.sidebar,useSidebar:()=>({refetchMeetings:()=>refresh(),setCurrentMeeting(){},setIsMeetingActive(){}})}));
-mock.module('../../src/contexts/RecordingStateContext',()=>({...originals.state,useRecordingState:()=>({setStatus:(status:string)=>statuses.push(status)})}));
+mock.module('../../src/contexts/RecordingStateContext',()=>({...originals.state,useRecordingControls:()=>({setStatus:(status:string)=>statuses.push(status)}), useRecordingState:()=>({setStatus:(status:string)=>statuses.push(status)})}));
 mock.module('../../src/services/recordingService',()=>({...originals.service,recordingService:{...originals.service.recordingService,getRecordingState:()=>native()}}));
 mock.module('../../src/lib/meeting-notes-session',()=>({...originals.notes,flushAllNotes:async()=>{}}));
 mock.module('../../src/lib/summary-language-preferences',()=>({...originals.language,applyPinnedSummaryLanguageToMeeting:async()=>true}));

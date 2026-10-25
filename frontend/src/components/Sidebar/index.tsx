@@ -13,7 +13,7 @@ import Analytics from '@/lib/analytics';
 import { invoke } from '@tauri-apps/api/core';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
 import { useImportDialog } from '@/contexts/ImportDialogContext';
 import { useConfig } from '@/contexts/ConfigContext';
 import { noteSessions } from '@/lib/meeting-notes-session';
@@ -62,7 +62,7 @@ const Sidebar: React.FC = () => {
   } = useSidebar();
 
   // Get recording state from RecordingStateContext (single source of truth)
-  const { isRecording } = useRecordingState();
+  const { isRecording } = useRecordingControls();
   const { openImportDialog } = useImportDialog();
   const { betaFeatures } = useConfig();
   const navigationOwner = useRef(0);
@@ -309,6 +309,11 @@ const Sidebar: React.FC = () => {
               // Or if the title matches the search query
               return item.title.toLowerCase().includes(searchQuery.toLowerCase());
             });
+            // Search spans the whole library, including meetings outside the
+            // bounded recent sidebar. Keep those results directly reachable.
+            for (const result of searchResults) {
+              if (!filteredChildren.some(item => item.id === result.id)) filteredChildren.push({ id: result.id, title: result.title, type: 'file' });
+            }
 
             return {
               ...folder,

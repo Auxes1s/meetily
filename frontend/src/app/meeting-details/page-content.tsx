@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
 import { useTranscriptRows } from '@/contexts/TranscriptContext';
 import { transcriptToSegment } from '@/lib/transcript-audio-source';
 import { motion } from 'framer-motion';
@@ -61,7 +61,7 @@ export default function PageContent({
 
   // State
   const [customPrompt, setCustomPrompt] = useState<string>('');
-  const recording = useRecordingState();
+  const recording = useRecordingControls();
   const live = useTranscriptRows();
   const ownsLiveTranscript = live.currentMeetingId === meeting.id;
   const isRecording = recording.isRecording && ownsLiveTranscript;

@@ -206,8 +206,16 @@ pub async fn api_get_enhancement_destination(
 pub async fn api_get_meeting_enhancements(
     state: tauri::State<'_, AppState>,
     meeting_id: String,
+    metadata_only: Option<bool>,
+    cursor: Option<String>,
 ) -> Result<repo::EnhancementCollection, String> {
-    repo::list(state.db_manager.pool(), &meeting_id).await
+    repo::list_page(state.db_manager.pool(), &meeting_id, metadata_only.unwrap_or(false), cursor.as_deref()).await
+}
+#[tauri::command]
+pub async fn api_get_enhancement_version(
+    state: tauri::State<'_, AppState>, meeting_id: String, version_id: String,
+) -> Result<repo::EnhancementVersion, String> {
+    repo::get_version(state.db_manager.pool(), &meeting_id, &version_id).await
 }
 /// Polling must not reload or serialize frozen meeting documents and history.
 #[tauri::command]

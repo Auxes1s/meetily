@@ -39,6 +39,7 @@ pub struct EnhancementCollection {
     pub approved_version_id: Option<String>,
     pub settings: EnhancementSettings,
     pub versions: Vec<EnhancementVersion>,
+    pub next_cursor: Option<String>,
 }
 #[derive(Debug, Deserialize)]
 pub struct VersionSave {
@@ -69,6 +70,10 @@ async fn guard(
 }
 /// Idempotent adoption preserves the exact legacy result, including unknown keys.
 pub async fn adopt_legacy(pool: &SqlitePool, meeting_id: &str) -> Result<(), String> {
+    // Ordinary reads of an adopted collection must not acquire SQLite's writer.
+    let adopted: bool = sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM meeting_enhancement_settings e JOIN meetings m ON m.id=e.meeting_id WHERE e.meeting_id=? AND m.status != 'deleting' AND (e.approved_version_id IS NOT NULL OR NOT EXISTS(SELECT 1 FROM summary_processes p WHERE p.meeting_id=e.meeting_id AND p.result IS NOT NULL)))")
+        .bind(meeting_id).fetch_one(pool).await.map_err(db)?;
+    if adopted { return Ok(()); }
     let mut tx = pool.begin().await.map_err(db)?;
     sqlx::query("INSERT OR IGNORE INTO meeting_enhancement_settings(meeting_id) SELECT id FROM meetings WHERE id = ? AND status != 'deleting'")
         .bind(meeting_id).execute(&mut *tx).await.map_err(db)?;
@@ -108,6 +113,9 @@ pub async fn get_version(
         .bind(id).bind(meeting_id).fetch_optional(pool).await.map_err(db)?.ok_or_else(|| "Enhancement version not found".into())
 }
 pub async fn list(pool: &SqlitePool, meeting_id: &str) -> Result<EnhancementCollection, String> {
+    list_page(pool, meeting_id, false, None).await
+}
+pub async fn list_page(pool: &SqlitePool, meeting_id: &str, metadata_only: bool, cursor: Option<&str>) -> Result<EnhancementCollection, String> {
     adopt_legacy(pool, meeting_id).await?;
     let settings = sqlx::query_as("SELECT template_id,instructions,revision FROM meeting_enhancement_settings WHERE meeting_id=?")
         .bind(meeting_id).fetch_one(pool).await.map_err(db)?;
@@ -118,19 +126,31 @@ pub async fn list(pool: &SqlitePool, meeting_id: &str) -> Result<EnhancementColl
     .fetch_one(pool)
     .await
     .map_err(db)?;
-    let mut versions: Vec<EnhancementVersion> = sqlx::query_as(
-        "SELECT * FROM meeting_enhancement_versions WHERE meeting_id=? ORDER BY created_at DESC,id",
-    )
-    .bind(meeting_id)
-    .fetch_all(pool)
-    .await
-    .map_err(db)?;
+    let mut query = sqlx::QueryBuilder::<sqlx::Sqlite>::new(if metadata_only {
+        "SELECT id,meeting_id,state,status,revision,NULL AS document_json,NULL AS source_snapshot_json,source_fingerprint,notes_revision,template_id,'' AS instructions,NULL AS provider_config_json,last_commit_id,created_at,updated_at,error FROM meeting_enhancement_versions WHERE meeting_id="
+    } else { "SELECT * FROM meeting_enhancement_versions WHERE meeting_id=" });
+    query.push_bind(meeting_id);
+    if metadata_only {
+        if let Some(raw) = cursor {
+            if raw.len() > 4096 { return Err("Invalid enhancement history cursor".into()); }
+            let (created, id): (String, String) = serde_json::from_str(raw).map_err(|_| "Invalid enhancement history cursor")?;
+            query.push(" AND (created_at < ").push_bind(created.clone()).push(" OR (created_at = ").push_bind(created).push(" AND id > ").push_bind(id).push("))");
+        }
+    }
+    query.push(" ORDER BY created_at DESC,id");
+    if metadata_only { query.push(" LIMIT 51"); }
+    let mut versions: Vec<EnhancementVersion> = query.build_query_as().fetch_all(pool).await.map_err(db)?;
+    let next_cursor = if metadata_only && versions.len() > 50 {
+        versions.truncate(50);
+        versions.last().map(|v| serde_json::to_string(&(&v.created_at, &v.id)).unwrap())
+    } else { None };
     let current = SourceSnapshot::read(pool, meeting_id, None, true)
         .await
         .ok();
     for v in &mut versions {
-        v.source_stale = match (&v.source_snapshot_json, &current) {
-            (Some(raw), Some(current)) => serde_json::from_str::<SourceSnapshot>(raw)
+        v.source_stale = match (&v.source_fingerprint, &v.source_snapshot_json, &current) {
+            (Some(stored), _, Some(current)) => stored != &current.source_fingerprint,
+            (_, Some(raw), Some(current)) => serde_json::from_str::<SourceSnapshot>(raw)
                 .map(|snapshot| snapshot.source_fingerprint != current.source_fingerprint)
                 .unwrap_or(true),
             _ => v.state != "legacy",
@@ -141,6 +161,7 @@ pub async fn list(pool: &SqlitePool, meeting_id: &str) -> Result<EnhancementColl
         approved_version_id,
         settings,
         versions,
+        next_cursor,
     })
 }
 pub async fn save_settings(
@@ -388,6 +409,24 @@ mod tests {
         get_version(pool, "meeting-fixture", &version.id)
             .await
             .unwrap()
+    }
+    #[tokio::test]
+    async fn metadata_history_is_bounded_and_keeps_selected_document_out_of_pages() {
+        let pool = pool().await;
+        let snapshot = SourceSnapshot::read(&pool, "meeting-fixture", Some(1), false).await.unwrap();
+        for i in 0..55 {
+            sqlx::query("INSERT INTO meeting_enhancement_versions(id,meeting_id,state,status,document_json,source_snapshot_json,source_fingerprint,notes_revision,created_at,updated_at) VALUES (?,'meeting-fixture','candidate','ready',?,?,?,1,'2026-10-25','2026-10-25')")
+                .bind(format!("v-{i:03}")).bind(serde_json::json!({"markdown":"large ".repeat(5000)}).to_string()).bind(serde_json::to_string(&snapshot).unwrap()).bind(&snapshot.source_fingerprint).execute(&pool).await.unwrap();
+        }
+        let first = list_page(&pool,"meeting-fixture",true,None).await.unwrap();
+        assert_eq!(first.versions.len(),50);
+        assert!(first.versions.iter().all(|v|v.document_json.is_none() && v.source_snapshot_json.is_none() && !v.source_stale));
+        assert!(serde_json::to_vec(&first).unwrap().len()<100_000);
+        let second = list_page(&pool,"meeting-fixture",true,first.next_cursor.as_deref()).await.unwrap();
+        assert_eq!(second.versions.len(),5); assert!(second.next_cursor.is_none());
+        assert_ne!(first.versions.last().unwrap().id,second.versions[0].id);
+        assert!(get_version(&pool,"meeting-fixture","v-054").await.unwrap().document_json.is_some());
+        assert!(get_version(&pool,"other-meeting","v-054").await.is_err());
     }
     #[tokio::test]
     async fn enhancement_legacy_adoption_preserves_unknown_fields_and_is_idempotent() {

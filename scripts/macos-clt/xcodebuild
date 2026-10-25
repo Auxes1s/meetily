@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+"""Build cidre's Objective-C static shims with Command Line Tools.
+
+Only the pinned cidre pomace project is supported. Other xcodebuild calls are
+passed to Apple's executable. This does not change the selected developer SDK.
+"""
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+args = sys.argv[1:]
+def value(flag):
+    return args[args.index(flag) + 1]
+
+if "-project" not in args or value("-project") != "./pomace/pomace.xcodeproj" or not Path("pomace/av/av.m").is_file():
+    os.execv("/usr/bin/xcodebuild", ["xcodebuild", *args])
+if value("-sdk") != "macosx":
+    sys.exit("The Command Line Tools fallback supports macOS only.")
+sdk = subprocess.check_output(["xcrun", "--sdk", "macosx", "--show-sdk-path"], text=True).strip()
+arch, config = value("-arch"), value("-configuration")
+symroot = next(arg.split("=", 1)[1] for arg in args if arg.startswith("SYMROOT="))
+deployment = next((arg.split("=", 1)[1] for arg in args if arg.startswith("MACOSX_DEPLOYMENT_TARGET=")), "15.0")
+output = Path(symroot) / config
+output.mkdir(parents=True, exist_ok=True)
+targets = [args[i + 1] for i, arg in enumerate(args) if arg == "-target"]
+for target in targets:
+    source = Path("pomace") / target / f"{target}.m"
+    if not source.is_file():
+        sys.exit(f"Missing cidre shim: {source}")
+    obj = output / f"{target}.o"
+    subprocess.run(["xcrun", "clang", "-c", str(source), "-o", str(obj), "-arch", arch,
+                    "-isysroot", sdk, f"-mmacosx-version-min={deployment}", "-fobjc-arc", "-fblocks",
+                    "-fmodules", "-O2" if config == "Release" else "-O0"], check=True)
+    subprocess.run(["xcrun", "libtool", "-static", "-o", str(output / f"lib{target}.a"), str(obj)], check=True)

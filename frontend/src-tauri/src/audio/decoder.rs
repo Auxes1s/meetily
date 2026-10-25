@@ -276,6 +276,7 @@ fn needs_ffmpeg_conversion(path: &Path) -> bool {
 fn convert_to_wav_with_ffmpeg(
     input_path: &Path,
     progress_callback: Option<&ProgressCallback>,
+    cancel: Option<&std::sync::atomic::AtomicBool>,
 ) -> Result<tempfile::TempPath> {
     let ffmpeg_path = find_ffmpeg_path().ok_or_else(|| {
         anyhow!(
@@ -342,14 +343,28 @@ fn convert_to_wav_with_ffmpeg(
 
     debug!("FFmpeg conversion command: {:?}", command);
 
-    #[allow(clippy::zombie_processes)]
-    let child = command
-        .spawn()
-        .map_err(|e| anyhow!("Failed to spawn ffmpeg process: {}", e))?;
-
-    let output = child
-        .wait_with_output()
-        .map_err(|e| anyhow!("Failed to wait for ffmpeg process: {}", e))?;
+    // A private file drains FFmpeg diagnostics without pipe backpressure while
+    // a cancellable batch conversion is polled. Legacy callers retain their API.
+    let output = if let Some(cancel) = cancel {
+        use std::io::{Read, Seek, SeekFrom};
+        let mut diagnostics = tempfile::tempfile()?;
+        command.stdout(Stdio::null()).stderr(diagnostics.try_clone()?);
+        let mut child = command.spawn().map_err(|e| anyhow!("Failed to spawn ffmpeg process: {}", e))?;
+        let status = loop {
+            if cancel.load(std::sync::atomic::Ordering::SeqCst) {
+                let _ = child.kill(); let _ = child.wait();
+                return Err(anyhow!("Audio processing cancelled"));
+            }
+            if let Some(status) = child.try_wait()? { break status; }
+            std::thread::sleep(std::time::Duration::from_millis(20));
+        };
+        diagnostics.seek(SeekFrom::Start(0))?;
+        let mut stderr = Vec::new(); diagnostics.take(64 * 1024).read_to_end(&mut stderr)?;
+        std::process::Output { status, stdout: Vec::new(), stderr }
+    } else {
+        command.spawn().map_err(|e| anyhow!("Failed to spawn ffmpeg process: {}", e))?
+            .wait_with_output().map_err(|e| anyhow!("Failed to wait for ffmpeg process: {}", e))?
+    };
 
     let stderr_text = String::from_utf8_lossy(&output.stderr);
     debug!("FFmpeg stderr: {}", stderr_text);
@@ -398,6 +413,28 @@ pub fn decode_audio_file_with_progress(
     path: &Path,
     progress_callback: Option<ProgressCallback>,
 ) -> Result<DecodedAudio> {
+    let mut samples = Vec::new();
+    let info = decode_packets(path, progress_callback, None, |packet, _, _, _| {
+        samples.extend_from_slice(packet);
+        Ok(())
+    })?;
+    Ok(DecodedAudio { samples, sample_rate: info.sample_rate, channels: info.channels, duration_seconds: info.duration_seconds })
+}
+
+pub(super) struct DecodedAudioInfo {
+    pub sample_rate: u32,
+    pub channels: u16,
+    pub duration_seconds: f64,
+}
+
+/// Shared packet decoder. Batch processing consumes packets on disk rather than
+/// retaining the entire interleaved recording; existing callers retain their API.
+pub(super) fn decode_packets(
+    path: &Path,
+    progress_callback: Option<ProgressCallback>,
+    cancel: Option<&std::sync::atomic::AtomicBool>,
+    mut consume: impl FnMut(&[f32], u32, u16, u32) -> Result<()>,
+) -> Result<DecodedAudioInfo> {
     info!("Decoding audio file: {}", path.display());
 
     // FFmpeg pre-conversion for unsupported formats (MKV, WebM, WMA).
@@ -413,7 +450,7 @@ pub fn decode_audio_file_with_progress(
                     .and_then(|e| e.to_str())
                     .unwrap_or("unknown")
             );
-            let temp_path = convert_to_wav_with_ffmpeg(path, progress_callback.as_ref())?;
+            let temp_path = convert_to_wav_with_ffmpeg(path, progress_callback.as_ref(), cancel)?;
             let wav_path = temp_path.to_path_buf();
             (Some(temp_path), Cow::Owned(wav_path))
         } else {
@@ -476,7 +513,7 @@ pub fn decode_audio_file_with_progress(
         .map_err(|e| anyhow!("Failed to create decoder: {}", e))?;
 
     // Decode all packets
-    let mut all_samples: Vec<f32> = Vec::new();
+    let mut decoded_samples = 0usize;
     let mut sample_buf: Option<SampleBuffer<f32>> = None;
 
     // Calculate expected samples for progress tracking
@@ -543,12 +580,14 @@ pub fn decode_audio_file_with_progress(
                 // Copy samples to buffer
                 if let Some(ref mut buf) = sample_buf {
                     buf.copy_interleaved_ref(decoded);
-                    all_samples.extend_from_slice(buf.samples());
+                    let percent = expected_samples.map(|expected| (((decoded_samples + buf.samples().len()) as f64 / expected.max(1) as f64) * 100.).min(100.) as u32).unwrap_or(0);
+                    consume(buf.samples(), sample_rate, channels, percent)?;
+                    decoded_samples += buf.samples().len();
                 }
 
                 // Emit progress updates (every 10%)
                 if let (Some(callback), Some(expected)) = (&progress_callback, expected_samples) {
-                    let current_progress = ((all_samples.len() as f64 / expected as f64) * 100.0) as u32;
+                    let current_progress = ((decoded_samples as f64 / expected as f64) * 100.0) as u32;
                     if current_progress >= last_progress + 10 && current_progress <= 100 {
                         last_progress = current_progress;
                         callback(current_progress, &format!("Decoding audio: {}%", current_progress));
@@ -567,23 +606,22 @@ pub fn decode_audio_file_with_progress(
         callback(100, "Decoding complete");
     }
 
-    if all_samples.is_empty() {
+    if decoded_samples == 0 {
         return Err(anyhow!("No audio samples decoded from file"));
     }
 
-    let total_frames = all_samples.len() / channels as usize;
+    let total_frames = decoded_samples / channels as usize;
     let duration_seconds = total_frames as f64 / sample_rate as f64;
 
     info!(
         "Decoded {} samples ({:.2}s) at {}Hz, {} channels",
-        all_samples.len(),
+        decoded_samples,
         duration_seconds,
         sample_rate,
         channels
     );
 
-    Ok(DecodedAudio {
-        samples: all_samples,
+    Ok(DecodedAudioInfo {
         sample_rate,
         channels,
         duration_seconds,

@@ -30,6 +30,11 @@ type Commit = { revision: number; updated_at: string };
 export type NotesGateway = (input: SaveNotesInput) => Promise<Commit>;
 type Converter = (blocks: Block[]) => Promise<string>;
 
+interface MarkerNode {
+  children: Map<string, MarkerNode>;
+  id?: string;
+}
+
 export function plainText(blocks: Block[]): string {
   const text = (value: any): string => {
     if (typeof value === 'string') return value;
@@ -44,6 +49,7 @@ export function plainText(blocks: Block[]): string {
 export class MeetingNotesSession {
   private snapshot: NotesSnapshot;
   private listeners = new Set<() => void>();
+  private owners = 0;
   private version = 0;
   private acknowledged = 0;
   private firstDirtyAt: number | null = null;
@@ -53,32 +59,75 @@ export class MeetingNotesSession {
   private retryDelay = 1000;
   private pending: { version: number; input: SaveNotesInput } | null = null;
   private markerHistory = new Map<string, NoteLink>();
+  private markerOrder = new Map<string, number>();
+  private markerRoot: MarkerNode = { children: new Map() };
   private disposed = false;
   constructor(readonly meetingId: string, initial: Omit<NotesSnapshot, 'status' | 'error'>, private gateway: NotesGateway) {
     this.snapshot = { ...initial, status: 'Saved', error: null };
-    initial.links.forEach(link => this.markerHistory.set(link.id, link));
+    initial.links.forEach(link => this.rememberMarker(link));
   }
   getSnapshot = () => this.snapshot;
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; };
   get dirty() { return this.version !== this.acknowledged; }
-  setConverter(converter: Converter) { this.converter = converter; }
+  get canEvict() { return !this.dirty && !this.flight && this.listeners.size === 0 && this.owners === 0; }
+  /** Own a loaded session through the asynchronous render/subscription handoff. */
+  retain() {
+    this.owners++;
+    let released = false;
+    return () => { if (!released) { released = true; this.owners--; } };
+  }
+  setConverter(converter: Converter) {
+    this.converter = converter;
+    return () => { if (this.converter === converter) this.converter = null; };
+  }
   private publish(patch: Partial<NotesSnapshot>) {
     this.snapshot = { ...this.snapshot, ...patch };
     this.listeners.forEach(listener => listener());
   }
+  private rememberMarker(link: NoteLink) {
+    if (!this.markerHistory.has(link.id)) {
+      this.markerOrder.set(link.id, this.markerOrder.size);
+      let node = this.markerRoot;
+      for (let i = 0; i < link.id.length; i++) {
+        const character = link.id[i];
+        let child = node.children.get(character);
+        if (!child) node.children.set(character, child = { children: new Map() });
+        node = child;
+      }
+      node.id = link.id;
+    }
+    this.markerHistory.set(link.id, link);
+  }
   edit(blocks: Block[], links = this.snapshot.links) {
     // Keep marker metadata in memory so undo can restore a deleted marker.
-    links.forEach(link => this.markerHistory.set(link.id, link));
+    links.forEach(link => this.rememberMarker(link));
     const active: NoteLink[] = [];
+    const seen = new Set<string>();
+    const prefix = 'meetily-note://';
     const visit = (items: Block[]) => items.forEach(block => {
-      const content = JSON.stringify(block.content);
-      for (const link of this.markerHistory.values()) {
-        if (content.includes(`meetily-note://${link.id}`)) active.push({ ...link, block_id: block.id });
+      // Scan content once, preserving the former literal-prefix matching and
+      // history order (including IDs that are prefixes of another marker ID).
+      const content = JSON.stringify(block.content) ?? '';
+      const matches = new Set<string>();
+      for (let start = content.indexOf(prefix); start !== -1; start = content.indexOf(prefix, start + prefix.length)) {
+        let node: MarkerNode | undefined = this.markerRoot;
+        if (node.id !== undefined) matches.add(node.id);
+        for (let i = start + prefix.length; i < content.length; i++) {
+          node = node.children.get(content[i]);
+          if (!node) break;
+          if (node.id !== undefined) matches.add(node.id);
+        }
+      }
+      for (const id of [...matches].sort((a, b) => this.markerOrder.get(a)! - this.markerOrder.get(b)!)) {
+        if (!seen.has(id)) {
+          seen.add(id);
+          active.push({ ...this.markerHistory.get(id)!, block_id: block.id });
+        }
       }
       if (block.children?.length) visit(block.children);
     });
     visit(blocks);
-    this.change({ blocks, links: active.filter((link, index) => active.findIndex(other => other.id === link.id) === index) });
+    this.change({ blocks, links: active });
   }
   setTitle(title: string) { this.change({ title }); }
   private change(patch: Partial<NotesSnapshot>) {
@@ -142,7 +191,16 @@ export class MeetingNotesSession {
       }
     }
   }
-  dispose() { this.disposed = true; clearTimeout(this.timer); this.listeners.clear(); }
+  dispose() { this.disposed = true; clearTimeout(this.timer); this.listeners.clear(); this.converter = null; }
+}
+
+/** Dirty, writing and subscribed sessions remain owned regardless of the cap. */
+export function pruneDocumentSessions<T>(cache: Map<string, T>, session: (entry: T) => MeetingNotesSession, protectedId?: string, limit = 8) {
+  for (const [id, entry] of cache) {
+    if (cache.size <= limit) break;
+    const value = session(entry);
+    if (id !== protectedId && value.canEvict) { value.dispose(); cache.delete(id); }
+  }
 }
 
 export const noteSessions = new Map<string, MeetingNotesSession>();

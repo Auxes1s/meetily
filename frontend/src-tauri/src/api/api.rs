@@ -334,6 +334,7 @@ pub async fn api_get_meetings<R: Runtime>(
     _app: AppHandle<R>,
     state: tauri::State<'_, AppState>,
     auth_token: Option<String>,
+    limit: Option<i64>,
 ) -> Result<Vec<Meeting>, String> {
     log_info!(
         "api_get_meetings called with auth_token(native) : {}",
@@ -341,7 +342,10 @@ pub async fn api_get_meetings<R: Runtime>(
     );
     let pool = state.db_manager.pool();
     let meetings: Result<Vec<MeetingModel>, sqlx::Error> =
-        MeetingsRepository::get_meetings(pool).await;
+        match limit {
+            Some(limit) => MeetingsRepository::get_recent_meetings(pool, limit).await,
+            None => MeetingsRepository::get_meetings(pool).await,
+        };
 
     match meetings {
         Ok(meeting_models) => {

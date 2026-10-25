@@ -15,6 +15,12 @@ impl MeetingsRepository {
         Ok(meetings)
     }
 
+    pub async fn get_recent_meetings(pool: &SqlitePool, limit: i64) -> Result<Vec<MeetingModel>, sqlx::Error> {
+        if !(1..=100).contains(&limit) { return Err(SqlxError::Protocol("Meeting limit must be between 1 and 100".into())); }
+        sqlx::query_as("SELECT * FROM meetings WHERE status <> 'deleting' ORDER BY created_at DESC,id LIMIT ?")
+            .bind(limit).fetch_all(pool).await
+    }
+
     pub async fn delete_meeting(pool: &SqlitePool, meeting_id: &str) -> Result<bool, SqlxError> {
         if meeting_id.trim().is_empty() {
             return Err(SqlxError::Protocol(

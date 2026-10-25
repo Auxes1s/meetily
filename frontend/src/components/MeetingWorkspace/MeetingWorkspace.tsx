@@ -11,7 +11,7 @@ import { noteSessions } from '@/lib/meeting-notes-session';
 import { flushWorkspaceDocuments as flushAllNotes } from '@/lib/workspace-save';
 import { loadNotesSession } from '@/hooks/useMeetingNotes';
 import { useSidebar } from '@/components/Sidebar/SidebarProvider';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
 import { useRecordingCoordinator } from '@/contexts/RecordingCoordinatorContext';
 import { useConfig } from '@/contexts/ConfigContext';
 import { RecordingControls } from '@/components/RecordingControls';
@@ -28,7 +28,7 @@ export function MeetingWorkspace({ children }: { children: React.ReactNode }) {
   const [isCreating, setIsCreating] = useState(false);
   const toggleButton = useRef<HTMLButtonElement>(null);
   const { refetchMeetings, setCurrentMeeting } = useSidebar();
-  const state = useRecordingState();
+  const state = useRecordingControls();
   const coordinator = useRecordingCoordinator();
   const { selectedDevices } = useConfig();
   const workspaceRoute = pathname === '/' || pathname === '/meeting-details';

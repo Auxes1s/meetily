@@ -5,7 +5,7 @@ import { ArrowLeft, Search, RefreshCw, Trash2, Tag, Users, ChevronLeft, ChevronR
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useMeetingLibrary } from '@/hooks/useMeetingLibrary';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
 import { localDateBound, meetingSourceUrl, passageTime, sourceLabels } from '@/lib/meeting-library';
 import type { LibraryMeeting, LibraryMeetingStatus, LibrarySearchRequest, LibrarySort } from '@/types/meeting-library';
 import { deleteMeetingManaged, meetingDeletionService, type DeletionStatus } from '@/services/meetingDeletionService';
@@ -50,7 +50,7 @@ export function MeetingLibrary() {
   const pendingReadGeneration = useRef(0);
   const mounted = useRef(false);
   const input = useRef<HTMLInputElement>(null);
-  const recording = useRecordingState();
+  const recording = useRecordingControls();
   const activeMeetingId = activeRecordingMeeting();
 
   useEffect(() => {

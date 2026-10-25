@@ -56,3 +56,12 @@ test('pane ratio and selected tab survive returning from a narrow container', as
   expect(renderer!.root.findByProps({ role: 'separator' }).props['aria-valuenow']).toBe(50);
   expect(renderer!.root.findAllByProps({ value: 'summary' })[0].props.value).toBe('summary');
 });
+test('unopened narrow summaries defer initialization and remain mounted after first use', async () => {
+  const mounts: string[] = [];
+  const props = { onTabChange: () => {}, transcript: <Pane name="transcript" mounts={mounts} />, summary: <Pane name="summary" mounts={mounts} /> };
+  await act(async () => { renderer = create(<MeetingDetailsSplitView {...props} activeTab="transcript" />, { createNodeMock: () => container }); });
+  expect(mounts).toEqual(['transcript']);
+  await act(async () => renderer!.update(<MeetingDetailsSplitView {...props} activeTab="summary" />));
+  await act(async () => renderer!.update(<MeetingDetailsSplitView {...props} activeTab="transcript" />));
+  expect(mounts).toEqual(['transcript','summary']);
+});

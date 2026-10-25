@@ -5,7 +5,7 @@ import { Transcript, TranscriptUpdate } from '@/types';
 import { LiveTranscriptStore } from '@/lib/live-transcript-store';
 import { audioSourceLabels, mergeTranscript, normalizeAudioSource, transcriptTime } from '@/lib/transcript-audio-source';
 import { toast } from 'sonner';
-import { useRecordingState } from './RecordingStateContext';
+import { useRecordingControls } from './RecordingStateContext';
 import { transcriptService } from '@/services/transcriptService';
 import { recordingService, type RecordingStartedPayload } from '@/services/recordingService';
 import { indexedDBService } from '@/services/indexedDBService';
@@ -32,7 +32,7 @@ export function TranscriptProvider({ children }: { children: ReactNode }) {
   const [currentMeetingId, setCurrentMeetingId] = useState<string | null>(null);
 
   // Recording state context - provides backend-synced state
-  const recordingState = useRecordingState();
+  const recordingState = useRecordingControls();
 
   // Refs for transcript management
   const transcriptsRef = useMemo(() => ({ get current() { return store.snapshot(); }, set current(value: Transcript[]) { store.clear(); store.upsert(value); } }), [store]);

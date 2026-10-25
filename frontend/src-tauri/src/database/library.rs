@@ -3,7 +3,7 @@
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::{FromRow, QueryBuilder, Sqlite, SqlitePool};
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::sync::atomic::{AtomicBool, Ordering};
 use crate::state::AppState;
 
@@ -11,6 +11,7 @@ const MAX_QUERY_CHARS: usize = 512;
 const MAX_TERMS: usize = 24;
 const MAX_PAGE: i64 = 100;
 static INDEX_WORKER_RUNNING: AtomicBool = AtomicBool::new(false);
+static INDEX_SYNC_LOCK: tokio::sync::Mutex<()> = tokio::sync::Mutex::const_new(());
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct LibrarySearchRequest {
@@ -53,6 +54,55 @@ pub struct LibrarySourceHit {
     pub snippet: String,
     pub audio_start_time: Option<f64>,
     pub audio_end_time: Option<f64>,
+}
+
+#[derive(FromRow)]
+struct MeetingSourceHit {
+    meeting_id: String,
+    #[sqlx(flatten)]
+    hit: LibrarySourceHit,
+}
+
+fn push_meeting_ids<'a>(query: &mut QueryBuilder<'a, Sqlite>, ids: &'a [String]) {
+    let mut values = query.separated(", ");
+    for id in ids { values.push_bind(id); }
+}
+
+/// Enrich only the selected page. FTS matches are ranked once for all meetings,
+/// then snippets are computed for at most eight sources per meeting. Keeping
+/// snippet() outside the window query preserves its FTS cursor context.
+async fn enrich_page(
+    tx: &mut sqlx::Transaction<'_, Sqlite>,
+    meetings: &mut [LibraryMeeting],
+    union_query: Option<&str>,
+) -> Result<(), sqlx::Error> {
+    if meetings.is_empty() { return Ok(()); }
+    let ids: Vec<String> = meetings.iter().map(|m| m.id.clone()).collect();
+    let positions: HashMap<&str, usize> = ids.iter().enumerate().map(|(i, id)| (id.as_str(), i)).collect();
+    for (table, participants) in [("meeting_participants", true), ("meeting_tags", false)] {
+        let mut query = QueryBuilder::<Sqlite>::new(format!("SELECT meeting_id, display_text FROM {table} WHERE meeting_id IN ("));
+        push_meeting_ids(&mut query, &ids);
+        query.push(") ORDER BY meeting_id, normalized");
+        let rows: Vec<(String, String)> = query.build_query_as().fetch_all(&mut **tx).await?;
+        for (id, text) in rows {
+            if let Some(&index) = positions.get(id.as_str()) {
+                if participants { meetings[index].participants.push(text); }
+                else { meetings[index].tags.push(text); }
+            }
+        }
+    }
+    if let Some(terms) = union_query {
+        let mut query = QueryBuilder::<Sqlite>::new("WITH ranked AS MATERIALIZED (SELECT s.id, ROW_NUMBER() OVER (PARTITION BY s.meeting_id ORDER BY CASE s.source_kind WHEN 'title' THEN 0 WHEN 'original' THEN 1 WHEN 'approved' THEN 2 ELSE 3 END, s.audio_start_time, s.id) AS position FROM meeting_search_fts JOIN meeting_search_sources s ON s.id = meeting_search_fts.rowid WHERE meeting_search_fts MATCH ");
+        query.push_bind(terms).push(" AND s.meeting_id IN (");
+        push_meeting_ids(&mut query, &ids);
+        query.push(")) SELECT s.meeting_id, s.source_kind, s.source_id, s.revision, snippet(meeting_search_fts, 0, '', '', ' … ', 40) AS snippet, s.audio_start_time, s.audio_end_time FROM ranked r JOIN meeting_search_sources s ON s.id = r.id JOIN meeting_search_fts ON meeting_search_fts.rowid = s.id WHERE r.position <= 8 AND meeting_search_fts MATCH ")
+            .push_bind(terms).push(" ORDER BY s.meeting_id, r.position");
+        let hits: Vec<MeetingSourceHit> = query.build_query_as().fetch_all(&mut **tx).await?;
+        for row in hits {
+            if let Some(&index) = positions.get(row.meeting_id.as_str()) { meetings[index].hits.push(row.hit); }
+        }
+    }
+    Ok(())
 }
 
 #[derive(Debug, Serialize)]
@@ -187,11 +237,14 @@ async fn upsert_document(tx: &mut sqlx::Transaction<'_, Sqlite>, meeting_id: &st
 }
 
 pub async fn sync_search_index(pool: &SqlitePool, limit: i64) -> Result<SearchSyncStatus, sqlx::Error> {
+    let _sync = INDEX_SYNC_LOCK.lock().await;
+    let started = std::time::Instant::now();
     let limit = limit.clamp(1, 100);
     let ids: Vec<String> = sqlx::query_scalar("SELECT d.meeting_id FROM meeting_search_dirty d JOIN meetings m ON m.id = d.meeting_id WHERE m.status <> 'deleting' ORDER BY d.updated_at, d.meeting_id LIMIT ?")
         .bind(limit).fetch_all(pool).await?;
     let mut indexed = 0;
     for meeting_id in ids {
+        if indexed > 0 && started.elapsed() >= std::time::Duration::from_millis(50) { break; }
         // A transaction per meeting yields between meetings to source writers.
         // Acquire the write lock before the snapshot, avoiding deferred upgrade races.
         let mut tx = pool.begin().await?;
@@ -254,14 +307,17 @@ pub fn schedule_search_sync(pool: SqlitePool) {
     if INDEX_WORKER_RUNNING.swap(true, Ordering::SeqCst) { return; }
     tauri::async_runtime::spawn(async move {
         tokio::time::sleep(std::time::Duration::from_millis(300)).await;
-        loop {
+        let drained = loop {
             match sync_search_index(&pool, 10).await {
                 Ok(status) if status.pending_count > 0 => tokio::time::sleep(std::time::Duration::from_millis(25)).await,
-                Ok(_) => break,
-                Err(error) => { log::warn!("Meeting search indexing remains pending: {error}"); break; }
+                Ok(_) => break true,
+                Err(error) => { log::warn!("Meeting search indexing remains pending: {error}"); break false; }
             }
-        }
+        };
         INDEX_WORKER_RUNNING.store(false, Ordering::SeqCst);
+        // A commit between the last empty check and clearing the running flag
+        // may have coalesced its wake-up into this worker. Recheck after release.
+        if drained && pending_count(&pool).await.is_ok_and(|count| count > 0) { schedule_search_sync(pool); }
     });
 }
 
@@ -358,16 +414,7 @@ pub async fn search_meetings(pool: &SqlitePool, mut request: LibrarySearchReques
     let mut meetings: Vec<LibraryMeeting> = query.build_query_as().fetch_all(&mut *tx).await.map_err(db_error)?;
     let has_more = meetings.len() as i64 > limit;
     if has_more { meetings.truncate(limit as usize); }
-    for meeting in &mut meetings {
-        meeting.participants = sqlx::query_scalar("SELECT display_text FROM meeting_participants WHERE meeting_id = ? ORDER BY normalized")
-            .bind(&meeting.id).fetch_all(&mut *tx).await.map_err(db_error)?;
-        meeting.tags = sqlx::query_scalar("SELECT display_text FROM meeting_tags WHERE meeting_id = ? ORDER BY normalized")
-            .bind(&meeting.id).fetch_all(&mut *tx).await.map_err(db_error)?;
-        if !terms.is_empty() {
-            meeting.hits = sqlx::query_as("SELECT s.source_kind, s.source_id, s.revision, snippet(meeting_search_fts, 0, '', '', ' … ', 40) AS snippet, s.audio_start_time, s.audio_end_time FROM meeting_search_fts JOIN meeting_search_sources s ON s.id = meeting_search_fts.rowid WHERE meeting_search_fts MATCH ? AND s.meeting_id = ? ORDER BY CASE s.source_kind WHEN 'title' THEN 0 WHEN 'original' THEN 1 WHEN 'approved' THEN 2 ELSE 3 END, s.audio_start_time, s.id LIMIT 8")
-                .bind(&union_query).bind(&meeting.id).fetch_all(&mut *tx).await.map_err(db_error)?;
-        }
-    }
+    enrich_page(&mut tx, &mut meetings, (!terms.is_empty()).then_some(union_query.as_str())).await.map_err(db_error)?;
     let next_cursor = if has_more {
         meetings.last().map(|m| serde_json::to_string(&SearchCursor { signature, value: m.sort_value.clone(), id: m.id.clone() }).unwrap())
     } else { None };

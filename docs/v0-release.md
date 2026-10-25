@@ -6,6 +6,26 @@ v0. The user authorized an **unsigned preview** on 16 October 2026 and confirmed
 that no Windows 11 test machine is available. The preview may be published after
 its automated package checks pass; full v0 acceptance remains separate.
 
+## Owner closeout — 17 October 2026
+
+**Long-recording test: APPROVED by the project owner after manual verification.**
+The owner confirmed: “mark the long recording test as approved, i have verified
+it myself.” This closes the long-recording acceptance item for the retained app.
+Existing automated receipts remain unchanged; this approval records manual
+acceptance without adding measured durations, provider coverage or performance
+results.
+
+The owner accepted the app as it is and directed that unavailable Windows
+verification be left as is. **Windows acceptance is deferred and unverified.**
+At closeout, candidate run `38929108241` had passed frontend and macOS jobs;
+its Windows job and Windows 11 installed-QA run `38930176529` were still running.
+Those observations are a snapshot, not Windows acceptance.
+
+Retain the installed app and the existing unpublished preview draft. This
+closeout updates documentation only. Earlier duration-run recommendations are
+superseded; resume development or deferred verification only on a new owner
+request. Other recorded acceptance limitations remain unchanged.
+
 ## Supported targets and evidence
 
 | Target | Package | Acceptance status |
@@ -88,8 +108,8 @@ history; they have not been substituted with this candidate checklist.
 
 - Windows 11 native permissions, microphone/system audio, pause/resume, tray,
   export/deletion locks, upgrade and restart acceptance.
-- Current macOS physical-source and foreground recording/editing checks,
-  45-minute workloads and four-hour recording continuity.
+- Current macOS physical-source and foreground recording/editing checks beyond
+  the owner's approved long-recording test.
 - Source-by-source summary/enhancement accuracy: the latest model evaluation
   still fails the existing AC07 gate; successful inference is not semantic
   acceptance. Generated candidates require review before approval.

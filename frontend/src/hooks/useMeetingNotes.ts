@@ -2,7 +2,7 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import type { Block } from '@blocknote/core';
 import { invoke } from '@tauri-apps/api/core';
-import { MeetingNotesSession, noteSessions, type NoteLink } from '@/lib/meeting-notes-session';
+import { MeetingNotesSession, noteSessions, pruneDocumentSessions, type NoteLink } from '@/lib/meeting-notes-session';
 import { isMeetingDeletionBlocked } from '@/services/meetingDeletionService';
 
 const loads = new Map<string, Promise<MeetingNotesSession>>();
@@ -49,11 +49,12 @@ export function useMeetingNotes(meetingId: string | null) {
   };
   useEffect(() => {
     let cancelled = false;
+    let release: (() => void) | undefined;
     setError(null);
     if (meetingId) loadNotesSession(meetingId).then(session => {
-      if (!cancelled) setLoaded({ id: meetingId, session });
+      if (!cancelled) { release = session.retain(); setLoaded({ id: meetingId, session }); pruneDocumentSessions(noteSessions, value => value, meetingId); }
     }).catch(error => { if (!cancelled) setError(String(error)); });
-    return () => { cancelled = true; };
+    return () => { cancelled = true; release?.(); queueMicrotask(() => pruneDocumentSessions(noteSessions, value => value)); };
   }, [meetingId, reloadKey]);
   const session = loaded?.id === meetingId ? loaded.session : null;
   const snapshot = useSyncExternalStore(session?.subscribe ?? (() => () => {}), session?.getSnapshot ?? (() => null), () => null);

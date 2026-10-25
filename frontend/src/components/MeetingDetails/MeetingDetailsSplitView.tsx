@@ -50,6 +50,8 @@ export function MeetingDetailsSplitView({
   const containerRef = useRef<HTMLDivElement>(null);
   const [ratio, setRatio] = useState(DEFAULT_RATIO);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [summaryOpened, setSummaryOpened] = useState(activeTab === 'summary');
+  useEffect(() => { if (isDesktop || activeTab === 'summary') setSummaryOpened(true); }, [isDesktop, activeTab]);
   const dragging = useRef(false);
   const clampRatio = (value: number) => Math.min(MAX_RATIO, Math.max(MIN_RATIO, value));
 
@@ -169,7 +171,7 @@ export function MeetingDetailsSplitView({
           className="details-summary mt-0 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden data-[state=inactive]:hidden"
           {...summaryPanelProps}
         >
-          {summary}
+          {(summaryOpened || isDesktop || activeTab === 'summary') && summary}
         </TabsContent>
       </div>
     </Tabs>

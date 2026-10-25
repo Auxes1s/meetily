@@ -1,6 +1,7 @@
 // src/audio/mod.rs
 pub mod audio_processing;
 pub mod decoder;
+pub(crate) mod batch_audio;
 pub mod encode;
 pub mod ffmpeg;
 pub mod vad;
@@ -28,6 +29,7 @@ pub mod recording_manager;
 pub mod recording_commands;
 pub mod recording_preferences;
 pub mod recording_saver;
+pub(crate) mod transcript_journal;
 pub mod incremental_saver;  // NEW: Incremental audio saving with checkpoints
 pub mod level_monitor;
 pub mod simple_level_monitor;

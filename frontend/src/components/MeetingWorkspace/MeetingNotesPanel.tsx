@@ -42,7 +42,8 @@ export function MeetingNotesPanel({ meetingId, onCopyDraft }: { meetingId: strin
   useEffect(() => { editorRef.current = null; setSource(null); }, [meetingId]);
   const onReady = useCallback((editor: BlockNoteEditor) => {
     editorRef.current = editor;
-    session?.setConverter(blocks => editor.blocksToMarkdownLossy(blocks));
+    const detach = session?.setConverter(blocks => editor.blocksToMarkdownLossy(blocks));
+    return () => { detach?.(); if (editorRef.current === editor) editorRef.current = null; };
   }, [session]);
   const onChange = useCallback((blocks: Block[]) => session?.edit(blocks), [session]);
   const save = async () => { try { await session?.flush(); } catch { toast.error('Notes could not be saved. Your edits are retained.'); } };

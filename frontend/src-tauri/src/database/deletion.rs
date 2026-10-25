@@ -255,7 +255,7 @@ fn capture_artifacts_with_legacy_ownership(folder: &Path, roots: &[PathBuf], mee
             files.push(folder.join(path));
         }
     }
-    files.extend(["transcripts.json", ".transcripts.json.tmp", ".metadata.json.tmp"].map(|name| folder.join(name)));
+    files.extend(["transcripts.json", "transcripts.journal.jsonl", ".transcripts.json.tmp", ".metadata.json.tmp"].map(|name| folder.join(name)));
     let mut directories = Vec::new();
     let checkpoints = folder.join(".checkpoints");
     if checkpoints.try_exists().map_err(|_| "Cannot inspect checkpoint directory".to_string())? {
@@ -277,7 +277,7 @@ fn capture_artifacts_with_legacy_ownership(folder: &Path, roots: &[PathBuf], mee
     for entry in fs::read_dir(&folder).map_err(|_| "Cannot enumerate recording artifacts".to_string())? {
         let path = entry.map_err(|_| "Cannot inspect recording artifact".to_string())?.path();
         let name = path.file_name().and_then(|v| v.to_str()).unwrap_or("");
-        if name.starts_with(".metadata.json.") && name.ends_with(".tmp") { files.push(path); }
+        if (name.starts_with(".metadata.json.") || name.starts_with(".transcripts.json.")) && name.ends_with(".tmp") { files.push(path); }
     }
     files.sort(); files.dedup();
     // Metadata is last so a failed first attempt still carries ownership proof.

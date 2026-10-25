@@ -9,7 +9,7 @@ import { listen } from '@tauri-apps/api/event';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Analytics from '@/lib/analytics';
-import { useRecordingState, RecordingStatus } from '@/contexts/RecordingStateContext';
+import { useRecordingControls, RecordingStatus } from '@/contexts/RecordingStateContext';
 import type { TranscriptionErrorPayload } from '@/services/transcriptService';
 import { recordingService } from '@/services/recordingService';
 
@@ -44,7 +44,7 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
   meetingName,
 }) => {
   // Use global recording state context for pause state (syncs with tray operations)
-  const recordingState = useRecordingState();
+  const recordingState = useRecordingControls();
   const sharedPending = useSyncExternalStore(recordingService.subscribeLifecycle, recordingService.getLifecyclePending, recordingService.getLifecyclePending);
   const isPaused = recordingState.isPaused;
   const isStartingRecording = recordingState.isStartingRecording;

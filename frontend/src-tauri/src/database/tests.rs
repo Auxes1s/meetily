@@ -7,6 +7,31 @@ async fn fixture() -> (tempfile::TempDir, DatabaseManager) {
     sqlx::query("INSERT INTO meetings (id, title, created_at, updated_at, status, recording_session_id) VALUES ('meeting-a', 'Original', '2026-10-13T00:00:00Z', '2026-10-13T00:00:00Z', 'draft', 'session-a')").execute(db.pool()).await.unwrap();
     (dir, db)
 }
+#[tokio::test]
+async fn transcript_lookup_index_serves_reads_that_include_legacy_rows() {
+    let (_directory, db) = fixture().await;
+    let plan: Vec<(i64,i64,i64,String)> = sqlx::query_as("EXPLAIN QUERY PLAN SELECT COUNT(*) FROM transcripts WHERE meeting_id = ?")
+        .bind("meeting-a").fetch_all(db.pool()).await.unwrap();
+    assert!(plan.iter().any(|row|row.3.contains("transcripts_meeting_lookup")));
+}
+#[tokio::test]
+async fn recent_sidebar_is_bounded_with_stable_order_and_legacy_full_access() {
+    use super::repositories::meeting::MeetingsRepository;
+    let (_directory, db) = fixture().await;
+    for i in 0..55 {
+        sqlx::query("INSERT INTO meetings(id,title,created_at,updated_at,status) VALUES (?,?,'2026-10-25T00:00:00Z','2026-10-25T00:00:00Z',?)")
+            .bind(format!("recent-{i:03}")).bind(format!("Recent {i}"))
+            .bind(if i == 0 { "deleting" } else { "draft" }).execute(db.pool()).await.unwrap();
+    }
+    let page = MeetingsRepository::get_recent_meetings(db.pool(),50).await.unwrap();
+    assert_eq!(page.len(),50);
+    assert_eq!(page.first().unwrap().id,"recent-001");
+    assert_eq!(page.last().unwrap().id,"recent-050");
+    assert_eq!(MeetingsRepository::get_meetings(db.pool()).await.unwrap().len(),55);
+    assert!(MeetingsRepository::get_recent_meetings(db.pool(),0).await.is_err());
+    assert!(MeetingsRepository::get_recent_meetings(db.pool(),101).await.is_err());
+    db.cleanup().await.unwrap();
+}
 fn input(base_revision: i64, text: &str) -> NotesSave {
     NotesSave { meeting_id: "meeting-a".into(), notes_json: serde_json::json!([{"id":"block", "type":"paragraph", "content":[{"type":"text", "text":text}], "children":[]}]).to_string(), notes_markdown: Some(text.into()), notes_plain_text: Some(text.into()), base_revision, commit_id: uuid::Uuid::new_v4().to_string(), title: Some("User title".into()), links: vec![] }
 }

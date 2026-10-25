@@ -14,7 +14,7 @@ const wrapper = ({ children }: any) => <div>{children}</div>;
 mock.module('@tauri-apps/api/core', () => ({ ...originals.core, invoke: async (command: string) => { calls.push(command); return native(command); } }));
 mock.module('@tauri-apps/api/event', () => ({ ...originals.event, listen: () => registerListen() }));
 mock.module('@tauri-apps/api/path', () => ({ ...originals.path, appDataDir: async () => '/isolated-test' }));
-mock.module('../../src/contexts/RecordingStateContext', () => ({ ...originals.state, useRecordingState: () => state }));
+mock.module('../../src/contexts/RecordingStateContext', () => ({ ...originals.state, useRecordingControls: () => state, useRecordingState: () => state }));
 mock.module('../../src/components/ui/tooltip', () => ({ Tooltip: wrapper, TooltipContent: wrapper, TooltipProvider: wrapper, TooltipTrigger: wrapper }));
 mock.module('../../src/lib/analytics', () => ({ ...originals.analytics, default: { trackButtonClick() {}, trackTranscriptionSuccess() {}, trackTranscriptionError() {} } }));
 const { RecordingControls } = await import('../../src/components/RecordingControls');

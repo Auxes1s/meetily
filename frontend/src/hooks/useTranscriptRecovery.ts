@@ -124,10 +124,7 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
       }
 
       // 2. Load all transcripts
-      const transcripts = await loadMeetingTranscripts(meetingId);
-      if (transcripts.length === 0) {
-        throw new Error('No transcripts found for this meeting');
-      }
+      let transcripts = await loadMeetingTranscripts(meetingId);
 
       // 3. Check for folder path
       let folderPath = metadata.folderPath;
@@ -141,6 +138,24 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
           folderPath = undefined;
         }
       }
+
+      // Native final passages can be newer than the WebView recovery cache.
+      // Reconcile them before acknowledging recovery or cleaning checkpoints.
+      if (folderPath) {
+        const finalPassages = await invoke<Array<{ id: string; text: string; display_time: string; sequence_id: number; confidence: number; audio_source?: string; audio_start_time: number; audio_end_time: number; duration: number }>>('recover_transcript_history', {
+          meetingFolder: folderPath, meetingId: metadata.canonicalMeetingId,
+        });
+        const merged = new Map(transcripts.map((row, index) => [row.sequence_id ?? row.sequenceId ?? index, row]));
+        for (const passage of finalPassages) {
+          const prior = merged.get(passage.sequence_id);
+          merged.set(passage.sequence_id, { ...prior, ...passage, meetingId, sequenceId: passage.sequence_id,
+            timestamp: passage.display_time, storedAt: prior?.storedAt ?? Date.now(), is_partial: false,
+            audio_source: normalizeAudioSource(passage.audio_source) === 'unknown' && prior ? prior.audio_source : normalizeAudioSource(passage.audio_source),
+          });
+        }
+        transcripts = [...merged.values()].sort((a, b) => a.sequenceId - b.sequenceId);
+      }
+      if (transcripts.length === 0) throw new Error('No transcripts found for this meeting');
 
       // 4. Attempt audio recovery if folder path exists
       let audioRecoveryStatus: AudioRecoveryStatus | null = null;
@@ -208,7 +223,7 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
 
 
       // 8. Clean up checkpoint files
-      if (folderPath) {
+      if (folderPath && audioRecoveryStatus?.status === 'success') {
         try {
           await invoke('cleanup_checkpoints', { meetingFolder: folderPath });
         } catch (error) {

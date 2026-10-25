@@ -49,15 +49,19 @@ interface RecordingStateContextType extends RecordingState {
   isStartingRecording: boolean;
 }
 
-const RecordingStateContext = createContext<RecordingStateContextType | null>(null);
+type RecordingControlsState = Omit<RecordingStateContextType, 'recordingDuration' | 'activeDuration'>;
+const RecordingStateContext = createContext<RecordingControlsState | null>(null);
+const RecordingClockContext = createContext({ recordingDuration: null as number | null, activeDuration: null as number | null });
 
-export const useRecordingState = () => {
+export const useRecordingControls = () => {
   const context = useContext(RecordingStateContext);
   if (!context) {
     throw new Error('useRecordingState must be used within a RecordingStateProvider');
   }
   return context;
 };
+/** Compatibility hook for consumers that also display elapsed time. */
+export const useRecordingState = () => ({ ...useRecordingControls(), ...useContext(RecordingClockContext) });
 
 export function RecordingStateProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<RecordingState>({
@@ -72,6 +76,7 @@ export function RecordingStateProvider({ children }: { children: React.ReactNode
 
   const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const activeSessionRef = useRef<string | undefined>();
+  const syncPendingRef = useRef(false);
   const confirmRecordingStarted = useCallback((payload: RecordingStartedPayload) => {
     const expected = sessionStorage.getItem('recording_session_id');
     if (expected && payload.recording_session_id && expected !== payload.recording_session_id) return;
@@ -83,29 +88,32 @@ export function RecordingStateProvider({ children }: { children: React.ReactNode
 
   // NEW: Status setter with logging
   const setStatus = useCallback((status: RecordingStatus, message?: string) => {
-    console.log(`[RecordingState] Status: ${state.status} → ${status}`, message || '');
-
     setState(prev => ({
       ...prev,
       status,
       statusMessage: message,
     }));
-  }, [state.status, state.isRecording, state.isPaused]);
+  }, []);
 
   /**
    * Sync recording state with backend
    * Called on mount (fixes refresh desync) and periodically while recording
    */
   const syncWithBackend = async () => {
+    if (syncPendingRef.current) return;
+    syncPendingRef.current = true;
+    const requestSession = activeSessionRef.current;
     try {
       const backendState = await recordingService.getRecordingState();
+      if (requestSession !== activeSessionRef.current && backendState.recording_session_id !== activeSessionRef.current) return;
       if (backendState.is_recording && backendState.recording_session_id) {
         activeSessionRef.current = backendState.recording_session_id;
         sessionStorage.setItem('recording_session_id', backendState.recording_session_id);
         if (backendState.meeting_id) sessionStorage.setItem('recording_meeting_id', backendState.meeting_id);
       }
 
-      setState(prev => ({
+      setState(prev => {
+        const next = {
         ...prev,
         isRecording: backendState.is_recording,
         isPaused: backendState.is_paused,
@@ -115,13 +123,13 @@ export function RecordingStateProvider({ children }: { children: React.ReactNode
         status: backendState.is_recording && backendState.phase !== 'finalizing' && [RecordingStatus.STARTING, RecordingStatus.ERROR, RecordingStatus.IDLE].includes(prev.status)
           ? RecordingStatus.RECORDING : prev.status,
         statusMessage: backendState.is_recording && backendState.phase !== 'finalizing' ? undefined : prev.statusMessage,
-      }));
-
-      console.log('[RecordingStateContext] Synced with backend:', backendState);
+        };
+        return Object.keys(next).every(key => next[key as keyof RecordingState] === prev[key as keyof RecordingState]) ? prev : next;
+      });
     } catch (error) {
       console.error('[RecordingStateContext] Failed to sync with backend:', error);
       // Don't update state on error - keep current state
-    }
+    } finally { syncPendingRef.current = false; }
   };
 
   /**
@@ -379,18 +387,20 @@ export function RecordingStateProvider({ children }: { children: React.ReactNode
 
   // NEW: Computed helpers from status
   const contextValue = useMemo(() => ({
-    ...state,
+    isRecording: state.isRecording, isPaused: state.isPaused, isActive: state.isActive,
+    status: state.status, statusMessage: state.statusMessage,
     setStatus,
     confirmRecordingStarted,
     isStopping: state.status === RecordingStatus.STOPPING,
     isProcessing: state.status === RecordingStatus.PROCESSING_TRANSCRIPTS,
     isSaving: state.status === RecordingStatus.SAVING,
     isStartingRecording: state.status === RecordingStatus.STARTING,
-  }), [state, setStatus]);
+  }), [state.isRecording, state.isPaused, state.isActive, state.status, state.statusMessage, setStatus, confirmRecordingStarted]);
+  const clock = useMemo(() => ({ recordingDuration: state.recordingDuration, activeDuration: state.activeDuration }), [state.recordingDuration, state.activeDuration]);
 
   return (
     <RecordingStateContext.Provider value={contextValue}>
-      {children}
+      <RecordingClockContext.Provider value={clock}>{children}</RecordingClockContext.Provider>
     </RecordingStateContext.Provider>
   );
 }

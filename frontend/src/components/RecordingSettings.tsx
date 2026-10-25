@@ -5,7 +5,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { DeviceSelection, SelectedDevices } from '@/components/DeviceSelection';
 import Analytics from '@/lib/analytics';
 import { toast } from 'sonner';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
 import { useConfig } from '@/contexts/ConfigContext';
 
 export interface RecordingPreferences {
@@ -36,7 +36,7 @@ export function RecordingSettings({ onSave }: RecordingSettingsProps) {
   const [notificationLoading, setNotificationLoading] = useState(true);
   const [savingNotification, setSavingNotification] = useState(false);
   const [showRecordingNotification, setShowRecordingNotification] = useState(true);
-  const { isRecording } = useRecordingState();
+  const { isRecording } = useRecordingControls();
   const { setSelectedDevices } = useConfig();
 
   // Load recording preferences on component mount

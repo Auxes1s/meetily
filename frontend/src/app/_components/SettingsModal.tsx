@@ -6,7 +6,7 @@ import { TranscriptSettings } from "@/components/TranscriptSettings";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { toast } from "sonner";
 import { useConfig } from "@/contexts/ConfigContext";
-import { useRecordingState } from "@/contexts/RecordingStateContext";
+import { useRecordingControls } from "@/contexts/RecordingStateContext";
 
 type modalType = "modelSettings" | "deviceSettings" | "languageSettings" | "modelSelector" | "errorAlert" | "chunkDropWarning";
 
@@ -56,7 +56,7 @@ export function SettingsModals({
     toggleConfidenceIndicator,
   } = useConfig();
 
-  const { isRecording } = useRecordingState();
+  const { isRecording } = useRecordingControls();
 
   return <>
     {/* Legacy Settings Modal */}

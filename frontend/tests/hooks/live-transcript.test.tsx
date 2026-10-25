@@ -23,7 +23,7 @@ async function listen(event: string, callback: (payload: any) => any) {
 }
 const saveTranscript = mock(async (..._args: any[]) => {});
 const saveMetadata = mock(async (..._args: any[]) => {});
-mock.module('../../src/contexts/RecordingStateContext', () => ({ ...originalState, useRecordingState: () => ({ isRecording: recording }) }));
+mock.module('../../src/contexts/RecordingStateContext', () => ({ ...originalState, useRecordingControls: () => ({ isRecording: recording }), useRecordingState: () => ({ isRecording: recording }) }));
 mock.module('../../src/services/transcriptService', () => ({ ...originalTranscripts, transcriptService: {
   onTranscriptUpdate: (callback: any) => listen('transcript', callback), getTranscriptHistory: () => history(),
 } }));

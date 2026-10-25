@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSidebar } from '@/components/Sidebar/SidebarProvider';
-import { useRecordingState, RecordingStatus } from '@/contexts/RecordingStateContext';
+import { useRecordingControls, RecordingStatus } from '@/contexts/RecordingStateContext';
 import { useTranscripts } from '@/contexts/TranscriptContext';
 import Analytics from '@/lib/analytics';
 import { TranscriptPanel } from './_components/TranscriptPanel';
@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [showRecoveryDialog, setShowRecoveryDialog] = useState(false);
-  const recordingState = useRecordingState();
+  const recordingState = useRecordingControls();
   const { status, isStopping, isProcessing } = recordingState;
   const { refetchMeetings } = useSidebar();
   const { showModal } = useRecordingCoordinator();

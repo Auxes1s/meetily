@@ -8,6 +8,7 @@ const originalState = { ...await import('../../src/contexts/RecordingStateContex
 mock.module('../../src/contexts/RecordingStateContext', () => ({
   ...originalState,
   useRecordingState: () => ({ status: 'idle', isRecording: false, isPaused: false }),
+  useRecordingControls: () => ({ status: 'idle', isRecording: false, isPaused: false }),
 }));
 // Supply visible rows for SSR; actual webview scrolling is a native smoke gate.
 mock.module('@tanstack/react-virtual', () => ({

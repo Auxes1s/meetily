@@ -28,7 +28,7 @@ mock.module('../../src/contexts/ConfigContext', () => ({ ...config, useConfig: (
   storageLocations: {}, isLoadingPreferences: false, loadPreferences: async () => {},
   updateNotificationSettings: async (value: any) => { writes.push(value); await notificationWrite(value); },
 }) }));
-mock.module('../../src/contexts/RecordingStateContext', () => ({ ...recording, useRecordingState: () => ({ isRecording: false }) }));
+mock.module('../../src/contexts/RecordingStateContext', () => ({ ...recording, useRecordingControls: () => ({ isRecording: false }), useRecordingState: () => ({ isRecording: false }) }));
 mock.module('../../src/components/DeviceSelection', () => ({ ...device, DeviceSelection: (props: any) => <div data-device-picker {...props} /> }));
 mock.module('../../src/components/AnalyticsConsentSwitch', () => ({ ...analyticsConsent, default: () => null }));
 mock.module('../../src/components/ui/switch', () => ({ Switch: (props: any) => <button role="switch" {...props} /> }));
