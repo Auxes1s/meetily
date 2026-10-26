@@ -1,0 +1,8 @@
+{
+  "driver_result": "native_keyboard_System_Events_error_-1719",
+  "cause": "System Events temporarily did not expose window1 after native resize and sidebar/drawer storm",
+  "existing_responsive_cases": 91,
+  "existing_design_cases": 34,
+  "interaction_cases_completed": 2,
+  "production_profile_touched": false
+}

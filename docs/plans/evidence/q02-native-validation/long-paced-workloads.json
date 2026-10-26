@@ -1,0 +1,231 @@
+{
+  "evidence_class": "paced source-VAD/ASR/native IPC/WebView; not physical capture",
+  "workload": "repeated public audio-source-speech.wav with 2 seconds appended silence, injected into both sources",
+  "cases": [
+    {
+      "case": "final-long-whisper-2700",
+      "returncode": 0,
+      "provider": "localWhisper",
+      "model": "large-v3",
+      "language": "auto",
+      "routing": "overlapping",
+      "stress": false,
+      "input_microphone_sha256": "862bca2b15c2fe47d9ffacfea97a4813d216c67367ac0ccb4e395e3dd813433d",
+      "input_system_sha256": "862bca2b15c2fe47d9ffacfea97a4813d216c67367ac0ccb4e395e3dd813433d",
+      "model_files": {
+        "ggml-large-v3.bin": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2"
+      },
+      "native_results": [
+        {
+          "audio_seconds": 2700,
+          "capture_wall_seconds": 2700.004338458,
+          "display_latency_acceptance": false,
+          "effective_whisper_settings": {
+            "beam_size": 3,
+            "effective_threads": 4,
+            "language": "auto",
+            "max_len": 200,
+            "no_context": true,
+            "no_speech_threshold": 0.55,
+            "no_timestamps": true,
+            "patience": 1,
+            "single_segment": false,
+            "temperature": 0.20000000298023224,
+            "token_timestamps": true,
+            "translate": false
+          },
+          "final_segments": 1080,
+          "full_capture_pipeline": false,
+          "language": "auto",
+          "max_replay_lateness_seconds": 0.02445429099998364,
+          "model": "large-v3",
+          "native_device_pause_resume": false,
+          "native_ipc": true,
+          "ok": true,
+          "paced_replay": true,
+          "physical_capture": false,
+          "provider": "localWhisper",
+          "routing": "overlapping",
+          "source_checkpoint_deliveries_verified": 2160,
+          "source_deliveries": 2160,
+          "stop_to_commit_seconds": 3.105198875000042,
+          "transcript_fidelity_acceptance": false,
+          "vad_pause_boundary_replay": false,
+          "virtual_capture_clock": false,
+          "wall_seconds": 2703.109537333,
+          "retained_microphone_pcm_sha256": "4f6c662dce8dfbdfcf32e4963a46c6762247e510c733d2bca598c7b049c4e98d",
+          "retained_system_pcm_sha256": "4f6c662dce8dfbdfcf32e4963a46c6762247e510c733d2bca598c7b049c4e98d",
+          "exact_source_audio_retention_verified": true
+        }
+      ],
+      "performance": [
+        {
+          "inference_seconds": 2700.474173389003,
+          "inference_rtf": 1.0001756197737048,
+          "decode_count": 1311,
+          "p95_decode_window_seconds": 3.52,
+          "max_decode_backlog_seconds": 11.990000000000236,
+          "p95_decode_backlog_seconds": 11.990000000000009,
+          "middle_p95_backlog_seconds": 11.990000000000009,
+          "late_p95_backlog_seconds": 11.989999999999782,
+          "p95_capture_to_native_event_seconds": 6.054216958999973,
+          "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+          "sustained_gate_passed": false,
+          "fidelity_gate_passed": false
+        }
+      ],
+      "ui_summary": {
+        "capture_to_display_ms": {
+          "n": 1310,
+          "p95": 6716.592666999903,
+          "max": 7475.915874999948
+        },
+        "capture_to_event_ms": {
+          "n": 1311,
+          "p95": 6054.2179589999705,
+          "max": 6352.232583999921
+        },
+        "event_to_paint_ms": {
+          "n": 1311,
+          "p95": 1140,
+          "max": 1550
+        },
+        "foreground_input_to_paint_ms": {
+          "n": 111,
+          "p95": 24,
+          "max": 26
+        },
+        "observed_save_ms": {
+          "n": 470,
+          "p95": 1427,
+          "max": 1499
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 470,
+          "p95": 1177,
+          "max": 1450
+        }
+      },
+      "ui_counts": {
+        "background_samples": 359,
+        "foreground_samples": 111,
+        "paint_timeouts": 0,
+        "visible_text_samples": 1310
+      },
+      "resource_summary": {
+        "native_rss_kib": {
+          "n": 2481,
+          "p95": 3311616,
+          "max": 3312080
+        },
+        "attributed_tree_rss_kib": {
+          "n": 2481,
+          "p95": 3391920,
+          "max": 3393296
+        },
+        "attributed_tree_cpu_percent": {
+          "n": 2481,
+          "p95": 114.4,
+          "max": 128.70000000000002
+        }
+      },
+      "resource_periods": {
+        "early": {
+          "native_rss_kib": {
+            "n": 504,
+            "p95": 3301728,
+            "max": 3301872
+          },
+          "attributed_tree_rss_kib": {
+            "n": 504,
+            "p95": 3364064,
+            "max": 3364512
+          },
+          "attributed_tree_cpu_percent": {
+            "n": 504,
+            "p95": 103.8,
+            "max": 126.0
+          }
+        },
+        "middle": {
+          "native_rss_kib": {
+            "n": 493,
+            "p95": 3308832,
+            "max": 3309024
+          },
+          "attributed_tree_rss_kib": {
+            "n": 493,
+            "p95": 3379952,
+            "max": 3380480
+          },
+          "attributed_tree_cpu_percent": {
+            "n": 493,
+            "p95": 115.10000000000001,
+            "max": 127.9
+          }
+        },
+        "late": {
+          "native_rss_kib": {
+            "n": 494,
+            "p95": 3312048,
+            "max": 3312080
+          },
+          "attributed_tree_rss_kib": {
+            "n": 494,
+            "p95": 3392960,
+            "max": 3393296
+          },
+          "attributed_tree_cpu_percent": {
+            "n": 494,
+            "p95": 116.2,
+            "max": 128.70000000000002
+          }
+        }
+      },
+      "gpu_host_scope_only": {
+        "Device Utilization %": {
+          "n": 2481,
+          "p95": 100,
+          "max": 100
+        },
+        "In use system memory": {
+          "n": 2481,
+          "p95": 4297785344,
+          "max": 4384571392
+        },
+        "Alloc system memory": {
+          "n": 2481,
+          "p95": 6483083264,
+          "max": 6534316032
+        }
+      },
+      "max_worker_pending_audio_seconds": 8.56,
+      "max_unfinalized_source_audio_seconds": 2.0,
+      "notes_revision_before": 1,
+      "notes_revision_after": 471,
+      "original_note_marker_retained": true,
+      "export_transcripts": 1080,
+      "export_sessions": 1,
+      "final_live_export_source_timing_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "full_ac05_acceptance": false,
+      "limitation": "Foreground input is scripted DOM insertion; full physical/U01/U06 workflows and independent listening review remain pending. Worker pending metric includes current chunk."
+    }
+  ],
+  "comparison_stage": "Before eager admission; retained 45-minute evidence, not latest-revision full acceptance",
+  "unfinished_cases": [
+    {
+      "case": "parakeet-2700",
+      "status": "aborted_at_34_minutes",
+      "duration_acceptance": false,
+      "reason": "Stopping test controller also stopped its child during scheduling pivot; partial replay is not a pass."
+    },
+    {
+      "case": "whisper-14400-stress",
+      "status": "not_started",
+      "duration_acceptance": false,
+      "reason": "Held during user-requested continuity pivot; left pending when user asked to finish."
+    }
+  ]
+}

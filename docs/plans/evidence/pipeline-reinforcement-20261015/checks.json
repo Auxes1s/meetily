@@ -1,0 +1,26 @@
+{
+  "frontend": {
+    "passed": 183,
+    "failed": 0,
+    "assertions": 695
+  },
+  "native": {
+    "passed": 371,
+    "failed": 1,
+    "ignored": 8,
+    "known_failure": "audio::device_detection::tests::test_builtin_mic_detection"
+  },
+  "production_frontend_build": true,
+  "sequential_typescript": true,
+  "portable_ggml_node_tests": 14,
+  "python_tooling_tests": 10,
+  "standalone_onboarding_model_test": true,
+  "isolated_macos_bundle": true,
+  "codesign_deep_strict": true,
+  "native_bundle_sha256": "a19e816a7911bb01e62c052e0ca9afc59954fba22cc444f30555d5d1ff7c585d",
+  "installed_production_app_changed": false,
+  "new_dependencies_or_models": false,
+  "lint": "CI=1 pnpm --dir frontend lint with stdin closed exits 1 at the existing Next ESLint setup prompt; no lint pass",
+  "foreground_paint": "No foreground samples; lsappinfo reported loginwindow in front. Background paint is not AC05 evidence.",
+  "scope": "Focused regressions and short replay only; 45-minute, four-hour, physical capture/fidelity, full manager and Windows acceptance remain open."
+}

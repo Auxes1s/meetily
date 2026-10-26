@@ -1,0 +1,63 @@
+warning: patch for the non root package will be ignored, specify patch at the workspace root:
+package:   /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src-tauri/Cargo.toml
+workspace: /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/llama-helper/Cargo.toml
+workspace: /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/Cargo.toml
+    Checking tracing-core v0.1.36
+   Compiling tauri v2.11.1
+    Checking futures-util v0.3.32
+    Checking either v1.15.0
+    Checking plotters-backend v0.3.7
+    Checking ciborium-io v0.2.2
+   Compiling meetily v0.4.1 (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src-tauri)
+    Checking cast v0.3.0
+    Checking sharded-slab v0.1.7
+    Checking tinytemplate v1.2.1
+    Checking ciborium-ll v0.2.2
+    Checking is-terminal v0.4.17
+    Checking plotters-svg v0.3.7
+    Checking rayon v1.12.0
+    Checking itertools v0.10.5
+    Checking tracing v0.1.44
+    Checking ciborium v0.2.2
+    Checking tracing-log v0.2.0
+    Checking plotters v0.3.7
+    Checking which v6.0.3
+    Checking sonora-agc2 v0.2.0
+    Checking ort v2.0.0-rc.10
+    Checking thread_local v1.1.9
+    Checking oorandom v11.1.5
+    Checking nu-ansi-term v0.50.3
+    Checking anes v0.1.6
+    Checking sonora v0.2.0
+    Checking tracing-subscriber v0.3.23
+    Checking infer v0.15.0
+    Checking memory-stats v1.2.0
+    Checking criterion-plot v0.5.0
+error: unused import: `std::io::Read`
+   --> frontend/src-tauri/build/ffmpeg.rs:210:9
+    |
+210 |     use std::io::Read;
+    |         ^^^^^^^^^^^^^
+    |
+    = note: `-D unused-imports` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(unused_imports)]`
+
+error: called `Iterator::last` on a `DoubleEndedIterator`; this will needlessly iterate the entire iterator
+  --> frontend/src-tauri/build/ffmpeg.rs:96:28
+   |
+96 |     let archive_filename = url.split('/').last().unwrap_or("ffmpeg-archive");
+   |                            ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#double_ended_iterator_last
+   = note: `-D clippy::double-ended-iterator-last` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::double_ended_iterator_last)]`
+help: try
+   |
+96 -     let archive_filename = url.split('/').last().unwrap_or("ffmpeg-archive");
+96 +     let archive_filename = url.split('/').next_back().unwrap_or("ffmpeg-archive");
+   |
+
+error: could not compile `meetily` (build script) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

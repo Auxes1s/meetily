@@ -1,0 +1,560 @@
+{
+  "priority_revision": "User requested continuous useful processing with large Whisper, allowing slow inference. Original RTF/legacy latency results are retained separately and not declared passed.",
+  "evidence_class": "paced replay, actual local ASR/native IPC/WebView; not physical capture",
+  "cases": [
+    {
+      "case": "eager-paired-legacy",
+      "runner_returncode": 0,
+      "input_microphone_sha256": "733cf513448ce6b20ad1bc5e50eb27c06aefae0c320713a5dd99f4e51bc1ca60",
+      "input_system_sha256": "17f6663681fec5356ed3841e0683fcc8539c8edfcba17188a6f592a5123b7dd1",
+      "provider": "localWhisper",
+      "model": "large-v3",
+      "model_files": {
+        "ggml-large-v3.bin": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2"
+      },
+      "routing": "legacy",
+      "language": "auto",
+      "native": {
+        "audio_seconds": 90.112,
+        "capture_wall_seconds": 90.113253417,
+        "display_latency_acceptance": false,
+        "effective_whisper_settings": {
+          "beam_size": 3,
+          "effective_threads": 4,
+          "language": "auto",
+          "max_len": 200,
+          "no_context": true,
+          "no_speech_threshold": 0.55,
+          "no_timestamps": true,
+          "patience": 1,
+          "single_segment": false,
+          "temperature": 0.20000000298023224,
+          "token_timestamps": true,
+          "translate": false
+        },
+        "final_segments": 19,
+        "full_capture_pipeline": false,
+        "language": "auto",
+        "max_replay_lateness_seconds": 0.7065552920000009,
+        "model": "large-v3",
+        "native_device_pause_resume": false,
+        "native_ipc": true,
+        "ok": true,
+        "paced_replay": true,
+        "physical_capture": false,
+        "provider": "localWhisper",
+        "routing": "legacy",
+        "source_checkpoint_deliveries_verified": 0,
+        "source_deliveries": 21,
+        "stop_to_commit_seconds": 3.0472871670000075,
+        "transcript_fidelity_acceptance": false,
+        "vad_pause_boundary_replay": false,
+        "virtual_capture_clock": false,
+        "wall_seconds": 93.160540584,
+        "retained_microphone_pcm_sha256": "733cf513448ce6b20ad1bc5e50eb27c06aefae0c320713a5dd99f4e51bc1ca60",
+        "retained_system_pcm_sha256": "17f6663681fec5356ed3841e0683fcc8539c8edfcba17188a6f592a5123b7dd1",
+        "exact_source_audio_retention_verified": true
+      },
+      "performance": {
+        "inference_seconds": 48.80657187399999,
+        "inference_rtf": 0.5416212255193537,
+        "decode_count": 21,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 1.9499999999999993,
+        "p95_decode_backlog_seconds": 1.490000000000002,
+        "middle_p95_backlog_seconds": 1.490000000000002,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 3.2961712910000003,
+        "backlog_definition": "capture-clock proxy: latest source-VAD end minus completed decode end per source; includes silence/start gaps; unresolved final hypotheses are separate",
+        "delivered_pcm_backlog": {
+          "measured": true,
+          "max_seconds": 1.5999999999999996,
+          "p95_seconds": 1.490000000000002,
+          "middle_p95_seconds": 1.490000000000002,
+          "late_p95_seconds": 0,
+          "definition": "unique delivered source PCM coverage beyond completed decode ends; silence and overlapping padding excluded; provisional text is separate"
+        },
+        "processing_continuity": {
+          "instrumented": false,
+          "wait_observations": 0,
+          "decoder_instances": null,
+          "idle_with_queued_audio_seconds": 0,
+          "max_idle_with_queued_audio_seconds": null,
+          "stranded_fresh_buffer_wait_count": 0,
+          "stranded_fresh_buffer_wait_seconds": 0,
+          "unchanged_preview_decodes": 0,
+          "decode_busy_fraction_of_session_wall": 0.5238974738450836,
+          "scope": "single overlapping worker; queue wake time excludes busy inference and input-empty waits; endpoint finalization can reuse provisional audio"
+        },
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      "ui_summary": {
+        "capture_to_display_ms": {
+          "n": 7,
+          "p95": 4284.402582999999,
+          "max": 4284.402582999999
+        },
+        "capture_to_event_ms": {
+          "n": 19,
+          "p95": 3296.171458000003,
+          "max": 3296.171458000003
+        },
+        "event_to_paint_ms": {
+          "n": 17,
+          "p95": 1130,
+          "max": 1130
+        },
+        "foreground_input_to_paint_ms": {
+          "n": 4,
+          "p95": 21,
+          "max": 21
+        },
+        "observed_save_ms": {
+          "n": 19,
+          "p95": 837,
+          "max": 837
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 16,
+          "p95": 30,
+          "max": 30
+        }
+      },
+      "ui_counts": {
+        "background_samples": 12,
+        "foreground_samples": 4,
+        "paint_timeouts": 5,
+        "visible_text_samples": 7
+      },
+      "resource_summary": {
+        "native_rss_kib": {
+          "n": 94,
+          "p95": 3638752,
+          "max": 3639392
+        },
+        "attributed_tree_rss_kib": {
+          "n": 94,
+          "p95": 3689904,
+          "max": 3690512
+        },
+        "attributed_tree_cpu_percent": {
+          "n": 94,
+          "p95": 61.7,
+          "max": 67.8
+        }
+      },
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "independent_source_review": false,
+      "host_gpu": {
+        "scope": "host-wide; no process GPU/power attribution; unified memory must not be added to RSS",
+        "statistics": {
+          "Device Utilization %": {
+            "n": 94,
+            "p95": 100,
+            "max": 100
+          },
+          "Renderer Utilization %": {
+            "n": 94,
+            "p95": 100,
+            "max": 100
+          },
+          "In use system memory": {
+            "n": 94,
+            "p95": 4378755072,
+            "max": 4856102912
+          },
+          "Alloc system memory": {
+            "n": 94,
+            "p95": 6758957056,
+            "max": 7085031424
+          }
+        }
+      }
+    },
+    {
+      "case": "eager-paired-overlapping",
+      "runner_returncode": 0,
+      "input_microphone_sha256": "733cf513448ce6b20ad1bc5e50eb27c06aefae0c320713a5dd99f4e51bc1ca60",
+      "input_system_sha256": "17f6663681fec5356ed3841e0683fcc8539c8edfcba17188a6f592a5123b7dd1",
+      "provider": "localWhisper",
+      "model": "large-v3",
+      "model_files": {
+        "ggml-large-v3.bin": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2"
+      },
+      "routing": "overlapping",
+      "language": "auto",
+      "native": {
+        "audio_seconds": 90.112,
+        "capture_wall_seconds": 90.114486459,
+        "display_latency_acceptance": false,
+        "effective_whisper_settings": {
+          "beam_size": 3,
+          "effective_threads": 4,
+          "language": "auto",
+          "max_len": 200,
+          "no_context": true,
+          "no_speech_threshold": 0.55,
+          "no_timestamps": true,
+          "patience": 1,
+          "single_segment": false,
+          "temperature": 0.20000000298023224,
+          "token_timestamps": true,
+          "translate": false
+        },
+        "final_segments": 13,
+        "full_capture_pipeline": false,
+        "language": "auto",
+        "max_replay_lateness_seconds": 0.0025814999999997923,
+        "model": "large-v3",
+        "native_device_pause_resume": false,
+        "native_ipc": true,
+        "ok": true,
+        "paced_replay": true,
+        "physical_capture": false,
+        "provider": "localWhisper",
+        "routing": "overlapping",
+        "source_checkpoint_deliveries_verified": 43,
+        "source_deliveries": 43,
+        "stop_to_commit_seconds": 3.897650207999987,
+        "transcript_fidelity_acceptance": false,
+        "vad_pause_boundary_replay": false,
+        "virtual_capture_clock": false,
+        "wall_seconds": 94.012136667,
+        "retained_microphone_pcm_sha256": "733cf513448ce6b20ad1bc5e50eb27c06aefae0c320713a5dd99f4e51bc1ca60",
+        "retained_system_pcm_sha256": "17f6663681fec5356ed3841e0683fcc8539c8edfcba17188a6f592a5123b7dd1",
+        "exact_source_audio_retention_verified": true
+      },
+      "performance": {
+        "inference_seconds": 90.42184320400001,
+        "inference_rtf": 1.003438423339844,
+        "decode_count": 32,
+        "p95_decode_window_seconds": 20.0,
+        "max_decode_backlog_seconds": 8.599999999999994,
+        "p95_decode_backlog_seconds": 8.420000000000002,
+        "middle_p95_backlog_seconds": 6.440000000000005,
+        "late_p95_backlog_seconds": 8.599999999999994,
+        "p95_capture_to_native_event_seconds": 10.949942583000002,
+        "backlog_definition": "capture-clock proxy: latest source-VAD end minus completed decode end per source; includes silence/start gaps; unresolved final hypotheses are separate",
+        "delivered_pcm_backlog": {
+          "measured": true,
+          "max_seconds": 6.179999999999993,
+          "p95_seconds": 6.0,
+          "middle_p95_seconds": 6.0,
+          "late_p95_seconds": 6.179999999999993,
+          "definition": "unique delivered source PCM coverage beyond completed decode ends; silence and overlapping padding excluded; provisional text is separate"
+        },
+        "processing_continuity": {
+          "instrumented": true,
+          "wait_observations": 44,
+          "decoder_instances": 1,
+          "idle_with_queued_audio_seconds": 0.00013325,
+          "max_idle_with_queued_audio_seconds": 2.9083e-05,
+          "stranded_fresh_buffer_wait_count": 0,
+          "stranded_fresh_buffer_wait_seconds": 0,
+          "unchanged_preview_decodes": 0,
+          "decode_busy_fraction_of_session_wall": 0.961810319493991,
+          "scope": "single overlapping worker; queue wake time excludes busy inference and input-empty waits; endpoint finalization can reuse provisional audio"
+        },
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      "ui_summary": {
+        "capture_to_display_ms": {
+          "n": 12,
+          "p95": 15203.114667000002,
+          "max": 15203.114667000002
+        },
+        "capture_to_event_ms": {
+          "n": 36,
+          "p95": 10949.943167,
+          "max": 15189.126542000004
+        },
+        "event_to_paint_ms": {
+          "n": 36,
+          "p95": 18,
+          "max": 22
+        },
+        "foreground_input_to_paint_ms": {
+          "n": 17,
+          "p95": 27,
+          "max": 27
+        },
+        "observed_save_ms": {
+          "n": 19,
+          "p95": 818,
+          "max": 818
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 19,
+          "p95": 27,
+          "max": 27
+        }
+      },
+      "ui_counts": {
+        "background_samples": 2,
+        "foreground_samples": 17,
+        "paint_timeouts": 0,
+        "visible_text_samples": 12
+      },
+      "resource_summary": {
+        "native_rss_kib": {
+          "n": 95,
+          "p95": 3736640,
+          "max": 3736656
+        },
+        "attributed_tree_rss_kib": {
+          "n": 95,
+          "p95": 3797872,
+          "max": 3798224
+        },
+        "attributed_tree_cpu_percent": {
+          "n": 95,
+          "p95": 38.4,
+          "max": 61.8
+        }
+      },
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "independent_source_review": false,
+      "host_gpu": {
+        "scope": "host-wide; no process GPU/power attribution; unified memory must not be added to RSS",
+        "statistics": {
+          "Device Utilization %": {
+            "n": 95,
+            "p95": 100,
+            "max": 100
+          },
+          "Renderer Utilization %": {
+            "n": 95,
+            "p95": 100,
+            "max": 100
+          },
+          "In use system memory": {
+            "n": 95,
+            "p95": 4327260160,
+            "max": 4443701248
+          },
+          "Alloc system memory": {
+            "n": 95,
+            "p95": 6822739968,
+            "max": 6843416576
+          }
+        }
+      }
+    },
+    {
+      "case": "eager-public-alternating",
+      "runner_returncode": 0,
+      "input_microphone_sha256": "5049b4451ce5859fa5ca3f06f78eb640824fd73f543a15bb9f3526d1dbcdc98d",
+      "input_system_sha256": "458be2be0184762857bbadf7d39be2a387fc975ae4c5fa50ba5821cb62586b75",
+      "provider": "localWhisper",
+      "model": "large-v3",
+      "model_files": {
+        "ggml-large-v3.bin": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2"
+      },
+      "routing": "overlapping",
+      "language": "en",
+      "native": {
+        "audio_seconds": 30.25975,
+        "capture_wall_seconds": 30.262321083,
+        "display_latency_acceptance": false,
+        "effective_whisper_settings": {
+          "beam_size": 3,
+          "effective_threads": 4,
+          "language": "en",
+          "max_len": 200,
+          "no_context": true,
+          "no_speech_threshold": 0.55,
+          "no_timestamps": true,
+          "patience": 1,
+          "single_segment": false,
+          "temperature": 0.20000000298023224,
+          "token_timestamps": true,
+          "translate": false
+        },
+        "final_segments": 4,
+        "full_capture_pipeline": false,
+        "language": "en",
+        "max_replay_lateness_seconds": 0.0027563749999970355,
+        "model": "large-v3",
+        "native_device_pause_resume": false,
+        "native_ipc": true,
+        "ok": true,
+        "paced_replay": true,
+        "physical_capture": false,
+        "provider": "localWhisper",
+        "routing": "overlapping",
+        "source_checkpoint_deliveries_verified": 15,
+        "source_deliveries": 15,
+        "stop_to_commit_seconds": 0.05777858300000105,
+        "transcript_fidelity_acceptance": false,
+        "vad_pause_boundary_replay": false,
+        "virtual_capture_clock": false,
+        "wall_seconds": 30.320099666,
+        "retained_microphone_pcm_sha256": "5049b4451ce5859fa5ca3f06f78eb640824fd73f543a15bb9f3526d1dbcdc98d",
+        "retained_system_pcm_sha256": "458be2be0184762857bbadf7d39be2a387fc975ae4c5fa50ba5821cb62586b75",
+        "exact_source_audio_retention_verified": true
+      },
+      "performance": {
+        "inference_seconds": 21.205786168,
+        "inference_rtf": 0.7007918495030527,
+        "decode_count": 15,
+        "p95_decode_window_seconds": 15.28,
+        "max_decode_backlog_seconds": 16.91,
+        "p95_decode_backlog_seconds": 16.91,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": 0.5500000000000007,
+        "p95_capture_to_native_event_seconds": 10.187606125000002,
+        "backlog_definition": "capture-clock proxy: latest source-VAD end minus completed decode end per source; includes silence/start gaps; unresolved final hypotheses are separate",
+        "delivered_pcm_backlog": {
+          "measured": true,
+          "max_seconds": 2.0,
+          "p95_seconds": 2.0,
+          "middle_p95_seconds": 0,
+          "late_p95_seconds": 0.5500000000000007,
+          "definition": "unique delivered source PCM coverage beyond completed decode ends; silence and overlapping padding excluded; provisional text is separate"
+        },
+        "processing_continuity": {
+          "instrumented": true,
+          "wait_observations": 16,
+          "decoder_instances": 1,
+          "idle_with_queued_audio_seconds": 0.000265082,
+          "max_idle_with_queued_audio_seconds": 2.9916e-05,
+          "stranded_fresh_buffer_wait_count": 0,
+          "stranded_fresh_buffer_wait_seconds": 0,
+          "unchanged_preview_decodes": 0,
+          "decode_busy_fraction_of_session_wall": 0.6993969809333938,
+          "scope": "single overlapping worker; queue wake time excludes busy inference and input-empty waits; endpoint finalization can reuse provisional audio"
+        },
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      "ui_summary": {
+        "capture_to_display_ms": {
+          "n": 10,
+          "p95": 10194.885041999998,
+          "max": 10194.885041999998
+        },
+        "capture_to_event_ms": {
+          "n": 17,
+          "p95": 10187.606292000002,
+          "max": 10187.606292000002
+        },
+        "event_to_paint_ms": {
+          "n": 17,
+          "p95": 14,
+          "max": 14
+        },
+        "foreground_input_to_paint_ms": {
+          "n": 1,
+          "p95": 19,
+          "max": 19
+        },
+        "observed_save_ms": {
+          "n": 6,
+          "p95": 817,
+          "max": 817
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 6,
+          "p95": 20,
+          "max": 20
+        }
+      },
+      "ui_counts": {
+        "background_samples": 5,
+        "foreground_samples": 1,
+        "paint_timeouts": 0,
+        "visible_text_samples": 10
+      },
+      "resource_summary": {
+        "native_rss_kib": {
+          "n": 34,
+          "p95": 3685904,
+          "max": 3685952
+        },
+        "attributed_tree_rss_kib": {
+          "n": 34,
+          "p95": 3732368,
+          "max": 3732416
+        },
+        "attributed_tree_cpu_percent": {
+          "n": 34,
+          "p95": 60.4,
+          "max": 60.4
+        }
+      },
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "independent_source_review": false,
+      "public_fidelity_diagnostics": {
+        "microphone": {
+          "reference_words": 33,
+          "output_words": 33,
+          "word_edit_distance": 2,
+          "diagnostic_word_error_rate": 0.06060606060606061,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": true,
+          "repeated_repeat_retained": true,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "output": "Yes, yes . Repeat, repeat. Each transcript passage keeps its capture source. The microphone and system audio remain separate. The cafe budget is provisional. No decision was approved. Jose will review the notes tomorrow.",
+          "observed_repeat_word_counts": {
+            "yes": 2,
+            "repeat": 2
+          }
+        },
+        "system": {
+          "reference_words": 27,
+          "output_words": 27,
+          "word_edit_distance": 3,
+          "diagnostic_word_error_rate": 0.1111111111111111,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": false,
+          "repeated_repeat_retained": false,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "output": "System audio soars. Budget budget. The cafe agenda remains provisional. No vote was taken. The system channel retains its timing. Jose will read the original notes tomorrow.",
+          "observed_repeat_word_counts": {
+            "budget": 2
+          }
+        }
+      },
+      "host_gpu": {
+        "scope": "host-wide; no process GPU/power attribution; unified memory must not be added to RSS",
+        "statistics": {
+          "Device Utilization %": {
+            "n": 34,
+            "p95": 99,
+            "max": 100
+          },
+          "Renderer Utilization %": {
+            "n": 34,
+            "p95": 98,
+            "max": 100
+          },
+          "In use system memory": {
+            "n": 34,
+            "p95": 4354080768,
+            "max": 4359684096
+          },
+          "Alloc system memory": {
+            "n": 34,
+            "p95": 6565691392,
+            "max": 6565691392
+          }
+        }
+      }
+    }
+  ],
+  "full_q02_acceptance": false
+}

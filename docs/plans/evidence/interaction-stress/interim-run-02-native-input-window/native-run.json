@@ -1,0 +1,233 @@
+{
+  "app": "/Users/marcignacio/GitHub/meetily/target/debug/bundle/macos/Meetily Responsive Test.app",
+  "identifier": "com.meetily.responsive.test",
+  "profile": "/Users/marcignacio/Library/Application Support/com.meetily.responsive.test",
+  "retained_test_profile_backup": "/Users/marcignacio/Library/Application Support/meetily-interaction-test-backup-6925rhna/com.meetily.responsive.test",
+  "production_profile_touched": false,
+  "physical_recording_tested": false,
+  "snapshots": [
+    {
+      "filename": "onboarding-welcome-1100x700.png",
+      "fixture": "fresh isolated profile",
+      "capture_started": false
+    },
+    {
+      "filename": "onboarding-welcome-480x400.png",
+      "fixture": "fresh isolated profile",
+      "capture_started": false
+    },
+    {
+      "filename": "workspace-1440x900-transcript.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "workspace-480x400-original.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "workspace-480x400-transcript.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "workspace-1100x400-transcript.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "workspace-600x500-enhanced.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "library-1440x900.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "library-export-480x400.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "library-480x400.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "library-export-1100x400.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-notes-1440x900.png",
+      "fixture": "realistic synthetic meeting",
+      "capture_started": false
+    },
+    {
+      "filename": "design-transcript-1440x900.png",
+      "fixture": "synthetic transcript with source badges",
+      "capture_started": false
+    },
+    {
+      "filename": "design-enhanced-1440x900.png",
+      "fixture": "approved and candidate synthetic enhancement",
+      "capture_started": false
+    },
+    {
+      "filename": "design-note-actions-480x400.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-idle-1440x900.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-idle-480x400.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-recording-1440x900.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-recording-480x400.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-paused-1440x900.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-paused-480x400.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-stopping-1440x900.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-stopping-480x400.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-processing-1440x900.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-processing-480x400.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-saving-1440x900.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-saving-480x400.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-error-1440x900.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-recording-error-480x400.png",
+      "fixture": "recording visual state only",
+      "capture_started": false
+    },
+    {
+      "filename": "design-reduced-motion-opaque-1100x700.png",
+      "fixture": "shipped CSS media rules forced active in isolated document",
+      "capture_started": false
+    },
+    {
+      "filename": "design-library-1440x900.png",
+      "fixture": "realistic synthetic meeting",
+      "capture_started": false
+    },
+    {
+      "filename": "design-library-metadata-1440x900.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-library-delete-cancel-1440x900.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-library-480x400.png",
+      "fixture": "realistic synthetic meeting",
+      "capture_started": false
+    },
+    {
+      "filename": "design-library-metadata-480x400.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-library-delete-cancel-480x400.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-settings-general-1440x900.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-settings-recordings-1440x900.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-settings-transcription-1440x900.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-settings-summary-1440x900.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-settings-beta-1440x900.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-settings-general-480x400.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-settings-transcription-480x400.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "design-settings-beta-480x400.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    }
+  ],
+  "started_at": "2026-10-15T10:14:53+0800",
+  "interaction_smoke_enabled": true,
+  "pid": 54262
+}

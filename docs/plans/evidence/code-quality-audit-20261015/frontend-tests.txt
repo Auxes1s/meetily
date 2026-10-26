@@ -1,0 +1,710 @@
+bun test v1.3.14 (0d9b296a)
+
+frontend/tests/hooks/library-template-interactions.test.tsx:
+(pass) rapid library and metadata actions > same-tick metadata submissions send one captured request and failed drafts can be retried [12.42ms]
+(pass) rapid library and metadata actions > same-tick edits and cancel cannot discard an in-flight metadata save [0.47ms]
+(pass) rapid library and metadata actions > metadata submit captures the latest same-tick input [0.46ms]
+(pass) rapid library and metadata actions > unmounted metadata saves cannot close a later editor [0.31ms]
+(pass) rapid library and metadata actions > metadata editor switches stay blocked until its save fails or completes [13.41ms]
+(pass) rapid library and metadata actions > rapid delete confirmation stays on one target and permits retry after failure [19.23ms]
+(pass) rapid library and metadata actions > cleanup retries deduplicate each job while independent jobs remain available [18.33ms]
+(pass) rapid library and metadata actions > cancelled or replaced delete confirmation handlers cannot delete another target [15.89ms]
+(pass) rapid library and metadata actions > a pending-cleanup read started before retry completion cannot resurrect that job [17.30ms]
+(pass) rapid custom-template actions > same-tick save/load abuse issues one save and failure preserves the draft for retry [1.12ms]
+(pass) rapid custom-template actions > stale edit/section handlers cannot mutate the draft while loading [0.35ms]
+(pass) rapid custom-template actions > section action bursts preserve boundaries and save the latest draft [4.06ms]
+(pass) rapid custom-template actions > a selected-template change makes an older load inert and releases its lock [0.49ms]
+(pass) rapid custom-template actions > an unmounted save or a selection change cannot select its old template [0.90ms]
+
+frontend/tests/hooks/recording-lifecycle.test.tsx:
+[RecordingStateContext] Setting up event listeners
+[RecordingStateContext] Initial mount - syncing with backend
+[RecordingStateContext] Synced with backend: {
+  is_recording: false,
+  is_paused: false,
+  is_active: false,
+  recording_duration: null,
+  active_duration: null,
+  phase: "idle",
+}
+[RecordingStateContext] Event listeners set up successfully
+[RecordingState] Status: idle → starting 
+[RecordingStateContext] Starting state polling (500ms interval)
+[RecordingStateContext] Stopping state polling
+[RecordingStateContext] Starting state polling (500ms interval)
+[RecordingStateContext] Cleaning up event listeners
+[RecordingStateContext] Stopping state polling
+(pass) native response releases Starting even when success event is missing [7.55ms]
+[RecordingStateContext] Setting up event listeners
+[RecordingStateContext] Initial mount - syncing with backend
+[RecordingStateContext] Synced with backend: {
+  is_recording: true,
+  is_paused: false,
+  is_active: true,
+  recording_duration: null,
+  active_duration: null,
+  phase: "recording",
+  meeting_id: "meeting",
+  recording_session_id: "current",
+}
+[RecordingStateContext] Starting state polling (500ms interval)
+[RecordingStateContext] Event listeners set up successfully
+[RecordingStateContext] Cleaning up event listeners
+[RecordingStateContext] Stopping state polling
+(pass) backend reconciliation restores a live recording without event delivery [0.42ms]
+[RecordingStateContext] Setting up event listeners
+[RecordingStateContext] Initial mount - syncing with backend
+[RecordingStateContext] Synced with backend: {
+  is_recording: false,
+  is_paused: false,
+  is_active: false,
+  recording_duration: null,
+  active_duration: null,
+  phase: "idle",
+}
+[RecordingStateContext] Event listeners set up successfully
+[RecordingStateContext] Recording started event
+[RecordingStateContext] Starting state polling (500ms interval)
+[RecordingState] Status: idle → error Timed out
+[RecordingStateContext] Starting state polling (500ms interval)
+[RecordingStateContext] Recording starting event
+[RecordingStateContext] Cleaning up event listeners
+[RecordingStateContext] Stopping state polling
+(pass) stale success cannot attach to a newer request and delayed Starting cannot erase an error [16.28ms]
+[RecordingStateContext] Setting up event listeners
+[RecordingStateContext] Initial mount - syncing with backend
+[RecordingStateContext] Synced with backend: {
+  is_recording: false,
+  is_paused: false,
+  is_active: false,
+  recording_duration: null,
+  active_duration: null,
+  phase: "idle",
+}
+[RecordingStateContext] Event listeners set up successfully
+[RecordingStateContext] Starting state polling (500ms interval)
+[RecordingStateContext] Recording paused event
+[RecordingStateContext] Recording resumed event
+[RecordingStateContext] Cleaning up event listeners
+[RecordingStateContext] Stopping state polling
+(pass) stale pause and resume acknowledgements cannot change the active recording [16.06ms]
+
+frontend/tests/hooks/interaction-sidebar.test.tsx:
+Waiting for server address to load before fetching model config
+Waiting for server address to load before fetching transcript settings
+(pass) late pending library navigation cannot override a more recent Settings choice [1.21ms]
+
+frontend/tests/hooks/summary-edit-save.test.tsx:
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+📝 Editor blocks changed: 1
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+💾 Saving BlockNote content...
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+📝 Editor blocks changed: 1
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+✅ Save successful
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+💾 Saving BlockNote content...
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+✅ Save successful
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+(pass) manual summary save acknowledgement > typing during an in-flight save stays dirty and the next save contains the newer edits [1.65ms]
+✅ FORMAT: LEGACY (custom JSON)
+🎨 Rendering LEGACY format
+✅ FORMAT: LEGACY (custom JSON)
+🎨 Rendering LEGACY format
+(pass) manual summary save acknowledgement > legacy rendering excludes revision metadata and unknown extension fields [0.16ms]
+
+frontend/tests/hooks/legacy-summary-compatibility.test.tsx:
+[useMeetingData] Syncing summary data from prop: present
+(pass) legacy editor integration > editing metadata-free sections saves the captured displayed version and preserves extensions [1.40ms]
+[useMeetingData] Syncing summary data from prop: present
+(pass) legacy editor integration > an unmounted dirty section editor retains its captured draft for lifecycle flush [0.31ms]
+
+frontend/tests/hooks/continuous-transcription-settings.test.tsx:
+(pass) Beta tab defaults on and saved off choice survives reopening [1.87ms]
+(pass) pending preference read disables the switch until the saved choice loads [0.31ms]
+(pass) failed native save keeps the previous choice and reports the failure [0.68ms]
+(pass) unavailable native setting can be reloaded without silently enabling a saved off choice [0.52ms]
+
+frontend/tests/hooks/recording-controls-interaction.test.tsx:
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+Pausing recording...
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+Failed to pause recording: 38 | test('rapid pause and overlapping stop admit only one lifecycle action, then recover after failure', async () => {
+39 |   const gate=deferred(); native=command => command==='pause_recording' ? gate.promise : Promise.resolve(); await show();
+40 |   const pause=control('Pause recording').props.onClick, stop=control('Stop recording').props.onClick;
+41 |   await act(async () => { for(let i=0;i<30;i++) pause(); stop(); });
+42 |   expect(calls.filter(c => c==='pause_recording')).toHaveLength(1); expect(calls).not.toContain('stop_recording');
+43 |   await act(async () => gate.reject(new Error('Paused request failed')));
+                                             ^
+error: Paused request failed
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/recording-controls-interaction.test.tsx:43:41)
+      at act (/Users/marcignacio/GitHub/meetily/frontend/node_modules/.pnpm/react@18.3.1/node_modules/react/cjs/react.development.js:2512:16)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/recording-controls-interaction.test.tsx:43:9)
+
+Pausing recording...
+Recording paused successfully
+Cleaning up recording event listeners
+(pass) rapid pause and overlapping stop admit only one lifecycle action, then recover after failure [2.85ms]
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+Resuming recording...
+Failed to resume recording: 48 | test('rapid resume admits one request and releases its guard on rejection', async () => {
+49 |   state.isPaused=true; const gate=deferred(); native=command => command==='resume_recording' ? gate.promise : Promise.resolve(); await show();
+50 |   const resume=control('Resume recording').props.onClick;
+51 |   await act(async () => { for(let i=0;i<30;i++) resume(); });
+52 |   expect(calls.filter(c => c==='resume_recording')).toHaveLength(1);
+53 |   await act(async () => gate.reject(new Error('Resume failed'))); native=async () => {};
+                                             ^
+error: Resume failed
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/recording-controls-interaction.test.tsx:53:41)
+      at act (/Users/marcignacio/GitHub/meetily/frontend/node_modules/.pnpm/react@18.3.1/node_modules/react/cjs/react.development.js:2512:16)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/recording-controls-interaction.test.tsx:53:9)
+
+Resuming recording...
+Recording resumed successfully
+Cleaning up recording event listeners
+(pass) rapid resume admits one request and releases its guard on rejection [0.65ms]
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Stopping recording...
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Early return from handleStopRecording due to state check
+Cleaning up recording event listeners
+(pass) rapid stop sends one native stop and awaits finalization before releasing controls [0.98ms]
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Stopping recording...
+Failed to stop recording: 64 |   expect(renderer!.root.findAllByProps({ 'aria-label': 'Stop recording' })).toHaveLength(0);
+65 |   await act(async () => finalization.resolve());
+66 |   expect(control('Stop recording').props.disabled).toBe(false);
+67 | });
+68 | test('already stopped native response cannot leave the processing spinner stuck', async () => {
+69 |   native=async command => { if(command==='stop_recording') throw new Error('No recording in progress'); }; await show();
+                                                                          ^
+error: No recording in progress
+      at native (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/recording-controls-interaction.test.tsx:69:70)
+      at invoke (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/recording-controls-interaction.test.tsx:14:130)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src/components/RecordingControls.tsx:163:15)
+
+Cleaning up recording event listeners
+(pass) already stopped native response cannot leave the processing spinner stuck [0.42ms]
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+Starting recording...
+Selected devices: undefined
+Meeting name: undefined
+Current isRecording state: false
+Cleaning up recording event listeners
+Setting up recording event listeners
+Recording event listeners set up successfully
+Cleaning up recording event listeners
+(pass) rapid start invokes its callback once and parent finalization disables start [0.38ms]
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Stopping recording...
+Cleaning up recording event listeners
+(pass) failed parent finalization releases busy controls and exposes the failure [0.69ms]
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Cleaning up recording event listeners
+Recording event listeners set up successfully
+(pass) listener registrations that finish after unmount are all released [0.16ms]
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+Pausing recording...
+Cleaning up recording event listeners
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+Recording paused successfully
+Pausing recording...
+Recording paused successfully
+Cleaning up recording event listeners
+(pass) a pending native action remains guarded across control remounts [0.71ms]
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+handleStopRecording called - isRecording: true isStarting: false isStopping: false isStartingRecording: false
+Stopping recording...
+Cleaning up recording event listeners
+Setting up recording event listeners
+Tauri is initialized and ready, is_recording result: undefined
+Recording event listeners set up successfully
+Starting recording...
+Selected devices: undefined
+Meeting name: undefined
+Current isRecording state: false
+Cleaning up recording event listeners
+(pass) shared control guard survives remount until the frontend save acknowledges Stop [0.44ms]
+
+frontend/tests/hooks/document-interaction.test.tsx:
+(pass) rapid tab switching flushes once, preserves both editor instances, and retries after failure [0.96ms]
+(pass) source navigation supersedes a pending tab switch [0.18ms]
+(pass) tab arrow navigation selects after save and keeps accessible panel links [0.28ms]
+
+frontend/tests/hooks/live-transcript.test.tsx:
+(pass) live transcript delivery through the provider > continuation merges earlier recordings without sequence collisions [21.40ms]
+(pass) live transcript delivery through the provider > renders sequence zero with an opaque ID before stop or another event [21.48ms]
+(pass) live transcript delivery through the provider > renders a nonzero starting sequence and gaps in audio-time order [41.88ms]
+(pass) live transcript delivery through the provider > duplicates upsert and a late partial cannot replace a final passage [63.89ms]
+(pass) live transcript delivery through the provider > switching recording identity drops old buffered events and ignores stale sessions [43.22ms]
+(pass) live transcript delivery through the provider > an early event survives recording-started and metadata state updates [21.52ms]
+(pass) live transcript delivery through the provider > late reload history merges without erasing a newer live passage [22.09ms]
+(pass) live transcript delivery through the provider > history from a previous recording cannot leak into a new one [0.27ms]
+(pass) live transcript delivery through the provider > a confirmed finalizing session reconciles earlier history after capture has stopped [21.20ms]
+(pass) live transcript delivery through the provider > manual final flush updates the synchronous ref and future passages still drain [21.88ms]
+(pass) live transcript delivery through the provider > asynchronous listener registration cleans up even after unmount [0.37ms]
+
+frontend/tests/hooks/responsive-transcript-scroll.test.tsx:
+(pass) rewrapping a partly visible passage keeps the reading offset; rows above it retain anchoring [3.36ms]
+
+frontend/tests/hooks/meeting-library.test.tsx:
+(pass) meeting library request ownership > a slow earlier query cannot replace results of the current query [0.38ms]
+
+frontend/tests/hooks/note-actions-interaction.test.tsx:
+(pass) timestamp burst admits one query and insertion, then allows another timestamp [1.15ms]
+(pass) original-note export burst opens one export after flush and unlocks after failure [0.73ms]
+
+frontend/tests/hooks/recording-stop-ownership.test.tsx:
+(pass) a delayed native read for A cannot change newly started B [0.62ms]
+(pass) a delayed recovery acknowledgement for A cannot clear B [1.23ms]
+(pass) an old sidebar refresh cannot clear B or navigate away after A cleanup [1.22ms]
+(pass) an unsuccessful Stop preserves the active capture and its recovery data [0.09ms]
+
+frontend/tests/hooks/responsive-split-view.test.tsx:
+(pass) the nested split view observes its container and preserves mounted content across width changes [0.93ms]
+(pass) pane ratio and selected tab survive returning from a narrow container [0.36ms]
+
+frontend/tests/hooks/meeting-export.test.tsx:
+(pass) meeting export choices > rapid opens share one pending options request; close and reopen supersede stale choices [0.92ms]
+(pass) meeting export choices > rapid saves invoke one export, reject closing while saving, and permit retry after failure [0.71ms]
+(pass) meeting export choices > defaults to approved notes with the full transcript off [0.44ms]
+(pass) meeting export choices > falls back to originals and disables unavailable approval choices [0.22ms]
+(pass) meeting export choices > permits both documents with transcript, and JSON remains available after a Markdown failure [0.68ms]
+(pass) meeting export choices > closing while choices load prevents a stale response from selecting a document [0.16ms]
+(pass) meeting export choices > a response for an earlier meeting cannot populate the current meeting dialog [0.44ms]
+
+frontend/tests/hooks/interaction-settings.test.tsx:
+(pass) recording preference clicks admit one save and lock related snapshot controls until acknowledgment [0.89ms]
+Failed to save recording preferences: 63 | test('failed recording preference save restores the last committed choice and allows retry', async () => {
+64 |   const pending = defer(); write = () => pending.promise;
+65 |   await act(async () => { renderer = create(<RecordingSettings />); });
+66 |   let saving: Promise<void>;
+67 |   await act(async () => { saving = renderer!.root.findAllByProps({ role: 'switch' })[0].props.onCheckedChange(false); });
+68 |   await act(async () => { pending.reject(Error('fixture disk failure')); await saving; });
+                                              ^
+error: fixture disk failure
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/interaction-settings.test.tsx:68:42)
+      at act (/Users/marcignacio/GitHub/meetily/frontend/node_modules/.pnpm/react@18.3.1/node_modules/react/cjs/react.development.js:2512:16)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/interaction-settings.test.tsx:68:9)
+
+(pass) failed recording preference save restores the last committed choice and allows retry [0.51ms]
+(pass) general notification writes cannot overlap and failed saves leave an operable acknowledged choice [0.47ms]
+
+frontend/tests/hooks/meeting-details-refresh.test.tsx:
+MeetingDetails useEffect triggered - meetingId: meeting-a
+Valid meeting ID found, fetching details for: meeting-a
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+[useMeetingData] Syncing summary data from prop: null
+MeetingDetails useEffect triggered - meetingId: meeting-b
+Valid meeting ID found, fetching details for: meeting-b
+Meeting metadata loaded: {
+  id: "meeting-b",
+  title: "meeting-b",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+[useMeetingData] Syncing summary data from prop: null
+No summary found, checking for auto-generation...
+Not from recording navigation, skipping auto-generation
+(pass) meeting route transcript refresh > navigation waits for the new meeting first transcript page before mounting its view [2.98ms]
+MeetingDetails useEffect triggered - meetingId: meeting-a
+Valid meeting ID found, fetching details for: meeting-a
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+[useMeetingData] Syncing summary data from prop: null
+📊 Fetching all transcripts for meeting: meeting-a
+📊 Total transcripts in database: 1
+✅ Fetched 1 transcripts from database
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+(pass) meeting route transcript refresh > completed regeneration survives refresh without reviving the original pending attempt [1.33ms]
+MeetingDetails useEffect triggered - meetingId: meeting-a
+Valid meeting ID found, fetching details for: meeting-a
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+[useMeetingData] Syncing summary data from prop: null
+📊 Fetching all transcripts for meeting: meeting-a
+📊 Total transcripts in database: 1
+✅ Fetched 1 transcripts from database
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+(pass) meeting route transcript refresh > refresh during regeneration keeps the current attempt and its Stop token [0.81ms]
+
+frontend/tests/hooks/transcript-scroll-follow.test.tsx:
+(pass) follows a large content update using prior intent, including partial-only DOM changes [0.33ms]
+Warning: An update to View inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at View (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/transcript-scroll-follow.test.tsx:13:50)
+(pass) manual reading remains anchored through earlier insertions and cancels deferred work on unmount [0.62ms]
+
+frontend/tests/hooks/summary-generation.test.tsx:
+Failed to reload previous summary after generation failure:  98 | }
+ 99 | 
+100 | describe('summary state restored when returning to a meeting', () => {
+101 |   test('repeated recovery read failures end regeneration and retain visible notes', async () => {
+102 |     await show(response({ data: { markdown: 'Previous summary' } }));
+103 |     getSummary = async () => { throw new Error('Database unavailable'); };
+                                               ^
+error: Database unavailable
+      at getSummary (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/summary-generation.test.tsx:103:42)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/summary-generation.test.tsx:32:45)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src/hooks/meeting-details/useSummaryGeneration.ts:210:28)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src/components/Sidebar/SidebarProvider.tsx:272:17)
+
+(pass) summary state restored when returning to a meeting > repeated recovery read failures end regeneration and retain visible notes [0.64ms]
+Failed to reload summary after cancellation: 111 |   test('failed cancellation recovery ends loading without discarding visible notes', async () => {
+112 |     await show(response({ data: { markdown: 'Previous summary' } }));
+113 |     let reads = 0;
+114 |     getSummary = async () => {
+115 |       if (++reads === 1) return response({ status: 'cancelled' });
+116 |       throw new Error('Database unavailable');
+                      ^
+error: Database unavailable
+      at getSummary (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/summary-generation.test.tsx:116:17)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/summary-generation.test.tsx:32:45)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src/hooks/meeting-details/useSummaryGeneration.ts:183:26)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src/components/Sidebar/SidebarProvider.tsx:255:15)
+
+(pass) summary state restored when returning to a meeting > failed cancellation recovery ends loading without discarding visible notes [0.21ms]
+Failed to handle summary polling error: 124 |   test.each(['read', 'callback'])('polling stops when %s fails and its error callback also rejects', async (failure) => {
+125 |     function RejectingConsumer() {
+126 |       const { startSummaryPolling } = useSidebar();
+127 |       useEffect(() => {
+128 |         startSummaryPolling('meeting-a', 'attempt-a', async () => {
+129 |           throw new Error('Consumer failed');
+                          ^
+error: Consumer failed
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/summary-generation.test.tsx:129:21)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src/components/Sidebar/SidebarProvider.tsx:272:17)
+
+(pass) summary state restored when returning to a meeting > polling stops when read fails and its error callback also rejects [0.17ms]
+Failed to handle summary polling error: 124 |   test.each(['read', 'callback'])('polling stops when %s fails and its error callback also rejects', async (failure) => {
+125 |     function RejectingConsumer() {
+126 |       const { startSummaryPolling } = useSidebar();
+127 |       useEffect(() => {
+128 |         startSummaryPolling('meeting-a', 'attempt-a', async () => {
+129 |           throw new Error('Consumer failed');
+                          ^
+error: Consumer failed
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/hooks/summary-generation.test.tsx:129:21)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src/components/Sidebar/SidebarProvider.tsx:272:17)
+
+(pass) summary state restored when returning to a meeting > polling stops when callback fails and its error callback also rejects [0.12ms]
+(pass) summary state restored when returning to a meeting > resumes pending generation after leaving and returning, then displays completion [0.26ms]
+(pass) summary state restored when returning to a meeting > keeps regeneration loading with old content and restores content on failure [0.14ms]
+(pass) summary state restored when returning to a meeting > shows a failure that happened while the meeting was closed [0.08ms]
+(pass) summary state restored when returning to a meeting > keeps restored notes and exposes a regeneration failure that happened while away [0.10ms]
+(pass) summary state restored when returning to a meeting > ordinary rerenders keep the existing poll attached [0.18ms]
+(pass) summary state restored when returning to a meeting > hydrates completed and cancelled records without replaying notifications or analytics [0.17ms]
+(pass) summary state restored when returning to a meeting > ignores a response belonging to another meeting [0.07ms]
+(pass) summary state restored when returning to a meeting > Stop uses the restored process token [0.25ms]
+(pass) summary state restored when returning to a meeting > a late completion from meeting A cannot change meeting B [0.16ms]
+📊 Fetching all transcripts for meeting: meeting-a
+📊 Total transcripts in database: 1
+✅ Fetched 1 transcripts from database
+(pass) summary state restored when returning to a meeting > leaving before the start response arrives keeps the backend job running for a later visit [0.40ms]
+📊 Fetching all transcripts for meeting: meeting-a
+📊 Total transcripts in database: 1
+✅ Fetched 1 transcripts from database
+(pass) summary state restored when returning to a meeting > completion analytics retain the model used to start the attempt after settings change [0.22ms]
+(pass) summary state restored when returning to a meeting > old in-flight poll cannot stop a resumed poll for the same process [0.20ms]
+
+frontend/tests/hooks/interaction-import.test.tsx:
+(pass) same-tick import submissions admit one job while start analytics is pending [0.64ms]
+(pass) cancel during start preparation cannot submit an import after the dialog has closed [0.91ms]
+(pass) file-dialog admission is synchronous and reset rejects the late file result [0.27ms]
+(pass) one terminal event is consumed once even when completion analytics is pending [0.22ms]
+(pass) cancel admission is shared and keeps the import busy until the native worker is idle [0.15ms]
+(pass) failed cancellation remains active and retryable instead of falsely reporting an idle import [0.38ms]
+
+frontend/tests/hooks/paginated-transcripts.test.tsx:
+(pass) paginated transcript request ownership > ignores late A metadata after B finishes and does not start A transcripts [0.56ms]
+(pass) paginated transcript request ownership > late A transcripts cannot replace B or finish its loading state [0.16ms]
+(pass) paginated transcript request ownership > returning A to B to A does not revive the first A request [0.16ms]
+(pass) paginated transcript request ownership > a stale failure cannot add an error or clear current loading [0.10ms]
+(pass) paginated transcript request ownership > newest refetch wins over an earlier request for the same meeting [0.20ms]
+(pass) paginated transcript request ownership > old loadMore cannot append data or clear the next meeting loadMore lock [0.50ms]
+(pass) paginated transcript request ownership > reset invalidates pending reads and null to same meeting reloads [0.37ms]
+(pass) paginated transcript request ownership > unmount prevents a pending metadata read from starting transcript IPC [0.12ms]
+(pass) saving another session refreshes the same meeting without navigation [0.23ms]
+
+frontend/tests/lib/meeting-notes-session.test.ts:
+(pass) acknowledged original-note saves > disposing during a failed in-flight save prevents retries and further writes [1106.01ms]
+(pass) acknowledged original-note saves > serializes overlapping edits and only shows Saved after the last acknowledgment [2.48ms]
+(pass) acknowledged original-note saves > persists authoritative JSON when Markdown conversion hangs [151.77ms]
+(pass) acknowledged original-note saves > retries the same commit after a lost acknowledgment, then saves newer edits [0.21ms]
+(pass) acknowledged original-note saves > retains edits on revision conflict and does not overwrite a newer revision [0.08ms]
+(pass) acknowledged original-note saves > independent queues keep edits attached to their original meeting [0.13ms]
+(pass) acknowledged original-note saves > timestamp metadata survives delete and undo without persisting dangling links [0.13ms]
+(pass) acknowledged original-note saves > continuous editing reaches an acknowledged save within two seconds [2375.93ms]
+(pass) acknowledged original-note saves > plain-text projection includes links and nested blocks [0.30ms]
+
+frontend/tests/lib/summary-content.test.ts:
+(pass) summary content validation > accepts visible markdown and rejects whitespace or reasoning markers [1.42ms]
+(pass) summary content validation > validates BlockNote and legacy summary content [0.88ms]
+(pass) summary content validation > parses one historical double-encoded payload [0.16ms]
+
+frontend/tests/lib/meeting-deletion.test.ts:
+(pass) managed deletion completion > acknowledges cache cleanup only after its promise completes [1.35ms]
+(pass) managed deletion completion > a cache failure carries pending job identity and never acknowledges completion [0.21ms]
+(pass) managed deletion completion > native file failure remains pending after successful cache cleanup [0.07ms]
+(pass) managed deletion completion > a lost cache acknowledgment retains the durable deletion job for retry [0.13ms]
+(pass) managed deletion completion > failed repeat cache cleanup never carries a completed status [0.21ms]
+(pass) managed deletion completion > startup attempts every pending job and exposes failed cleanup [0.19ms]
+(pass) awaited recovery cache transaction > request deletes alone cannot report completion; aliases and session match without deleting other meetings [2.34ms]
+(pass) awaited recovery cache transaction > transaction abort prevents cache completion and closes the connection [1.30ms]
+(pass) awaited recovery cache transaction > per-identity barriers survive an aggregate overwrite by another WebView [1.30ms]
+(pass) awaited recovery cache transaction > storage failures fail closed for delayed recovery and cleanup [0.33ms]
+(pass) awaited recovery cache transaction > retry remembers legacy aliases after metadata deletion but preference cleanup failure [3.78ms]
+
+frontend/tests/lib/blocknote-markdown.test.ts:
+(pass) blocksToMarkdownSafely > returns markdown when conversion succeeds [0.27ms]
+(pass) blocksToMarkdownSafely > returns fallback markdown when conversion throws [0.16ms]
+(pass) blocksToMarkdownSafely > omits markdown when conversion throws without fallback [0.05ms]
+
+frontend/tests/lib/legacy-summary-save.test.ts:
+(pass) legacy summary compatibility > section edits retain captured identity and extension fields without rendering metadata [1.00ms]
+(pass) legacy summary compatibility > lost acknowledgment replays its exact payload before committing newer rich text [1.30ms]
+(pass) legacy summary compatibility > an external revision conflict retains the pending commit without advancing its base [0.34ms]
+
+frontend/tests/lib/transcription-model-readiness.test.ts:
+(pass) transcription model readiness > uses Whisper commands when Whisper is the configured provider [0.02ms]
+(pass) transcription model readiness > uses Parakeet commands when Parakeet is the configured provider [0.02ms]
+(pass) transcription model readiness > does not silently treat an unsupported provider as Parakeet
+(pass) transcription model readiness > recognizes only active downloads [0.08ms]
+
+frontend/tests/lib/transcript-source-view.test.tsx:
+(pass) both transcript rendering paths retain passage badges (4 rows) [62.11ms]
+(pass) both transcript rendering paths retain passage badges (12 rows) [23.72ms]
+
+frontend/tests/lib/analytics.test.ts:
+Analytics initialized successfully
+Tracking summary generation completed event: {
+  modelProvider: "ollama",
+  modelName: "model",
+  success: true,
+  durationSeconds: 1.999,
+  errorMessage: undefined,
+}
+Summary generation completed event tracked successfully
+Tracking summary generation completed event: {
+  modelProvider: "ollama",
+  modelName: "model",
+  success: false,
+  durationSeconds: undefined,
+  errorMessage: "cancelled",
+}
+Summary generation completed event tracked successfully
+(pass) summary generation analytics > sends whole seconds and preserves an omitted duration [2.19ms]
+Analytics initialized successfully
+Tracking transcription error event: {
+  errorCode: "auth_rejected",
+}
+Tracking transcription error event: {
+  errorCode: "ort_failed",
+}
+Tracking transcription error event: {
+  errorCode: "transcription_failed",
+}
+Transcription error event tracked successfully
+Transcription error event tracked successfully
+Transcription error event tracked successfully
+Tracking transcription error event: {
+  errorCode: "auth_rejected",
+}
+Transcription error event tracked successfully
+(pass) transcription error spike containment [10.37ms]
+
+frontend/tests/lib/empty-state-summary.test.tsx:
+(pass) empty summary state > renders a persistent retryable error [3.54ms]
+
+frontend/tests/lib/recording-start.test.ts:
+(pass) completed meeting keeps its identity and title [0.66ms]
+(pass) navigation during saving cannot redirect recording [0.08ms]
+(pass) hung save times out and late completion cannot launch capture [22.27ms]
+(pass) native timeout settles without an unbounded recovery read [21.34ms]
+(pass) model readiness shares the attempt deadline [21.14ms]
+(pass) rapid starts and a still-pending native attempt cannot start twice [22.58ms]
+(pass) Cancel start settles a pending save and prevents its late native call [1.30ms]
+
+frontend/tests/lib/meeting-export.test.ts:
+(pass) complete meeting export orchestration > opens choices read-only, then waits for acknowledged original, enhancement and detached legacy edits [1.12ms]
+(pass) complete meeting export orchestration > an original edit arriving while an enhancement saves is acknowledged before export [0.20ms]
+(pass) complete meeting export orchestration > save failure retains edits and never opens the native export dialog [0.10ms]
+(pass) complete meeting export orchestration > failed detached legacy saves block their meeting and remain retryable [0.10ms]
+(pass) complete meeting export orchestration > native cancellation is distinct from success and request options reach the native command [0.12ms]
+(pass) complete meeting export orchestration > deletion during the editor flush prevents export publication [0.06ms]
+
+frontend/tests/lib/recovery-transaction-ack.test.ts:
+(pass) transcript recovery waits for transaction commit after request success [1.42ms]
+Failed to save transcript to IndexedDB: warn: Transcript recovery transaction aborted
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src/services/indexedDBService.ts:274:69)
+      at <anonymous> (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/tests/lib/recovery-transaction-ack.test.ts:22:28)
+
+(pass) transaction abort rejects recovery acknowledgement after successful put [1.41ms]
+(pass) saved-to-SQLite marker waits for its metadata transaction to commit [1.22ms]
+
+frontend/tests/lib/enhancement-session.test.ts:
+(pass) protected enhancement saves > historical rich and twice-encoded summaries retain their readable content [0.26ms]
+(pass) protected enhancement saves > a lost acknowledgment retries the same version commit before saving newer edits [0.51ms]
+(pass) protected enhancement saves > a revision conflict retains edits and stops automatic overwrites [0.09ms]
+
+frontend/tests/lib/transcript-audio-source.test.tsx:
+(pass) transcript capture provenance > out-of-order revisions cannot roll back a live tail or final text [0.63ms]
+(pass) transcript capture provenance > all sources survive JSON/recovery and display adaptation with timings intact [0.06ms]
+(pass) transcript capture provenance > absent, unsupported and generic Audio provenance never becomes Microphone [0.49ms]
+(pass) transcript capture provenance > partial-to-final and duplicate updates retain source and stable identity [0.03ms]
+(pass) transcript capture provenance > each compact badge has an icon, accessible channel label and hover description [0.17ms]
+
+frontend/tests/lib/legacy-summary-flush.test.ts:
+(pass) legacy summary lifecycle saves > quit or navigation waits for an edit that arrives during the first save [0.11ms]
+(pass) legacy summary lifecycle saves > detached dirty views retain failed saves for retry and release their callback after acknowledgement [0.07ms]
+(pass) legacy summary lifecycle saves > deletion forgets pending drafts and rejects late view registration [0.05ms]
+
+frontend/tests/lib/coalesced-write-queue.test.ts:
+(pass) partial bursts coalesce and final acknowledgements wait for the serial commit [0.87ms]
+(pass) failed writes reject acknowledgements and remain available for an explicit retry [0.10ms]
+
+frontend/tests/lib/live-transcript-store.test.ts:
+(pass) 10,000 canonical rows retain their index and only the changed tail is notified [34.55ms]
+(pass) earlier arrivals and timing revisions reorder stable identities without duplicates [0.09ms]
+
+frontend/tests/lib/summary-language-preferences.test.js:
+(pass) summary language local fallback > reads summary language from local fallback when meeting has no folder [0.42ms]
+(pass) summary language local fallback > saves summary language locally when command reports no folder [0.13ms]
+(pass) summary language local fallback > clears local fallback when Auto is saved for a folderless meeting [0.07ms]
+(pass) summary language local fallback > caches detected language locally when meeting has no folder [0.07ms]
+(pass) summary language local fallback > rejects when folderless summary language cannot be persisted locally [0.06ms]
+
+frontend/tests/lib/meeting-library.test.ts:
+(pass) meeting library navigation and filter values > source links preserve exact source identity and revision through URL encoding [0.36ms]
+(pass) meeting library navigation and filter values > date boundaries use local calendar midnight and an exclusive next day [3.27ms]
+(pass) meeting library navigation and filter values > manual labels preserve Unicode and unavailable passage time stays explicit [0.06ms]
+
+frontend/tests/lib/onboarding-summary-model.test.mjs:
+
+ 183 pass
+ 0 fail
+ 695 expect() calls
+Ran 183 tests across 41 files. [5.14s]

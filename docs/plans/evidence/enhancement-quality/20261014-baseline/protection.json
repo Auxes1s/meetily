@@ -1,0 +1,39 @@
+{
+  "before": {
+    "/Users/marcignacio/Library/Application Support/com.meetily.ai/meeting_minutes.sqlite": {
+      "sha256": "899aae5c433ecf2ac75c396da1ddeb886e47e3904837fa67a931522d40199ab1",
+      "bytes": 585728
+    },
+    "/Users/marcignacio/Library/Application Support/com.meetily.ai/meeting_minutes.sqlite-wal": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/Users/marcignacio/Applications/Meetily Notepad.app/Contents/MacOS/llama-helper": {
+      "sha256": "81b75fdcc8e0de3bdde245ba77a4bafda40d7b1e72818f3b92453112f1333041",
+      "bytes": 5183296
+    },
+    "/Users/marcignacio/Library/Application Support/com.meetily.ai/models/summary/Qwen3.5-4B-Q4_K_M.gguf": {
+      "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+      "bytes": 2740937888
+    }
+  },
+  "after": {
+    "/Users/marcignacio/Library/Application Support/com.meetily.ai/meeting_minutes.sqlite": {
+      "sha256": "899aae5c433ecf2ac75c396da1ddeb886e47e3904837fa67a931522d40199ab1",
+      "bytes": 585728
+    },
+    "/Users/marcignacio/Library/Application Support/com.meetily.ai/meeting_minutes.sqlite-wal": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/Users/marcignacio/Applications/Meetily Notepad.app/Contents/MacOS/llama-helper": {
+      "sha256": "81b75fdcc8e0de3bdde245ba77a4bafda40d7b1e72818f3b92453112f1333041",
+      "bytes": 5183296
+    },
+    "/Users/marcignacio/Library/Application Support/com.meetily.ai/models/summary/Qwen3.5-4B-Q4_K_M.gguf": {
+      "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+      "bytes": 2740937888
+    }
+  },
+  "unchanged": true
+}

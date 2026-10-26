@@ -1,0 +1,23 @@
+{
+  "before": {
+    "/Users/marcignacio/GitHub/meetily/target/release/llama-helper": {
+      "sha256": "4409700d8e2b789a5b1f911ba30890a22a5776da532057202bb146bc3fde53f8",
+      "bytes": 5298704
+    },
+    "/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-summary-model-inventory-hmbyvc1u/models/summary/Qwen3.5-4B-Q4_K_M.gguf": {
+      "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+      "bytes": 2740937888
+    }
+  },
+  "after": {
+    "/Users/marcignacio/GitHub/meetily/target/release/llama-helper": {
+      "sha256": "4409700d8e2b789a5b1f911ba30890a22a5776da532057202bb146bc3fde53f8",
+      "bytes": 5298704
+    },
+    "/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-summary-model-inventory-hmbyvc1u/models/summary/Qwen3.5-4B-Q4_K_M.gguf": {
+      "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+      "bytes": 2740937888
+    }
+  },
+  "unchanged": true
+}

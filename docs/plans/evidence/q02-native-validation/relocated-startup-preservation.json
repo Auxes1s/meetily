@@ -1,0 +1,14 @@
+{
+  "canonical_tables_unchanged": {
+    "meetings": true,
+    "meeting_notes": true,
+    "transcripts": true,
+    "recording_sessions": true,
+    "meeting_note_links": true
+  },
+  "production_application_replaced": false,
+  "prior_release_installer_upgrade_tested": false,
+  "native_assets_from_relocated_package": true,
+  "sqlite_integrity": "ok",
+  "foreign_key_violations": []
+}

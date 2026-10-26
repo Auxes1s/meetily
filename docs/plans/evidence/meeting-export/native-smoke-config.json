@@ -1,0 +1,1 @@
+{"productName": "Meetily Export Test", "identifier": "com.meetily.export.test", "app": {"windows": [{"title": "Meetily Export Test", "width": 1100, "height": 700}]}, "bundle": {"targets": ["app"], "createUpdaterArtifacts": false}, "plugins": {"updater": {"endpoints": []}}, "build": {"beforeBuildCommand": ""}}

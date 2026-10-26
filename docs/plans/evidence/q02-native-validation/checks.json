@@ -1,0 +1,39 @@
+{
+  "rust": {
+    "passed": 361,
+    "ignored": 8,
+    "filtered": 1,
+    "baseline_failure": {
+      "test": "audio::device_detection::tests::test_builtin_mic_detection",
+      "actual": "Wired",
+      "expected": "Unknown",
+      "rerun_failed": true
+    }
+  },
+  "frontend": {
+    "bun_passed": 128,
+    "failed": 0,
+    "production_build_passed": true,
+    "subsequent_typescript_passed": true,
+    "lint": "blocked: Next ESLint configuration prompt; exit 1"
+  },
+  "q02_python": {
+    "passed": 9,
+    "windows_manifest_contracts": "unit only; no Windows executable launched"
+  },
+  "workflow_isolation_python": {
+    "passed": 5
+  },
+  "portable": {
+    "passed": 14
+  },
+  "q02_node_syntax": "passed",
+  "native_q02_release_build": "passed after eager-admission change",
+  "physical_capture_debug_build": "passed",
+  "new_dependencies": false,
+  "models_downloaded": false,
+  "cloud_fallback_added": false,
+  "final_streaming_regressions": {
+    "passed": 10
+  }
+}

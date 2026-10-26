@@ -1,0 +1,320 @@
+ M Cargo.lock
+ M frontend/src-tauri/Cargo.toml
+ M frontend/src-tauri/src/api/api.rs
+ M frontend/src-tauri/src/audio/audio_processing.rs
+ M frontend/src-tauri/src/audio/common.rs
+ M frontend/src-tauri/src/audio/import.rs
+ M frontend/src-tauri/src/audio/incremental_saver.rs
+ M frontend/src-tauri/src/audio/mod.rs
+ M frontend/src-tauri/src/audio/pipeline.rs
+ M frontend/src-tauri/src/audio/recording_commands.rs
+ M frontend/src-tauri/src/audio/recording_manager.rs
+ M frontend/src-tauri/src/audio/recording_saver.rs
+ M frontend/src-tauri/src/audio/recording_state.rs
+ M frontend/src-tauri/src/audio/retranscription.rs
+ M frontend/src-tauri/src/audio/transcription/worker.rs
+ M frontend/src-tauri/src/audio/vad.rs
+ M frontend/src-tauri/src/database/manager.rs
+ M frontend/src-tauri/src/database/mod.rs
+ M frontend/src-tauri/src/database/models.rs
+ M frontend/src-tauri/src/database/repositories/meeting.rs
+ M frontend/src-tauri/src/database/repositories/mod.rs
+ M frontend/src-tauri/src/database/repositories/summary.rs
+ M frontend/src-tauri/src/database/repositories/transcript.rs
+ M frontend/src-tauri/src/lib.rs
+ M frontend/src-tauri/src/ollama/metadata.rs
+ M frontend/src-tauri/src/summary/commands.rs
+ M frontend/src-tauri/src/summary/llm_client.rs
+ M frontend/src-tauri/src/summary/mod.rs
+ M frontend/src-tauri/src/summary/template_commands.rs
+ M frontend/src-tauri/src/summary/templates/defaults.rs
+ M frontend/src-tauri/src/summary/templates/loader.rs
+ M frontend/src-tauri/src/summary/templates/mod.rs
+ M frontend/src-tauri/src/summary/templates/types.rs
+ M frontend/src-tauri/src/whisper_engine/whisper_engine.rs
+ M frontend/src/app/_components/TranscriptPanel.tsx
+ M frontend/src/app/layout.tsx
+ M frontend/src/app/page.tsx
+ M frontend/src/components/AISummary/BlockNoteSummaryView.tsx
+ M frontend/src/components/BlockNoteEditor/Editor.tsx
+ M frontend/src/components/MeetingDetails/TranscriptPanel.tsx
+ M frontend/src/components/Sidebar/SidebarProvider.tsx
+ M frontend/src/components/Sidebar/index.tsx
+ M frontend/src/components/VirtualizedTranscriptView.tsx
+ M frontend/src/components/onboarding/steps/WelcomeStep.tsx
+ M frontend/src/contexts/OnboardingContext.tsx
+ M frontend/src/contexts/RecordingPostProcessingProvider.tsx
+ M frontend/src/contexts/TranscriptContext.tsx
+ M frontend/src/hooks/meeting-details/useCopyOperations.ts
+ M frontend/src/hooks/meeting-details/useMeetingData.ts
+ M frontend/src/hooks/meeting-details/useSummaryGeneration.ts
+ M frontend/src/hooks/usePaginatedTranscripts.ts
+ M frontend/src/hooks/useRecordingStart.ts
+ M frontend/src/hooks/useRecordingStop.ts
+ M frontend/src/hooks/useTranscriptRecovery.ts
+ M frontend/src/lib/summary-content.ts
+ M frontend/src/services/indexedDBService.ts
+ M frontend/src/services/recordingService.ts
+ M frontend/src/services/storageService.ts
+ M frontend/src/services/updateService.ts
+ M frontend/src/types/index.ts
+ M frontend/tests/hooks/meeting-details-refresh.test.tsx
+ M frontend/tests/hooks/summary-generation.test.tsx
+ M frontend/tests/lib/summary-content.test.ts
+?? docs/audio-sources.md
+?? docs/meeting-data.md
+?? docs/notepad-validation.md
+?? docs/notepad.md
+?? docs/plans/enhancement-quality-evaluation.md
+?? docs/plans/evidence/enhancement-quality/.gitignore
+?? docs/plans/evidence/enhancement-quality/20261014-baseline/execution.log
+?? docs/plans/evidence/enhancement-quality/20261014-baseline/git-status-before.txt
+?? docs/plans/evidence/enhancement-quality/20261014-baseline/inventory.json
+?? docs/plans/evidence/enhancement-quality/20261014-baseline/manifest.json
+?? docs/plans/evidence/enhancement-quality/20261014-baseline/protection.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-01-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-01-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-02-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-02-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-03-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-03-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-04-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-04-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-05-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-05-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-06-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-06-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-07-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-07-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-08-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-08-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-09-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-09-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-10-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-10-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-11-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-11-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-12-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/builtin-ai-qwen3.5_4b-fx-12-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/codex-review.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/execution.log
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/git-status-before.txt
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/inventory.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/manifest.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/metrics.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-01-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-01-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-02-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-02-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-03-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-03-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-04-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-04-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-05-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-05-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-06-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-06-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-07-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-07-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-08-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-08-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-09-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-09-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-10-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-10-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-11-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-11-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-12-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/ollama-qwen3.5_9b-mlx-fx-12-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/production-code/enhancement.rs
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/production-code/grounding.rs
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/production-code/llm_client.rs
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/production-code/models.rs
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/protection.json
+?? docs/plans/evidence/enhancement-quality/20261014-before-fixes/source-output-review.md
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-01-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-01-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-02-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-02-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-03-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-03-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-04-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-04-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-05-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-05-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-06-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-06-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-07-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-07-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-08-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-08-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-09-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-09-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-10-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-10-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-11-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-11-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-12-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/builtin-ai-qwen3.5_4b-fx-12-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/codex-review.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/execution.log
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/git-status-before.txt
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/inventory.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/manifest.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/metrics.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-01-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-01-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-02-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-02-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-03-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-03-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-04-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-04-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-05-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-05-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-06-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-06-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-07-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-07-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-08-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-08-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-09-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-09-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-10-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-10-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-11-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-11-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-12-r1.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/ollama-qwen3.5_9b-mlx-fx-12-r2.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/post-run-ollama-runtime.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/production-code/enhancement.rs
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/production-code/evaluation.rs
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/production-code/grounding.rs
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/production-code/llm_client.rs
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/production-code/models.rs
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/protection.json
+?? docs/plans/evidence/enhancement-quality/20261014-corrected/source-output-review.md
+?? docs/plans/evidence/enhancement-quality/20261014-inventory-smoke/git-status-before.txt
+?? docs/plans/evidence/enhancement-quality/20261014-inventory-smoke/inventory.json
+?? docs/plans/evidence/enhancement-quality/20261014-inventory-smoke/manifest.json
+?? docs/plans/evidence/enhancement-quality/20261014-inventory-smoke/production-code/enhancement.rs
+?? docs/plans/evidence/enhancement-quality/20261014-inventory-smoke/production-code/evaluation.rs
+?? docs/plans/evidence/enhancement-quality/20261014-inventory-smoke/production-code/grounding.rs
+?? docs/plans/evidence/enhancement-quality/20261014-inventory-smoke/production-code/llm_client.rs
+?? docs/plans/evidence/enhancement-quality/20261014-inventory-smoke/production-code/models.rs
+?? docs/plans/evidence/enhancement-quality/20261014-inventory-smoke/protection.json
+?? docs/plans/evidence/enhancement-quality/README.md
+?? docs/plans/evidence/enhancement-quality/SHA256SUMS
+?? docs/plans/evidence/enhancement-quality/checks/baseline-mic-test.log
+?? docs/plans/evidence/enhancement-quality/checks/baseline-summary-tests-after-harness.log
+?? docs/plans/evidence/enhancement-quality/checks/bun-tests.log
+?? docs/plans/evidence/enhancement-quality/checks/check-results.json
+?? docs/plans/evidence/enhancement-quality/checks/corrected-codex-gate.log
+?? docs/plans/evidence/enhancement-quality/checks/corrected-summary-tests.log
+?? docs/plans/evidence/enhancement-quality/checks/delivery-audit.json
+?? docs/plans/evidence/enhancement-quality/checks/e08-file-inventory.json
+?? docs/plans/evidence/enhancement-quality/checks/entrypoint-help.txt
+?? docs/plans/evidence/enhancement-quality/checks/final-runner-smoke-inventory.json
+?? docs/plans/evidence/enhancement-quality/checks/final-runner-smoke-protection.json
+?? docs/plans/evidence/enhancement-quality/checks/frontend-build.log
+?? docs/plans/evidence/enhancement-quality/checks/frontend-tsc.log
+?? docs/plans/evidence/enhancement-quality/checks/git-status-after.txt
+?? docs/plans/evidence/enhancement-quality/checks/git-status.txt
+?? docs/plans/evidence/enhancement-quality/checks/initial-harness-tests.log
+?? docs/plans/evidence/enhancement-quality/checks/lint.log
+?? docs/plans/evidence/enhancement-quality/checks/native-suite-final.log
+?? docs/plans/evidence/enhancement-quality/checks/network-probe.json
+?? docs/plans/evidence/enhancement-quality/checks/onboarding-node.log
+?? docs/plans/evidence/enhancement-quality/checks/portable-ggml-node.log
+?? docs/plans/evidence/enhancement-quality/checks/python-review-tests.log
+?? docs/plans/evidence/enhancement-quality/checks/worktree-preservation.json
+?? docs/plans/evidence/enhancement-quality/checks/worktree-sha256.json
+?? docs/plans/meeting-experience-upgrade.md
+?? docs/plans/p0-implementation-handoff.md
+?? frontend/src-tauri/migrations/20261013000000_meeting_notepad.sql
+?? frontend/src-tauri/migrations/20261013010000_meeting_enhancements.sql
+?? frontend/src-tauri/migrations/20261013020000_meeting_library.sql
+?? frontend/src-tauri/migrations/20261013030000_managed_deletion.sql
+?? frontend/src-tauri/smoke/notepad.js
+?? frontend/src-tauri/smoke/transcript.js
+?? frontend/src-tauri/src/audio/echo_cancellation.rs
+?? frontend/src-tauri/src/audio/source.rs
+?? frontend/src-tauri/src/audio/source_vad.rs
+?? frontend/src-tauri/src/database/deletion.rs
+?? frontend/src-tauri/src/database/deletion/tests.rs
+?? frontend/src-tauri/src/database/library.rs
+?? frontend/src-tauri/src/database/library/tests.rs
+?? frontend/src-tauri/src/database/notes_commands.rs
+?? frontend/src-tauri/src/database/repositories/enhancement.rs
+?? frontend/src-tauri/src/database/tests.rs
+?? frontend/src-tauri/src/database/workspace_commands.rs
+?? frontend/src-tauri/src/database/workspace_contract_tests.rs
+?? frontend/src-tauri/src/notepad_smoke.rs
+?? frontend/src-tauri/src/summary/enhancement.rs
+?? frontend/src-tauri/src/summary/enhancement/evaluation.rs
+?? frontend/src-tauri/src/summary/grounding.rs
+?? frontend/src-tauri/tauri.notepad-test.json
+?? frontend/src-tauri/tauri.notepad.json
+?? frontend/src-tauri/templates/highlights.json
+?? frontend/src-tauri/templates/project_board.json
+?? frontend/src-tauri/templates/technical_consultation.json
+?? frontend/src-tauri/tests/fixtures/.gitignore
+?? frontend/src-tauri/tests/fixtures/README.md
+?? frontend/src-tauri/tests/fixtures/audio-source-speech.wav
+?? frontend/src-tauri/tests/fixtures/echo-near-end-speech.wav
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/01-general-meeting.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/02-highlights.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/03-technical-advice-versus-acceptance.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/04-board-proposal-versus-resolution.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/05-explicit-named-owner-deadline.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/06-office-assignment.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/07-missing-owner-deadline.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/08-tentative-relative-date.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/09-rejected-decision.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/10-conflicting-notes-transcript.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/11-long-input-cross-chunk.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/12-mixed-language-unicode-uncertain-asr.json
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/README.md
+?? frontend/src/app/library/page.tsx
+?? frontend/src/components/AudioSourceBadge.tsx
+?? frontend/src/components/MeetingLibrary/MeetingLibrary.tsx
+?? frontend/src/components/MeetingLibrary/MeetingMetadataEditor.tsx
+?? frontend/src/components/MeetingWorkspace/ClaimSourcePanel.tsx
+?? frontend/src/components/MeetingWorkspace/CustomEnhancementTemplate.tsx
+?? frontend/src/components/MeetingWorkspace/EnhancementPanel.tsx
+?? frontend/src/components/MeetingWorkspace/MeetingDataMaintenance.tsx
+?? frontend/src/components/MeetingWorkspace/MeetingDocuments.tsx
+?? frontend/src/components/MeetingWorkspace/MeetingNotesPanel.tsx
+?? frontend/src/components/MeetingWorkspace/MeetingWorkspace.tsx
+?? frontend/src/components/MeetingWorkspace/TranscriptSourceJump.tsx
+?? frontend/src/contexts/RecordingCoordinatorContext.tsx
+?? frontend/src/hooks/useMeetingLibrary.ts
+?? frontend/src/hooks/useMeetingNotes.ts
+?? frontend/src/lib/enhancement-session.ts
+?? frontend/src/lib/legacy-summary-flush.ts
+?? frontend/src/lib/legacy-summary-save.ts
+?? frontend/src/lib/meeting-library.ts
+?? frontend/src/lib/meeting-notes-session.ts
+?? frontend/src/lib/transcript-audio-source.ts
+?? frontend/src/lib/workspace-save.ts
+?? frontend/src/services/meetingDeletionService.ts
+?? frontend/src/services/meetingLibraryService.ts
+?? frontend/src/types/enhancement.ts
+?? frontend/src/types/meeting-library.ts
+?? frontend/tests/hooks/legacy-summary-compatibility.test.tsx
+?? frontend/tests/hooks/live-transcript.test.tsx
+?? frontend/tests/hooks/meeting-library.test.tsx
+?? frontend/tests/hooks/summary-edit-save.test.tsx
+?? frontend/tests/lib/enhancement-session.test.ts
+?? frontend/tests/lib/legacy-summary-flush.test.ts
+?? frontend/tests/lib/legacy-summary-save.test.ts
+?? frontend/tests/lib/meeting-deletion.test.ts
+?? frontend/tests/lib/meeting-library.test.ts
+?? frontend/tests/lib/meeting-notes-session.test.ts
+?? frontend/tests/lib/transcript-audio-source.test.tsx
+?? frontend/tests/lib/transcript-source-view.test.tsx
+?? scripts/evaluate-meeting-enhancement.py
+?? scripts/macos-clt/xcodebuild
+?? scripts/meetily-notepad.sh
+?? scripts/review-meeting-enhancement.py
+?? scripts/tests/test-enhancement-evaluation.py

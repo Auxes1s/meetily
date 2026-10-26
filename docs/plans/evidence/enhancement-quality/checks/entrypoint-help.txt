@@ -1,0 +1,23 @@
+usage: evaluate-meeting-enhancement.py [-h] --output OUTPUT [--phase PHASE]
+                                       [--provider {all,builtin-ai,ollama}]
+                                       [--fixture FIXTURE] [--repeats REPEATS]
+                                       [--app-data APP_DATA] [--helper HELPER]
+                                       [--ollama-endpoint OLLAMA_ENDPOINT]
+                                       [--inventory-only]
+
+Opt-in E08 harness. Standard library only; synthetic fixtures and loopback
+only.
+
+options:
+  -h, --help            show this help message and exit
+  --output OUTPUT       New evidence directory; never overwritten
+  --phase PHASE
+  --provider {all,builtin-ai,ollama}
+  --fixture FIXTURE     Optional affected-fixture rerun, e.g. fx-11
+  --repeats REPEATS
+  --app-data APP_DATA
+  --helper HELPER
+  --ollama-endpoint OLLAMA_ENDPOINT
+                        Defaults to read-only configured endpoint, then
+                        localhost:11434
+  --inventory-only

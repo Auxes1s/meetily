@@ -1,0 +1,88 @@
+{
+  "platform": "macOS arm64",
+  "physical_capture": true,
+  "full_provider_source_speech_matrix": false,
+  "native_pause_resume_commands": true,
+  "native_window_hide_reopen": true,
+  "tray_menu_interaction_tested": false,
+  "permission_denial_or_disconnect_tested": false,
+  "microphone_speech_reference_acceptance": false,
+  "independent_transcript_accuracy_acceptance": false,
+  "results": [
+    {
+      "provider": "whisper",
+      "result": {
+        "cancelled_start_admission": true,
+        "capture_sources": [
+          {
+            "microphone": true,
+            "system": true
+          },
+          {
+            "microphone": true,
+            "system": true
+          }
+        ],
+        "captured_channels": [
+          "system"
+        ],
+        "continuous_timeline": true,
+        "model": "large-v3",
+        "model_failure_recovery": true,
+        "native_device_pause_resume": true,
+        "native_hide_reopen": true,
+        "native_webview": true,
+        "notes_preserved": true,
+        "ok": true,
+        "provider": "localWhisper",
+        "rapid_click_admission": true,
+        "repeated_start_stop": true,
+        "same_meeting": true,
+        "screenshot": "recording-completed.png",
+        "separate_audio_files": true,
+        "session_count": 2,
+        "title_preserved": true,
+        "transcript_count": 2,
+        "tray_control_tested": false
+      }
+    },
+    {
+      "provider": "parakeet",
+      "result": {
+        "cancelled_start_admission": true,
+        "capture_sources": [
+          {
+            "microphone": true,
+            "system": true
+          },
+          {
+            "microphone": true,
+            "system": true
+          }
+        ],
+        "captured_channels": [
+          "system",
+          "microphone"
+        ],
+        "continuous_timeline": true,
+        "model": "parakeet-tdt-0.6b-v3-int8",
+        "model_failure_recovery": false,
+        "native_device_pause_resume": true,
+        "native_hide_reopen": true,
+        "native_webview": true,
+        "notes_preserved": true,
+        "ok": true,
+        "provider": "parakeet",
+        "rapid_click_admission": true,
+        "repeated_start_stop": true,
+        "same_meeting": true,
+        "screenshot": "recording-completed.png",
+        "separate_audio_files": true,
+        "session_count": 2,
+        "title_preserved": true,
+        "transcript_count": 3,
+        "tray_control_tested": false
+      }
+    }
+  ]
+}

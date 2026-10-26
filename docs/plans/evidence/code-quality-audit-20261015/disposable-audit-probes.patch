@@ -1,0 +1,100 @@
+--- a/frontend/src-tauri/src/database/tests.rs
++++ b/frontend/src-tauri/src/database/tests.rs
+@@ -112,3 +112,24 @@
+     assert!(DatabaseManager::new(path.to_str().unwrap(), "missing.db").await.is_err());
+     assert_eq!(std::fs::read(path).unwrap(), bytes);
+ }
++
++#[tokio::test]
++async fn audit_probe_old_timestamp_blocks_save_after_append() {
++    let (_dir, db) = fixture().await;
++    let mut first = input(0, "meetily-note://audit-marker");
++    first.links.push(NoteLink { id:"audit-marker".into(), block_id:"block".into(), recording_session_id:"session-a".into(), recording_offset:2.0, transcript_id:None });
++    notes_commands::save(db.pool(), first).await.unwrap();
++    let segments=[crate::api::TranscriptSegment { audio_source:None,id:"ignored".into(),text:"First recording".into(),timestamp:"00:02".into(),audio_start_time:Some(1.),audio_end_time:Some(3.),duration:Some(2.),sequence_id:Some(1) }];
++    TranscriptsRepository::save_transcript(db.pool(),"Original",&segments,None,Some("meeting-a".into()),Some("session-a".into())).await.unwrap();
++    super::recording_sessions::begin(db.pool(),"meeting-a","session-b").await.unwrap();
++    super::recording_sessions::mark_live(db.pool(),"session-b",None).await.unwrap();
++    let mut later=input(1,"Edited notes meetily-note://audit-marker");
++    later.links.push(NoteLink { id:"audit-marker".into(),block_id:"block".into(),recording_session_id:"session-a".into(),recording_offset:2.0,transcript_id:None });
++    let error=notes_commands::save(db.pool(),later).await.unwrap_err();
++    assert_eq!(error.code,"invalid_document");
++    let saved=notes_commands::load(db.pool(),"meeting-a").await.unwrap().unwrap();
++    assert_eq!(saved.revision,1);
++    assert_eq!(saved.links[0].recording_session_id,"session-a");
++    println!("OBSERVED: appending session-b makes valid session-a timestamp reject later note save; revision stays 1");
++    db.cleanup().await.unwrap();
++}
+--- a/frontend/src-tauri/src/audio/pipeline.rs
++++ b/frontend/src-tauri/src/audio/pipeline.rs
+@@ -1276,3 +1276,16 @@
+         assert!(output[3000]<1. && output[3000]>0.9);
+     }
+ }
++
++#[cfg(test)]
++mod audit_probes {
++    use super::*;
++    #[tokio::test]
++    async fn audit_probe_pipeline_panic_is_acknowledged_as_success() {
++        let mut pipeline=AudioPipelineManager::new();
++        pipeline.pipeline_handle=Some(tokio::spawn(async { panic!("audit injected pipeline panic"); #[allow(unreachable_code)] Ok(()) }));
++        let result=pipeline.stop().await;
++        assert!(result.is_ok());
++        println!("OBSERVED: failed pipeline task join returns Ok from AudioPipelineManager::stop");
++    }
++}
+--- a/frontend/src-tauri/src/audio/recording_commands.rs
++++ b/frontend/src-tauri/src/audio/recording_commands.rs
+@@ -1656,3 +1656,29 @@
+ }
+ 
+ static LAST_SESSION_IDENTITY: std::sync::Mutex<(Option<String>, Option<String>)> = std::sync::Mutex::new((None, None));
++
++#[cfg(test)]
++mod audit_stop_probes {
++ use super::*;
++ #[tokio::test]
++ async fn audit_probe_stop_database_failure_loses_manager_with_recording_flag_set() {
++  let directory=tempfile::tempdir().unwrap();
++  let db=crate::database::manager::DatabaseManager::new(directory.path().join("audit.sqlite").to_str().unwrap(),"missing.db").await.unwrap();
++  sqlx::query("INSERT INTO meetings(id,title,created_at,updated_at,status,recording_session_id) VALUES('audit-meeting','Audit','2026-10-15','2026-10-15','recording','audit-session')").execute(db.pool()).await.unwrap();
++  sqlx::query("INSERT INTO recording_sessions(id,meeting_id,ordinal,status,created_at) VALUES('audit-session','audit-meeting',1,'recording','2026-10-15')").execute(db.pool()).await.unwrap();
++  sqlx::query("CREATE TRIGGER audit_fail_stop BEFORE UPDATE ON recording_sessions BEGIN SELECT RAISE(ABORT,'audit forced write failure'); END").execute(db.pool()).await.unwrap();
++  let app=tauri::test::mock_app(); app.manage(crate::state::AppState{db_manager:db.clone()});
++  let mut manager=RecordingManager::new();manager.set_identity(Some("audit-meeting".into()),Some("audit-session".into()));
++  *LAST_SESSION_IDENTITY.lock().unwrap()=(Some("audit-meeting".into()),Some("audit-session".into()));
++  *RECORDING_MANAGER.lock().unwrap()=Some(manager);IS_RECORDING.store(true,Ordering::SeqCst);
++  let error=stop_recording(app.handle().clone(),RecordingArgs{save_path:String::new(),recording_session_id:Some("audit-session".into())}).await.unwrap_err();
++  assert!(error.contains("audit forced write failure"));
++  assert!(RECORDING_MANAGER.lock().unwrap().is_none());
++  assert!(IS_RECORDING.load(Ordering::SeqCst));
++  assert!(!IS_RECORDING_STOPPING.load(Ordering::SeqCst));
++  assert_eq!(get_recording_state().await["phase"],"recording");
++  println!("OBSERVED: failed Stop DB update consumes the manager but status still reports recording");
++  IS_RECORDING.store(false,Ordering::SeqCst);*LAST_SESSION_IDENTITY.lock().unwrap()=(None,None);
++  db.cleanup().await.unwrap();
++ }
++}
+--- a/frontend/src-tauri/src/audio/incremental_saver.rs
++++ b/frontend/src-tauri/src/audio/incremental_saver.rs
+@@ -566,3 +566,19 @@
+         assert!(!directory.path().join("audio_chunk_000.mp4").exists());
+     }
+ }
++
++#[cfg(test)]
++mod audit_path_probes {
++ use super::*;
++ #[tokio::test]
++ async fn audit_probe_apostrophe_recording_root_breaks_finalization() {
++  let directory=tempfile::tempdir().unwrap();let folder=directory.path().join("Marc's recordings");
++  std::fs::create_dir_all(folder.join(".checkpoints")).unwrap();
++  let mut saver=IncrementalAudioSaver::new(folder.clone(),48000).unwrap();
++  saver.add_chunk(AudioChunk{data:vec![0.1;4800],sample_rate:48000,timestamp:0.,chunk_id:0,device_type:super::super::recording_state::DeviceType::Microphone}).unwrap();
++  let error=saver.finalize().await.unwrap_err();
++  assert!(error.to_string().contains("FFmpeg concat failed"));
++  assert!(folder.join(".checkpoints/audio_chunk_000.mp4").is_file());
++  println!("OBSERVED: apostrophe in valid recording root prevents FFmpeg concat; encoded checkpoint remains");
++ }
++}

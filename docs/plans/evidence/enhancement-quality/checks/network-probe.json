@@ -1,0 +1,7 @@
+{
+  "profile": "(version 1)(allow default)(deny network-outbound)(allow network-outbound (remote ip \"localhost:*\"))",
+  "result": "{\"blocked_destination\": \"192.0.2.1:9\", \"connect_errno\": 1, \"loopback_peer\": [\"127.0.0.1\", 11434]}\n",
+  "stderr": "",
+  "exit_code": 0,
+  "scope": "Evaluator process and spawned built-in helper only; existing Ollama server is outside this sandbox"
+}

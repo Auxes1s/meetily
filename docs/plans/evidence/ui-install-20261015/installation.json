@@ -1,0 +1,200 @@
+{
+  "started": "2026-10-15T10:36:25",
+  "source": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app",
+  "destination": "/Applications/meetily.app",
+  "staged_bundle_verified": true,
+  "app_identifier": "com.meetily.ai",
+  "old_apps": [
+    "/Applications/meetily.previous-20261014-112147.app",
+    "/Applications/meetily.previous-asr-default-20261014T230006.app",
+    "/Applications/meetily.previous-deletion-fix-20261014-052843.app",
+    "/Applications/meetily.previous-responsive-20261014-131415.app",
+    "/Applications/meetily.recording-before-20261014-230531.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261013-235804.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-001726.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-080800.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-090943.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-112147.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-asr-default-20261014T230006.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-deletion-fix-20261014-052843.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-responsive-20261014-131415.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.recording-before-20261014-230531.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.app",
+    "/Applications/meetily.app"
+  ],
+  "removed": [
+    "/Applications/meetily.previous-20261014-112147.app",
+    "/Applications/meetily.previous-asr-default-20261014T230006.app",
+    "/Applications/meetily.previous-deletion-fix-20261014-052843.app",
+    "/Applications/meetily.previous-responsive-20261014-131415.app",
+    "/Applications/meetily.recording-before-20261014-230531.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261013-235804.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-001726.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-080800.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-090943.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-112147.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-asr-default-20261014T230006.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-deletion-fix-20261014-052843.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.previous-responsive-20261014-131415.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.recording-before-20261014-230531.app",
+    "/Users/marcignacio/Applications/Meetily Notepad.app",
+    "/Applications/meetily.app"
+  ],
+  "data_or_recordings_moved": false,
+  "trash_emptied": false,
+  "registration_results": [
+    {
+      "path": "/Applications/meetily.previous-20261014-112147.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Applications/meetily.previous-asr-default-20261014T230006.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Applications/meetily.previous-deletion-fix-20261014-052843.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Applications/meetily.previous-responsive-20261014-131415.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Applications/meetily.recording-before-20261014-230531.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.previous-20261013-235804.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-001726.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-080800.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-090943.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.previous-20261014-112147.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.previous-asr-default-20261014T230006.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.previous-deletion-fix-20261014-052843.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.previous-responsive-20261014-131415.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.recording-before-20261014-230531.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.app",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "path": "/Applications/meetily.app",
+      "exit": 0,
+      "message": ""
+    }
+  ],
+  "finder_exit": 0,
+  "finder_result": "application file meetily.previous-20261014-112147.app of item .Trash of folder marcignacio of folder Users of startup disk, application file meetily.previous-asr-default-20261014T230006.app of item .Trash of folder marcignacio of folder Users of startup disk, application file meetily.previous-deletion-fix-20261014-052843.app of item .Trash of folder marcignacio of folder Users of startup disk, application file meetily.previous-responsive-20261014-131415.app of item .Trash of folder marcignacio of folder Users of startup disk, application file meetily.recording-before-20261014-230531.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.previous-20261013-235804.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.previous-20261014-001726.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.previous-20261014-080800.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.previous-20261014-090943.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.previous-20261014-112147.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.previous-asr-default-20261014T230006.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.previous-deletion-fix-20261014-052843.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.previous-responsive-20261014-131415.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.recording-before-20261014-230531.app of item .Trash of folder marcignacio of folder Users of startup disk, application file Meetily Notepad.app of item .Trash of folder marcignacio of folder Users of startup disk, application file meetily.app of item .Trash of folder marcignacio of folder Users of startup disk",
+  "finder_error": "sandbox_extension_issue_file failed for /Applications/meetily.previous-20261014-112147.app: 1 (Operation not permitted)",
+  "installed_verified": true,
+  "code_signature_verified": true,
+  "binary_sha256": "53408f31f259865b26794cbaf34ad7a550f51a5fc908ceedcb10f4f4e113a60a",
+  "register_exit": 0,
+  "register_message": "",
+  "finished": "2026-10-15T10:36:29",
+  "development_bundle_archive": "/Users/marcignacio/GitHub/meetily/target/archived-app-bundles.noindex/20261015T103927",
+  "archived_development_bundles": [
+    {
+      "original": "/Users/marcignacio/GitHub/meetily/target/debug/bundle/macos/Meetily Notepad Test.app",
+      "archive": "/Users/marcignacio/GitHub/meetily/target/archived-app-bundles.noindex/20261015T103927/debug/Meetily Notepad Test.app",
+      "identifier": "com.meetily.notepad.test",
+      "unregister_exit": 0
+    },
+    {
+      "original": "/Users/marcignacio/GitHub/meetily/target/debug/bundle/macos/Meetily Q02 Capture.app",
+      "archive": "/Users/marcignacio/GitHub/meetily/target/archived-app-bundles.noindex/20261015T103927/debug/Meetily Q02 Capture.app",
+      "identifier": "com.meetily.recording.test",
+      "unregister_exit": 0
+    },
+    {
+      "original": "/Users/marcignacio/GitHub/meetily/target/debug/bundle/macos/Meetily Recording Test.app",
+      "archive": "/Users/marcignacio/GitHub/meetily/target/archived-app-bundles.noindex/20261015T103927/debug/Meetily Recording Test.app",
+      "identifier": "com.meetily.recording.test",
+      "unregister_exit": 0
+    },
+    {
+      "original": "/Users/marcignacio/GitHub/meetily/target/debug/bundle/macos/Meetily Responsive Test.app",
+      "archive": "/Users/marcignacio/GitHub/meetily/target/archived-app-bundles.noindex/20261015T103927/debug/Meetily Responsive Test.app",
+      "identifier": "com.meetily.responsive.test",
+      "unregister_exit": 0
+    },
+    {
+      "original": "/Users/marcignacio/GitHub/meetily/target/debug/bundle/macos/Meetily Workflow Test.app",
+      "archive": "/Users/marcignacio/GitHub/meetily/target/archived-app-bundles.noindex/20261015T103927/debug/Meetily Workflow Test.app",
+      "identifier": "com.meetily.workflow.test",
+      "unregister_exit": 0
+    },
+    {
+      "original": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad Test.app",
+      "archive": "/Users/marcignacio/GitHub/meetily/target/archived-app-bundles.noindex/20261015T103927/release/Meetily Notepad Test.app",
+      "identifier": "com.meetily.notepad.test",
+      "unregister_exit": 0
+    },
+    {
+      "original": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app",
+      "archive": "/Users/marcignacio/GitHub/meetily/target/archived-app-bundles.noindex/20261015T103927/release/Meetily Notepad.app",
+      "identifier": "com.meetily.ai",
+      "unregister_exit": 0
+    },
+    {
+      "original": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Q02 Test.app",
+      "archive": "/Users/marcignacio/GitHub/meetily/target/archived-app-bundles.noindex/20261015T103927/release/Meetily Q02 Test.app",
+      "identifier": "com.meetily.q02.test",
+      "unregister_exit": 0
+    }
+  ],
+  "launch_verification": {
+    "command": "open -a meetily",
+    "resolved_app": "/Applications/meetily.app/",
+    "pid": 55178,
+    "running_binary": "/Applications/meetily.app/Contents/MacOS/meetily",
+    "native_window_count": 1,
+    "left_open": true,
+    "verified_at": "2026-10-15T10:39:46"
+  },
+  "spotlight_apps_after": [
+    "/Applications/meetily.app"
+  ],
+  "archived_release_matches_installed_binary": true
+}

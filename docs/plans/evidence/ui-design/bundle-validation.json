@@ -1,0 +1,9 @@
+{
+  "bundle": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app",
+  "identifier": "com.meetily.ai",
+  "version": "0.4.1",
+  "native_binary_sha256": "6c136f6f13c23e026fbe81c731af0c57c9ac24ed8b8433732d1785822cecbfb1",
+  "codesign_verify_exit_code": 0,
+  "codesign_output": "",
+  "installed": false
+}

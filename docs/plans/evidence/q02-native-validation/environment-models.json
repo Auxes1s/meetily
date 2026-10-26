@@ -1,0 +1,43 @@
+{
+  "host": {
+    "os": "macOS 27.0.1",
+    "build": "26A434",
+    "architecture": "arm64",
+    "chip": "Apple M5",
+    "cores": 10,
+    "ram_gib": 24,
+    "rust_cargo": "1.99"
+  },
+  "model_sha256": {
+    "ggml-large-v3.bin": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2",
+    "summary/Qwen3.5-4B-Q4_K_M.gguf": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+    "parakeet/parakeet-tdt-0.6b-v3-int8/encoder-model.int8.onnx": "6139d2fa7e1b086097b277c7149725edbab89cc7c7ae64b23c741be4055aff09",
+    "parakeet/parakeet-tdt-0.6b-v3-int8/nemo128.onnx": "a9fde1486ebfcc08f328d75ad4610c67835fea58c73ba57e3209a6f6cf019e9f",
+    "parakeet/parakeet-tdt-0.6b-v3-int8/decoder_joint-model.int8.onnx": "eea7483ee3d1a30375daedc8ed83e3960c91b098812127a0d99d1c8977667a70",
+    "parakeet/parakeet-tdt-0.6b-v3-int8/vocab.txt": "d58544679ea4bc6ac563d1f545eb7d474bd6cfa467f0a6e2c1dc1c7d37e3c35d"
+  },
+  "whisper_backend": "Metal, flash attention enabled; absent CoreML encoder asset falls back to Metal",
+  "whisper_settings": {
+    "beam_size": 3,
+    "temperature": 0.2,
+    "threads": 4,
+    "language": "auto for paired comparison, en for public source fixtures",
+    "translate": false,
+    "no_context": true,
+    "no_timestamps": true,
+    "token_timestamps": true,
+    "max_len": 200,
+    "no_speech_threshold": 0.55
+  },
+  "continuous_window_seconds": {
+    "target": 5,
+    "overlap": 3,
+    "max_unresolved": 20
+  },
+  "parakeet_execution_provider": "CPU",
+  "macos_onnx_runtime_linkage": "static: OrtGetApiBase symbol in executable and no external ONNX dylib dependency",
+  "physical_source_loopback": "ScreenCaptureKit",
+  "models_downloaded": false,
+  "process_gpu_power_metrics": "unavailable: root/full Xcode required; IORegistry host-wide utilization available",
+  "supported_minimum_os_acceptance": "not established by this host"
+}

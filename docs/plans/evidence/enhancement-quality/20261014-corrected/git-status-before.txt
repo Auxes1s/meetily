@@ -1,0 +1,135 @@
+M Cargo.lock
+ M frontend/src-tauri/Cargo.toml
+ M frontend/src-tauri/src/api/api.rs
+ M frontend/src-tauri/src/audio/audio_processing.rs
+ M frontend/src-tauri/src/audio/common.rs
+ M frontend/src-tauri/src/audio/import.rs
+ M frontend/src-tauri/src/audio/incremental_saver.rs
+ M frontend/src-tauri/src/audio/mod.rs
+ M frontend/src-tauri/src/audio/pipeline.rs
+ M frontend/src-tauri/src/audio/recording_commands.rs
+ M frontend/src-tauri/src/audio/recording_manager.rs
+ M frontend/src-tauri/src/audio/recording_saver.rs
+ M frontend/src-tauri/src/audio/recording_state.rs
+ M frontend/src-tauri/src/audio/retranscription.rs
+ M frontend/src-tauri/src/audio/transcription/worker.rs
+ M frontend/src-tauri/src/audio/vad.rs
+ M frontend/src-tauri/src/database/manager.rs
+ M frontend/src-tauri/src/database/mod.rs
+ M frontend/src-tauri/src/database/models.rs
+ M frontend/src-tauri/src/database/repositories/meeting.rs
+ M frontend/src-tauri/src/database/repositories/mod.rs
+ M frontend/src-tauri/src/database/repositories/summary.rs
+ M frontend/src-tauri/src/database/repositories/transcript.rs
+ M frontend/src-tauri/src/lib.rs
+ M frontend/src-tauri/src/ollama/metadata.rs
+ M frontend/src-tauri/src/summary/commands.rs
+ M frontend/src-tauri/src/summary/llm_client.rs
+ M frontend/src-tauri/src/summary/mod.rs
+ M frontend/src-tauri/src/summary/template_commands.rs
+ M frontend/src-tauri/src/summary/templates/defaults.rs
+ M frontend/src-tauri/src/summary/templates/loader.rs
+ M frontend/src-tauri/src/summary/templates/mod.rs
+ M frontend/src-tauri/src/summary/templates/types.rs
+ M frontend/src-tauri/src/whisper_engine/whisper_engine.rs
+ M frontend/src/app/_components/TranscriptPanel.tsx
+ M frontend/src/app/layout.tsx
+ M frontend/src/app/page.tsx
+ M frontend/src/components/AISummary/BlockNoteSummaryView.tsx
+ M frontend/src/components/BlockNoteEditor/Editor.tsx
+ M frontend/src/components/MeetingDetails/TranscriptPanel.tsx
+ M frontend/src/components/Sidebar/SidebarProvider.tsx
+ M frontend/src/components/Sidebar/index.tsx
+ M frontend/src/components/VirtualizedTranscriptView.tsx
+ M frontend/src/components/onboarding/steps/WelcomeStep.tsx
+ M frontend/src/contexts/OnboardingContext.tsx
+ M frontend/src/contexts/RecordingPostProcessingProvider.tsx
+ M frontend/src/contexts/TranscriptContext.tsx
+ M frontend/src/hooks/meeting-details/useCopyOperations.ts
+ M frontend/src/hooks/meeting-details/useMeetingData.ts
+ M frontend/src/hooks/meeting-details/useSummaryGeneration.ts
+ M frontend/src/hooks/usePaginatedTranscripts.ts
+ M frontend/src/hooks/useRecordingStart.ts
+ M frontend/src/hooks/useRecordingStop.ts
+ M frontend/src/hooks/useTranscriptRecovery.ts
+ M frontend/src/lib/summary-content.ts
+ M frontend/src/services/indexedDBService.ts
+ M frontend/src/services/recordingService.ts
+ M frontend/src/services/storageService.ts
+ M frontend/src/services/updateService.ts
+ M frontend/src/types/index.ts
+ M frontend/tests/hooks/meeting-details-refresh.test.tsx
+ M frontend/tests/hooks/summary-generation.test.tsx
+ M frontend/tests/lib/summary-content.test.ts
+?? docs/audio-sources.md
+?? docs/meeting-data.md
+?? docs/notepad-validation.md
+?? docs/notepad.md
+?? docs/plans/
+?? frontend/src-tauri/migrations/20261013000000_meeting_notepad.sql
+?? frontend/src-tauri/migrations/20261013010000_meeting_enhancements.sql
+?? frontend/src-tauri/migrations/20261013020000_meeting_library.sql
+?? frontend/src-tauri/migrations/20261013030000_managed_deletion.sql
+?? frontend/src-tauri/smoke/
+?? frontend/src-tauri/src/audio/echo_cancellation.rs
+?? frontend/src-tauri/src/audio/source.rs
+?? frontend/src-tauri/src/audio/source_vad.rs
+?? frontend/src-tauri/src/database/deletion.rs
+?? frontend/src-tauri/src/database/deletion/
+?? frontend/src-tauri/src/database/library.rs
+?? frontend/src-tauri/src/database/library/
+?? frontend/src-tauri/src/database/notes_commands.rs
+?? frontend/src-tauri/src/database/repositories/enhancement.rs
+?? frontend/src-tauri/src/database/tests.rs
+?? frontend/src-tauri/src/database/workspace_commands.rs
+?? frontend/src-tauri/src/database/workspace_contract_tests.rs
+?? frontend/src-tauri/src/notepad_smoke.rs
+?? frontend/src-tauri/src/summary/enhancement.rs
+?? frontend/src-tauri/src/summary/enhancement/
+?? frontend/src-tauri/src/summary/grounding.rs
+?? frontend/src-tauri/tauri.notepad-test.json
+?? frontend/src-tauri/tauri.notepad.json
+?? frontend/src-tauri/templates/highlights.json
+?? frontend/src-tauri/templates/project_board.json
+?? frontend/src-tauri/templates/technical_consultation.json
+?? frontend/src-tauri/tests/fixtures/.gitignore
+?? frontend/src-tauri/tests/fixtures/README.md
+?? frontend/src-tauri/tests/fixtures/audio-source-speech.wav
+?? frontend/src-tauri/tests/fixtures/echo-near-end-speech.wav
+?? frontend/src-tauri/tests/fixtures/meeting_enhancement/
+?? frontend/src/app/library/
+?? frontend/src/components/AudioSourceBadge.tsx
+?? frontend/src/components/MeetingLibrary/
+?? frontend/src/components/MeetingWorkspace/
+?? frontend/src/contexts/RecordingCoordinatorContext.tsx
+?? frontend/src/hooks/useMeetingLibrary.ts
+?? frontend/src/hooks/useMeetingNotes.ts
+?? frontend/src/lib/enhancement-session.ts
+?? frontend/src/lib/legacy-summary-flush.ts
+?? frontend/src/lib/legacy-summary-save.ts
+?? frontend/src/lib/meeting-library.ts
+?? frontend/src/lib/meeting-notes-session.ts
+?? frontend/src/lib/transcript-audio-source.ts
+?? frontend/src/lib/workspace-save.ts
+?? frontend/src/services/meetingDeletionService.ts
+?? frontend/src/services/meetingLibraryService.ts
+?? frontend/src/types/enhancement.ts
+?? frontend/src/types/meeting-library.ts
+?? frontend/tests/hooks/legacy-summary-compatibility.test.tsx
+?? frontend/tests/hooks/live-transcript.test.tsx
+?? frontend/tests/hooks/meeting-library.test.tsx
+?? frontend/tests/hooks/summary-edit-save.test.tsx
+?? frontend/tests/lib/enhancement-session.test.ts
+?? frontend/tests/lib/legacy-summary-flush.test.ts
+?? frontend/tests/lib/legacy-summary-save.test.ts
+?? frontend/tests/lib/meeting-deletion.test.ts
+?? frontend/tests/lib/meeting-library.test.ts
+?? frontend/tests/lib/meeting-notes-session.test.ts
+?? frontend/tests/lib/transcript-audio-source.test.tsx
+?? frontend/tests/lib/transcript-source-view.test.tsx
+?? scripts/__pycache__/
+?? scripts/evaluate-meeting-enhancement.py
+?? scripts/macos-clt/
+?? scripts/meetily-notepad.sh
+?? scripts/review-meeting-enhancement.py
+?? scripts/tests/

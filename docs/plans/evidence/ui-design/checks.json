@@ -1,0 +1,70 @@
+{
+  "frontend_tests": {
+    "status": "passed",
+    "tests": 128,
+    "expectations": 510,
+    "files": 29,
+    "log": "frontend-tests.log"
+  },
+  "standalone_onboarding_assertions": {
+    "status": "passed",
+    "command": "node tests/lib/onboarding-summary-model.test.mjs"
+  },
+  "production_frontend_build": {
+    "status": "passed",
+    "log": "production-build.log"
+  },
+  "typescript": {
+    "status": "passed",
+    "command": "pnpm exec tsc --noEmit --incremental false",
+    "after_final_release_build": true,
+    "log": "typescript.log"
+  },
+  "lint": {
+    "status": "blocked_preexisting_configuration",
+    "exit_code": 1,
+    "reason": "next lint opens ESLint setup prompt; no configuration or dependency changes made",
+    "log": "lint.log"
+  },
+  "native_wkwebview": {
+    "status": "passed",
+    "platform": "macOS arm64",
+    "responsive_cases": 91,
+    "design_cases": 34,
+    "continuous_resize_steps": 122,
+    "snapshots": 44,
+    "fixture_recording_states": [
+      "idle",
+      "recording",
+      "paused",
+      "stopping",
+      "processing",
+      "saving",
+      "error"
+    ],
+    "native_lifecycle_calls_in_visual_fixtures": [],
+    "physical_recording_tested": false,
+    "result": "native-webview-result.json"
+  },
+  "release_bundle": {
+    "bundle": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app",
+    "identifier": "com.meetily.ai",
+    "version": "0.4.1",
+    "native_binary_sha256": "6c136f6f13c23e026fbe81c731af0c57c9ac24ed8b8433732d1785822cecbfb1",
+    "codesign_verify_exit_code": 0,
+    "codesign_output": "",
+    "installed": false
+  },
+  "source_manifest_matches_current_files": true,
+  "git_diff_check": {
+    "status": "passed"
+  },
+  "open_gates": [
+    "human aesthetic acceptance",
+    "Windows native rendering and interaction",
+    "physical audio capture while resizing",
+    "OS accessibility preference integration; CSS fallback itself verified via CSSOM",
+    "dark theme deferred by user"
+  ],
+  "preservation": "preservation.json"
+}

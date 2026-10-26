@@ -1,0 +1,305 @@
+{
+  "audio_seconds": 90.112,
+  "input_pcm_sha256": "17f6663681fec5356ed3841e0683fcc8539c8edfcba17188a6f592a5123b7dd1",
+  "sample_rate": 16000,
+  "channels": 1,
+  "model": "large-v3",
+  "language": "auto",
+  "capture_source": "system",
+  "physical_capture": false,
+  "virtual_capture_clock": false,
+  "paced_replay": true,
+  "performance_gate_passed": false,
+  "fidelity_acceptance": false,
+  "runs": {
+    "before_legacy": {
+      "performance": {
+        "inference_seconds": 49.28961345900001,
+        "inference_rtf": 0.5469816834494852,
+        "decode_count": 21,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 2.7199999999999998,
+        "p95_decode_backlog_seconds": 1.9499999999999993,
+        "middle_p95_backlog_seconds": 1.490000000000002,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 3.3504538750000012,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      "native": {
+        "stop_to_commit_seconds": 2.9700699579999963,
+        "capture_wall_seconds": 90.199850708,
+        "max_replay_lateness_seconds": 0.9027807499999998,
+        "source_checkpoint_deliveries_verified": 0,
+        "source_deliveries": 21,
+        "final_segments": 19,
+        "effective_whisper_settings": {
+          "beam_size": 3,
+          "effective_threads": 4,
+          "language": "auto",
+          "max_len": 200,
+          "no_context": true,
+          "no_speech_threshold": 0.55,
+          "no_timestamps": true,
+          "patience": 1,
+          "single_segment": false,
+          "temperature": 0.20000000298023224,
+          "token_timestamps": true,
+          "translate": false
+        }
+      },
+      "ui": {
+        "capture_to_display_ms": {
+          "n": 7,
+          "p95": 3364.3897500000003,
+          "max": 3364.3897500000003
+        },
+        "capture_to_event_ms": {
+          "n": 19,
+          "p95": 3350.454000000001,
+          "max": 3350.454000000001
+        },
+        "event_to_paint_ms": {
+          "n": 19,
+          "p95": 17,
+          "max": 17
+        },
+        "observed_save_ms": {
+          "n": 19,
+          "p95": 853,
+          "max": 853
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 19,
+          "p95": 37,
+          "max": 37
+        }
+      },
+      "ui_limit": "Selective visible-text samples; focus/visibility was not recorded for these runs; no AC05 acceptance",
+      "resource_peaks": {
+        "native_rss_kib": null,
+        "attributed_tree_rss_kib": null,
+        "attributed_tree_cpu_percent": null
+      },
+      "resource_samples": 100
+    },
+    "before_continuous": {
+      "performance": {
+        "inference_seconds": 98.19949670800001,
+        "inference_rtf": 1.0897493864080259,
+        "decode_count": 28,
+        "p95_decode_window_seconds": 29.92,
+        "max_decode_backlog_seconds": 18.941999999999993,
+        "p95_decode_backlog_seconds": 18.861999999999995,
+        "middle_p95_backlog_seconds": 4.439999999999998,
+        "late_p95_backlog_seconds": 6.0,
+        "p95_capture_to_native_event_seconds": 25.033055250000004,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      "native": {
+        "stop_to_commit_seconds": 11.609886833999994,
+        "capture_wall_seconds": 90.113947208,
+        "max_replay_lateness_seconds": 0.00420500000000068,
+        "source_checkpoint_deliveries_verified": 43,
+        "source_deliveries": 43,
+        "final_segments": 14,
+        "effective_whisper_settings": {
+          "beam_size": 3,
+          "effective_threads": 4,
+          "language": "auto",
+          "max_len": 200,
+          "no_context": true,
+          "no_speech_threshold": 0.55,
+          "no_timestamps": true,
+          "patience": 1,
+          "single_segment": false,
+          "temperature": 0.20000000298023224,
+          "token_timestamps": true,
+          "translate": false
+        }
+      },
+      "ui": {
+        "capture_to_display_ms": {
+          "n": 13,
+          "p95": 30860.109666000004,
+          "max": 30860.109666000004
+        },
+        "capture_to_event_ms": {
+          "n": 34,
+          "p95": 25033.055415999996,
+          "max": 30852.158415999995
+        },
+        "event_to_paint_ms": {
+          "n": 34,
+          "p95": 17,
+          "max": 19
+        },
+        "observed_save_ms": {
+          "n": 20,
+          "p95": 840,
+          "max": 861
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 20,
+          "p95": 23,
+          "max": 30
+        }
+      },
+      "ui_limit": "Selective visible-text samples; focus/visibility was not recorded for these runs; no AC05 acceptance",
+      "resource_peaks": {
+        "native_rss_kib": null,
+        "attributed_tree_rss_kib": null,
+        "attributed_tree_cpu_percent": null
+      },
+      "resource_samples": 108
+    },
+    "after_legacy": {
+      "performance": {
+        "inference_seconds": 53.496317372,
+        "inference_rtf": 0.5936647435635654,
+        "decode_count": 21,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 2.7199999999999998,
+        "p95_decode_backlog_seconds": 1.9499999999999993,
+        "middle_p95_backlog_seconds": 1.490000000000002,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 3.8425787079999996,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      "native": {
+        "stop_to_commit_seconds": 3.381823792000006,
+        "capture_wall_seconds": 90.116136625,
+        "max_replay_lateness_seconds": 0.4929954589999994,
+        "source_checkpoint_deliveries_verified": 0,
+        "source_deliveries": 21,
+        "final_segments": 19,
+        "effective_whisper_settings": {
+          "beam_size": 3,
+          "effective_threads": 4,
+          "language": "auto",
+          "max_len": 200,
+          "no_context": true,
+          "no_speech_threshold": 0.55,
+          "no_timestamps": true,
+          "patience": 1,
+          "single_segment": false,
+          "temperature": 0.20000000298023224,
+          "token_timestamps": true,
+          "translate": false
+        }
+      },
+      "ui": {
+        "capture_to_display_ms": {
+          "n": 14,
+          "p95": 3929.358874999998,
+          "max": 3929.358874999998
+        },
+        "capture_to_event_ms": {
+          "n": 19,
+          "p95": 3842.5790420000008,
+          "max": 3842.5790420000008
+        },
+        "event_to_paint_ms": {
+          "n": 19,
+          "p95": 620,
+          "max": 620
+        },
+        "observed_save_ms": {
+          "n": 19,
+          "p95": 881,
+          "max": 881
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 19,
+          "p95": 357,
+          "max": 357
+        }
+      },
+      "ui_limit": "Selective visible-text samples; focus/visibility was not recorded for these runs; no AC05 acceptance",
+      "resource_peaks": {
+        "native_rss_kib": null,
+        "attributed_tree_rss_kib": null,
+        "attributed_tree_cpu_percent": null
+      },
+      "resource_samples": 127
+    },
+    "after_continuous": {
+      "performance": {
+        "inference_seconds": 75.889102209,
+        "inference_rtf": 0.8421642201815519,
+        "decode_count": 20,
+        "p95_decode_window_seconds": 25.24,
+        "max_decode_backlog_seconds": 19.599999999999994,
+        "p95_decode_backlog_seconds": 18.36,
+        "middle_p95_backlog_seconds": 2.440000000000005,
+        "late_p95_backlog_seconds": 19.599999999999994,
+        "p95_capture_to_native_event_seconds": 20.255796042,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      "native": {
+        "stop_to_commit_seconds": 4.039855249999988,
+        "capture_wall_seconds": 90.114874709,
+        "max_replay_lateness_seconds": 0.3661280840000032,
+        "source_checkpoint_deliveries_verified": 43,
+        "source_deliveries": 43,
+        "final_segments": 10,
+        "effective_whisper_settings": {
+          "beam_size": 3,
+          "effective_threads": 4,
+          "language": "auto",
+          "max_len": 200,
+          "no_context": true,
+          "no_speech_threshold": 0.55,
+          "no_timestamps": true,
+          "patience": 1,
+          "single_segment": false,
+          "temperature": 0.20000000298023224,
+          "token_timestamps": true,
+          "translate": false
+        }
+      },
+      "ui": {
+        "capture_to_display_ms": {
+          "n": 13,
+          "p95": 14326.815208,
+          "max": 14326.815208
+        },
+        "capture_to_event_ms": {
+          "n": 22,
+          "p95": 20255.79624999999,
+          "max": 20417.7325
+        },
+        "event_to_paint_ms": {
+          "n": 22,
+          "p95": 546,
+          "max": 746
+        },
+        "observed_save_ms": {
+          "n": 19,
+          "p95": 1098,
+          "max": 1098
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 19,
+          "p95": 487,
+          "max": 487
+        }
+      },
+      "ui_limit": "Selective visible-text samples; focus/visibility was not recorded for these runs; no AC05 acceptance",
+      "resource_peaks": {
+        "native_rss_kib": null,
+        "attributed_tree_rss_kib": null,
+        "attributed_tree_cpu_percent": null
+      },
+      "resource_samples": 127
+    }
+  },
+  "comparison_stage": "Initial preview scheduling only, before overlap/timestamp corrections; superseded by final-paced-comparison.json"
+}

@@ -1,0 +1,307 @@
+{
+  "attempts": [],
+  "elapsed_ms": 0,
+  "environment": {
+    "architecture": "arm64",
+    "cargo": "cargo 1.99.0 (5f94df478 2026-08-27) (Homebrew)",
+    "code_sha256": {
+      "frontend/src-tauri/src/summary/enhancement.rs": "7d04aba330b47c206e52356bb612ca854e183425b1e3c5f6982d92db39667ba3",
+      "frontend/src-tauri/src/summary/enhancement/evaluation.rs": "0c7c3b4eb8d04e4b78c34d784cd096bfe297d10b6860e7ff7cefc6166d79d2ac",
+      "frontend/src-tauri/src/summary/grounding.rs": "e593b8bf5feaf51183f033bc8eef7c6ed89a4042201a90b75ec706dbb279975c",
+      "frontend/src-tauri/src/summary/llm_client.rs": "7054f7d7d99ffb53cdcf0dcdbba353163a4c7407a67be38ac0b0723383b8913e",
+      "frontend/src-tauri/src/summary/summary_engine/models.rs": "97c8ffc1fe5ac2527605eafd3fb0e1655d292e2f996ee9916394c889f36b9102"
+    },
+    "cpu": "Apple M5",
+    "git_head": "a2cb62e827da7ef59f65064c97233efb2313878e",
+    "gpu": "Apple M5 integrated; built-in helper selects GPU layers dynamically",
+    "network": "macOS sandbox denies non-loopback outbound for evaluator process and children",
+    "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "os_detail": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+    "python": "3.14.7",
+    "ram_bytes": 25769803776,
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28) (Homebrew)"
+  },
+  "error": "Template and instructions leave insufficient source context",
+  "fixture": {
+    "annotations": {
+      "forbidden_inferences": [
+        "Inventing a budget amount",
+        "Inventing a deadline"
+      ],
+      "relevant_decisions_actions": [
+        {
+          "agreement_status": "agreed",
+          "deadline": null,
+          "id": "fx-01-e1",
+          "kind": "decision",
+          "owner": null,
+          "supporting_passages": [
+            {
+              "excerpt": "The group agreed to keep offline access in the pilot.",
+              "source_id": "transcript:fx-01-t1"
+            }
+          ],
+          "text": "Keep offline access in the pilot.",
+          "uncertainty": "none"
+        },
+        {
+          "agreement_status": "agreed",
+          "deadline": null,
+          "id": "fx-01-e2",
+          "kind": "action",
+          "owner": "Mina",
+          "supporting_passages": [
+            {
+              "excerpt": "Mina will test the offline checklist. No due date was set.",
+              "source_id": "transcript:fx-01-t2"
+            }
+          ],
+          "text": "Test the offline checklist.",
+          "uncertainty": "deadline missing"
+        }
+      ],
+      "user_priorities": [
+        {
+          "id": "fx-01-p1",
+          "supporting_passages": [
+            {
+              "excerpt": "Priority: the pilot must protect offline access and stay within the existing budget.",
+              "source_id": "note:fx-01-n1"
+            },
+            {
+              "excerpt": "The group agreed to keep offline access in the pilot.",
+              "source_id": "transcript:fx-01-t1"
+            }
+          ],
+          "topic": "offline access"
+        },
+        {
+          "id": "fx-01-p2",
+          "supporting_passages": [
+            {
+              "excerpt": "Priority: the pilot must protect offline access and stay within the existing budget.",
+              "source_id": "note:fx-01-n1"
+            }
+          ],
+          "topic": "existing budget"
+        }
+      ]
+    },
+    "category": "general-meeting",
+    "id": "fx-01",
+    "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+    "meeting_id": "e08-fx-01",
+    "notes": [
+      {
+        "id": "fx-01-n1",
+        "text": "Priority: the pilot must protect offline access and stay within the existing budget."
+      }
+    ],
+    "schema_version": 1,
+    "summary_language": "en",
+    "template_id": "standard_meeting",
+    "transcripts": [
+      {
+        "audio_end_time": 9.0,
+        "audio_source": "unknown",
+        "audio_start_time": 0.0,
+        "id": "fx-01-t1",
+        "text": "The group agreed to keep offline access in the pilot."
+      },
+      {
+        "audio_end_time": 19.0,
+        "audio_source": "unknown",
+        "audio_start_time": 10.0,
+        "id": "fx-01-t2",
+        "text": "Mina will test the offline checklist. No due date was set."
+      }
+    ]
+  },
+  "human_acceptance": "pending",
+  "originals_and_approval_preserved": true,
+  "outcome": "rejected_generation",
+  "persisted_version": {
+    "created_at": "2026-10-14T01:26:50.798433+00:00",
+    "document_json": null,
+    "error": "Template and instructions leave insufficient source context",
+    "id": "58d76073-1767-41bb-9dee-2bf2469de95c",
+    "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+    "meeting_id": "e08-fx-01",
+    "notes_revision": 1,
+    "provider_config_json": "{\"context_size\":4096,\"destination\":\"http://127.0.0.1:11434/v1/chat/completions\",\"max_tokens\":null,\"model\":\"qwen3.5:9b-mlx\",\"model_identity\":{\"identity\":{\"capabilities\":[\"completion\",\"vision\",\"thinking\",\"tools\"],\"details\":{\"families\":null,\"family\":\"\",\"format\":\"safetensors\",\"parameter_size\":\"\",\"parent_model\":\"\",\"quantization_level\":\"nvfp4\",\"runner\":\"mlx\"},\"digest\":\"203e30078279db51132b9e026ceb7bb21330e5b1af67ef190671b375c9770404\",\"model\":\"qwen3.5:9b-mlx\",\"modified_at\":\"2026-09-10T16:45:29.250449498+08:00\",\"name\":\"qwen3.5:9b-mlx\",\"size\":8903014758},\"name\":\"qwen3.5:9b-mlx\",\"provider\":\"ollama\",\"server_version\":{\"version\":\"0.40.3\"},\"show\":{\"capabilities\":[\"completion\",\"vision\",\"thinking\",\"tools\"],\"details\":{\"families\":null,\"family\":\"qwen3_5\",\"format\":\"safetensors\",\"parameter_size\":\"9.4B\",\"parent_model\":\"\",\"quantization_level\":\"nvfp4\"},\"model_info\":{\"general.architecture\":\"qwen3_5\",\"general.parameter_count\":9409468800,\"qwen3_5.block_count\":32,\"qwen3_5.context_length\":262144,\"qwen3_5.embedding_length\":4096},\"modelfile\":\"# Modelfile generated by \\\"ollama show\\\"\\nFROM qwen3.5:9b-mlx\\nTEMPLATE {{ .Prompt }}\\nRENDERER qwen3.5\\nPARSER qwen3.5\\nCAPABILITY completion\\nCAPABILITY vision\\nCAPABILITY thinking\\nPARAMETER min_p 0\\nPARAMETER presence_penalty 1.5\\nPARAMETER repeat_penalty 1\\nPARAMETER temperature 1\\nPARAMETER top_k 20\\nPARAMETER top_p 0.95\\nLICENSE \\\"\\\"\\\"\\n                                Apache License\\n                           Version 2.0, January 2004\\n                        http://www.apache.org/licenses/\\n\\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\\n\\n   1. Definitions.\\n\\n      \\\"License\\\" shall mean the terms and conditions for use, reproduction,\\n      and distribution as defined by Sections 1 through 9 of this document.\\n\\n      \\\"Licensor\\\" shall mean the copyright owner or entity authorized by\\n      the copyright owner that is granting the License.\\n\\n      \\\"Legal Entity\\\" shall mean the union of the acting entity and all\\n      other entities that control, are controlled by, or are under common\\n      control with that entity. For the purposes of this definition,\\n      \\\"control\\\" means (i) the power, direct or indirect, to cause the\\n      direction or management of such entity, whether by contract or\\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\\n      outstanding shares, or (iii) beneficial ownership of such entity.\\n\\n      \\\"You\\\" (or \\\"Your\\\") shall mean an individual or Legal Entity\\n      exercising permissions granted by this License.\\n\\n      \\\"Source\\\" form shall mean the preferred form for making modifications,\\n      including but not limited to software source code, documentation\\n      source, and configuration files.\\n\\n      \\\"Object\\\" form shall mean any form resulting from mechanical\\n      transformation or translation of a Source form, including but\\n      not limited to compiled object code, generated documentation,\\n      and conversions to other media types.\\n\\n      \\\"Work\\\" shall mean the work of authorship, whether in Source or\\n      Object form, made available under the License, as indicated by a\\n      copyright notice that is included in or attached to the work\\n      (an example is provided in the Appendix below).\\n\\n      \\\"Derivative Works\\\" shall mean any work, whether in Source or Object\\n      form, that is based on (or derived from) the Work and for which the\\n      editorial revisions, annotations, elaborations, or other modifications\\n      represent, as a whole, an original work of authorship. For the purposes\\n      of this License, Derivative Works shall not include works that remain\\n      separable from, or merely link (or bind by name) to the interfaces of,\\n      the Work and Derivative Works thereof.\\n\\n      \\\"Contribution\\\" shall mean any work of authorship, including\\n      the original version of the Work and any modifications or additions\\n      to that Work or Derivative Works thereof, that is intentionally\\n      submitted to Licensor for inclusion in the Work by the copyright owner\\n      or by an individual or Legal Entity authorized to submit on behalf of\\n      the copyright owner. For the purposes of this definition, \\\"submitted\\\"\\n      means any form of electronic, verbal, or written communication sent\\n      to the Licensor or its representatives, including but not limited to\\n      communication on electronic mailing lists, source code control systems,\\n      and issue tracking systems that are managed by, or on behalf of, the\\n      Licensor for the purpose of discussing and improving the Work, but\\n      excluding communication that is conspicuously marked or otherwise\\n      designated in writing by the copyright owner as \\\"Not a Contribution.\\\"\\n\\n      \\\"Contributor\\\" shall mean Licensor and any individual or Legal Entity\\n      on behalf of whom a Contribution has been received by Licensor and\\n      subsequently incorporated within the Work.\\n\\n   2. Grant of Copyright License. Subject to the terms and conditions of\\n      this License, each Contributor hereby grants to You a perpetual,\\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\\n      copyright license to reproduce, prepare Derivative Works of,\\n      publicly display, publicly perform, sublicense, and distribute the\\n      Work and such Derivative Works in Source or Object form.\\n\\n   3. Grant of Patent License. Subject to the terms and conditions of\\n      this License, each Contributor hereby grants to You a perpetual,\\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\\n      (except as stated in this section) patent license to make, have made,\\n      use, offer to sell, sell, import, and otherwise transfer the Work,\\n      where such license applies only to those patent claims licensable\\n      by such Contributor that are necessarily infringed by their\\n      Contribution(s) alone or by combination of their Contribution(s)\\n      with the Work to which such Contribution(s) was submitted. If You\\n      institute patent litigation against any entity (including a\\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\\n      or a Contribution incorporated within the Work constitutes direct\\n      or contributory patent infringement, then any patent licenses\\n      granted to You under this License for that Work shall terminate\\n      as of the date such litigation is filed.\\n\\n   4. Redistribution. You may reproduce and distribute copies of the\\n      Work or Derivative Works thereof in any medium, with or without\\n      modifications, and in Source or Object form, provided that You\\n      meet the following conditions:\\n\\n      (a) You must give any other recipients of the Work or\\n          Derivative Works a copy of this License; and\\n\\n      (b) You must cause any modified files to carry prominent notices\\n          stating that You changed the files; and\\n\\n      (c) You must retain, in the Source form of any Derivative Works\\n          that You distribute, all copyright, patent, trademark, and\\n          attribution notices from the Source form of the Work,\\n          excluding those notices that do not pertain to any part of\\n          the Derivative Works; and\\n\\n      (d) If the Work includes a \\\"NOTICE\\\" text file as part of its\\n          distribution, then any Derivative Works that You distribute must\\n          include a readable copy of the attribution notices contained\\n          within such NOTICE file, excluding those notices that do not\\n          pertain to any part of the Derivative Works, in at least one\\n          of the following places: within a NOTICE text file distributed\\n          as part of the Derivative Works; within the Source form or\\n          documentation, if provided along with the Derivative Works; or,\\n          within a display generated by the Derivative Works, if and\\n          wherever such third-party notices normally appear. The contents\\n          of the NOTICE file are for informational purposes only and\\n          do not modify the License. You may add Your own attribution\\n          notices within Derivative Works that You distribute, alongside\\n          or as an addendum to the NOTICE text from the Work, provided\\n          that such additional attribution notices cannot be construed\\n          as modifying the License.\\n\\n      You may add Your own copyright statement to Your modifications and\\n      may provide additional or different license terms and conditions\\n      for use, reproduction, or distribution of Your modifications, or\\n      for any such Derivative Works as a whole, provided Your use,\\n      reproduction, and distribution of the Work otherwise complies with\\n      the conditions stated in this License.\\n\\n   5. Submission of Contributions. Unless You explicitly state otherwise,\\n      any Contribution intentionally submitted for inclusion in the Work\\n      by You to the Licensor shall be under the terms and conditions of\\n      this License, without any additional terms or conditions.\\n      Notwithstanding the above, nothing herein shall supersede or modify\\n      the terms of any separate license agreement you may have executed\\n      with Licensor regarding such Contributions.\\n\\n   6. Trademarks. This License does not grant permission to use the trade\\n      names, trademarks, service marks, or product names of the Licensor,\\n      except as required for reasonable and customary use in describing the\\n      origin of the Work and reproducing the content of the NOTICE file.\\n\\n   7. Disclaimer of Warranty. Unless required by applicable law or\\n      agreed to in writing, Licensor provides the Work (and each\\n      Contributor provides its Contributions) on an \\\"AS IS\\\" BASIS,\\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\\n      implied, including, without limitation, any warranties or conditions\\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\\n      PARTICULAR PURPOSE. You are solely responsible for determining the\\n      appropriateness of using or redistributing the Work and assume any\\n      risks associated with Your exercise of permissions under this License.\\n\\n   8. Limitation of Liability. In no event and under no legal theory,\\n      whether in tort (including negligence), contract, or otherwise,\\n      unless required by applicable law (such as deliberate and grossly\\n      negligent acts) or agreed to in writing, shall any Contributor be\\n      liable to You for damages, including any direct, indirect, special,\\n      incidental, or consequential damages of any character arising as a\\n      result of this License or out of the use or inability to use the\\n      Work (including but not limited to damages for loss of goodwill,\\n      work stoppage, computer failure or malfunction, or any and all\\n      other commercial damages or losses), even if such Contributor\\n      has been advised of the possibility of such damages.\\n\\n   9. Accepting Warranty or Additional Liability. While redistributing\\n      the Work or Derivative Works thereof, You may choose to offer,\\n      and charge a fee for, acceptance of support, warranty, indemnity,\\n      or other liability obligations and/or rights consistent with this\\n      License. However, in accepting such obligations, You may act only\\n      on Your own behalf and on Your sole responsibility, not on behalf\\n      of any other Contributor, and only if You agree to indemnify,\\n      defend, and hold each Contributor harmless for any liability\\n      incurred by, or claims asserted against, such Contributor by reason\\n      of your accepting any such warranty or additional liability.\\n\\n   END OF TERMS AND CONDITIONS\\n\\n   APPENDIX: How to apply the Apache License to your work.\\n\\n      To apply the Apache License to your work, attach the following\\n      boilerplate notice, with the fields enclosed by brackets \\\"[]\\\"\\n      replaced with your own identifying information. (Don't include\\n      the brackets!)  The text should be enclosed in the appropriate\\n      comment syntax for the file format. We also recommend that a\\n      file or class name and description of purpose be included on the\\n      same \\\"printed page\\\" as the copyright notice for easier\\n      identification within third-party archives.\\n\\n   Copyright [yyyy] [name of copyright owner]\\n\\n   Licensed under the Apache License, Version 2.0 (the \\\"License\\\");\\n   you may not use this file except in compliance with the License.\\n   You may obtain a copy of the License at\\n\\n       http://www.apache.org/licenses/LICENSE-2.0\\n\\n   Unless required by applicable law or agreed to in writing, software\\n   distributed under the License is distributed on an \\\"AS IS\\\" BASIS,\\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\\n   See the License for the specific language governing permissions and\\n   limitations under the License.\\n\\\"\\\"\\\"\\n\",\"modified_at\":\"2026-09-10T16:45:29.250449498+08:00\",\"parameters\":\"top_k                          20\\ntop_p                          0.95\\nmin_p                          0\\npresence_penalty               1.5\\nrepeat_penalty                 1\\ntemperature                    1\",\"requires\":\"0.19.0\",\"template\":\"{{ .Prompt }}\",\"thinking\":{\"default\":true,\"values\":[false,true]}}},\"provider\":\"ollama\",\"summary_language\":\"en\",\"temperature\":null,\"template\":{\"description\":\"A standard template for general meetings, focusing on key outcomes and actions.\",\"name\":\"Standard Meeting Notes\",\"sections\":[{\"format\":\"paragraph\",\"instruction\":\"Provide a brief, one-paragraph executive summary of the entire meeting.\",\"title\":\"Summary\"},{\"format\":\"list\",\"instruction\":\"List the most important decisions made during the meeting.\",\"title\":\"Key Decisions\"},{\"format\":\"list\",\"instruction\":\"List all assigned tasks with their owners and due date. Always add reference transcript segment and timestamp in the table.\",\"item_format\":\"| **Owner** | Task | Due | Reference Transcript Segment | Segment Time stamp |\\n| --- | --- | --- | --- | --- |\",\"title\":\"Action Items\"},{\"format\":\"paragraph\",\"instruction\":\"Summarize the main topics of discussion, key arguments, and important insights.\",\"title\":\"Discussion Highlights\"}]},\"top_p\":null}",
+    "revision": 1,
+    "source_fingerprint": "51be8ad1b0ab4639:15546",
+    "source_snapshot_json": "{\"schema_version\":1,\"meeting_id\":\"e08-fx-01\",\"notes_revision\":1,\"notes_json\":\"[{\\\"children\\\":[],\\\"content\\\":[{\\\"text\\\":\\\"Priority: the pilot must protect offline access and stay within the existing budget.\\\",\\\"type\\\":\\\"text\\\"}],\\\"id\\\":\\\"fx-01-n1\\\",\\\"type\\\":\\\"paragraph\\\"}]\",\"sources\":[{\"source_id\":\"note:fx-01-n1\",\"kind\":\"notes\",\"text\":\"Priority: the pilot must protect offline access and stay within the existing budget.\",\"fingerprint\":\"4d36963165cfc4d9:84\",\"audio_start_time\":null,\"audio_end_time\":null,\"audio_source\":null},{\"source_id\":\"transcript:fx-01-t1\",\"kind\":\"transcript\",\"text\":\"The group agreed to keep offline access in the pilot.\",\"fingerprint\":\"07d11d99fc38b5de:53\",\"audio_start_time\":0.0,\"audio_end_time\":9.0,\"audio_source\":\"unknown\"},{\"source_id\":\"transcript:fx-01-t2\",\"kind\":\"transcript\",\"text\":\"Mina will test the offline checklist. No due date was set.\",\"fingerprint\":\"117c8059a19c1efc:58\",\"audio_start_time\":10.0,\"audio_end_time\":19.0,\"audio_source\":\"unknown\"}],\"source_fingerprint\":\"24d61be8afdee067:971\",\"transcript_coverage\":\"committed_available\"}",
+    "source_stale": false,
+    "state": "candidate",
+    "status": "failed",
+    "template_id": "standard_meeting",
+    "updated_at": "2026-10-14T01:26:50.799584+00:00"
+  },
+  "phase": "before-fixes",
+  "protected_after": {
+    "approved": [
+      "d9761cd2-881e-40d9-b19d-30227beaa628",
+      "{\"markdown\":\"Previously approved, user-edited synthetic version\",\"user_edited\":true}",
+      2
+    ],
+    "notes": [
+      "[{\"children\":[],\"content\":[{\"text\":\"Priority: the pilot must protect offline access and stay within the existing budget.\",\"type\":\"text\"}],\"id\":\"fx-01-n1\",\"type\":\"paragraph\"}]",
+      1
+    ]
+  },
+  "protected_before": {
+    "approved": [
+      "d9761cd2-881e-40d9-b19d-30227beaa628",
+      "{\"markdown\":\"Previously approved, user-edited synthetic version\",\"user_edited\":true}",
+      2
+    ],
+    "notes": [
+      "[{\"children\":[],\"content\":[{\"text\":\"Priority: the pilot must protect offline access and stay within the existing budget.\",\"type\":\"text\"}],\"id\":\"fx-01-n1\",\"type\":\"paragraph\"}]",
+      1
+    ]
+  },
+  "provider_config": {
+    "context_size": 4096,
+    "destination": "http://127.0.0.1:11434/v1/chat/completions",
+    "max_tokens": null,
+    "model": "qwen3.5:9b-mlx",
+    "model_identity": {
+      "identity": {
+        "capabilities": [
+          "completion",
+          "vision",
+          "thinking",
+          "tools"
+        ],
+        "details": {
+          "families": null,
+          "family": "",
+          "format": "safetensors",
+          "parameter_size": "",
+          "parent_model": "",
+          "quantization_level": "nvfp4",
+          "runner": "mlx"
+        },
+        "digest": "203e30078279db51132b9e026ceb7bb21330e5b1af67ef190671b375c9770404",
+        "model": "qwen3.5:9b-mlx",
+        "modified_at": "2026-09-10T16:45:29.250449498+08:00",
+        "name": "qwen3.5:9b-mlx",
+        "size": 8903014758
+      },
+      "name": "qwen3.5:9b-mlx",
+      "provider": "ollama",
+      "server_version": {
+        "version": "0.40.3"
+      },
+      "show": {
+        "capabilities": [
+          "completion",
+          "vision",
+          "thinking",
+          "tools"
+        ],
+        "details": {
+          "families": null,
+          "family": "qwen3_5",
+          "format": "safetensors",
+          "parameter_size": "9.4B",
+          "parent_model": "",
+          "quantization_level": "nvfp4"
+        },
+        "model_info": {
+          "general.architecture": "qwen3_5",
+          "general.parameter_count": 9409468800,
+          "qwen3_5.block_count": 32,
+          "qwen3_5.context_length": 262144,
+          "qwen3_5.embedding_length": 4096
+        },
+        "modelfile": "# Modelfile generated by \"ollama show\"\nFROM qwen3.5:9b-mlx\nTEMPLATE {{ .Prompt }}\nRENDERER qwen3.5\nPARSER qwen3.5\nCAPABILITY completion\nCAPABILITY vision\nCAPABILITY thinking\nPARAMETER min_p 0\nPARAMETER presence_penalty 1.5\nPARAMETER repeat_penalty 1\nPARAMETER temperature 1\nPARAMETER top_k 20\nPARAMETER top_p 0.95\nLICENSE \"\"\"\n                                Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable from, or merely link (or bind by name) to the interfaces of,\n      the Work and Derivative Works thereof.\n\n      \"Contribution\" shall mean any work of authorship, including\n      the original version of the Work and any modifications or additions\n      to that Work or Derivative Works thereof, that is intentionally\n      submitted to Licensor for inclusion in the Work by the copyright owner\n      or by an individual or Legal Entity authorized to submit on behalf of\n      the copyright owner. For the purposes of this definition, \"submitted\"\n      means any form of electronic, verbal, or written communication sent\n      to the Licensor or its representatives, including but not limited to\n      communication on electronic mailing lists, source code control systems,\n      and issue tracking systems that are managed by, or on behalf of, the\n      Licensor for the purpose of discussing and improving the Work, but\n      excluding communication that is conspicuously marked or otherwise\n      designated in writing by the copyright owner as \"Not a Contribution.\"\n\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\n      on behalf of whom a Contribution has been received by Licensor and\n      subsequently incorporated within the Work.\n\n   2. Grant of Copyright License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      copyright license to reproduce, prepare Derivative Works of,\n      publicly display, publicly perform, sublicense, and distribute the\n      Work and such Derivative Works in Source or Object form.\n\n   3. Grant of Patent License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      (except as stated in this section) patent license to make, have made,\n      use, offer to sell, sell, import, and otherwise transfer the Work,\n      where such license applies only to those patent claims licensable\n      by such Contributor that are necessarily infringed by their\n      Contribution(s) alone or by combination of their Contribution(s)\n      with the Work to which such Contribution(s) was submitted. If You\n      institute patent litigation against any entity (including a\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\n      or a Contribution incorporated within the Work constitutes direct\n      or contributory patent infringement, then any patent licenses\n      granted to You under this License for that Work shall terminate\n      as of the date such litigation is filed.\n\n   4. Redistribution. You may reproduce and distribute copies of the\n      Work or Derivative Works thereof in any medium, with or without\n      modifications, and in Source or Object form, provided that You\n      meet the following conditions:\n\n      (a) You must give any other recipients of the Work or\n          Derivative Works a copy of this License; and\n\n      (b) You must cause any modified files to carry prominent notices\n          stating that You changed the files; and\n\n      (c) You must retain, in the Source form of any Derivative Works\n          that You distribute, all copyright, patent, trademark, and\n          attribution notices from the Source form of the Work,\n          excluding those notices that do not pertain to any part of\n          the Derivative Works; and\n\n      (d) If the Work includes a \"NOTICE\" text file as part of its\n          distribution, then any Derivative Works that You distribute must\n          include a readable copy of the attribution notices contained\n          within such NOTICE file, excluding those notices that do not\n          pertain to any part of the Derivative Works, in at least one\n          of the following places: within a NOTICE text file distributed\n          as part of the Derivative Works; within the Source form or\n          documentation, if provided along with the Derivative Works; or,\n          within a display generated by the Derivative Works, if and\n          wherever such third-party notices normally appear. The contents\n          of the NOTICE file are for informational purposes only and\n          do not modify the License. You may add Your own attribution\n          notices within Derivative Works that You distribute, alongside\n          or as an addendum to the NOTICE text from the Work, provided\n          that such additional attribution notices cannot be construed\n          as modifying the License.\n\n      You may add Your own copyright statement to Your modifications and\n      may provide additional or different license terms and conditions\n      for use, reproduction, or distribution of Your modifications, or\n      for any such Derivative Works as a whole, provided Your use,\n      reproduction, and distribution of the Work otherwise complies with\n      the conditions stated in this License.\n\n   5. Submission of Contributions. Unless You explicitly state otherwise,\n      any Contribution intentionally submitted for inclusion in the Work\n      by You to the Licensor shall be under the terms and conditions of\n      this License, without any additional terms or conditions.\n      Notwithstanding the above, nothing herein shall supersede or modify\n      the terms of any separate license agreement you may have executed\n      with Licensor regarding such Contributions.\n\n   6. Trademarks. This License does not grant permission to use the trade\n      names, trademarks, service marks, or product names of the Licensor,\n      except as required for reasonable and customary use in describing the\n      origin of the Work and reproducing the content of the NOTICE file.\n\n   7. Disclaimer of Warranty. Unless required by applicable law or\n      agreed to in writing, Licensor provides the Work (and each\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n      implied, including, without limitation, any warranties or conditions\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\n      PARTICULAR PURPOSE. You are solely responsible for determining the\n      appropriateness of using or redistributing the Work and assume any\n      risks associated with Your exercise of permissions under this License.\n\n   8. Limitation of Liability. In no event and under no legal theory,\n      whether in tort (including negligence), contract, or otherwise,\n      unless required by applicable law (such as deliberate and grossly\n      negligent acts) or agreed to in writing, shall any Contributor be\n      liable to You for damages, including any direct, indirect, special,\n      incidental, or consequential damages of any character arising as a\n      result of this License or out of the use or inability to use the\n      Work (including but not limited to damages for loss of goodwill,\n      work stoppage, computer failure or malfunction, or any and all\n      other commercial damages or losses), even if such Contributor\n      has been advised of the possibility of such damages.\n\n   9. Accepting Warranty or Additional Liability. While redistributing\n      the Work or Derivative Works thereof, You may choose to offer,\n      and charge a fee for, acceptance of support, warranty, indemnity,\n      or other liability obligations and/or rights consistent with this\n      License. However, in accepting such obligations, You may act only\n      on Your own behalf and on Your sole responsibility, not on behalf\n      of any other Contributor, and only if You agree to indemnify,\n      defend, and hold each Contributor harmless for any liability\n      incurred by, or claims asserted against, such Contributor by reason\n      of your accepting any such warranty or additional liability.\n\n   END OF TERMS AND CONDITIONS\n\n   APPENDIX: How to apply the Apache License to your work.\n\n      To apply the Apache License to your work, attach the following\n      boilerplate notice, with the fields enclosed by brackets \"[]\"\n      replaced with your own identifying information. (Don't include\n      the brackets!)  The text should be enclosed in the appropriate\n      comment syntax for the file format. We also recommend that a\n      file or class name and description of purpose be included on the\n      same \"printed page\" as the copyright notice for easier\n      identification within third-party archives.\n\n   Copyright [yyyy] [name of copyright owner]\n\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.\n\"\"\"\n",
+        "modified_at": "2026-09-10T16:45:29.250449498+08:00",
+        "parameters": "top_k                          20\ntop_p                          0.95\nmin_p                          0\npresence_penalty               1.5\nrepeat_penalty                 1\ntemperature                    1",
+        "requires": "0.19.0",
+        "template": "{{ .Prompt }}",
+        "thinking": {
+          "default": true,
+          "values": [
+            false,
+            true
+          ]
+        }
+      }
+    },
+    "provider": "ollama",
+    "summary_language": "en",
+    "temperature": null,
+    "template": {
+      "description": "A standard template for general meetings, focusing on key outcomes and actions.",
+      "name": "Standard Meeting Notes",
+      "sections": [
+        {
+          "format": "paragraph",
+          "instruction": "Provide a brief, one-paragraph executive summary of the entire meeting.",
+          "title": "Summary"
+        },
+        {
+          "format": "list",
+          "instruction": "List the most important decisions made during the meeting.",
+          "title": "Key Decisions"
+        },
+        {
+          "format": "list",
+          "instruction": "List all assigned tasks with their owners and due date. Always add reference transcript segment and timestamp in the table.",
+          "item_format": "| **Owner** | Task | Due | Reference Transcript Segment | Segment Time stamp |\n| --- | --- | --- | --- | --- |",
+          "title": "Action Items"
+        },
+        {
+          "format": "paragraph",
+          "instruction": "Summarize the main topics of discussion, key arguments, and important insights.",
+          "title": "Discussion Highlights"
+        }
+      ]
+    },
+    "top_p": null
+  },
+  "run_id": "ollama-qwen3.5_9b-mlx-fx-01-r2",
+  "schema_version": 1,
+  "semantic_assessment": "pending Codex review",
+  "source_snapshot": {
+    "meeting_id": "e08-fx-01",
+    "notes_json": "[{\"children\":[],\"content\":[{\"text\":\"Priority: the pilot must protect offline access and stay within the existing budget.\",\"type\":\"text\"}],\"id\":\"fx-01-n1\",\"type\":\"paragraph\"}]",
+    "notes_revision": 1,
+    "schema_version": 1,
+    "source_fingerprint": "24d61be8afdee067:971",
+    "sources": [
+      {
+        "audio_end_time": null,
+        "audio_source": null,
+        "audio_start_time": null,
+        "fingerprint": "4d36963165cfc4d9:84",
+        "kind": "notes",
+        "source_id": "note:fx-01-n1",
+        "text": "Priority: the pilot must protect offline access and stay within the existing budget."
+      },
+      {
+        "audio_end_time": 9.0,
+        "audio_source": "unknown",
+        "audio_start_time": 0.0,
+        "fingerprint": "07d11d99fc38b5de:53",
+        "kind": "transcript",
+        "source_id": "transcript:fx-01-t1",
+        "text": "The group agreed to keep offline access in the pilot."
+      },
+      {
+        "audio_end_time": 19.0,
+        "audio_source": "unknown",
+        "audio_start_time": 10.0,
+        "fingerprint": "117c8059a19c1efc:58",
+        "kind": "transcript",
+        "source_id": "transcript:fx-01-t2",
+        "text": "Mina will test the offline checklist. No due date was set."
+      }
+    ],
+    "transcript_coverage": "committed_available"
+  },
+  "started_at": "2026-10-14T01:26:50.799939+00:00",
+  "validated_candidate": null
+}

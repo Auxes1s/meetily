@@ -1,0 +1,21 @@
+{
+  "build_bundle": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app",
+  "graceful_quit": "no production app was running",
+  "installed": [
+    {
+      "path": "/Applications/meetily.app",
+      "backup": "/Applications/meetily.previous-responsive-20261014-131415.app",
+      "previous_bundle_verified": true,
+      "matches_build": true,
+      "signature_verified": true
+    },
+    {
+      "path": "/Users/marcignacio/Applications/Meetily Notepad.app",
+      "backup": "/Users/marcignacio/Applications/Meetily Notepad.previous-responsive-20261014-131415.app",
+      "previous_bundle_verified": true,
+      "matches_build": true,
+      "signature_verified": true
+    }
+  ],
+  "source_sha256": "ff3f4c54592e99eb7f4096de2ed188ceeb5b3f0a52448fe46fdf10f15246c599"
+}

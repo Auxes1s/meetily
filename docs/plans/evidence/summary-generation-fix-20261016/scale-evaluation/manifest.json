@@ -1,0 +1,72 @@
+{
+  "output": "/Users/marcignacio/GitHub/meetily/docs/plans/evidence/summary-generation-fix-20261016/scale-evaluation",
+  "phase": "summary-fix-scale",
+  "isolated_model_root": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-e08-models-yog1wq6x",
+  "models": [
+    {
+      "provider": "builtin-ai",
+      "name": "qwen3.5:4b",
+      "file": "/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-summary-model-inventory-hmbyvc1u/models/summary/Qwen3.5-4B-Q4_K_M.gguf",
+      "file_sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+      "bytes": 2740937888,
+      "helper": "/Users/marcignacio/GitHub/meetily/target/release/llama-helper",
+      "helper_sha256": "4409700d8e2b789a5b1f911ba30890a22a5776da532057202bb146bc3fde53f8"
+    }
+  ],
+  "ollama_endpoint": "http://127.0.0.1:11434",
+  "repeats": 2,
+  "fixture": null,
+  "environment": {
+    "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "architecture": "arm64",
+    "python": "3.14.7",
+    "git_head": "a2cb62e827da7ef59f65064c97233efb2313878e",
+    "code_sha256": {
+      "frontend/src-tauri/src/summary/enhancement.rs": "8ce8d098c11404193f0d6c37519889a4a0838c2d484196a857f25ef30a86215f",
+      "frontend/src-tauri/src/summary/grounding.rs": "07ee2db138b436fd4a79ee91ff93df36ecf2ffde95f39bdbbf4f5e9ed3c62364",
+      "frontend/src-tauri/src/summary/llm_client.rs": "45dbb77b93339699b856c84b1ca51a2e5ed3961055dd3b5c7c9c38488380cb5f",
+      "frontend/src-tauri/src/summary/summary_engine/models.rs": "97c8ffc1fe5ac2527605eafd3fb0e1655d292e2f996ee9916394c889f36b9102",
+      "frontend/src-tauri/src/summary/enhancement/evaluation.rs": "58de7e2f3780b36ce8dde2f9da383c17fb9b312bb12223b30fa08427c12cfee9"
+    },
+    "cargo": "cargo 1.99.0 (5f94df478 2026-08-27) (Homebrew)",
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28) (Homebrew)",
+    "network": "macOS sandbox denies non-loopback outbound for evaluator process and children",
+    "os_detail": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+    "cpu": "Apple M5",
+    "ram_bytes": 25769803776,
+    "gpu": {
+      "SPDisplaysDataType": [
+        {
+          "_name": "Apple M5",
+          "spdisplays_mtlgpufamilysupport": "spdisplays_metal4",
+          "spdisplays_ndrvs": [
+            {
+              "_name": "Color LCD",
+              "_spdisplays_display-product-id": "a061",
+              "_spdisplays_display-serial-number": "fd626d62",
+              "_spdisplays_display-vendor-id": "610",
+              "_spdisplays_display-week": "0",
+              "_spdisplays_display-year": "0",
+              "_spdisplays_displayID": "1",
+              "_spdisplays_pixels": "3024 x 1964",
+              "_spdisplays_resolution": "1512 x 982 @ 120.00Hz",
+              "spdisplays_ambient_brightness": "spdisplays_yes",
+              "spdisplays_connection_type": "spdisplays_internal",
+              "spdisplays_display_type": "spdisplays_built-in-liquid-retina-xdr",
+              "spdisplays_main": "spdisplays_yes",
+              "spdisplays_mirror": "spdisplays_off",
+              "spdisplays_online": "spdisplays_yes",
+              "spdisplays_pixelresolution": "spdisplays_3024x1964Retina"
+            }
+          ],
+          "spdisplays_vendor": "sppci_vendor_Apple",
+          "sppci_bus": "spdisplays_builtin",
+          "sppci_cores": "10",
+          "sppci_device_type": "spdisplays_gpu",
+          "sppci_model": "Apple M5"
+        }
+      ]
+    }
+  },
+  "scenario_matrix": "scale"
+}

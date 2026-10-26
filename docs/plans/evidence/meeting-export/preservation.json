@@ -1,0 +1,19 @@
+{
+  "baseline_files": 320,
+  "preserved_existing_files": 308,
+  "changed_existing_files": [
+    "docs/meeting-data.md",
+    "docs/notepad.md",
+    "docs/plans/p0-implementation-handoff.md",
+    "frontend/src-tauri/src/database/mod.rs",
+    "frontend/src-tauri/src/database/notes_commands.rs",
+    "frontend/src-tauri/src/lib.rs",
+    "frontend/src-tauri/src/notepad_smoke.rs",
+    "frontend/src-tauri/src/summary/grounding.rs",
+    "frontend/src/components/MeetingLibrary/MeetingLibrary.tsx",
+    "frontend/src/components/MeetingWorkspace/MeetingDocuments.tsx",
+    "frontend/src/lib/legacy-summary-flush.ts",
+    "frontend/src/lib/workspace-save.ts"
+  ],
+  "unexpected_changes": []
+}

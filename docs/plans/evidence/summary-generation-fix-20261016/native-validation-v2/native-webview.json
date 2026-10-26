@@ -1,0 +1,5 @@
+{
+  "body": "Skip to workspace\nNew meeting\nYour meeting workspace\nShow transcript\n/ summary\nMy notes\nEnhanced notes\n\nExport\nEnhance and review your notes\n\nNew results are candidates. Approve a reviewed version to select it; your original notes and previous approved edits are retained.\n\nTemplate\nYour instructions\nGenerate new candidate\nCustom template\nRefresh versions\nDocument version\n\n0 of 1 parts complete.\n\nCancel generation\n\nGenerating a separate candidate… Original notes remain editable.\n\nReady to record\n\nRecording needs a local transcription model. Notes save independently.",
+  "error": "TypeError: null is not an object (evaluating 'notes.notes_plain_text.trim')",
+  "ok": false
+}

@@ -1,0 +1,52 @@
+{
+  "bundle": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app",
+  "archive": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad-summary-fix-20261016.zip",
+  "archive_bytes": 48929703,
+  "archive_sha256": "c9f0b736ec40d88a128e0bced82bcc197ee12b2f79b61c4d20b6d42d63c4806e",
+  "bundle_identifier": "com.meetily.ai",
+  "app_binary_sha256": "ba1dbbfcd6ed7a52cd7c9ff8164f71d0be75de0a6d136c915416ad261477a33d",
+  "bundled_helper_sha256": "b941c5a595ee14fa61cd4b16b1d598e03942c4d6ac6d798e9efc72232332babb",
+  "build_helper_sha256": "4409700d8e2b789a5b1f911ba30890a22a5776da532057202bb146bc3fde53f8",
+  "helper_capabilities": {
+    "type": "capabilities",
+    "protocol_version": 2,
+    "structured_generation": true
+  },
+  "signature_verification": "codesign --verify --deep --strict: exit 0",
+  "installed_app_replaced": false,
+  "production_app_launched": false,
+  "acceptance": {
+    "operational_native_buttons": true,
+    "model_semantic_ac07": false,
+    "human_semantic_acceptance": "pending"
+  },
+  "helper_executable_sections_match": true,
+  "helper_executable_section_count": 22,
+  "helper_section_sha256": {
+    "__TEXT/__text": "653f5c0344204118741a0704840ba780a46d9bd35066338ce504a836bd667a1b",
+    "__TEXT/__stubs": "1296bc31d742c78996f1423a8d46fcbb7bafa4384a87231404c0f055f3b5472f",
+    "__TEXT/__stub_helper": "45f7dc38006da8912b7001a25f2f5c1f5177c8fa79a2bd570a082a0e81164a7c",
+    "__TEXT/__objc_stubs": "3ac987d7dd196fb1f855869508d73820cc560138e5f3d6c36e37e17a24441741",
+    "__TEXT/__gcc_except_tab": "b945999775519573c84899acb3122b2b510236586a9e69938c1980ad314412db",
+    "__TEXT/__const": "a8840519c07c0d68451f70f7c619740a217112fac4873c9df1ae292e9d983ae0",
+    "__TEXT/__cstring": "9c6dc6737e931d17fbbd34571235d1999dde973469041531fbf6ae79c45b80ec",
+    "__TEXT/__objc_methname": "a1cd73a64e6b5849c5f14546f090c8df9620649c11ccc7465d5bd7480fc9fa8f",
+    "__TEXT/__unwind_info": "5512bcbd0801557a16b029c9a93c4652cb7130f4ecadd10a14d4122a8369080d",
+    "__TEXT/__eh_frame": "e82fc09ab8414156ea557da8a159e5fa632d27c0fa647678d90d5dbac2ca965f",
+    "__DATA_CONST/__mod_init_func": "1a8470a18c3696544e748369d88a13c0ab1e0dbb7d224d18d9169e73536b781a",
+    "__DATA_CONST/__const": "09de72943b14c59799a4b70ada925e64a634f3a65d6edbc61382f9766d91aea9",
+    "__DATA_CONST/__cfstring": "01e0edc4437fa9fc023bbb36028ec63157a1ce7a51277c39feb0f0f62e6fdf4f",
+    "__DATA_CONST/__objc_imageinfo": "94039884329d3732c577860f40d0dfdf883ff89dac332f87216e692c08892fa2",
+    "__DATA_CONST/__got": "7ba82fa0f4a5187a16780e4edad4c71fb6a2e3edc153bbc4af46911a2d605bdd",
+    "__DATA/__la_symbol_ptr": "99e88d43ef3f5d4f84ab035917fd9603cca05a9e06dc192363ca67092a8d034f",
+    "__DATA/__objc_selrefs": "e62904016a7b24c566a4ebda04a44463d41142706b80b433d301ac00adca37ab",
+    "__DATA/__objc_classrefs": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+    "__DATA/__data": "b965cace6ed9c28f110866cfd8a276f6a2a6af107f23b5ece3829c8a9fd4946e",
+    "__DATA/__ggml_metallib": "ed873efa3a6329d156f290e7dc036141a8ae4d95eaef828a5596120c8dccfac1",
+    "__DATA/__thread_vars": "3b96350874ad6154afee9cf8d34bf0057c539e63d33fcf3a41494da7db89d302",
+    "__DATA/__thread_data": "d7ff1fa492f634a8019c784c8bf55832600ad2c35bc6bd06d3ee0de5c98507ba"
+  },
+  "helper_macho_uuid": "00431AE8-473F-3A4D-A162-74A8CCEFB779",
+  "helper_packaging_note": "All 22 file-backed Mach-O sections and the executable UUID match. Full-file hashes differ after packaging metadata/signing.",
+  "archive_extraction_signature_and_binary_verification": true
+}

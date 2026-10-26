@@ -1,0 +1,215 @@
+{
+  "installed_executable_unchanged": true,
+  "source_tables_unchanged": true,
+  "table_count": 25,
+  "before": {
+    "application_sha256": "53408f31f259865b26794cbaf34ad7a550f51a5fc908ceedcb10f4f4e113a60a",
+    "tables": {
+      "_sqlx_migrations": {
+        "rows": 15,
+        "sha256": "b660ebb640b55d6377cf00ab3b16798145e054516c296dbb1e31ef27f15dc4a6"
+      },
+      "meetings": {
+        "rows": 3,
+        "sha256": "0d78b9628df13f3144fd31b6658a6e1994916a8afc352cc26d9b9cce05143be5"
+      },
+      "transcripts": {
+        "rows": 430,
+        "sha256": "d910aa5868c4674834b22391c80b931175c2c22eafbce8f6cfa54c4817e0eb7a"
+      },
+      "summary_processes": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "transcript_chunks": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "transcript_settings": {
+        "rows": 1,
+        "sha256": "830e351a5a242b94096e49acd5e33dd814a0fabd60704cdb559dbb0a044ea9f8"
+      },
+      "settings": {
+        "rows": 1,
+        "sha256": "5f91b63ec02b41fee6527e619008a7b94f94d1ac48252fc973d92161d56ebcf6"
+      },
+      "licensing": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_notes": {
+        "rows": 2,
+        "sha256": "e5ed9ebf39d31b7bd838779d1b3804bed8da97e4d1f35f991981466b20ef9b2a"
+      },
+      "meeting_note_links": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_enhancement_versions": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_enhancement_settings": {
+        "rows": 3,
+        "sha256": "16f4b73a3d64e77803591e47d7cadba3efb5d1b9b3577f8ce706bca8c5580db6"
+      },
+      "meeting_participants": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_tags": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_search_dirty": {
+        "rows": 1,
+        "sha256": "0789ae9a9ef79e1dc91d5a9e850e19b9f1e2fb3ed10a531f016bd52ea54cb549"
+      },
+      "meeting_search_sources": {
+        "rows": 434,
+        "sha256": "48dd8958e35303c447404ec35fdf6a8e4561a6199063e9f36da55d0af857cf73"
+      },
+      "meeting_search_fts": {
+        "rows": 434,
+        "sha256": "e221067e3319cdcbf3d2819e0e8e57119970bef8454866c782a9902dcac42f70"
+      },
+      "meeting_search_fts_data": {
+        "rows": 41,
+        "sha256": "c973eb82f5bbee0203bd7f8b2faf773f71a4491958dd7c3f7ac487cbcd39ef48"
+      },
+      "meeting_search_fts_idx": {
+        "rows": 39,
+        "sha256": "f2f3df37ba0f5ad2b9605ec26da35acf09b7f86d1ed599cd762ad21d9203129d"
+      },
+      "meeting_search_fts_docsize": {
+        "rows": 434,
+        "sha256": "443563a7c6a3002e3abe9378aef1d521d55782f892c3fd3045c3437fa3517e7c"
+      },
+      "meeting_search_fts_config": {
+        "rows": 1,
+        "sha256": "afaee2b1562b04a97bf25315b158b426795a3b6f88b13fd85d546090fb141946"
+      },
+      "meeting_deletion_jobs": {
+        "rows": 15,
+        "sha256": "abdbafda7f98b9f4b23c78302bab21402580ad494673ac7cbf8c2225101f56fb"
+      },
+      "meeting_deletion_tombstones": {
+        "rows": 15,
+        "sha256": "16b5def29771c6bf63ed9ac9bf5f445d08030b20e317a6e1a33f7bcd6347ce25"
+      },
+      "recording_sessions": {
+        "rows": 3,
+        "sha256": "0b74662f460561f03fc6b00ca2d1ae7b3ecbdbb925c51a6c91816d3be81cd708"
+      },
+      "meeting_deletion_sessions": {
+        "rows": 8,
+        "sha256": "773832bd6e49c8413d870da5bf86191747f4543346f386a26e64486f6f0d9030"
+      }
+    }
+  },
+  "after": {
+    "application_sha256": "53408f31f259865b26794cbaf34ad7a550f51a5fc908ceedcb10f4f4e113a60a",
+    "tables": {
+      "_sqlx_migrations": {
+        "rows": 15,
+        "sha256": "b660ebb640b55d6377cf00ab3b16798145e054516c296dbb1e31ef27f15dc4a6"
+      },
+      "meetings": {
+        "rows": 3,
+        "sha256": "0d78b9628df13f3144fd31b6658a6e1994916a8afc352cc26d9b9cce05143be5"
+      },
+      "transcripts": {
+        "rows": 430,
+        "sha256": "d910aa5868c4674834b22391c80b931175c2c22eafbce8f6cfa54c4817e0eb7a"
+      },
+      "summary_processes": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "transcript_chunks": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "transcript_settings": {
+        "rows": 1,
+        "sha256": "830e351a5a242b94096e49acd5e33dd814a0fabd60704cdb559dbb0a044ea9f8"
+      },
+      "settings": {
+        "rows": 1,
+        "sha256": "5f91b63ec02b41fee6527e619008a7b94f94d1ac48252fc973d92161d56ebcf6"
+      },
+      "licensing": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_notes": {
+        "rows": 2,
+        "sha256": "e5ed9ebf39d31b7bd838779d1b3804bed8da97e4d1f35f991981466b20ef9b2a"
+      },
+      "meeting_note_links": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_enhancement_versions": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_enhancement_settings": {
+        "rows": 3,
+        "sha256": "16f4b73a3d64e77803591e47d7cadba3efb5d1b9b3577f8ce706bca8c5580db6"
+      },
+      "meeting_participants": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_tags": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "meeting_search_dirty": {
+        "rows": 1,
+        "sha256": "0789ae9a9ef79e1dc91d5a9e850e19b9f1e2fb3ed10a531f016bd52ea54cb549"
+      },
+      "meeting_search_sources": {
+        "rows": 434,
+        "sha256": "48dd8958e35303c447404ec35fdf6a8e4561a6199063e9f36da55d0af857cf73"
+      },
+      "meeting_search_fts": {
+        "rows": 434,
+        "sha256": "e221067e3319cdcbf3d2819e0e8e57119970bef8454866c782a9902dcac42f70"
+      },
+      "meeting_search_fts_data": {
+        "rows": 41,
+        "sha256": "c973eb82f5bbee0203bd7f8b2faf773f71a4491958dd7c3f7ac487cbcd39ef48"
+      },
+      "meeting_search_fts_idx": {
+        "rows": 39,
+        "sha256": "f2f3df37ba0f5ad2b9605ec26da35acf09b7f86d1ed599cd762ad21d9203129d"
+      },
+      "meeting_search_fts_docsize": {
+        "rows": 434,
+        "sha256": "443563a7c6a3002e3abe9378aef1d521d55782f892c3fd3045c3437fa3517e7c"
+      },
+      "meeting_search_fts_config": {
+        "rows": 1,
+        "sha256": "afaee2b1562b04a97bf25315b158b426795a3b6f88b13fd85d546090fb141946"
+      },
+      "meeting_deletion_jobs": {
+        "rows": 15,
+        "sha256": "abdbafda7f98b9f4b23c78302bab21402580ad494673ac7cbf8c2225101f56fb"
+      },
+      "meeting_deletion_tombstones": {
+        "rows": 15,
+        "sha256": "16b5def29771c6bf63ed9ac9bf5f445d08030b20e317a6e1a33f7bcd6347ce25"
+      },
+      "recording_sessions": {
+        "rows": 3,
+        "sha256": "0b74662f460561f03fc6b00ca2d1ae7b3ecbdbb925c51a6c91816d3be81cd708"
+      },
+      "meeting_deletion_sessions": {
+        "rows": 8,
+        "sha256": "773832bd6e49c8413d870da5bf86191747f4543346f386a26e64486f6f0d9030"
+      }
+    }
+  }
+}

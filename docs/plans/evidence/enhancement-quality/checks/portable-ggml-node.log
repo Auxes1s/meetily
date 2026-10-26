@@ -1,0 +1,22 @@
+✔ accepts portable Whisper configuration with AVX2 enabled (40.435209ms)
+✔ checks an explicitly selected target and debug profile (34.702459ms)
+✔ rejects missing Whisper evidence even if another dependency is portable (34.093709ms)
+✔ rejects GGML_NATIVE enabled (32.3005ms)
+✔ rejects missing GGML_NATIVE evidence (32.542792ms)
+✔ rejects GGML_AVX512 enabled (32.70575ms)
+✔ rejects missing GGML_AVX512 evidence (32.967458ms)
+✔ rejects GGML_AVX512_VBMI enabled (32.8165ms)
+✔ rejects missing GGML_AVX512_VBMI evidence (33.797375ms)
+✔ rejects GGML_AVX512_VNNI enabled (32.903417ms)
+✔ rejects missing GGML_AVX512_VNNI evidence (33.553458ms)
+✔ rejects GGML_AVX512_BF16 enabled (33.501917ms)
+✔ rejects missing GGML_AVX512_BF16 evidence (34.22225ms)
+✔ does not let one safe cache hide an unsafe cache in the selected build (33.556791ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 477.947375

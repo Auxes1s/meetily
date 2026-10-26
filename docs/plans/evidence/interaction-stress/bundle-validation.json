@@ -1,0 +1,13 @@
+{
+  "app": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app",
+  "identifier": "com.meetily.ai",
+  "version": "0.4.1",
+  "binary_sha256": "53408f31f259865b26794cbaf34ad7a550f51a5fc908ceedcb10f4f4e113a60a",
+  "binary_format": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app/Contents/MacOS/meetily: Mach-O 64-bit executable arm64",
+  "release_build_exit": 0,
+  "strict_deep_codesign_exit": 0,
+  "signature": "local ad hoc",
+  "notarized": false,
+  "installed_app_replaced": false,
+  "production_app_launched": false
+}

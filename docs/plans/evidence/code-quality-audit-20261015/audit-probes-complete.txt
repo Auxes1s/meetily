@@ -1,0 +1,291 @@
+warning: patch for the non root package will be ignored, specify patch at the workspace root:
+package:   /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src-tauri/Cargo.toml
+workspace: /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/llama-helper/Cargo.toml
+workspace: /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/Cargo.toml
+warning: unused import: `std::io::Read`
+   --> frontend/src-tauri/build/ffmpeg.rs:210:9
+    |
+210 |     use std::io::Read;
+    |         ^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `meetily` (build script) generated 1 warning
+   Compiling meetily v0.4.1 (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src-tauri)
+warning: meetily@0.4.1: 🚀 Building Meetily for: macos
+warning: meetily@0.4.1: ✅ macOS: Metal GPU acceleration ENABLED by default
+warning: meetily@0.4.1: 🎬 Checking FFmpeg binary for target: aarch64-apple-darwin
+warning: meetily@0.4.1: 🔍 Found cached FFmpeg binary: ffmpeg-aarch64-apple-darwin
+warning: meetily@0.4.1: ✅ FFmpeg verification passed: ffmpeg version 8.0 Copyright (c) 2000-2025 the FFmpeg developers
+warning: meetily@0.4.1: ✅ FFmpeg binary already cached and verified: ffmpeg-aarch64-apple-darwin
+warning: unused import: `Serialize`
+ --> frontend/src-tauri/src/lib.rs:1:26
+  |
+1 | use serde::{Deserialize, Serialize};
+  |                          ^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `perf_debug`
+  --> frontend/src-tauri/src/lib.rs:32:16
+   |
+32 | pub(crate) use perf_debug;
+   |                ^^^^^^^^^^
+
+warning: unused import: `perf_trace`
+  --> frontend/src-tauri/src/lib.rs:33:16
+   |
+33 | pub(crate) use perf_trace;
+   |                ^^^^^^^^^^
+
+warning: unnecessary parentheses around closure body
+   --> frontend/src-tauri/src/audio/decoder.rs:699:50
+    |
+699 |         let input: Vec<f32> = (0..96000).map(|i| (i as f32 / 96000.0)).collect();
+    |                                                  ^                  ^
+    |
+    = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+help: remove these parentheses
+    |
+699 -         let input: Vec<f32> = (0..96000).map(|i| (i as f32 / 96000.0)).collect();
+699 +         let input: Vec<f32> = (0..96000).map(|i| i as f32 / 96000.0).collect();
+    |
+
+warning: unused import: `cpal::SampleFormat`
+   --> frontend/src-tauri/src/audio/diagnostics.rs:291:9
+    |
+291 |     use cpal::SampleFormat;
+    |         ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::sync::mpsc`
+ --> frontend/src-tauri/src/audio/recording_state.rs:4:5
+  |
+4 | use tokio::sync::mpsc;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::sync::mpsc`
+ --> frontend/src-tauri/src/audio/pipeline.rs:3:5
+  |
+3 | use tokio::sync::mpsc;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::sync::mpsc`
+ --> frontend/src-tauri/src/audio/stream.rs:6:5
+  |
+6 | use tokio::sync::mpsc;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::sync::mpsc`
+ --> frontend/src-tauri/src/audio/recording_saver.rs:6:5
+  |
+6 | use tokio::sync::mpsc;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `warn`
+ --> frontend/src-tauri/src/audio/incremental_saver.rs:3:17
+  |
+3 | use log::{info, warn, error};
+  |                 ^^^^
+
+warning: unused import: `recording_state::TranscriptionChunk`
+ --> frontend/src-tauri/src/audio/transcription/live_worker.rs:7:20
+  |
+7 | use crate::audio::{recording_state::TranscriptionChunk, source::AudioSource};
+  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `error` and `info`
+ --> frontend/src-tauri/src/database/repositories/transcript.rs:4:15
+  |
+4 | use tracing::{error, info};
+  |               ^^^^^  ^^^^
+
+warning: unexpected `cfg` condition value: `cargo-clippy`
+   --> frontend/src-tauri/src/notepad_smoke.rs:107:45
+    |
+107 |                     let tiff: *mut Object = msg_send![image, TIFFRepresentation];
+    |                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `feature` are: `coreml`, `cuda`, `default`, `hipblas`, `metal`, `openblas`, `openmp`, `platform-default`, `q02-validation`, and `vulkan`
+    = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+    = help: try referring to `sel_impl` crate for guidance on how handle this unexpected cfg
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: `#[warn(unexpected_cfgs)]` on by default
+    = note: this warning originates in the macro `sel_impl` which comes from the expansion of the macro `msg_send` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `cargo-clippy`
+   --> frontend/src-tauri/src/notepad_smoke.rs:108:47
+    |
+108 |                     let bitmap: *mut Object = msg_send![class!(NSBitmapImageRep), imageRepWithData: tiff];
+    |                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `feature` are: `coreml`, `cuda`, `default`, `hipblas`, `metal`, `openblas`, `openmp`, `platform-default`, `q02-validation`, and `vulkan`
+    = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+    = help: try referring to `sel_impl` crate for guidance on how handle this unexpected cfg
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: this warning originates in the macro `sel_impl` which comes from the expansion of the macro `msg_send` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `cargo-clippy`
+   --> frontend/src-tauri/src/notepad_smoke.rs:108:57
+    |
+108 |                     let bitmap: *mut Object = msg_send![class!(NSBitmapImageRep), imageRepWithData: tiff];
+    |                                                         ^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `feature` are: `coreml`, `cuda`, `default`, `hipblas`, `metal`, `openblas`, `openmp`, `platform-default`, `q02-validation`, and `vulkan`
+    = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+    = help: try referring to `class` crate for guidance on how handle this unexpected cfg
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: this warning originates in the macro `class` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `cargo-clippy`
+   --> frontend/src-tauri/src/notepad_smoke.rs:109:51
+    |
+109 |                     let properties: *mut Object = msg_send![class!(NSDictionary), dictionary];
+    |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `feature` are: `coreml`, `cuda`, `default`, `hipblas`, `metal`, `openblas`, `openmp`, `platform-default`, `q02-validation`, and `vulkan`
+    = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+    = help: try referring to `sel_impl` crate for guidance on how handle this unexpected cfg
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: this warning originates in the macro `sel_impl` which comes from the expansion of the macro `msg_send` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `cargo-clippy`
+   --> frontend/src-tauri/src/notepad_smoke.rs:109:61
+    |
+109 |                     let properties: *mut Object = msg_send![class!(NSDictionary), dictionary];
+    |                                                             ^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `feature` are: `coreml`, `cuda`, `default`, `hipblas`, `metal`, `openblas`, `openmp`, `platform-default`, `q02-validation`, and `vulkan`
+    = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+    = help: try referring to `class` crate for guidance on how handle this unexpected cfg
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: this warning originates in the macro `class` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `cargo-clippy`
+   --> frontend/src-tauri/src/notepad_smoke.rs:110:44
+    |
+110 |                     let png: *mut Object = msg_send![bitmap, representationUsingType: 4usize properties: properties];
+    |                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `feature` are: `coreml`, `cuda`, `default`, `hipblas`, `metal`, `openblas`, `openmp`, `platform-default`, `q02-validation`, and `vulkan`
+    = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+    = help: try referring to `sel_impl` crate for guidance on how handle this unexpected cfg
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: this warning originates in the macro `sel_impl` which comes from the expansion of the macro `msg_send` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `cargo-clippy`
+   --> frontend/src-tauri/src/notepad_smoke.rs:113:48
+    |
+113 |                         let bytes: *const u8 = msg_send![png, bytes];
+    |                                                ^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `feature` are: `coreml`, `cuda`, `default`, `hipblas`, `metal`, `openblas`, `openmp`, `platform-default`, `q02-validation`, and `vulkan`
+    = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+    = help: try referring to `sel_impl` crate for guidance on how handle this unexpected cfg
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: this warning originates in the macro `sel_impl` which comes from the expansion of the macro `msg_send` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `cargo-clippy`
+   --> frontend/src-tauri/src/notepad_smoke.rs:114:45
+    |
+114 |                         let length: usize = msg_send![png, length];
+    |                                             ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `feature` are: `coreml`, `cuda`, `default`, `hipblas`, `metal`, `openblas`, `openmp`, `platform-default`, `q02-validation`, and `vulkan`
+    = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+    = help: try referring to `sel_impl` crate for guidance on how handle this unexpected cfg
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: this warning originates in the macro `sel_impl` which comes from the expansion of the macro `msg_send` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `cargo-clippy`
+   --> frontend/src-tauri/src/notepad_smoke.rs:125:25
+    |
+125 |             let _: () = msg_send![view, takeSnapshotWithConfiguration: nil completionHandler: completion];
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `feature` are: `coreml`, `cuda`, `default`, `hipblas`, `metal`, `openblas`, `openmp`, `platform-default`, `q02-validation`, and `vulkan`
+    = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+    = help: try referring to `sel_impl` crate for guidance on how handle this unexpected cfg
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: this warning originates in the macro `sel_impl` which comes from the expansion of the macro `msg_send` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: variable does not need to be mutable
+   --> frontend/src-tauri/src/audio/transcription/spool.rs:194:5
+    |
+194 |     mut input: PcmReceiver<TranscriptionChunk>,
+    |     ----^^^^^
+    |     |
+    |     help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `device`
+   --> frontend/src-tauri/src/audio/diagnostics.rs:296:13
+    |
+296 |         let device = AudioDevice::new("Test Device".to_string(), DeviceType::Input);
+    |             ^^^^^^ help: if this is intentional, prefix it with an underscore: `_device`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `error`
+   --> frontend/src-tauri/src/summary/processor.rs:433:33
+    |
+433 | ...                   Err(error)
+    |                           ^^^^^ help: if this is intentional, prefix it with an underscore: `_error`
+
+warning: unused variable: `error`
+   --> frontend/src-tauri/src/summary/service.rs:625:17
+    |
+625 |             Err(error) if cancellation_token.is_cancelled() => {
+    |                 ^^^^^ help: if this is intentional, prefix it with an underscore: `_error`
+
+warning: field `recording_sender` is never read
+   --> frontend/src-tauri/src/audio/pipeline.rs:246:5
+    |
+239 | pub struct AudioCapture {
+    |            ------------ field in this struct
+...
+246 |     recording_sender: Option<crate::audio::queue::PcmSender<AudioChunk>>,
+    |     ^^^^^^^^^^^^^^^^
+    |
+    = note: `AudioCapture` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `enqueued_at` is never read
+  --> frontend/src-tauri/src/audio/transcription/spool.rs:38:9
+   |
+34 | pub(super) struct Pending {
+   |                   ------- field in this struct
+...
+38 |     pub enqueued_at: Instant,
+   |         ^^^^^^^^^^^
+
+warning: comparison is useless due to type limits
+   --> frontend/src-tauri/src/audio/system_audio_commands.rs:123:25
+    |
+123 |                 assert!(device_list.len() >= 0); // Should at least not crash
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_comparisons)]` on by default
+
+warning: `meetily` (lib test) generated 28 warnings (run `cargo fix --lib -p meetily --tests` to apply 16 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.02s
+     Running unittests src/lib.rs (/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/native-target/debug/deps/app_lib-53a970518854789f)
+
+running 4 tests
+test audio::incremental_saver::audit_path_probes::audit_probe_apostrophe_recording_root_breaks_finalization ... OBSERVED: apostrophe in valid recording root prevents FFmpeg concat; encoded checkpoint remains
+ok
+test audio::pipeline::audit_probes::audit_probe_pipeline_panic_is_acknowledged_as_success ... 
+thread 'audio::pipeline::audit_probes::audit_probe_pipeline_panic_is_acknowledged_as_success' (3567099) panicked at frontend/src-tauri/src/audio/pipeline.rs:1286:60:
+audit injected pipeline panic
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+OBSERVED: failed pipeline task join returns Ok from AudioPipelineManager::stop
+ok
+test audio::recording_commands::audit_stop_probes::audit_probe_stop_database_failure_loses_manager_with_recording_flag_set ... OBSERVED: failed Stop DB update consumes the manager but status still reports recording
+ok
+test database::tests::audit_probe_old_timestamp_blocks_save_after_append ... OBSERVED: appending session-b makes valid session-a timestamp reject later note save; revision stays 1
+ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 380 filtered out; finished in 0.11s
+

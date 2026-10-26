@@ -1,0 +1,86 @@
+[
+  {
+    "phase": "corrected",
+    "provider": "builtin-ai",
+    "model": "qwen3.5:4b",
+    "runs": 24,
+    "structurally_accepted": 19,
+    "recalled": 28,
+    "expected": 38,
+    "recall_pct": 73.6842105263158,
+    "retained": 37,
+    "priorities": 50,
+    "priority_pct": 74.0,
+    "accepted_violations": {
+      "unsupported_claim": 9,
+      "fabricated_confirmed_decision": 5,
+      "citation_error": 9
+    },
+    "raw_and_repair_violations": {
+      "unsupported_claim": 14,
+      "invalid_reference": 18,
+      "fabricated_confirmed_decision": 6,
+      "citation_error": 14
+    },
+    "fixture_run_counts": {
+      "fx-01": 2,
+      "fx-02": 2,
+      "fx-03": 2,
+      "fx-04": 2,
+      "fx-05": 2,
+      "fx-06": 2,
+      "fx-07": 2,
+      "fx-08": 2,
+      "fx-09": 2,
+      "fx-10": 2,
+      "fx-11": 2,
+      "fx-12": 2
+    },
+    "coverage_complete": true,
+    "codex_ac07_gate": false,
+    "human_acceptance": "pending",
+    "suitability": "unsuitable under tested configuration"
+  },
+  {
+    "phase": "corrected",
+    "provider": "ollama",
+    "model": "qwen3.5:9b-mlx",
+    "runs": 24,
+    "structurally_accepted": 16,
+    "recalled": 20,
+    "expected": 38,
+    "recall_pct": 52.63157894736842,
+    "retained": 27,
+    "priorities": 50,
+    "priority_pct": 54.0,
+    "accepted_violations": {
+      "unsupported_claim": 6,
+      "fabricated_confirmed_decision": 1,
+      "citation_error": 6
+    },
+    "raw_and_repair_violations": {
+      "unsupported_claim": 14,
+      "fabricated_confirmed_decision": 2,
+      "citation_error": 14,
+      "invalid_reference": 1
+    },
+    "fixture_run_counts": {
+      "fx-01": 2,
+      "fx-02": 2,
+      "fx-03": 2,
+      "fx-04": 2,
+      "fx-05": 2,
+      "fx-06": 2,
+      "fx-07": 2,
+      "fx-08": 2,
+      "fx-09": 2,
+      "fx-10": 2,
+      "fx-11": 2,
+      "fx-12": 2
+    },
+    "coverage_complete": true,
+    "codex_ac07_gate": false,
+    "human_acceptance": "pending",
+    "suitability": "unsuitable under tested configuration"
+  }
+]

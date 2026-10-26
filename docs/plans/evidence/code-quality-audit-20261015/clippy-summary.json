@@ -1,0 +1,5797 @@
+[
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `std::io::Read`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/build/ffmpeg.rs",
+        "line": 210,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::double_ended_iterator_last",
+      "explanation": null
+    },
+    "message": "called `Iterator::last` on a `DoubleEndedIterator`; this will needlessly iterate the entire iterator",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/build/ffmpeg.rs",
+        "line": 96,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `Serialize`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `perf_debug`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 32,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `perf_trace`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 33,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `tokio::sync::mpsc`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_state.rs",
+        "line": 4,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `tokio::sync::mpsc`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 3,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `tokio::sync::mpsc`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/stream.rs",
+        "line": 6,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `tokio::sync::mpsc`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_saver.rs",
+        "line": 6,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `warn`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/incremental_saver.rs",
+        "line": 3,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `recording_state::TranscriptionChunk`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/live_worker.rs",
+        "line": 7,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::empty_line_after_doc_comments",
+      "explanation": null
+    },
+    "message": "empty line after doc comment",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/config.rs",
+        "line": 4,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused imports: `error` and `info`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/transcript.rs",
+        "line": 4,
+        "primary": true
+      },
+      {
+        "file": "frontend/src-tauri/src/database/repositories/transcript.rs",
+        "line": 4,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 22,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 22,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::empty_line_after_doc_comments",
+      "explanation": null
+    },
+    "message": "empty line after doc comment",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/mod.rs",
+        "line": 8,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::empty_line_after_doc_comments",
+      "explanation": null
+    },
+    "message": "empty line after doc comment",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/templates/defaults.rs",
+        "line": 4,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::int_plus_one",
+      "explanation": null
+    },
+    "message": "unnecessary `>= y + 1` or `x - 1 >=`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 1151,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `Serialize`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `perf_debug`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 32,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `perf_trace`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 33,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_parens",
+      "explanation": null
+    },
+    "message": "unnecessary parentheses around closure body",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/decoder.rs",
+        "line": 699,
+        "primary": true
+      },
+      {
+        "file": "frontend/src-tauri/src/audio/decoder.rs",
+        "line": 699,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `cpal::SampleFormat`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/diagnostics.rs",
+        "line": 291,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `tokio::sync::mpsc`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_state.rs",
+        "line": 4,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `tokio::sync::mpsc`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 3,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `tokio::sync::mpsc`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/stream.rs",
+        "line": 6,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `tokio::sync::mpsc`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_saver.rs",
+        "line": 6,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `warn`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/incremental_saver.rs",
+        "line": 3,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused import: `recording_state::TranscriptionChunk`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/live_worker.rs",
+        "line": 7,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::empty_line_after_doc_comments",
+      "explanation": null
+    },
+    "message": "empty line after doc comment",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/config.rs",
+        "line": 4,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_imports",
+      "explanation": null
+    },
+    "message": "unused imports: `error` and `info`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/transcript.rs",
+        "line": 4,
+        "primary": true
+      },
+      {
+        "file": "frontend/src-tauri/src/database/repositories/transcript.rs",
+        "line": 4,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 22,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 22,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unexpected_cfgs",
+      "explanation": null
+    },
+    "message": "unexpected `cfg` condition value: `cargo-clippy`",
+    "spans": [
+      {
+        "file": "/Users/marcignacio/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/objc-0.2.7/src/macros.rs",
+        "line": 52,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::empty_line_after_doc_comments",
+      "explanation": null
+    },
+    "message": "empty line after doc comment",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/mod.rs",
+        "line": 8,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::empty_line_after_doc_comments",
+      "explanation": null
+    },
+    "message": "empty line after doc comment",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/templates/defaults.rs",
+        "line": 4,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::int_plus_one",
+      "explanation": null
+    },
+    "message": "unnecessary `>= y + 1` or `x - 1 >=`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 1151,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_mut",
+      "explanation": null
+    },
+    "message": "variable does not need to be mutable",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/spool.rs",
+        "line": 194,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_mut",
+      "explanation": null
+    },
+    "message": "variable does not need to be mutable",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/spool.rs",
+        "line": 194,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_variables",
+      "explanation": null
+    },
+    "message": "unused variable: `device`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/diagnostics.rs",
+        "line": 296,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_variables",
+      "explanation": null
+    },
+    "message": "unused variable: `error`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/processor.rs",
+        "line": 433,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_variables",
+      "explanation": null
+    },
+    "message": "unused variable: `error`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 625,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_variables",
+      "explanation": null
+    },
+    "message": "unused variable: `error`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/processor.rs",
+        "line": 433,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_variables",
+      "explanation": null
+    },
+    "message": "unused variable: `error`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 625,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "dead_code",
+      "explanation": null
+    },
+    "message": "field `recording_sender` is never read",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 246,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "dead_code",
+      "explanation": null
+    },
+    "message": "associated function `has_windows_vulkan_loader` is never used",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/hardware_detector.rs",
+        "line": 199,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "dead_code",
+      "explanation": null
+    },
+    "message": "field `enqueued_at` is never read",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/spool.rs",
+        "line": 38,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "dead_code",
+      "explanation": null
+    },
+    "message": "static `LAST_SUMMARY_START` is never used",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/commands.rs",
+        "line": 19,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "dead_code",
+      "explanation": null
+    },
+    "message": "function `next_summary_start` is never used",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/commands.rs",
+        "line": 21,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "dead_code",
+      "explanation": null
+    },
+    "message": "associated function `register_cancellation_token` is never used",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 217,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "dead_code",
+      "explanation": null
+    },
+    "message": "function `get_builtin_templates` is never used",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/templates/defaults.rs",
+        "line": 19,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/analytics/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (13/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/analytics/analytics.rs",
+        "line": 355,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/analytics/commands.rs",
+        "line": 147,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (12/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/analytics/commands.rs",
+        "line": 279,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 489,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 490,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 491,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 492,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 508,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (8/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 527,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 539,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 540,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 541,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 542,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 592,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 594,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 598,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 603,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 622,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 623,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 637,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 670,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 705,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 707,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 711,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 718,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 735,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 737,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 739,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 745,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (8/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 926,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1073,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1136,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (8/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1155,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1167,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1168,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1265,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1266,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::get_first",
+      "explanation": null
+    },
+    "message": "accessing first element with `choices_array.get(0)`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1318,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/audio_processing.rs",
+        "line": 36,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/audio_processing.rs",
+        "line": 632,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/audio_processing.rs",
+        "line": 676,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/audio_processing.rs",
+        "line": 707,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/encode.rs",
+        "line": 29,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::field_reassign_with_default",
+      "explanation": null
+    },
+    "message": "field assignment outside of initializer for an instance created with Default::default()",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 74,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_clamp",
+      "explanation": null
+    },
+    "message": "clamp-like pattern without using clamp function",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 191,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::implicit_saturating_sub",
+      "explanation": null
+    },
+    "message": "manual arithmetic check found",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 194,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_div_ceil",
+      "explanation": null
+    },
+    "message": "manually reimplementing `div_ceil`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 521,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_return",
+      "explanation": null
+    },
+    "message": "unneeded `return` statement",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/devices/speakers.rs",
+        "line": 17,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/devices/configuration.rs",
+        "line": 37,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_pattern_matching",
+      "explanation": null
+    },
+    "message": "redundant pattern matching",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/capture/system.rs",
+        "line": 108,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "error",
+    "code": {
+      "code": "clippy::inherent_to_string_shadow_display",
+      "explanation": null
+    },
+    "message": "type `audio::capture::backend_config::AudioCaptureBackend` implements inherent method `to_string(&self) -> String` which shadows the implementation of `Display`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/capture/backend_config.rs",
+        "line": 55,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::should_implement_trait",
+      "explanation": null
+    },
+    "message": "method `default` can be confused for the standard trait method `std::default::Default::default`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/capture/backend_config.rs",
+        "line": 77,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::cmp_null",
+      "explanation": null
+    },
+    "message": "comparing with null is better expressed by the `.is_null()` method",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/capture/core_audio.rs",
+        "line": 192,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::to_string_in_format_args",
+      "explanation": null
+    },
+    "message": "`to_string` applied to a type that implements `Display` in `info!` args",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/diagnostics.rs",
+        "line": 151,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::to_string_in_format_args",
+      "explanation": null
+    },
+    "message": "`to_string` applied to a type that implements `Display` in `info!` args",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/diagnostics.rs",
+        "line": 156,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_is_multiple_of",
+      "explanation": null
+    },
+    "message": "manual implementation of `.is_multiple_of()`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/ffmpeg_mixer.rs",
+        "line": 410,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_state.rs",
+        "line": 131,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_is_multiple_of",
+      "explanation": null
+    },
+    "message": "manual implementation of `.is_multiple_of()`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 75,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_is_multiple_of",
+      "explanation": null
+    },
+    "message": "manual implementation of `.is_multiple_of()`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 470,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (9/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 641,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_is_multiple_of",
+      "explanation": null
+    },
+    "message": "manual implementation of `.is_multiple_of()`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 789,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (10/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 929,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::map_clone",
+      "explanation": null
+    },
+    "message": "you are using an explicit closure for cloning elements",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_manager.rs",
+        "line": 570,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_commands.rs",
+        "line": 64,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::doc_lazy_continuation",
+      "explanation": null
+    },
+    "message": "doc list item without indentation",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_commands.rs",
+        "line": 175,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_saver.rs",
+        "line": 457,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_saver.rs",
+        "line": 470,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/incremental_saver.rs",
+        "line": 159,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/incremental_saver.rs",
+        "line": 191,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/incremental_saver.rs",
+        "line": 368,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::new_without_default",
+      "explanation": null
+    },
+    "message": "you should consider adding a `Default` implementation for `AudioLevelMonitor`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/level_monitor.rs",
+        "line": 35,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::arc_with_non_send_sync",
+      "explanation": null
+    },
+    "message": "usage of an `Arc` that is not `Send` and `Sync`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/level_monitor.rs",
+        "line": 38,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_cast",
+      "explanation": null
+    },
+    "message": "casting to the same type is unnecessary (`f32` -> `f32`)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/simple_level_monitor.rs",
+        "line": 50,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::should_implement_trait",
+      "explanation": null
+    },
+    "message": "method `as_mut` can be confused for the standard trait method `std::convert::AsMut::as_mut`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/buffer_pool.rs",
+        "line": 90,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::should_implement_trait",
+      "explanation": null
+    },
+    "message": "method `as_ref` can be confused for the standard trait method `std::convert::AsRef::as_ref`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/buffer_pool.rs",
+        "line": 95,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/system_detector.rs",
+        "line": 80,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::collapsible_if",
+      "explanation": null
+    },
+    "message": "this `if` statement can be collapsed",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/system_detector.rs",
+        "line": 248,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/device_monitor.rs",
+        "line": 177,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/device_monitor.rs",
+        "line": 277,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::double_must_use",
+      "explanation": null
+    },
+    "message": "this function has a `#[must_use]` attribute with no message, but returns a type already considered as `#[must_use]`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/provider.rs",
+        "line": 49,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::double_must_use",
+      "explanation": null
+    },
+    "message": "this function has a `#[must_use]` attribute with no message, but returns a type already considered as `#[must_use]`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/provider.rs",
+        "line": 49,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::double_must_use",
+      "explanation": null
+    },
+    "message": "this function has a `#[must_use]` attribute with no message, but returns a type already considered as `#[must_use]`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/provider.rs",
+        "line": 49,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::wildcard_in_or_patterns",
+      "explanation": null
+    },
+    "message": "wildcard pattern covers any other pattern as it will match anyway",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/engine.rs",
+        "line": 215,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/streaming.rs",
+        "line": 16,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/streaming.rs",
+        "line": 142,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::len_without_is_empty",
+      "explanation": null
+    },
+    "message": "struct `LiveBuffer` has a public `len` method, but no `is_empty` method",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/streaming.rs",
+        "line": 223,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/streaming.rs",
+        "line": 305,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/live_worker.rs",
+        "line": 18,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::chunks_exact_to_as_chunks",
+      "explanation": null
+    },
+    "message": "using `chunks_exact` with a constant chunk size",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/live_worker.rs",
+        "line": 149,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/scheduling.rs",
+        "line": 9,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::chunks_exact_to_as_chunks",
+      "explanation": null
+    },
+    "message": "using `chunks_exact` with a constant chunk size",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/spool.rs",
+        "line": 60,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/import.rs",
+        "line": 714,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/import.rs",
+        "line": 730,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::map_clone",
+      "explanation": null
+    },
+    "message": "you are using an explicit closure for copying elements",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/import.rs",
+        "line": 934,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/console_utils/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/manager.rs",
+        "line": 104,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 91,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 129,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 189,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 221,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 255,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 301,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 329,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/summary.rs",
+        "line": 51,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/library.rs",
+        "line": 206,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::let_and_return",
+      "explanation": null
+    },
+    "message": "returning the result of a `let` binding from a block",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/export.rs",
+        "line": 655,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/recording_sessions.rs",
+        "line": 72,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/notifications/types.rs",
+        "line": 102,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/notifications/types.rs",
+        "line": 108,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/ollama/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/openai/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/anthropic/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/groq/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/openrouter/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/parakeet_engine/mod.rs",
+        "line": 20,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/parakeet_engine/parakeet_engine.rs",
+        "line": 21,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/parakeet_engine/parakeet_engine.rs",
+        "line": 292,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_repeat_n",
+      "explanation": null
+    },
+    "message": "this `repeat().take()` can be written more concisely",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/notepad_smoke.rs",
+        "line": 62,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::chunks_exact_to_as_chunks",
+      "explanation": null
+    },
+    "message": "using `chunks_exact` with a constant chunk size",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/workflow_smoke.rs",
+        "line": 41,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::chunks_exact_to_as_chunks",
+      "explanation": null
+    },
+    "message": "using `chunks_exact` with a constant chunk size",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/q02_validation.rs",
+        "line": 230,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (8/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/commands.rs",
+        "line": 89,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (12/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/commands.rs",
+        "line": 537,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_pattern_matching",
+      "explanation": null
+    },
+    "message": "redundant pattern matching",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/enhancement.rs",
+        "line": 439,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/grounding.rs",
+        "line": 135,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::should_implement_trait",
+      "explanation": null
+    },
+    "message": "method `from_str` can be confused for the standard trait method `std::str::FromStr::from_str`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/llm_client.rs",
+        "line": 227,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (13/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/llm_client.rs",
+        "line": 259,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (14/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/llm_client.rs",
+        "line": 280,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::question_mark",
+      "explanation": null
+    },
+    "message": "this `let...else` may be rewritten with the `?` operator",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 287,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (11/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 334,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `format!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 370,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `format!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 375,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/summary_engine/model_manager.rs",
+        "line": 146,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/summary_engine/models.rs",
+        "line": 246,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 157,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_cast",
+      "explanation": null
+    },
+    "message": "casting to the same type is unnecessary (`u64` -> `u64`)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 240,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_cast",
+      "explanation": null
+    },
+    "message": "casting to the same type is unnecessary (`u64` -> `u64`)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 249,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_cast",
+      "explanation": null
+    },
+    "message": "casting to the same type is unnecessary (`u32` -> `u32`)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 264,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::implicit_saturating_sub",
+      "explanation": null
+    },
+    "message": "manual arithmetic check found",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 550,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::new_without_default",
+      "explanation": null
+    },
+    "message": "you should consider adding a `Default` implementation for `SystemMonitor`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/system_monitor.rs",
+        "line": 44,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::new_without_default",
+      "explanation": null
+    },
+    "message": "you should consider adding a `Default` implementation for `ParallelProcessorState`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/parallel_commands.rs",
+        "line": 18,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/parallel_commands.rs",
+        "line": 69,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::explicit_counter_loop",
+      "explanation": null
+    },
+    "message": "the variable `chunk_id` is used as a loop counter",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/parallel_commands.rs",
+        "line": 183,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 512,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 522,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 555,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "dead_code",
+      "explanation": null
+    },
+    "message": "field `recording_sender` is never read",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 246,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "dead_code",
+      "explanation": null
+    },
+    "message": "field `enqueued_at` is never read",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/spool.rs",
+        "line": 38,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/analytics/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (13/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/analytics/analytics.rs",
+        "line": 355,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/analytics/commands.rs",
+        "line": 147,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (12/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/analytics/commands.rs",
+        "line": 279,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 489,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 490,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 491,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 492,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 508,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (8/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 527,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 539,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 540,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 541,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 542,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 592,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 594,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 598,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 603,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 622,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 623,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 637,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 670,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 705,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 707,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 711,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 718,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 735,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 737,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 739,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `error!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 745,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (8/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 926,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1073,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1136,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (8/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1155,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1167,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1168,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1265,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `info!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1266,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::get_first",
+      "explanation": null
+    },
+    "message": "accessing first element with `choices_array.get(0)`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/api/api.rs",
+        "line": 1318,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/audio_processing.rs",
+        "line": 36,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/audio_processing.rs",
+        "line": 632,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/audio_processing.rs",
+        "line": 676,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/audio_processing.rs",
+        "line": 707,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/encode.rs",
+        "line": 29,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::field_reassign_with_default",
+      "explanation": null
+    },
+    "message": "field assignment outside of initializer for an instance created with Default::default()",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 74,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_clamp",
+      "explanation": null
+    },
+    "message": "clamp-like pattern without using clamp function",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 191,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::implicit_saturating_sub",
+      "explanation": null
+    },
+    "message": "manual arithmetic check found",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 194,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_div_ceil",
+      "explanation": null
+    },
+    "message": "manually reimplementing `div_ceil`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 521,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_range_loop",
+      "explanation": null
+    },
+    "message": "the loop variable `i` is used to index `samples`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 673,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::len_zero",
+      "explanation": null
+    },
+    "message": "length comparison to one",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/vad.rs",
+        "line": 805,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_return",
+      "explanation": null
+    },
+    "message": "unneeded `return` statement",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/devices/speakers.rs",
+        "line": 17,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/devices/configuration.rs",
+        "line": 37,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_pattern_matching",
+      "explanation": null
+    },
+    "message": "redundant pattern matching",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/capture/system.rs",
+        "line": 108,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "error",
+    "code": {
+      "code": "clippy::inherent_to_string_shadow_display",
+      "explanation": null
+    },
+    "message": "type `audio::capture::backend_config::AudioCaptureBackend` implements inherent method `to_string(&self) -> String` which shadows the implementation of `Display`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/capture/backend_config.rs",
+        "line": 55,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::should_implement_trait",
+      "explanation": null
+    },
+    "message": "method `default` can be confused for the standard trait method `std::default::Default::default`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/capture/backend_config.rs",
+        "line": 77,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::cmp_null",
+      "explanation": null
+    },
+    "message": "comparing with null is better expressed by the `.is_null()` method",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/capture/core_audio.rs",
+        "line": 192,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::to_string_in_format_args",
+      "explanation": null
+    },
+    "message": "`to_string` applied to a type that implements `Display` in `info!` args",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/diagnostics.rs",
+        "line": 151,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::to_string_in_format_args",
+      "explanation": null
+    },
+    "message": "`to_string` applied to a type that implements `Display` in `info!` args",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/diagnostics.rs",
+        "line": 156,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_is_multiple_of",
+      "explanation": null
+    },
+    "message": "manual implementation of `.is_multiple_of()`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/ffmpeg_mixer.rs",
+        "line": 410,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_range_contains",
+      "explanation": null
+    },
+    "message": "manual `RangeInclusive::contains` implementation",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/ffmpeg_mixer.rs",
+        "line": 510,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_state.rs",
+        "line": 131,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_is_multiple_of",
+      "explanation": null
+    },
+    "message": "manual implementation of `.is_multiple_of()`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 75,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_is_multiple_of",
+      "explanation": null
+    },
+    "message": "manual implementation of `.is_multiple_of()`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 470,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (9/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 641,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_is_multiple_of",
+      "explanation": null
+    },
+    "message": "manual implementation of `.is_multiple_of()`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 789,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (10/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 929,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::clone_on_copy",
+      "explanation": null
+    },
+    "message": "using `clone` on type `InputDeviceKind` which implements the `Copy` trait",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 1118,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::clone_on_copy",
+      "explanation": null
+    },
+    "message": "using `clone` on type `InputDeviceKind` which implements the `Copy` trait",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 1162,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::clone_on_copy",
+      "explanation": null
+    },
+    "message": "using `clone` on type `InputDeviceKind` which implements the `Copy` trait",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 1194,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::clone_on_copy",
+      "explanation": null
+    },
+    "message": "using `clone` on type `InputDeviceKind` which implements the `Copy` trait",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/pipeline.rs",
+        "line": 1233,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::map_clone",
+      "explanation": null
+    },
+    "message": "you are using an explicit closure for cloning elements",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_manager.rs",
+        "line": 570,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_commands.rs",
+        "line": 64,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::doc_lazy_continuation",
+      "explanation": null
+    },
+    "message": "doc list item without indentation",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_commands.rs",
+        "line": 175,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_saver.rs",
+        "line": 457,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/recording_saver.rs",
+        "line": 470,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/incremental_saver.rs",
+        "line": 159,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/incremental_saver.rs",
+        "line": 191,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/incremental_saver.rs",
+        "line": 368,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::new_without_default",
+      "explanation": null
+    },
+    "message": "you should consider adding a `Default` implementation for `AudioLevelMonitor`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/level_monitor.rs",
+        "line": 35,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::arc_with_non_send_sync",
+      "explanation": null
+    },
+    "message": "usage of an `Arc` that is not `Send` and `Sync`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/level_monitor.rs",
+        "line": 38,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_cast",
+      "explanation": null
+    },
+    "message": "casting to the same type is unnecessary (`f32` -> `f32`)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/simple_level_monitor.rs",
+        "line": 50,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::should_implement_trait",
+      "explanation": null
+    },
+    "message": "method `as_mut` can be confused for the standard trait method `std::convert::AsMut::as_mut`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/buffer_pool.rs",
+        "line": 90,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::should_implement_trait",
+      "explanation": null
+    },
+    "message": "method `as_ref` can be confused for the standard trait method `std::convert::AsRef::as_ref`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/buffer_pool.rs",
+        "line": 95,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/system_detector.rs",
+        "line": 80,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::collapsible_if",
+      "explanation": null
+    },
+    "message": "this `if` statement can be collapsed",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/system_detector.rs",
+        "line": 248,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "error",
+    "code": {
+      "code": "clippy::absurd_extreme_comparisons",
+      "explanation": null
+    },
+    "message": "this comparison involving the minimum or maximum element for this type contains a case that is always true or always false",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/system_audio_commands.rs",
+        "line": 123,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/device_monitor.rs",
+        "line": 177,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/device_monitor.rs",
+        "line": 277,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::double_must_use",
+      "explanation": null
+    },
+    "message": "this function has a `#[must_use]` attribute with no message, but returns a type already considered as `#[must_use]`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/provider.rs",
+        "line": 49,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::double_must_use",
+      "explanation": null
+    },
+    "message": "this function has a `#[must_use]` attribute with no message, but returns a type already considered as `#[must_use]`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/provider.rs",
+        "line": 49,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::double_must_use",
+      "explanation": null
+    },
+    "message": "this function has a `#[must_use]` attribute with no message, but returns a type already considered as `#[must_use]`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/provider.rs",
+        "line": 49,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::wildcard_in_or_patterns",
+      "explanation": null
+    },
+    "message": "wildcard pattern covers any other pattern as it will match anyway",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/engine.rs",
+        "line": 215,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/streaming.rs",
+        "line": 16,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/streaming.rs",
+        "line": 142,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::len_without_is_empty",
+      "explanation": null
+    },
+    "message": "struct `LiveBuffer` has a public `len` method, but no `is_empty` method",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/streaming.rs",
+        "line": 223,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/streaming.rs",
+        "line": 305,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/live_worker.rs",
+        "line": 18,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::chunks_exact_to_as_chunks",
+      "explanation": null
+    },
+    "message": "using `chunks_exact` with a constant chunk size",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/live_worker.rs",
+        "line": 149,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_map_or",
+      "explanation": null
+    },
+    "message": "this `map_or` can be simplified",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/scheduling.rs",
+        "line": 9,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::chunks_exact_to_as_chunks",
+      "explanation": null
+    },
+    "message": "using `chunks_exact` with a constant chunk size",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/transcription/spool.rs",
+        "line": 60,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/import.rs",
+        "line": 714,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/import.rs",
+        "line": 730,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::map_clone",
+      "explanation": null
+    },
+    "message": "you are using an explicit closure for copying elements",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/import.rs",
+        "line": 934,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_range_loop",
+      "explanation": null
+    },
+    "message": "the loop variable `i` is only used to index `samples`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/import.rs",
+        "line": 1137,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/console_utils/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/manager.rs",
+        "line": 104,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 91,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 129,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 189,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 221,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 255,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 301,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_conversion",
+      "explanation": null
+    },
+    "message": "useless conversion to the same type: `std::string::String`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/setting.rs",
+        "line": 329,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrows_for_generic_args",
+      "explanation": null
+    },
+    "message": "the borrowed expression implements the required traits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/repositories/summary.rs",
+        "line": 51,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::cloned_ref_to_slice_refs",
+      "explanation": null
+    },
+    "message": "unnecessary use of `clone` to create a slice from a reference",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/deletion/tests.rs",
+        "line": 198,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::cloned_ref_to_slice_refs",
+      "explanation": null
+    },
+    "message": "unnecessary use of `clone` to create a slice from a reference",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/deletion/tests.rs",
+        "line": 200,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::cloned_ref_to_slice_refs",
+      "explanation": null
+    },
+    "message": "unnecessary use of `clone` to create a slice from a reference",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/deletion/tests.rs",
+        "line": 351,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::cloned_ref_to_slice_refs",
+      "explanation": null
+    },
+    "message": "unnecessary use of `clone` to create a slice from a reference",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/deletion/tests.rs",
+        "line": 359,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/library.rs",
+        "line": 206,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::let_and_return",
+      "explanation": null
+    },
+    "message": "returning the result of a `let` binding from a block",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/export.rs",
+        "line": 655,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/recording_sessions.rs",
+        "line": 72,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/workspace_contract_tests.rs",
+        "line": 50,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/workspace_contract_tests.rs",
+        "line": 53,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_range_loop",
+      "explanation": null
+    },
+    "message": "the loop variable `index` is used to index `summaries`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/database/workspace_contract_tests.rs",
+        "line": 57,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/notifications/types.rs",
+        "line": 102,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/notifications/types.rs",
+        "line": 108,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/ollama/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/openai/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/anthropic/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/groq/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/openrouter/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/parakeet_engine/mod.rs",
+        "line": 20,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::derivable_impls",
+      "explanation": null
+    },
+    "message": "this `impl` can be derived",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/parakeet_engine/parakeet_engine.rs",
+        "line": 21,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/parakeet_engine/parakeet_engine.rs",
+        "line": 292,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::manual_repeat_n",
+      "explanation": null
+    },
+    "message": "this `repeat().take()` can be written more concisely",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/notepad_smoke.rs",
+        "line": 62,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::chunks_exact_to_as_chunks",
+      "explanation": null
+    },
+    "message": "using `chunks_exact` with a constant chunk size",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/workflow_smoke.rs",
+        "line": 41,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::chunks_exact_to_as_chunks",
+      "explanation": null
+    },
+    "message": "using `chunks_exact` with a constant chunk size",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/q02_validation.rs",
+        "line": 230,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (8/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/commands.rs",
+        "line": 89,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (12/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/commands.rs",
+        "line": 537,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::items_after_test_module",
+      "explanation": null
+    },
+    "message": "items after a test module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/enhancement.rs",
+        "line": 595,
+        "primary": true
+      },
+      {
+        "file": "frontend/src-tauri/src/summary/enhancement.rs",
+        "line": 793,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_pattern_matching",
+      "explanation": null
+    },
+    "message": "redundant pattern matching",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/enhancement.rs",
+        "line": 439,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::type_complexity",
+      "explanation": null
+    },
+    "message": "very complex type used. Consider factoring parts into `type` definitions",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/grounding.rs",
+        "line": 135,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::items_after_test_module",
+      "explanation": null
+    },
+    "message": "items after a test module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/llm_client.rs",
+        "line": 535,
+        "primary": true
+      },
+      {
+        "file": "frontend/src-tauri/src/summary/llm_client.rs",
+        "line": 935,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::should_implement_trait",
+      "explanation": null
+    },
+    "message": "method `from_str` can be confused for the standard trait method `std::str::FromStr::from_str`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/llm_client.rs",
+        "line": 227,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (13/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/llm_client.rs",
+        "line": 259,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (14/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/llm_client.rs",
+        "line": 280,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::question_mark",
+      "explanation": null
+    },
+    "message": "this `let...else` may be rewritten with the `?` operator",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 287,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::too_many_arguments",
+      "explanation": null
+    },
+    "message": "this function has too many arguments (11/7)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 334,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `format!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 370,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::useless_borrows_in_formatting",
+      "explanation": null
+    },
+    "message": "redundant reference in `format!` argument",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/service.rs",
+        "line": 375,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/summary_engine/model_manager.rs",
+        "line": 146,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::ptr_arg",
+      "explanation": null
+    },
+    "message": "writing `&PathBuf` instead of `&Path` involves a new object where a slice will do",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/summary_engine/models.rs",
+        "line": 246,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::items_after_test_module",
+      "explanation": null
+    },
+    "message": "items after a test module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/summary/templates/loader.rs",
+        "line": 222,
+        "primary": true
+      },
+      {
+        "file": "frontend/src-tauri/src/summary/templates/loader.rs",
+        "line": 256,
+        "primary": true
+      },
+      {
+        "file": "frontend/src-tauri/src/summary/templates/loader.rs",
+        "line": 262,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::module_inception",
+      "explanation": null
+    },
+    "message": "module has the same name as its containing module",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/mod.rs",
+        "line": 1,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 157,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_cast",
+      "explanation": null
+    },
+    "message": "casting to the same type is unnecessary (`u64` -> `u64`)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 240,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_cast",
+      "explanation": null
+    },
+    "message": "casting to the same type is unnecessary (`u64` -> `u64`)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 249,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::unnecessary_cast",
+      "explanation": null
+    },
+    "message": "casting to the same type is unnecessary (`u32` -> `u32`)",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 264,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::implicit_saturating_sub",
+      "explanation": null
+    },
+    "message": "manual arithmetic check found",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 550,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "error",
+    "code": {
+      "code": "clippy::unused_io_amount",
+      "explanation": null
+    },
+    "message": "read amount is not handled",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 1538,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "error",
+    "code": {
+      "code": "clippy::unused_io_amount",
+      "explanation": null
+    },
+    "message": "read amount is not handled",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+        "line": 1738,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::new_without_default",
+      "explanation": null
+    },
+    "message": "you should consider adding a `Default` implementation for `SystemMonitor`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/system_monitor.rs",
+        "line": 44,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::new_without_default",
+      "explanation": null
+    },
+    "message": "you should consider adding a `Default` implementation for `ParallelProcessorState`",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/parallel_commands.rs",
+        "line": 18,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::redundant_closure",
+      "explanation": null
+    },
+    "message": "redundant closure",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/parallel_commands.rs",
+        "line": 69,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::explicit_counter_loop",
+      "explanation": null
+    },
+    "message": "the variable `chunk_id` is used as a loop counter",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/whisper_engine/parallel_commands.rs",
+        "line": 183,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 512,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 522,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "clippy::needless_borrow",
+      "explanation": null
+    },
+    "message": "this expression creates a reference which is immediately dereferenced by the compiler",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/lib.rs",
+        "line": 555,
+        "primary": true
+      }
+    ]
+  },
+  {
+    "level": "warning",
+    "code": {
+      "code": "unused_comparisons",
+      "explanation": null
+    },
+    "message": "comparison is useless due to type limits",
+    "spans": [
+      {
+        "file": "frontend/src-tauri/src/audio/system_audio_commands.rs",
+        "line": 123,
+        "primary": true
+      }
+    ]
+  }
+]

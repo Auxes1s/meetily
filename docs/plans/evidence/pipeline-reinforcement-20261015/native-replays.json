@@ -1,0 +1,293 @@
+[
+  {
+    "provider": "whisper",
+    "routing": "overlapping",
+    "bundle_sha256": "a19e816a7911bb01e62c052e0ca9afc59954fba22cc444f30555d5d1ff7c585d",
+    "run_directory": "/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-q02-9aqbc72x",
+    "ok": true,
+    "sessions": [
+      {
+        "audio_seconds": 10,
+        "paced_replay": true,
+        "full_capture_pipeline": false,
+        "physical_capture": false,
+        "native_device_pause_resume": false,
+        "vad_pause_boundary_replay": true,
+        "final_segments": 4,
+        "source_deliveries": 8,
+        "source_checkpoint_deliveries_verified": 8,
+        "stop_to_commit_seconds": 3.940941000000001,
+        "exact_source_audio_retention_verified": true
+      }
+    ],
+    "export_transcript_count": 10004,
+    "live_export_source_timing_manifest_verified": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "notes_preserved": true,
+    "stress_notepad_blocks": 1000,
+    "synthetic_stored_transcripts": 10000,
+    "foreground_samples": 0,
+    "background_samples": 0,
+    "paint_timeouts": 8,
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 6,
+        "p95": 5988.569917,
+        "max": 5988.569917
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 3,
+        "p95": 869,
+        "max": 869
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "resource_summary": {
+      "native_rss_kib": {
+        "n": 21,
+        "p95": 3639552,
+        "max": 3639568
+      },
+      "attributed_tree_rss_kib": {
+        "n": 21,
+        "p95": 3686800,
+        "max": 3687104
+      },
+      "attributed_tree_cpu_percent": {
+        "n": 21,
+        "p95": 53.2,
+        "max": 53.6
+      }
+    },
+    "processing_continuity": [
+      {
+        "instrumented": true,
+        "wait_observations": 9,
+        "decoder_instances": 1,
+        "idle_with_queued_audio_seconds": 0.009597043,
+        "max_idle_with_queued_audio_seconds": 0.009032875,
+        "stranded_fresh_buffer_wait_count": 0,
+        "stranded_fresh_buffer_wait_seconds": 0,
+        "unchanged_preview_decodes": 0,
+        "decode_busy_fraction_of_session_wall": 0.8536558336609895,
+        "scope": "single overlapping worker; queue wake time excludes busy inference and input-empty waits; endpoint finalization can reuse provisional audio"
+      }
+    ],
+    "ac05_accepted": false,
+    "fidelity_accepted": false
+  },
+  {
+    "provider": "parakeet",
+    "routing": "legacy",
+    "bundle_sha256": "a19e816a7911bb01e62c052e0ca9afc59954fba22cc444f30555d5d1ff7c585d",
+    "run_directory": "/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-q02-totgws6z",
+    "ok": true,
+    "sessions": [
+      {
+        "audio_seconds": 10,
+        "paced_replay": true,
+        "full_capture_pipeline": false,
+        "physical_capture": false,
+        "native_device_pause_resume": false,
+        "vad_pause_boundary_replay": true,
+        "final_segments": 4,
+        "source_deliveries": 4,
+        "source_checkpoint_deliveries_verified": 4,
+        "stop_to_commit_seconds": 0.011278457999999604,
+        "exact_source_audio_retention_verified": true
+      }
+    ],
+    "export_transcript_count": 10004,
+    "live_export_source_timing_manifest_verified": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "notes_preserved": true,
+    "stress_notepad_blocks": 1000,
+    "synthetic_stored_transcripts": 10000,
+    "foreground_samples": 0,
+    "background_samples": 0,
+    "paint_timeouts": 6,
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 4,
+        "p95": 640.250374999999,
+        "max": 640.250374999999
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 2,
+        "p95": 917,
+        "max": 917
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "resource_summary": {
+      "native_rss_kib": {
+        "n": 18,
+        "p95": 1347472,
+        "max": 1347472
+      },
+      "attributed_tree_rss_kib": {
+        "n": 18,
+        "p95": 1394608,
+        "max": 1394608
+      },
+      "attributed_tree_cpu_percent": {
+        "n": 18,
+        "p95": 311.9,
+        "max": 311.9
+      }
+    },
+    "processing_continuity": [
+      {
+        "instrumented": false,
+        "wait_observations": 0,
+        "decoder_instances": null,
+        "idle_with_queued_audio_seconds": 0,
+        "max_idle_with_queued_audio_seconds": null,
+        "stranded_fresh_buffer_wait_count": 0,
+        "stranded_fresh_buffer_wait_seconds": 0,
+        "unchanged_preview_decodes": 0,
+        "decode_busy_fraction_of_session_wall": 0.043439498116288215,
+        "scope": "single overlapping worker; queue wake time excludes busy inference and input-empty waits; endpoint finalization can reuse provisional audio"
+      }
+    ],
+    "ac05_accepted": false,
+    "fidelity_accepted": false
+  },
+  {
+    "provider": "whisper",
+    "routing": "legacy",
+    "bundle_sha256": "a19e816a7911bb01e62c052e0ca9afc59954fba22cc444f30555d5d1ff7c585d",
+    "run_directory": "/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-q02-he6488sw",
+    "ok": true,
+    "sessions": [
+      {
+        "audio_seconds": 10,
+        "paced_replay": true,
+        "full_capture_pipeline": false,
+        "physical_capture": false,
+        "native_device_pause_resume": false,
+        "vad_pause_boundary_replay": true,
+        "final_segments": 4,
+        "source_deliveries": 4,
+        "source_checkpoint_deliveries_verified": 4,
+        "stop_to_commit_seconds": 2.5654192499999997,
+        "exact_source_audio_retention_verified": true
+      }
+    ],
+    "export_transcript_count": 10004,
+    "live_export_source_timing_manifest_verified": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "notes_preserved": true,
+    "stress_notepad_blocks": 1000,
+    "synthetic_stored_transcripts": 10000,
+    "foreground_samples": 0,
+    "background_samples": 0,
+    "paint_timeouts": 7,
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 4,
+        "p95": 4611.25775,
+        "max": 4611.25775
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 3,
+        "p95": 965,
+        "max": 965
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "resource_summary": {
+      "native_rss_kib": {
+        "n": 22,
+        "p95": 3628448,
+        "max": 3629488
+      },
+      "attributed_tree_rss_kib": {
+        "n": 22,
+        "p95": 3675744,
+        "max": 3676864
+      },
+      "attributed_tree_cpu_percent": {
+        "n": 22,
+        "p95": 47.8,
+        "max": 53.300000000000004
+      }
+    },
+    "processing_continuity": [
+      {
+        "instrumented": false,
+        "wait_observations": 0,
+        "decoder_instances": null,
+        "idle_with_queued_audio_seconds": 0,
+        "max_idle_with_queued_audio_seconds": null,
+        "stranded_fresh_buffer_wait_count": 0,
+        "stranded_fresh_buffer_wait_seconds": 0,
+        "unchanged_preview_decodes": 0,
+        "decode_busy_fraction_of_session_wall": 0.6528716502611573,
+        "scope": "single overlapping worker; queue wake time excludes busy inference and input-empty waits; endpoint finalization can reuse provisional audio"
+      }
+    ],
+    "ac05_accepted": false,
+    "fidelity_accepted": false
+  }
+]
