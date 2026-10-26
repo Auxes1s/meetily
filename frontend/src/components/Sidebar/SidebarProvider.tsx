@@ -4,8 +4,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Analytics from '@/lib/analytics';
 import { invoke } from '@tauri-apps/api/core';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
 import type { SummaryProcessResponse } from '@/types';
+import type { LibraryPage, LibrarySourceHit } from '@/types/meeting-library';
 
 
 
@@ -27,6 +28,7 @@ interface TranscriptSearchResult {
   title: string;
   matchContext: string;
   timestamp: string;
+  source?: LibrarySourceHit;
 }
 
 interface SummaryPoll {
@@ -79,6 +81,14 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const [currentMeeting, setCurrentMeeting] = useState<CurrentMeeting | null>({ id: 'intro-call', title: '+ New Call' });
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [meetings, setMeetings] = useState<CurrentMeeting[]>([]);
+  useEffect(() => {
+    const committed = (event: Event) => {
+      const { id, title } = (event as CustomEvent<CurrentMeeting>).detail;
+      setMeetings(items => items.map(item => item.id === id ? { ...item, title } : item));
+    };
+    if (typeof window !== 'undefined') window.addEventListener?.('meeting-notes-committed', committed);
+    return () => { if (typeof window !== 'undefined') window.removeEventListener?.('meeting-notes-committed', committed); };
+  }, []);
   const [sidebarItems, setSidebarItems] = useState<SidebarItem[]>([]);
   const [isMeetingActive, setIsMeetingActive] = useState(false);
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -86,9 +96,10 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const [serverAddress, setServerAddress] = useState('');
   const [transcriptServerAddress, setTranscriptServerAddress] = useState('');
   const summaryPollsRef = React.useRef(new Map<string, SummaryPoll>());
+  const searchRequest = React.useRef(0);
 
   // Use recording state from RecordingStateContext (single source of truth)
-  const { isRecording } = useRecordingState();
+  const { isRecording } = useRecordingControls();
 
   const pathname = usePathname();
   const router = useRouter();
@@ -97,7 +108,7 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const fetchMeetings = React.useCallback(async () => {
     if (serverAddress) {
       try {
-        const meetings = await invoke('api_get_meetings') as Array<{ id: string, title: string }>;
+        const meetings = await invoke('api_get_meetings', { limit: 50 }) as Array<{ id: string, title: string }>;
         const transformedMeetings = meetings.map((meeting: any) => ({
           id: meeting.id,
           title: meeting.title
@@ -124,13 +135,15 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
     fetchSettings();
   }, []);
 
+  const visibleMeetings = currentMeeting && currentMeeting.id !== 'intro-call' && !meetings.some(meeting => meeting.id === currentMeeting.id)
+    ? [currentMeeting, ...meetings] : meetings;
   const baseItems: SidebarItem[] = [
     {
       id: 'meetings',
       title: 'Meeting Notes',
       type: 'folder' as const,
       children: [
-        ...meetings.map(meeting => ({ id: meeting.id, title: meeting.title, type: 'file' as const }))
+        ...visibleMeetings.map(meeting => ({ id: meeting.id, title: meeting.title, type: 'file' as const }))
       ]
     },
   ];
@@ -151,22 +164,16 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   // Update sidebar items when meetings change
   useEffect(() => {
     setSidebarItems(baseItems);
-  }, [meetings]);
+  }, [meetings, currentMeeting]);
 
   // Function to handle recording toggle from sidebar
   const handleRecordingToggle = () => {
     if (!isRecording) {
-      // Check if already on home page
-      if (pathname === '/') {
-        // Already on home - trigger recording directly via custom event
-        console.log('Triggering recording from sidebar (already on home page)');
-        window.dispatchEvent(new CustomEvent('start-recording-from-sidebar'));
-      } else {
-        // Not on home - navigate and use auto-start mechanism
-        console.log('Navigating to home page with auto-start flag');
-        sessionStorage.setItem('autoStartRecording', 'true');
-        router.push('/');
-      }
+      // The recording coordinator persists across navigation; deliver directly.
+      const meetingId=sessionStorage.getItem('workspace_meeting_id');
+      sessionStorage.removeItem('autoStartRecording');
+      window.dispatchEvent(new CustomEvent('start-recording-from-sidebar', {detail:{meetingId}}));
+      if (pathname !== '/' && pathname !== '/meeting-details') router.push('/');
 
       // Track recording initiation from sidebar
       Analytics.trackButtonClick('start_recording', 'sidebar');
@@ -176,22 +183,27 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
 
   // Function to search through meeting transcripts
   const searchTranscripts = async (query: string) => {
+    const requestId = ++searchRequest.current;
     if (!query.trim()) {
       setSearchResults([]);
+      setIsSearching(false);
       return;
     }
 
     try {
       setIsSearching(true);
+      setSearchResults([]);
 
 
-      const results = await invoke('api_search_transcripts', { query }) as TranscriptSearchResult[];
-      setSearchResults(results);
+      const page = await invoke<LibraryPage>('api_search_meetings', { request: { query, limit: 100, sort: 'relevance' } });
+      if (requestId !== searchRequest.current) return;
+      setSearchResults(page.meetings.map(meeting => ({ id: meeting.id, title: meeting.title,
+        matchContext: meeting.hits[0]?.snippet ?? '', timestamp: '', source: meeting.hits[0] })));
     } catch (error) {
       console.error('Error searching transcripts:', error);
-      setSearchResults([]);
+      if (requestId === searchRequest.current) setSearchResults([]);
     } finally {
-      setIsSearching(false);
+      if (requestId === searchRequest.current) setIsSearching(false);
     }
   };
 
@@ -237,7 +249,7 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
           return;
         }
 
-        const result = await invoke<SummaryProcessResponse>('api_get_summary', { meetingId });
+        const result = await invoke<SummaryProcessResponse>('api_get_summary', { meetingId, processId });
         const current = summaryPollsRef.current.get(meetingId);
         if (current !== entry || result.start !== processId) {
           return;

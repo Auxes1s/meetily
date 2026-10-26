@@ -1,0 +1,132 @@
+warning: patch for the non root package will be ignored, specify patch at the workspace root:
+package:   /Users/marcignacio/GitHub/meetily/frontend/src-tauri/Cargo.toml
+workspace: /Users/marcignacio/GitHub/meetily/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /Users/marcignacio/GitHub/meetily/llama-helper/Cargo.toml
+workspace: /Users/marcignacio/GitHub/meetily/Cargo.toml
+    Blocking waiting for file lock on build directory
+warning: unused import: `std::io::Read`
+   --> frontend/src-tauri/build/ffmpeg.rs:210:9
+    |
+210 |     use std::io::Read;
+    |         ^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `meetily` (build script) generated 1 warning
+   Compiling meetily v0.4.1 (/Users/marcignacio/GitHub/meetily/frontend/src-tauri)
+warning: meetily@0.4.1: 🚀 Building Meetily for: macos
+warning: meetily@0.4.1: ✅ macOS: Metal GPU acceleration ENABLED by default
+warning: meetily@0.4.1: 🎬 Checking FFmpeg binary for target: aarch64-apple-darwin
+warning: meetily@0.4.1: 🔍 Found cached FFmpeg binary: ffmpeg-aarch64-apple-darwin
+warning: meetily@0.4.1: ✅ FFmpeg verification passed: ffmpeg version 8.0 Copyright (c) 2000-2025 the FFmpeg developers
+warning: meetily@0.4.1: ✅ FFmpeg binary already cached and verified: ffmpeg-aarch64-apple-darwin
+warning: unused import: `perf_debug`
+  --> frontend/src-tauri/src/lib.rs:32:16
+   |
+32 | pub(crate) use perf_debug;
+   |                ^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `perf_trace`
+  --> frontend/src-tauri/src/lib.rs:33:16
+   |
+33 | pub(crate) use perf_trace;
+   |                ^^^^^^^^^^
+
+warning: unnecessary parentheses around closure body
+   --> frontend/src-tauri/src/audio/decoder.rs:699:50
+    |
+699 |         let input: Vec<f32> = (0..96000).map(|i| (i as f32 / 96000.0)).collect();
+    |                                                  ^                  ^
+    |
+    = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+help: remove these parentheses
+    |
+699 -         let input: Vec<f32> = (0..96000).map(|i| (i as f32 / 96000.0)).collect();
+699 +         let input: Vec<f32> = (0..96000).map(|i| i as f32 / 96000.0).collect();
+    |
+
+warning: unused import: `cpal::SampleFormat`
+   --> frontend/src-tauri/src/audio/diagnostics.rs:291:9
+    |
+291 |     use cpal::SampleFormat;
+    |         ^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `error` and `info`
+ --> frontend/src-tauri/src/database/repositories/transcript.rs:4:15
+  |
+4 | use tracing::{error, info};
+  |               ^^^^^  ^^^^
+
+warning: unused variable: `device`
+   --> frontend/src-tauri/src/audio/diagnostics.rs:296:13
+    |
+296 |         let device = AudioDevice::new("Test Device".to_string(), DeviceType::Input);
+    |             ^^^^^^ help: if this is intentional, prefix it with an underscore: `_device`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `confidence_str`
+   --> frontend/src-tauri/src/audio/transcription/worker.rs:181:41
+    |
+181 | ...                   let confidence_str = match confidence_opt {
+    |                           ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_confidence_str`
+
+warning: unused variable: `error`
+   --> frontend/src-tauri/src/summary/processor.rs:433:33
+    |
+433 | ...                   Err(error)
+    |                           ^^^^^ help: if this is intentional, prefix it with an underscore: `_error`
+
+warning: unused variable: `error`
+   --> frontend/src-tauri/src/summary/service.rs:625:17
+    |
+625 |             Err(error) if cancellation_token.is_cancelled() => {
+    |                 ^^^^^ help: if this is intentional, prefix it with an underscore: `_error`
+
+warning: field `recording_sender` is never read
+   --> frontend/src-tauri/src/audio/pipeline.rs:246:5
+    |
+239 | pub struct AudioCapture {
+    |            ------------ field in this struct
+...
+246 |     recording_sender: Option<mpsc::UnboundedSender<AudioChunk>>,
+    |     ^^^^^^^^^^^^^^^^
+    |
+    = note: `AudioCapture` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: comparison is useless due to type limits
+   --> frontend/src-tauri/src/audio/system_audio_commands.rs:123:25
+    |
+123 |                 assert!(device_list.len() >= 0); // Should at least not crash
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_comparisons)]` on by default
+
+warning: `meetily` (lib test) generated 11 warnings (run `cargo fix --lib -p meetily --tests` to apply 9 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.91s
+     Running unittests src/lib.rs (target/debug/deps/app_lib-53a970518854789f)
+
+running 1 test
+test audio::device_detection::tests::test_builtin_mic_detection ... FAILED
+
+failures:
+
+---- audio::device_detection::tests::test_builtin_mic_detection stdout ----
+
+thread 'audio::device_detection::tests::test_builtin_mic_detection' (1502274) panicked at frontend/src-tauri/src/audio/device_detection.rs:445:9:
+assertion `left == right` failed
+  left: Wired
+ right: Unknown
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    audio::device_detection::tests::test_builtin_mic_detection
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 327 filtered out; finished in 0.04s
+
+error: test failed, to rerun pass `-p meetily --lib`

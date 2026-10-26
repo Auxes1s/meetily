@@ -1,0 +1,2144 @@
+{
+  "corrected/builtin-ai-qwen3.5_4b-fx-01-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "Raw summary also converts the note budget priority to a meeting conclusion; quoted excerpts fail exact matching.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "c1-a1-i0": {
+        "support": "unsupported",
+        "notes": "n1 is a user budget priority, not a confirmed meeting conclusion/commitment. t1 agrees only offline access.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "c1-a1-i2": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "c1-a1-i3": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "accepted-i0": {
+        "support": "unsupported",
+        "notes": "n1 is a user budget priority, not a confirmed meeting conclusion/commitment. t1 agrees only offline access.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      }
+    },
+    "recalled_expectations": {
+      "fx-01-e1": [
+        "accepted-i1"
+      ],
+      "fx-01-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-01-p1": [
+        "accepted-i3"
+      ],
+      "fx-01-p2": [
+        "accepted-i3"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-01-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "qualified",
+        "notes": "n1 supplies the user budget priority; offline agreement and Mina are explicitly supported by t1/t2. Meeting-priority attribution should be reviewed; no budget amount or approval is asserted."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "c1-a1-i0": {
+        "support": "qualified",
+        "notes": "n1 supplies the user budget priority; offline agreement and Mina are explicitly supported by t1/t2. Meeting-priority attribution should be reviewed; no budget amount or approval is asserted."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "accepted-i0": {
+        "support": "qualified",
+        "notes": "n1 supplies the user budget priority; offline agreement and Mina are explicitly supported by t1/t2. Meeting-priority attribution should be reviewed; no budget amount or approval is asserted."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      }
+    },
+    "recalled_expectations": {
+      "fx-01-e1": [
+        "accepted-i0"
+      ],
+      "fx-01-e2": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-01-p1": [
+        "accepted-i0"
+      ],
+      "fx-01-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-02-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      }
+    },
+    "recalled_expectations": {
+      "fx-02-e1": [
+        "accepted-i0"
+      ],
+      "fx-02-e2": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-02-p1": [
+        "accepted-i0"
+      ],
+      "fx-02-p2": [
+        "accepted-i0"
+      ],
+      "fx-02-p3": [
+        "accepted-i0",
+        "accepted-i1"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-02-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a1-i1": {
+        "support": "unsupported",
+        "notes": "Agreed to add keyboard navigation is not evidence that it was already added.",
+        "citation_error": true
+      },
+      "c1-a1-i2": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-03-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a0-i1": {
+        "support": "unsupported",
+        "notes": "Not accepted does not establish rejected/deferred; the raw conflict/rejection language changes the status. Rejected output is retained.",
+        "citation_error": true
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a1-unparsed": {
+        "support": "unparseable",
+        "notes": "Readable assertions inspected; malformed response is retained. t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-03-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a0-unparsed": {
+        "support": "unparseable",
+        "notes": "Readable assertions inspected; malformed response is retained. t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      }
+    },
+    "recalled_expectations": {
+      "fx-03-e1": [
+        "accepted-i0"
+      ],
+      "fx-03-e2": [
+        "accepted-i0",
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-03-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-03-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-04-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "No source connects the approved safety review specifically to the expansion. The summary adds that decision scope.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "c1-a0-i1": {
+        "support": "unsupported",
+        "notes": "Not approved does not mean explicitly rejected. The additional confirmed rejection is unsupported.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "c1-a0-i2": {
+        "support": "unsupported",
+        "notes": "Approval of safety review is stated, but approval of safety review for the expansion adds an unsupported scope.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i0": {
+        "support": "unsupported",
+        "notes": "No source connects the approved safety review specifically to the expansion. The summary adds that decision scope.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "accepted-i1": {
+        "support": "unsupported",
+        "notes": "Not approved does not mean explicitly rejected. The additional confirmed rejection is unsupported.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "accepted-i2": {
+        "support": "unsupported",
+        "notes": "Approval of safety review is stated, but approval of safety review for the expansion adds an unsupported scope.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {
+      "fx-04-p1": [
+        "accepted-i0"
+      ],
+      "fx-04-p2": [
+        "accepted-i0",
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-04-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c1-a0-i3": {
+        "support": "unsupported",
+        "notes": "n1 says distinguish the proposal and approval, not that a conflict exists between them. The conflict is invented.",
+        "citation_error": true
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i3": {
+        "support": "unsupported",
+        "notes": "n1 says distinguish the proposal and approval, not that a conflict exists between them. The conflict is invented.",
+        "citation_error": true
+      }
+    },
+    "recalled_expectations": {
+      "fx-04-e1": [
+        "accepted-i1"
+      ],
+      "fx-04-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-04-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-04-p2": [
+        "accepted-i0",
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-05-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "Owner/date are true in actual t1, but the action cites only n1, which contains neither value. Literal-attribute validation rejects it.",
+        "citation_error": true
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-05-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      }
+    },
+    "recalled_expectations": {
+      "fx-05-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-05-p1": [
+        "accepted-i0"
+      ],
+      "fx-05-p2": [
+        "accepted-i0",
+        "accepted-i1"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-06-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c1-a1-unparsed": {
+        "support": "unparseable",
+        "notes": "Readable assertions inspected; malformed response is retained. t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-06-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      }
+    },
+    "recalled_expectations": {
+      "fx-06-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-06-p1": [
+        "accepted-i0"
+      ],
+      "fx-06-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-07-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      }
+    },
+    "recalled_expectations": {
+      "fx-07-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-07-p1": [
+        "accepted-i0"
+      ],
+      "fx-07-p2": [
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-07-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "t1 records an offer of help, not agreement to a contribution from that unnamed individual. The summary invents acceptance of the contribution.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "accepted-i0": {
+        "support": "unsupported",
+        "notes": "t1 records an offer of help, not agreement to a contribution from that unnamed individual. The summary invents acceptance of the contribution.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      }
+    },
+    "recalled_expectations": {
+      "fx-07-e1": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-07-p1": [
+        "accepted-i1"
+      ],
+      "fx-07-p2": [
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-08-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      }
+    },
+    "recalled_expectations": {
+      "fx-08-e1": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-08-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-08-p2": [
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-08-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      }
+    },
+    "recalled_expectations": {
+      "fx-08-e1": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-08-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-08-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-09-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      }
+    },
+    "recalled_expectations": {
+      "fx-09-e1": [
+        "accepted-i1"
+      ],
+      "fx-09-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-09-p1": [
+        "accepted-i1"
+      ],
+      "fx-09-p2": [
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-09-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      }
+    },
+    "recalled_expectations": {
+      "fx-09-e1": [
+        "accepted-i1"
+      ],
+      "fx-09-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-09-p1": [
+        "accepted-i1"
+      ],
+      "fx-09-p2": [
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-10-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      }
+    },
+    "recalled_expectations": {
+      "fx-10-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-10-p1": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-10-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      }
+    },
+    "recalled_expectations": {
+      "fx-10-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-10-p1": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-11-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "Malformed initial summary likewise calls the early proposal current despite the later approval in t3.",
+        "citation_error": true
+      },
+      "c1-a0-unparsed": {
+        "support": "unparseable",
+        "notes": "Readable assertions inspected; malformed response is retained. t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a1-i0": {
+        "support": "unsupported",
+        "notes": "Initial t1 proposal is described as current despite final t3 approval. Sources are not reconciled in the combined candidate.",
+        "citation_error": true
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c2-a0-unparsed": {
+        "support": "unparseable",
+        "notes": "Readable assertions inspected; malformed response is retained. t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c3-a0-i0": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c3-a0-i1": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c3-a0-i2": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "accepted-i0": {
+        "support": "unsupported",
+        "notes": "Initial t1 proposal is described as current despite final t3 approval. Sources are not reconciled in the combined candidate.",
+        "citation_error": true
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      }
+    },
+    "recalled_expectations": {
+      "fx-11-e1": [
+        "accepted-i0",
+        "accepted-i2"
+      ],
+      "fx-11-e2": [
+        "accepted-i0",
+        "accepted-i3"
+      ]
+    },
+    "retained_priorities": {
+      "fx-11-p1": [
+        "accepted-i0",
+        "accepted-i2",
+        "accepted-i3"
+      ],
+      "fx-11-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-11-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "Initial t1 proposal is described as current despite final t3 approval. Sources are not reconciled in the combined candidate.",
+        "citation_error": true
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a0-i2": {
+        "support": "unsupported",
+        "notes": "Currently only a proposal contradicts final t3 approval; it requires an initial-stage qualifier.",
+        "citation_error": true
+      },
+      "c3-a0-i0": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c3-a0-i1": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c3-a0-i2": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "accepted-i0": {
+        "support": "unsupported",
+        "notes": "Initial t1 proposal is described as current despite final t3 approval. Sources are not reconciled in the combined candidate.",
+        "citation_error": true
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "accepted-i2": {
+        "support": "unsupported",
+        "notes": "Currently only a proposal contradicts final t3 approval; it requires an initial-stage qualifier.",
+        "citation_error": true
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "accepted-i4": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "accepted-i5": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      }
+    },
+    "recalled_expectations": {
+      "fx-11-e1": [
+        "accepted-i2",
+        "accepted-i3"
+      ],
+      "fx-11-e2": [
+        "accepted-i2",
+        "accepted-i4"
+      ]
+    },
+    "retained_priorities": {
+      "fx-11-p1": [
+        "accepted-i1",
+        "accepted-i2",
+        "accepted-i3",
+        "accepted-i4"
+      ],
+      "fx-11-p2": [
+        "accepted-i1",
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-12-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a1-i2": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a1-i3": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/builtin-ai-qwen3.5_4b-fx-12-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      }
+    },
+    "recalled_expectations": {
+      "fx-12-e1": [
+        "accepted-i1"
+      ],
+      "fx-12-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-12-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-12-p2": [
+        "accepted-i0",
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-01-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "c1-a0-i1": {
+        "support": "unsupported",
+        "notes": "The model attributes establishment of the user budget priority to the meeting. n1 is a priority; t1 agrees offline access only.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "accepted-i1": {
+        "support": "unsupported",
+        "notes": "The model attributes establishment of the user budget priority to the meeting. n1 is a priority; t1 agrees offline access only.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      }
+    },
+    "recalled_expectations": {
+      "fx-01-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-01-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-01-p2": [
+        "accepted-i1"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-01-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "The raw summary turns budget priority into part of group agreement and promises service-disruption protection. Neither is established; repair drops these additions.",
+        "fabricated_confirmed_decision": true,
+        "citation_error": true
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "Transcript t1 agrees offline access; t2 explicitly names Mina and leaves the date absent. Note n1 states a budget priority, not a group budget commitment."
+      }
+    },
+    "recalled_expectations": {
+      "fx-01-e1": [
+        "accepted-i0"
+      ],
+      "fx-01-e2": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-01-p1": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-02-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-unparsed": {
+        "support": "unparseable",
+        "notes": "The readable priority and keyboard-navigation assertions are supported by n1/t1, but the broken citation structure and transcript: fx-02-t1 ID are invalid. No candidate is delivered.",
+        "invalid_reference": true
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-02-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c1-a0-i4": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "c2-a0-i1": {
+        "support": "qualified",
+        "notes": "These are proposed gap-resolution steps, not stated assignments. Explicit uncertain status and null owner/date avoid confirmed fabrication; they were discarded in repair."
+      },
+      "c2-a0-i2": {
+        "support": "qualified",
+        "notes": "These are proposed gap-resolution steps, not stated assignments. Explicit uncertain status and null owner/date avoid confirmed fabrication; they were discarded in repair."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      },
+      "accepted-i4": {
+        "support": "supported",
+        "notes": "Note n1 gives the three priority topics; t1 agrees keyboard navigation; t2 requests consent review and explicitly lacks owner/date."
+      }
+    },
+    "recalled_expectations": {
+      "fx-02-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-02-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-02-p2": [
+        "accepted-i1",
+        "accepted-i3"
+      ],
+      "fx-02-p3": [
+        "accepted-i1",
+        "accepted-i4"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-03-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c2-a1-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-03-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      },
+      "c2-a1-i0": {
+        "support": "supported",
+        "notes": "t1 is Redis advice only; t2 says not accepted and agrees latency measurement. Not accepted does not establish rejection."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-04-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c2-a1-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      }
+    },
+    "recalled_expectations": {
+      "fx-04-e1": [
+        "accepted-i1"
+      ],
+      "fx-04-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-04-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-04-p2": [
+        "accepted-i0",
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-04-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c1-a1-i2": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "t1 proposes expansion without approval. t2 approves safety review without quorum or vote count."
+      }
+    },
+    "recalled_expectations": {
+      "fx-04-e1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-04-e2": [
+        "accepted-i3"
+      ]
+    },
+    "retained_priorities": {
+      "fx-04-p1": [
+        "accepted-i0",
+        "accepted-i1",
+        "accepted-i2"
+      ],
+      "fx-04-p2": [
+        "accepted-i2",
+        "accepted-i3"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-05-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "Actual t1 gives Ana/date, but cited n1 does not. Attribute validation rejects the raw citation error.",
+        "citation_error": true
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "c1-a1-i2": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "c1-a1-i3": {
+        "support": "unsupported",
+        "notes": "n1 is a user priority; it does not establish that the team discussed this retention instruction.",
+        "citation_error": true
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "accepted-i3": {
+        "support": "unsupported",
+        "notes": "n1 is a user priority; it does not establish that the team discussed this retention instruction.",
+        "citation_error": true
+      }
+    },
+    "recalled_expectations": {
+      "fx-05-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-05-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-05-p2": [
+        "accepted-i0",
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-05-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 explicitly states Ana Cruz, inventory checklist and 20 October 2026."
+      }
+    },
+    "recalled_expectations": {
+      "fx-05-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-05-p1": [
+        "accepted-i0"
+      ],
+      "fx-05-p2": [
+        "accepted-i0",
+        "accepted-i1"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-06-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c2-a0-i1": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      }
+    },
+    "recalled_expectations": {
+      "fx-06-e1": [
+        "accepted-i1",
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-06-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-06-p2": [
+        "accepted-i1",
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-06-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "c2-a0-i1": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 assigns Procurement Office, the options memo and no deadline. n1 expressly names no individual."
+      }
+    },
+    "recalled_expectations": {
+      "fx-06-e1": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-06-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-06-p2": [
+        "accepted-i1"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-07-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "c1-a1-i2": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 agrees risk-register update and contains an unnamed offer of help, with no name/date. Note n1 prioritizes these gaps."
+      }
+    },
+    "recalled_expectations": {
+      "fx-07-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-07-p1": [
+        "accepted-i0"
+      ],
+      "fx-07-p2": [
+        "accepted-i1",
+        "accepted-i2"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-07-r2": {
+    "reviewer": "Codex",
+    "claims": {},
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-08-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "c1-a1-i2": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      },
+      "c1-a1-i3": {
+        "support": "supported",
+        "notes": "t1 is a conditional, unagreed proposal for next Friday. Note n1 prioritizes the unresolved date anchor."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-08-r2": {
+    "reviewer": "Codex",
+    "claims": {},
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-09-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a1-i2": {
+        "support": "unsupported",
+        "notes": "n1 asks to preserve an already selected B; it does not direct a future selection. Final agreement is separately retained, but this extra row changes the temporal status.",
+        "citation_error": true
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i2": {
+        "support": "unsupported",
+        "notes": "n1 asks to preserve an already selected B; it does not direct a future selection. Final agreement is separately retained, but this extra row changes the temporal status.",
+        "citation_error": true
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      }
+    },
+    "recalled_expectations": {
+      "fx-09-e1": [
+        "accepted-i0"
+      ],
+      "fx-09-e2": [
+        "accepted-i3"
+      ]
+    },
+    "retained_priorities": {
+      "fx-09-p1": [
+        "accepted-i0"
+      ],
+      "fx-09-p2": [
+        "accepted-i3"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-09-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "c1-a0-i3": {
+        "support": "unsupported",
+        "notes": "The user priority is to preserve the recorded B selection, not perform a new selection. Explicit uncertainty remains, but the row is not source-supported.",
+        "citation_error": true
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      },
+      "accepted-i3": {
+        "support": "unsupported",
+        "notes": "The user priority is to preserve the recorded B selection, not perform a new selection. Explicit uncertainty remains, but the row is not source-supported.",
+        "citation_error": true
+      },
+      "accepted-i4": {
+        "support": "supported",
+        "notes": "t1 rejects A for losing offline access; t2 agrees B. n1 states the priority to retain both outcomes."
+      }
+    },
+    "recalled_expectations": {
+      "fx-09-e1": [
+        "accepted-i0"
+      ],
+      "fx-09-e2": [
+        "accepted-i4"
+      ]
+    },
+    "retained_priorities": {
+      "fx-09-p1": [
+        "accepted-i0"
+      ],
+      "fx-09-p2": [
+        "accepted-i4"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-10-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "c1-a1-i2": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-10-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "n1 says approved while t1 says not approved/deferred; both records must remain in conflict."
+      },
+      "c1-a1-i0": {
+        "support": "qualified",
+        "notes": "The transcript supports deferral; n1 disagrees. Explicit uncertain status makes this a disputed conclusion requiring human reconciliation, not a confirmed resolution."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-11-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a0-i1": {
+        "support": "unsupported",
+        "notes": "The first-chunk proposal lacks initial-stage qualification relative to final t3 approval. Whole generation fails before later chunks; nothing is delivered.",
+        "citation_error": true
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a0-i3": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a0-i4": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a0-i5": {
+        "support": "unsupported",
+        "notes": "The first-chunk proposal lacks initial-stage qualification relative to final t3 approval. Whole generation fails before later chunks; nothing is delivered.",
+        "citation_error": true
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a1-i1": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a1-i2": {
+        "support": "unsupported",
+        "notes": "The first-chunk proposal lacks initial-stage qualification relative to final t3 approval. Whole generation fails before later chunks; nothing is delivered.",
+        "citation_error": true
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-11-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a0-i1": {
+        "support": "unsupported",
+        "notes": "The first-chunk proposal lacks initial-stage qualification relative to final t3 approval. Whole generation fails before later chunks; nothing is delivered.",
+        "citation_error": true
+      },
+      "c1-a1-i0": {
+        "support": "supported",
+        "notes": "t1 initially defines Delta as the offline checklist and a proposal. t3 later approves it and names Luis Reyes, without a date. t2 is only calibration filler."
+      },
+      "c1-a1-i1": {
+        "support": "unsupported",
+        "notes": "The first-chunk proposal lacks initial-stage qualification relative to final t3 approval. Whole generation fails before later chunks; nothing is delivered.",
+        "citation_error": true
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {},
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-12-r1": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i3": {
+        "support": "unsupported",
+        "notes": "Delta is a literal symbol in n1. Change noted interprets the symbol as a recorded change without source support; this raw chunk is rejected.",
+        "citation_error": true
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c2-a1-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      }
+    },
+    "recalled_expectations": {
+      "fx-12-e2": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-12-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  },
+  "corrected/ollama-qwen3.5_9b-mlx-fx-12-r2": {
+    "reviewer": "Codex",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "The uncertain name is an ASR person identity in t2. n1 does not say name of the feature yet; the model invents a feature-naming topic.",
+        "citation_error": true
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c1-a0-i2": {
+        "support": "unsupported",
+        "notes": "No source records future naming or a naming proposal. t2 is uncertainty about a person checking the safety label.",
+        "citation_error": true
+      },
+      "c2-a0-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c2-a1-i0": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "c2-a1-i1": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "accepted-i0": {
+        "support": "unsupported",
+        "notes": "The uncertain name is an ASR person identity in t2. n1 does not say name of the feature yet; the model invents a feature-naming topic.",
+        "citation_error": true
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "accepted-i2": {
+        "support": "unsupported",
+        "notes": "No source records future naming or a naming proposal. t2 is uncertainty about a person checking the safety label.",
+        "citation_error": true
+      },
+      "accepted-i3": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      },
+      "accepted-i4": {
+        "support": "supported",
+        "notes": "t1 agrees offline access. t2 is an unagreed, tentative safety-label check with ambiguous Mara/Nara ASR and relative week. n1 separately retains Café résumé and Delta notation."
+      }
+    },
+    "recalled_expectations": {
+      "fx-12-e1": [
+        "accepted-i1"
+      ],
+      "fx-12-e2": [
+        "accepted-i3",
+        "accepted-i4"
+      ]
+    },
+    "retained_priorities": {
+      "fx-12-p1": [
+        "accepted-i1"
+      ],
+      "fx-12-p2": [
+        "accepted-i3",
+        "accepted-i4"
+      ]
+    },
+    "notes": "Content recall may use summaries or multiple delivered claims. Invalid additional claims are assessed separately. Empty and rejected generations earn zero credit. Human acceptance pending."
+  }
+}

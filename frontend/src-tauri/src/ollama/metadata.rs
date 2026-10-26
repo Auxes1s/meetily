@@ -141,7 +141,7 @@ async fn fetch_model_info(
     model_name: &str,
     endpoint: Option<&str>,
 ) -> Result<ModelMetadata, String> {
-    let client = Client::new();
+    let client = Client::builder().redirect(reqwest::redirect::Policy::none()).no_proxy().build().map_err(|_|"Cannot initialize Ollama metadata client")?;
     let base_url = endpoint.unwrap_or("http://localhost:11434");
     let url = format!("{}/api/show", base_url);
 

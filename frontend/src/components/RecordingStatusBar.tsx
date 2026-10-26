@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useRecordingState } from '@/contexts/RecordingStateContext';
-import { useEffect, useState } from 'react';
+import { usePipelineHealth } from '@/hooks/usePipelineHealth';
 
 interface RecordingStatusBarProps {
   isPaused?: boolean;
@@ -11,18 +11,11 @@ interface RecordingStatusBarProps {
 export const RecordingStatusBar: React.FC<RecordingStatusBarProps> = ({ isPaused = false }) => {
   // Get recording duration from backend-synced context (in seconds)
   // Backend polls every 500ms, providing smooth updates
-  const { activeDuration, isRecording } = useRecordingState();
+  const { activeDuration, isRecording, isStopping, isProcessing, isSaving } = useRecordingState();
+  const health = usePipelineHealth();
 
   // Display state synced from backend
-  const [displaySeconds, setDisplaySeconds] = useState(0);
-
-  // Sync with backend duration when it changes (handles refresh/navigation)
-  useEffect(() => {
-    if (activeDuration !== null) {
-      // Round to nearest second to avoid decimal issues
-      setDisplaySeconds(Math.floor(activeDuration));
-    }
-  }, [activeDuration]);
+  const displaySeconds = Math.floor(activeDuration ?? 0);
 
   const formatDuration = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -36,12 +29,20 @@ export const RecordingStatusBar: React.FC<RecordingStatusBarProps> = ({ isPaused
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
-      className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg mb-2"
+      className="flex items-center gap-2 px-3 py-2 bg-background rounded-lg mb-2"
     >
       <div className={`w-2 h-2 rounded-full ${isPaused ? 'bg-orange-500' : 'bg-red-500 animate-pulse'}`} />
-      <span className={`text-sm ${isPaused ? 'text-orange-700' : 'text-gray-700'}`}>
+      <span className={`text-sm ${isPaused ? 'text-orange-700' : 'text-foreground'}`}>
         {isPaused ? 'Paused' : 'Recording'} • {formatDuration(displaySeconds)}
       </span>
+      <span className="text-xs text-muted-foreground" role="status">
+        {health?.storage_error ? 'Processing interrupted — recovery audio retained'
+          : isStopping || isProcessing || isSaving ? 'Finalizing retained audio…'
+          : health?.pending_audio_seconds === undefined ? 'Transcription status unavailable'
+          : health.pending_audio_seconds > 0 ? `Transcribing • ${Math.ceil(health.pending_audio_seconds)}s pending`
+          : 'Transcription caught up'}
+      </span>
+      {!!health?.continuity_repairs && <span className="text-xs text-muted-foreground">Source timing gap detected</span>}
     </motion.div>
   );
 };

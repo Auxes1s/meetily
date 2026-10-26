@@ -156,3 +156,19 @@ describe('paginated transcript request ownership', () => {
     expect(requests).toHaveLength(1);
   });
 });
+
+test('saving another session refreshes the same meeting without navigation', async () => {
+  const previous = globalThis.window;
+  const events = new EventTarget();
+  Object.defineProperty(globalThis, 'window', { configurable: true, value: events });
+  try {
+    await load('A');
+    const changed = new Event('meeting-data-changed');
+    Object.defineProperty(changed, 'detail', { value: { meetingId: 'A' } });
+    await act(async () => { events.dispatchEvent(changed); });
+    await resolve(request('metadata', 'A', 1), metadata('A'));
+    await resolve(request('transcripts', 'A', 1), page('Appended session'));
+    expect(state.transcripts[0].text).toBe('Appended session');
+    await act(async () => renderer!.unmount()); renderer = undefined;
+  } finally { Object.defineProperty(globalThis, 'window', { configurable: true, value: previous }); }
+});

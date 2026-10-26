@@ -1,0 +1,12 @@
+{
+  "preexisting_files_checked": 612,
+  "changed_existing_files": [
+    "docs/plans/meeting-experience-upgrade.md",
+    "docs/plans/p0-implementation-handoff.md",
+    "frontend/src-tauri/src/summary/enhancement.rs",
+    "frontend/src-tauri/src/summary/grounding.rs",
+    "frontend/src-tauri/src/summary/llm_client.rs"
+  ],
+  "deleted_existing_files": [],
+  "outside_scope_changes": []
+}

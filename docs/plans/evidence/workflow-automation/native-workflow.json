@@ -1,0 +1,20 @@
+{
+  "checks": {
+    "edited_and_approved": true,
+    "generated_candidate": true,
+    "managed_deletion": true,
+    "native_pause_resume_replay": true,
+    "notes_and_native_replay": true,
+    "process_restart_search_export": true,
+    "real_copy_export": true,
+    "original_meeting_and_artifacts_preserved": true,
+    "parsed_exports_match_persisted_content": true
+  },
+  "model_quality_acceptance": false,
+  "native_ipc": true,
+  "native_webview": true,
+  "ok": true,
+  "phase": "finished",
+  "physical_capture": false,
+  "run_id": "c3de13a13c934c43a577fc1eb2cb1655"
+}

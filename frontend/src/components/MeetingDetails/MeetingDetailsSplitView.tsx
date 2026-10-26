@@ -49,7 +49,9 @@ export function MeetingDetailsSplitView({
 }: MeetingDetailsSplitViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [ratio, setRatio] = useState(DEFAULT_RATIO);
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [summaryOpened, setSummaryOpened] = useState(activeTab === 'summary');
+  useEffect(() => { if (isDesktop || activeTab === 'summary') setSummaryOpened(true); }, [isDesktop, activeTab]);
   const dragging = useRef(false);
   const clampRatio = (value: number) => Math.min(MAX_RATIO, Math.max(MIN_RATIO, value));
 
@@ -58,11 +60,13 @@ export function MeetingDetailsSplitView({
   }, []);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 768px)');
-    const updateLayout = () => setIsDesktop(mediaQuery.matches);
-    updateLayout();
-    mediaQuery.addEventListener('change', updateLayout);
-    return () => mediaQuery.removeEventListener('change', updateLayout);
+    const container = containerRef.current;
+    if (!container) return;
+    // This view also lives in the transcript drawer. Measure that space,
+    // rather than enabling two panes from the outer window's width.
+    const observer = new ResizeObserver(([entry]) => setIsDesktop(entry.contentRect.width >= 900));
+    observer.observe(container);
+    return () => observer.disconnect();
   }, []);
 
   const onPointerDown = useCallback((event: React.PointerEvent) => {
@@ -111,17 +115,17 @@ export function MeetingDetailsSplitView({
     <Tabs
       value={activeTab}
       onValueChange={(value) => onTabChange(value as MeetingDetailsTab)}
-      className="flex flex-1 min-h-0 min-w-0 flex-col overflow-hidden"
+      className="meeting-details-layout flex flex-1 min-h-0 min-w-0 flex-col overflow-hidden"
     >
-      <div className="shrink-0 bg-white px-2 md:hidden">
-        <TabsList className="relative h-auto w-full justify-center rounded-none border-b border-gray-200 bg-transparent p-0">
+      <div className="details-tabs shrink-0 bg-card px-2">
+        <TabsList className="relative h-auto w-full justify-center rounded-none border-b border-border bg-transparent p-0">
           {TABS.map((tab) => {
             const Icon = tab.icon;
             return (
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="relative z-10 flex items-center gap-2 rounded-none border-0 bg-transparent px-6 py-4 text-gray-600 data-[state=active]:bg-transparent data-[state=active]:text-blue-600 data-[state=active]:shadow-none hover:text-gray-900"
+                className="relative z-10 flex flex-1 items-center gap-2 rounded-none border-0 bg-transparent px-3 py-3 text-muted-foreground data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:shadow-none hover:text-foreground"
               >
                 <Icon className="h-4 w-4" />
                 {tab.label}
@@ -132,7 +136,7 @@ export function MeetingDetailsSplitView({
       </div>
       <div
         ref={containerRef}
-        className="flex flex-1 min-h-0 min-w-0 flex-col md:flex-row"
+        className="details-panes flex flex-1 min-h-0 min-w-0 flex-col"
         style={{ '--transcript-pane-width': `${ratio * 100}%` } as CSSProperties}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -141,7 +145,7 @@ export function MeetingDetailsSplitView({
         <TabsContent
           value="transcript"
           forceMount
-          className="mt-0 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden data-[state=inactive]:hidden md:w-[var(--transcript-pane-width)] md:flex-none md:data-[state=inactive]:flex"
+          className="details-transcript mt-0 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden data-[state=inactive]:hidden"
           {...transcriptPanelProps}
         >
           {transcript}
@@ -155,19 +159,19 @@ export function MeetingDetailsSplitView({
           aria-valuetext={`Transcript panel ${Math.round(ratio * 100)} percent`}
           aria-label="Resize transcript and summary"
           tabIndex={0}
-          className="group relative z-10 hidden w-2 flex-shrink-0 cursor-col-resize items-stretch justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset md:flex"
+          className="details-separator group relative z-10 hidden w-2 flex-shrink-0 cursor-col-resize items-stretch justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
           onPointerDown={onPointerDown}
           onKeyDown={onSeparatorKeyDown}
         >
-          <div className="h-full w-px bg-gray-200 transition-[width,background-color] duration-150 ease-out group-hover:w-1 group-hover:bg-blue-400 group-active:w-1 group-active:bg-blue-500" />
+          <div className="h-full w-px bg-border transition-[width,background-color] duration-150 ease-out group-hover:w-1 group-hover:bg-primary group-active:w-1 group-active:bg-primary" />
         </div>
         <TabsContent
           value="summary"
           forceMount
-          className="mt-0 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden data-[state=inactive]:hidden md:data-[state=inactive]:flex"
+          className="details-summary mt-0 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden data-[state=inactive]:hidden"
           {...summaryPanelProps}
         >
-          {summary}
+          {(summaryOpened || isDesktop || activeTab === 'summary') && summary}
         </TabsContent>
       </div>
     </Tabs>

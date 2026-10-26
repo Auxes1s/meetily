@@ -57,12 +57,14 @@ pub(crate) fn create_transcript_segments(transcripts: &[(String, f64, f64)]) -> 
             let duration = end_seconds - start_seconds;
 
             TranscriptSegment {
+                sequence_id: None,
                 id: format!("transcript-{}", Uuid::new_v4()),
                 text: text.trim().to_string(),
                 timestamp: chrono::Utc::now().to_rfc3339(),
                 audio_start_time: Some(start_seconds),
                 audio_end_time: Some(end_seconds),
                 duration: Some(duration),
+                audio_source: Some(super::source::AudioSource::Unknown),
             }
         })
         .collect()
@@ -74,7 +76,7 @@ pub(crate) fn write_transcripts_json(folder: &Path, segments: &[TranscriptSegmen
     let temp_path = folder.join(".transcripts.json.tmp");
 
     let json = serde_json::json!({
-        "version": "1.0",
+        "version": "1.1",
         "last_updated": chrono::Utc::now().to_rfc3339(),
         "total_segments": segments.len(),
         "segments": segments.iter().enumerate().map(|(i, s)| {
@@ -85,7 +87,8 @@ pub(crate) fn write_transcripts_json(folder: &Path, segments: &[TranscriptSegmen
                 "audio_start_time": s.audio_start_time,
                 "audio_end_time": s.audio_end_time,
                 "duration": s.duration,
-                "sequence_id": i
+                "sequence_id": i,
+                "audio_source": s.audio_source
             })
         }).collect::<Vec<_>>()
     });
@@ -143,6 +146,7 @@ pub(crate) fn split_segment_at_silence(
                 start_timestamp_ms: chunk_start_ms,
                 end_timestamp_ms: chunk_end_ms,
                 confidence: segment.confidence,
+                is_final: true,
             });
             break;
         }
@@ -201,6 +205,7 @@ pub(crate) fn split_segment_at_silence(
             start_timestamp_ms: chunk_start_ms,
             end_timestamp_ms: chunk_end_ms,
             confidence: segment.confidence,
+            is_final: true,
         });
 
         // Advance position to where the current chunk actually ends

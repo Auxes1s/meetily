@@ -39,6 +39,9 @@ export class UpdateService {
    * @returns Promise with update information
    */
   async checkForUpdates(force = false): Promise<UpdateInfo> {
+    if (process.env.NEXT_PUBLIC_MEETILY_LOCAL_BUILD === '1') {
+      return { available: false, currentVersion: await getVersion() };
+    }
     // Prevent concurrent update checks
     if (this.updateCheckInProgress) {
       throw new Error('Update check already in progress');

@@ -23,6 +23,7 @@ import { useConfig } from '@/contexts/ConfigContext';
 import { LANGUAGES } from '@/constants/languages';
 import { useTranscriptionModels, ModelOption } from '@/hooks/useTranscriptionModels';
 import Analytics from '@/lib/analytics';
+import { recordingService, type RecordingSession } from '@/services/recordingService';
 
 interface RetranscribeDialogProps {
   open: boolean;
@@ -63,6 +64,17 @@ export function RetranscribeDialog({
   const [progress, setProgress] = useState<RetranscriptionProgress | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selectedLang, setSelectedLang] = useState(selectedLanguage || 'auto');
+  const [sessions, setSessions] = useState<RecordingSession[]>([]);
+  const [recordingFolder, setRecordingFolder] = useState(meetingFolderPath);
+  useEffect(() => {
+    if (!open) return;
+    let current = true;
+    setRecordingFolder(meetingFolderPath);
+    void recordingService.getRecordingSessions(meetingId).then(items => {
+      if (current) setSessions(items.filter(item => item.folder_path && ['completed', 'interrupted'].includes(item.status)));
+    }).catch(() => { if (current) setSessions([]); });
+    return () => { current = false; };
+  }, [open, meetingId, meetingFolderPath]);
 
   // Use centralized model fetching hook
   const {
@@ -197,7 +209,7 @@ export function RetranscribeDialog({
   }, [open, meetingId]);
 
   const handleStartRetranscription = async () => {
-    if (!meetingFolderPath) {
+    if (!recordingFolder) {
       setError('Meeting folder path not available');
       return;
     }
@@ -216,7 +228,7 @@ export function RetranscribeDialog({
 
       await invoke('start_retranscription_command', {
         meetingId,
-        meetingFolderPath,
+        meetingFolderPath: recordingFolder,
         language: languageToSend,
         model: selectedModelDetails?.name || null,
         provider: selectedModelDetails?.provider || null,
@@ -275,7 +287,7 @@ export function RetranscribeDialog({
           <DialogTitle className="flex items-center gap-2">
             {isProcessing ? (
               <>
-                <Loader2 className="h-5 w-5 animate-spin text-blue-600" />
+                <Loader2 className="h-5 w-5 animate-spin text-primary motion-reduce:animate-none" />
                 Retranscribing...
               </>
             ) : error ? (
@@ -285,7 +297,7 @@ export function RetranscribeDialog({
               </>
             ) : (
               <>
-                <RefreshCw className="h-5 w-5 text-blue-600" />
+                <RefreshCw className="h-5 w-5 text-primary" />
                 Retranscribe Meeting
               </>
             )}
@@ -300,6 +312,13 @@ export function RetranscribeDialog({
         </DialogHeader>
 
         <div className="space-y-4 py-4">
+          {!isProcessing && sessions.length > 1 && <div className="space-y-2">
+            <label htmlFor="retranscribe-recording" className="text-sm font-medium">Recording to retranscribe</label>
+            <select id="retranscribe-recording" className="w-full min-w-0 rounded-xl border border-input bg-card px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring" value={recordingFolder ?? ''} onChange={event => setRecordingFolder(event.target.value)}>
+              {sessions.map(session => <option key={session.id} value={session.folder_path!}>Recording {session.ordinal}</option>)}
+            </select>
+            <p className="text-xs text-muted-foreground">Updates this recording’s passages in the combined transcript.</p>
+          </div>}
           {!isProcessing && !error && (
             !isParakeetModel ? (
               <div className="space-y-3">
@@ -363,13 +382,13 @@ export function RetranscribeDialog({
           {isProcessing && progress && (
             <div className="space-y-2">
               <div className="relative">
-                <div className="w-full bg-gray-200 rounded-full h-3">
+                <div className="h-2.5 w-full rounded-full bg-muted">
                   <div
-                    className="bg-blue-600 h-3 rounded-full transition-all duration-300 ease-out"
+                    className="h-2.5 rounded-full bg-primary transition-[width] duration-200 ease-out motion-reduce:transition-none"
                     style={{ width: `${Math.min(progress.progress_percentage, 100)}%` }}
                   />
                 </div>
-                <div className="flex justify-between text-xs text-gray-600 mt-1">
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
                   <span>{progress.stage}</span>
                   <span>{Math.round(progress.progress_percentage)}%</span>
                 </div>
@@ -395,8 +414,7 @@ export function RetranscribeDialog({
               </Button>
               <Button
                 onClick={handleStartRetranscription}
-                className="bg-blue-600 hover:bg-blue-700"
-                disabled={!meetingFolderPath}
+                disabled={!recordingFolder}
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Start Retranscription

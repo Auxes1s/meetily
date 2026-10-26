@@ -1,0 +1,32 @@
+{
+  "launch_command": "open -a meetily",
+  "pid": 91405,
+  "executable": "/Applications/meetily.app/Contents/MacOS/meetily",
+  "window_title": "Meetily Notepad",
+  "native_window_size": [
+    1100,
+    700
+  ],
+  "matches_rebuilt_release": true,
+  "source_sha256": "ff3f4c54592e99eb7f4096de2ed188ceeb5b3f0a52448fe46fdf10f15246c599",
+  "previous_backup_registrations_removed": true,
+  "production_database_integrity": "ok",
+  "foreign_key_errors": 0,
+  "meeting_document_and_transcript_tables_unchanged": true,
+  "production_table_count": 23,
+  "changed_tables": [
+    "meeting_deletion_jobs"
+  ],
+  "only_changed_columns": {
+    "meeting_deletion_jobs": [
+      "updated_at"
+    ]
+  },
+  "change_reason": "Existing startup deletion maintenance refreshed job timestamps; job contents and all other tables are unchanged.",
+  "production_counts": {
+    "meetings": 8,
+    "transcripts": 467,
+    "meeting_notes": 1,
+    "meeting_enhancement_versions": 0
+  }
+}

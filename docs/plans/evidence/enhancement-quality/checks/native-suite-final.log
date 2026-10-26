@@ -1,0 +1,443 @@
+warning: patch for the non root package will be ignored, specify patch at the workspace root:
+package:   /Users/marcignacio/GitHub/meetily/frontend/src-tauri/Cargo.toml
+workspace: /Users/marcignacio/GitHub/meetily/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /Users/marcignacio/GitHub/meetily/llama-helper/Cargo.toml
+workspace: /Users/marcignacio/GitHub/meetily/Cargo.toml
+warning: unused import: `std::io::Read`
+   --> frontend/src-tauri/build/ffmpeg.rs:210:9
+    |
+210 |     use std::io::Read;
+    |         ^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `meetily` (build script) generated 1 warning
+   Compiling meetily v0.4.1 (/Users/marcignacio/GitHub/meetily/frontend/src-tauri)
+warning: meetily@0.4.1: 🚀 Building Meetily for: macos
+warning: meetily@0.4.1: ✅ macOS: Metal GPU acceleration ENABLED by default
+warning: meetily@0.4.1: 🎬 Checking FFmpeg binary for target: aarch64-apple-darwin
+warning: meetily@0.4.1: 🔍 Found cached FFmpeg binary: ffmpeg-aarch64-apple-darwin
+warning: meetily@0.4.1: ✅ FFmpeg verification passed: ffmpeg version 8.0 Copyright (c) 2000-2025 the FFmpeg developers
+warning: meetily@0.4.1: ✅ FFmpeg binary already cached and verified: ffmpeg-aarch64-apple-darwin
+warning: unused import: `perf_debug`
+  --> frontend/src-tauri/src/lib.rs:32:16
+   |
+32 | pub(crate) use perf_debug;
+   |                ^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `perf_trace`
+  --> frontend/src-tauri/src/lib.rs:33:16
+   |
+33 | pub(crate) use perf_trace;
+   |                ^^^^^^^^^^
+
+warning: unnecessary parentheses around closure body
+   --> frontend/src-tauri/src/audio/decoder.rs:699:50
+    |
+699 |         let input: Vec<f32> = (0..96000).map(|i| (i as f32 / 96000.0)).collect();
+    |                                                  ^                  ^
+    |
+    = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+help: remove these parentheses
+    |
+699 -         let input: Vec<f32> = (0..96000).map(|i| (i as f32 / 96000.0)).collect();
+699 +         let input: Vec<f32> = (0..96000).map(|i| i as f32 / 96000.0).collect();
+    |
+
+warning: unused import: `cpal::SampleFormat`
+   --> frontend/src-tauri/src/audio/diagnostics.rs:291:9
+    |
+291 |     use cpal::SampleFormat;
+    |         ^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `error` and `info`
+ --> frontend/src-tauri/src/database/repositories/transcript.rs:4:15
+  |
+4 | use tracing::{error, info};
+  |               ^^^^^  ^^^^
+
+warning: unused variable: `device`
+   --> frontend/src-tauri/src/audio/diagnostics.rs:296:13
+    |
+296 |         let device = AudioDevice::new("Test Device".to_string(), DeviceType::Input);
+    |             ^^^^^^ help: if this is intentional, prefix it with an underscore: `_device`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `confidence_str`
+   --> frontend/src-tauri/src/audio/transcription/worker.rs:181:41
+    |
+181 | ...                   let confidence_str = match confidence_opt {
+    |                           ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_confidence_str`
+
+warning: unused variable: `error`
+   --> frontend/src-tauri/src/summary/processor.rs:433:33
+    |
+433 | ...                   Err(error)
+    |                           ^^^^^ help: if this is intentional, prefix it with an underscore: `_error`
+
+warning: unused variable: `error`
+   --> frontend/src-tauri/src/summary/service.rs:625:17
+    |
+625 |             Err(error) if cancellation_token.is_cancelled() => {
+    |                 ^^^^^ help: if this is intentional, prefix it with an underscore: `_error`
+
+warning: field `recording_sender` is never read
+   --> frontend/src-tauri/src/audio/pipeline.rs:246:5
+    |
+239 | pub struct AudioCapture {
+    |            ------------ field in this struct
+...
+246 |     recording_sender: Option<mpsc::UnboundedSender<AudioChunk>>,
+    |     ^^^^^^^^^^^^^^^^
+    |
+    = note: `AudioCapture` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: comparison is useless due to type limits
+   --> frontend/src-tauri/src/audio/system_audio_commands.rs:123:25
+    |
+123 |                 assert!(device_list.len() >= 0); // Should at least not crash
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_comparisons)]` on by default
+
+warning: `meetily` (lib test) generated 11 warnings (run `cargo fix --lib -p meetily --tests` to apply 9 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.32s
+     Running unittests src/lib.rs (target/debug/deps/app_lib-53a970518854789f)
+
+running 328 tests
+test audio::capture::backend_config::tests::test_backend_to_string ... ok
+test audio::capture::backend_config::tests::test_backend_from_string ... ok
+test audio::capture::backend_config::tests::test_default_backend ... ok
+test audio::capture::core_audio::tests::test_core_audio_capture ... ignored
+test audio::capture::backend_config::tests::test_backend_config ... ok
+test audio::capture::backend_config::tests::test_available_backends ... ok
+test audio::decoder::tests::test_chunked_resample_empty_input ... ok
+test audio::buffer_pool::tests::test_buffer_pool ... ok
+test audio::buffer_pool::tests::test_pooled_buffer_raii ... ok
+test audio::buffer_pool::tests::test_pool_max_size ... ok
+test audio::decoder::tests::test_decoded_audio_duration_calculation ... ok
+test audio::decoder::tests::test_chunked_resample_same_rate ... ok
+test audio::decoder::tests::test_decoded_audio_stereo_duration ... ok
+test analytics::analytics::tests::meeting_started_properties_do_not_include_title ... ok
+test audio::decoder::tests::test_needs_ffmpeg_conversion ... ok
+test analytics::analytics::tests::analytics_properties_drop_sensitive_meeting_metadata ... ok
+test audio::decoder::tests::test_normalize_audio_samples_handles_nan ... ok
+test audio::decoder::tests::test_normalize_audio_samples_exceeds_range ... ok
+test audio::decoder::tests::test_normalize_audio_samples_already_normalized ... ok
+test audio::decoder::tests::test_normalize_audio_samples_handles_infinity ... ok
+test audio::decoder::tests::test_to_whisper_format_mono_16k ... ok
+test audio::decoder::tests::test_to_whisper_format_stereo_to_mono ... ok
+test audio::common::tests::test_engine_lifecycle_lock_serializes_acquirers ... ok
+test audio::device_detection::tests::test_buffer_timeout_bluetooth ... ok
+test audio::device_detection::tests::test_buffer_timeout_wired ... ok
+test audio::device_detection::tests::test_calculate_buffer_timeout_bluetooth ... ok
+test audio::device_detection::tests::test_calculate_buffer_timeout_wired ... ok
+test analytics::analytics::tests::ending_session_completes_and_emits_an_event ... ok
+test audio::decoder::tests::test_to_whisper_format_handles_large_file_threshold ... ok
+test audio::device_monitor::tests::test_bluetooth_detection ... ok
+test audio::device_monitor::tests::test_monitor_creation ... ok
+test audio::diagnostics::tests::test_diagnostics_dont_panic ... ok
+test audio::echo_cancellation::tests::echo_cancellation_preserves_mic_only_and_partial_tail ... ok
+test audio::decoder::tests::test_to_whisper_format_resamples_48k_to_16k ... ok
+test audio::ffmpeg_mixer::tests::test_audio_mixer_clipping_prevention ... ok
+test audio::ffmpeg_mixer::tests::test_ffmpeg_mixer_creation ... ok
+test audio::ffmpeg_mixer::tests::test_rms_calculation ... ok
+test audio::ffmpeg_mixer::tests::test_source_buffer_basic ... ok
+test audio::hardware_detector::tests::hardware_detector_finds_windows_vulkan_loader_in_system32 ... ok
+test audio::hardware_detector::tests::hardware_detector_rejects_missing_windows_vulkan_loader ... ok
+test audio::hardware_detector::tests::test_hardware_detection ... ok
+test audio::hardware_detector::tests::test_performance_tier_logic ... ok
+test audio::hardware_detector::tests::test_whisper_config_generation ... ok
+test audio::import::tests::test_audio_extensions ... ok
+test audio::import::tests::test_cancellation_flag ... ok
+test audio::import::tests::test_create_transcript_segments_empty ... ok
+test audio::import::tests::test_create_transcript_segments_single ... ok
+test audio::import::tests::test_extract_duration_from_metadata_mp3 ... ok
+test audio::import::tests::test_extract_duration_from_metadata_wav ... ok
+test audio::import::tests::test_import_pipeline_decode_vad ... ignored
+test audio::device_detection::tests::test_virtual_device_detection ... ok
+test audio::device_detection::tests::test_wired_by_buffer_size ... ok
+test audio::import::tests::test_split_segment_at_silence_short_segment ... ok
+test audio::device_detection::tests::test_airpods_detection ... ok
+test audio::import::tests::test_validate_audio_file_nonexistent ... ok
+test audio::device_detection::tests::test_bluetooth_by_buffer_size ... ok
+test audio::import::tests::test_validate_audio_file_with_metadata ... ok
+test audio::import::tests::test_split_segment_at_silence_no_silence_uses_overlap ... ok
+test audio::import::tests::test_write_import_metadata ... ok
+test audio::import::tests::test_validate_audio_file_wrong_extension ... ok
+test audio::permissions::tests::test_check_permission ... ok
+test audio::import::tests::test_write_transcripts_json ... ok
+test audio::pipeline::tests::echo_pipeline_existing_whisper_preserves_independent_speech ... ignored, Requires installed Whisper model and MEETILY_ASR_TEST_MODEL_DIR
+test audio::incremental_saver::tests::test_empty_recording ... ok
+test audio::pipeline::tests::echo_alignment_waits_for_the_other_callback_then_bounds_device_outages ... ok
+test audio::import::tests::test_split_segment_at_silence_splits_long_segment ... ok
+test audio::pipeline::tests::source_ring_tail_preserves_short_recordings_and_drains_once ... ok
+test audio::pipeline::tests::test_live_vad_redemption_matches_pro_policy ... ok
+test audio::pipeline::tests::source_pipeline_dispatches_overlapping_channels_and_keeps_mixed_recording ... ok
+test audio::decoder::tests::test_chunked_resample_preserves_signal_range ... ok
+test audio::recording_saver::deletion_tests::configured_recordings_root_receives_actual_metadata_and_transcript_folder ... ok
+test audio::playback_monitor::tests::test_get_output_device ... ok
+test audio::recording_manager::wake_tests::wake_fails_gracefully_for_unknown_device ... ok
+test audio::recording_saver::source_tests::source_recording_json_preserves_all_channels_and_retry_provenance ... ok
+test audio::retranscription::tests::retranscription_metadata_replaces_stale_duration_without_losing_existing_fields ... ok
+test audio::retranscription::tests::test_audio_extensions_constant ... ok
+test audio::retranscription::tests::test_cancellation_flag ... ok
+test audio::retranscription::tests::test_create_transcript_segments_empty ... ok
+test audio::retranscription::tests::test_create_transcript_segments_generates_unique_ids ... ok
+test audio::retranscription::tests::test_create_transcript_segments_multiple ... ok
+test audio::retranscription::tests::test_create_transcript_segments_single ... ok
+test audio::retranscription::tests::test_create_transcript_segments_trims_whitespace ... ok
+test audio::retranscription::tests::test_find_audio_file_common_candidates ... ok
+test audio::retranscription::tests::test_find_audio_file_empty_folder ... ok
+test audio::retranscription::tests::test_find_audio_file_fallback_scan ... ok
+test audio::retranscription::tests::test_find_audio_file_non_mp4_extensions ... ok
+test audio::retranscription::tests::test_find_audio_file_nonexistent_folder ... ok
+test audio::retranscription::tests::test_find_audio_file_priority_order ... ok
+test audio::retranscription::tests::test_vad_redemption_time_constant ... ok
+test audio::source::tests::combined_recordings_and_unclassified_imports_have_truthful_sources ... ok
+test audio::source::tests::legacy_and_unreliable_sources_stay_unknown ... ok
+test audio::source::tests::source_storage_and_json_round_trip ... ok
+test audio::source_vad::tests::failure_in_one_channel_does_not_discard_the_other ... ok
+test audio::source_vad::tests::live_short_segments_existing_local_providers ... ignored, Requires installed Whisper/Parakeet models and MEETILY_ASR_TEST_MODEL_DIR
+test audio::source_vad::tests::overlapping_sources_keep_audio_and_timing_separate ... ok
+test audio::source_vad::tests::source_existing_local_providers_smoke ... ignored, Requires installed Whisper/Parakeet models and MEETILY_ASR_TEST_MODEL_DIR
+test audio::pipeline::tests::source_production_sample_rate_shares_clock_and_retains_partial_tail ... ok
+test audio::system_audio_commands::tests::test_check_permissions ... ok
+test audio::recording_saver::deletion_tests::deleted_cloned_recording_sink_cannot_recreate_files_in_preserved_export_folder ... ok
+test audio::system_detector::tests::test_system_audio_detector ... ignored
+test audio::transcription::worker::tests::drops_empty_and_whitespace_only ... ok
+test audio::transcription::worker::tests::keeps_short_acknowledgements ... ok
+test audio::system_audio_commands::tests::test_list_system_audio_devices ... ok
+test audio::recording_saver::finalization_tests::audio_save_retains_final_transcripts_for_database_and_summary_sources ... ok
+test audio::vad::tests::live_vad_emits_continuous_speech_before_pause_and_preserves_stop_tail ... ok
+test audio::decoder::tests::test_chunked_resample_matches_single_pass ... ok
+test audio::decoder::tests::test_chunked_resample_downsamples_correctly ... ok
+test audio::vad::tests::test_speech_start_sample_never_exceeds_processed_samples ... ok
+test audio::vad::tests::test_flush_segment_timestamps_stay_within_audio_duration ... ok
+test audio::decoder::tests::test_decode_he_aac_uses_decoded_rate_not_container_rate ... ok
+test audio::pipeline::tests::source_live_pipeline_caps_both_channels_before_stop_at_48khz ... ok
+test audio::source_vad::tests::source_vad_routes_single_alternating_and_overlapping_inputs_and_flushes_once ... ok
+test audio::vad::tests::test_vad_continuous_processor_state_across_chunks ... ok
+test database::deletion::tests::abandoned_legacy_sanitizer_copies_are_removed_before_native_completion ... ok
+test database::deletion::tests::corrupt_partial_snapshot_is_preserved_and_retry_finishes_after_repair ... ok
+test database::deletion::tests::deletion_waits_for_admitted_artifact_writers_and_rejects_late_ones ... ok
+test database::deletion::tests::failure_after_committed_intent_returns_and_persists_pending_job_identity ... ok
+test database::deletion::tests::intent_is_idempotent_blocks_late_writes_and_survives_restart ... ok
+test database::deletion::tests::disposable_snapshot_sanitization_preserves_other_rows_and_settings ... ok
+test audio::vad::tests::test_vad_cancellation ... ok
+test database::deletion::tests::owned_artifacts_removed_but_exports_imported_originals_models_and_others_survive ... ok
+test database::deletion::tests::locked_snapshot_stays_pending_then_retry_sanitizes_committed_wal ... ok
+test database::deletion::tests::recording_and_finalization_reject_deletion_without_intent ... ok
+test database::deletion::tests::recovery_registers_legacy_folder_before_writes_and_cannot_adopt_deleted_identity ... ok
+test database::deletion::tests::retained_row_check_includes_text_after_embedded_nul_and_binary_settings ... ok
+test database::deletion::tests::symbolic_links_and_retry_path_replacements_do_not_escape ... ok
+test database::library::tests::dirty_sync_retains_source_row_identity_updates_notes_and_removes_replaced_passages ... ok
+test database::deletion::tests::startup_retry_attempts_other_jobs_when_one_has_unverified_ownership ... ok
+test database::library::tests::legacy_summary_formats_and_json_only_originals_remain_searchable_without_metadata_leak ... ok
+test database::library::tests::linked_fts_probe_searches_unicode_cross_sources_and_literal_operators ... ok
+test database::library::tests::metadata_unicode_date_timezone_filters_and_stable_cursor_are_bounded ... ok
+test database::library::tests::query_compiler_quotes_operator_words_punctuation_unicode_and_bounds ... ok
+test database::library::tests::only_pointer_selected_approved_or_legacy_is_searchable ... ok
+test database::library::tests::rebuild_and_bounded_backfill_do_not_change_canonical_content_and_delete_removes_fts ... ok
+test database::deletion::tests::unknown_identity_or_unmanaged_root_keeps_cleanup_pending ... ok
+test database::repositories::enhancement::tests::enhancement_notes_only_and_active_recording_contract ... ok
+test database::repositories::enhancement::tests::enhancement_legacy_adoption_preserves_unknown_fields_and_is_idempotent ... ok
+test database::repositories::enhancement::tests::enhancement_regeneration_preserves_original_and_approved_edits ... ok
+test database::repositories::enhancement::tests::enhancement_stale_revisions_and_late_completion_rejected ... ok
+test database::repositories::enhancement::tests::enhancement_source_snapshot_and_deletion_guard ... ok
+test database::repositories::summary::tests::cancelled_compare_and_set_rejects_stale_start_time ... ok
+test database::repositories::summary::tests::terminal_compare_and_set_preserves_first_writer ... ok
+test database::repositories::transcript::audio_source_tests::source_metadata_round_trips_and_retries_do_not_erase_it ... ok
+test database::repositories::transcript::search_context_tests::unicode_context_preserves_original_characters_and_character_boundaries ... ok
+test database::repositories::transcript::search_context_tests::compatibility_search_is_literal_bounded_and_excludes_pending_deletions ... ok
+test database::tests::notes_corrupt_source_is_preserved ... ok
+test database::repositories::enhancement::tests::interrupted_generation_preserves_committed_original_and_approval ... ok
+test database::tests::notes_concurrent_compare_and_set_has_one_winner ... ok
+test database::tests::notes_finalization_reuses_draft_and_resolves_timestamp_without_overwriting_notes ... ok
+test database::tests::notes_invalid_json_and_links_do_not_replace_committed_document ... ok
+test database::tests::notes_stale_revision_and_idempotent_acknowledgment ... ok
+test database::tests::notes_migration_backup_contains_committed_wal_and_legacy_rows ... ok
+test database::tests::notes_reopen_preserves_acknowledged_json_and_marks_interruption ... ok
+test database::workspace_contract_tests::fixture_crash_writer ... ignored, Subprocess helper; executed by abrupt_process_termination_preserves_acknowledged_documents
+test database::workspace_commands::tests::off_page_source_lookup_checks_meeting_ownership_and_deletion ... ok
+test database::workspace_contract_tests::linked_sqlite_contract_and_fts5_are_available ... ok
+test database::workspace_contract_tests::migration_backup_write_failure_preserves_unmigrated_source ... ok
+test ollama::metadata::tests::test_fallback_metadata_llama ... ok
+test ollama::metadata::tests::test_fallback_metadata_mistral ... ok
+test ollama::metadata::tests::test_fallback_metadata_phi ... ok
+test ollama::metadata::tests::test_fallback_metadata_unknown ... ok
+test ollama::metadata::tests::test_parse_num_ctx_missing ... ok
+test ollama::metadata::tests::test_parse_num_ctx_multiple_params ... ok
+test ollama::metadata::tests::test_parse_num_ctx_standard ... ok
+test ollama::metadata::tests::test_parse_num_ctx_with_spaces ... ok
+test onboarding::tests::onboarding_status_deserializes_without_selected_summary_model ... ok
+test parakeet_engine::parakeet_engine::tests::cancellation_wins_before_terminal_commit ... ok
+test parakeet_engine::parakeet_engine::tests::cancelled_near_complete_artifact_is_resumed_on_retry ... ok
+test database::workspace_contract_tests::abrupt_process_termination_preserves_acknowledged_documents ... ok
+test parakeet_engine::parakeet_engine::tests::completed_sibling_survives_403_then_retry_resumes_partial ... ok
+test parakeet_engine::parakeet_engine::tests::directory_validation_requires_exact_artifact_sizes ... ok
+test parakeet_engine::parakeet_engine::tests::discovery_retries_when_download_finalizes_after_disk_scan ... ok
+test parakeet_engine::parakeet_engine::tests::loading_releases_available_models_and_serializes_unload ... ok
+test database::workspace_contract_tests::legacy_and_current_fixtures_preserve_all_source_bytes_through_upgrade ... ok
+test parakeet_engine::parakeet_engine::tests::pending_cancellation_keeps_owner_and_blocks_retry ... ok
+test parakeet_engine::parakeet_engine::tests::range_416_retries_fresh_with_honest_progress ... ok
+test summary::commands::tests::compatibility_response_binds_double_encoded_document_to_its_displayed_revision ... ok
+test parakeet_engine::parakeet_engine::tests::range_ignored_replaces_partial_with_honest_progress ... ok
+test summary::commands::tests::redacts_only_flagged_historical_reasoning ... ok
+test summary::commands::tests::summary_start_tokens_are_monotonic_with_identical_clock_inputs ... ok
+test summary::commands::tests::response_redaction_strips_closed_markdown_envelopes ... ok
+test summary::commands::tests::summary_validation_rejects_blank_and_reasoning_content ... ok
+test parakeet_engine::parakeet_engine::tests::invalid_or_short_response_never_publishes_available ... ok
+test summary::enhancement::evaluation::real_local_models ... ignored, Opt-in installed local-model evaluation; requires MEETILY_E08_MANIFEST
+test summary::enhancement::evaluation::four_k_context_keeps_template_rules_and_processes_sources ... ok
+test summary::enhancement::evaluation::repair_failure_preserves_originals_approval_and_rejected_evidence ... ok
+test summary::enhancement::tests::enhancement_generation_covers_chunks_and_repairs_once ... ok
+test summary::enhancement::tests::parsed_locality_rejects_deceptive_hosts ... ok
+test summary::grounding::tests::enhancement_schema_rejects_missing_required_fields ... ok
+test summary::grounding::tests::explicit_uncertainty_survives_valid_citations ... ok
+test summary::grounding::tests::missing_source_clears_unsupported_attributes_and_bad_excerpts_fail ... ok
+test summary::grounding::tests::references_do_not_imply_confirmation ... ok
+test summary::grounding::tests::unicode_chunk_coverage_is_lossless ... ok
+test summary::grounding::tests::unreferenced_claim_must_be_uncertain ... ok
+test summary::grounding::tests::wrong_source_and_fabricated_owner_rejected ... ok
+test summary::language_detection::tests::transcript_summary_language_detects_chinese ... ok
+test summary::language_detection::tests::transcript_summary_language_detects_english ... ok
+test summary::language_detection::tests::transcript_summary_language_never_returns_unsupported_summary_code ... ok
+test summary::language_detection::tests::transcript_summary_language_reports_tie_reason ... ok
+test summary::language_detection::tests::transcript_summary_language_returns_none_for_short_or_unsupported_text ... ok
+test summary::language_detection::tests::transcript_summary_language_uses_weighted_dominant_language ... ok
+test summary::llm_client::tests::cancellation_during_failed_legacy_ollama_retry_body_returns_promptly ... ok
+test summary::llm_client::tests::cancellation_during_successful_legacy_ollama_retry_body_returns_promptly ... ok
+test summary::llm_client::tests::cancellation_prevents_compatibility_io_from_being_polled ... ok
+test summary::llm_client::tests::claude_response_uses_exact_block_types ... ok
+test summary::llm_client::tests::compatible_reasoning_is_separate_from_visible_content ... ok
+test summary::llm_client::tests::legacy_ollama_rejection_requires_compatible_error ... ok
+test summary::llm_client::tests::legacy_ollama_retry_without_reasoning_effort_returns_completion ... ok
+test summary::llm_client::tests::only_ollama_disables_reasoning_and_custom_sampling_is_preserved ... ok
+test summary::enhancement::tests::enhancement_local_requests_do_not_follow_redirects ... ok
+test summary::metadata::tests::detected_summary_language_is_stored_separately_from_user_override ... ok
+test summary::metadata::tests::summary_language_malformed_metadata_returns_error ... ok
+test summary::metadata::tests::summary_language_missing_field_returns_none ... ok
+test summary::metadata::tests::summary_language_null_removes_existing_field ... ok
+test summary::metadata::tests::summary_language_rejects_unsupported_code ... ok
+test summary::metadata::tests::summary_language_temp_path_is_unique_per_write ... ok
+test summary::metadata::tests::summary_language_write_preserves_existing_metadata_fields ... ok
+test summary::processor::tests::chunk_prompt_forbids_reasoning_output ... ok
+test summary::processor::tests::chunk_retries_once_unless_cancelled ... ok
+test summary::processor::tests::chunk_summary_prompt_forces_english_base_output ... ok
+test summary::processor::tests::chunk_text_keeps_unicode_boundaries ... ok
+test summary::processor::tests::chunk_text_preserves_content_after_early_sentence_boundary ... ok
+test summary::processor::tests::chunk_text_progresses_when_overlap_matches_window ... ok
+test summary::processor::tests::cleaner_rejects_unterminated_reasoning_markers ... ok
+test summary::processor::tests::cleaner_removes_closed_reasoning_envelopes_everywhere ... ok
+test summary::processor::tests::cleaner_strips_outer_crlf_fence_without_normalizing_inner_markdown ... ok
+test summary::processor::tests::combine_summary_prompt_forces_english_base_output ... ok
+test summary::processor::tests::empty_cache_with_translation_target_returns_none ... ok
+test summary::processor::tests::english_base_instruction_marks_non_english_prose_invalid_without_bloat ... ok
+test summary::processor::tests::english_target_with_english_transcript_skips_normalization ... ok
+test summary::processor::tests::english_target_with_non_english_transcript_normalizes_to_english ... ok
+test summary::processor::tests::english_target_with_unknown_transcript_normalizes_to_english ... ok
+test summary::processor::tests::final_report_prompt_forbids_reasoning_output ... ok
+test summary::processor::tests::final_report_prompt_forces_english_base_output ... ok
+test summary::processor::tests::no_cache_no_language_returns_none ... ok
+test summary::processor::tests::non_english_target_uses_translation_flow ... ok
+test summary::processor::tests::normalization_fallback_preserves_markdown_and_observed_reasoning ... ok
+test summary::processor::tests::reasoning_only_and_empty_fences_fail_visible_content_guard ... ok
+test summary::processor::tests::underscore_locale_variant_returns_none ... ok
+test summary::processor::tests::uppercase_english_code_returns_none ... ok
+test summary::processor::tests::uppercase_translation_code_returns_cache ... ok
+test summary::processor::tests::valid_cache_english_target_returns_none ... ok
+test summary::processor::tests::valid_cache_english_variant_returns_none ... ok
+test summary::processor::tests::valid_cache_french_target_returns_cache ... ok
+test summary::processor::tests::valid_cache_no_language_returns_none ... ok
+test summary::processor::tests::valid_cache_unknown_language_returns_none ... ok
+test summary::processor::tests::whitespace_only_cache_returns_none ... ok
+test summary::service::tests::result_json_never_persists_reasoning_text ... ok
+test summary::service::tests::result_json_rejects_title_only_display_markdown ... ok
+test summary::service::tests::stale_cleanup_keeps_the_replacement_cancellation_token ... ok
+test summary::service::tests::test_changed_summary_inputs_reject_cache ... ok
+test summary::service::tests::test_changed_template_content_rejects_cache ... ok
+test summary::service::tests::test_changed_token_threshold_rejects_cache ... ok
+test summary::service::tests::test_extract_cached_english_from_malformed_json_errors ... ok
+test summary::service::tests::test_legacy_english_markdown_field_is_cache_miss ... ok
+test summary::service::tests::test_matching_source_changed_translation_target_reuses_cache ... ok
+test summary::service::tests::test_result_json_strips_display_markdown_but_keeps_cache_title ... ok
+test summary::service::tests::test_same_language_regeneration_rejects_cache ... ok
+test summary::service::tests::test_strip_leading_title_empty_after_heading ... ok
+test summary::service::tests::test_strip_leading_title_multiline_body ... ok
+test summary::service::tests::test_strip_leading_title_no_heading ... ok
+test summary::service::tests::test_strip_leading_title_only ... ok
+test summary::service::tests::test_strip_leading_title_whitespace_after_heading ... ok
+test summary::service::tests::test_strip_leading_title_with_body ... ok
+test summary::service::tests::test_strip_title_if_present_hash_no_space_preserved ... ok
+test summary::service::tests::test_strip_title_if_present_leading_whitespace_h1_stripped ... ok
+test summary::service::tests::test_strip_title_if_present_mid_document_h1_preserved ... ok
+test summary::service::tests::test_strip_title_if_present_no_heading_preserved ... ok
+test summary::service::tests::test_strip_title_if_present_preserves_already_stripped ... ok
+test summary::service::tests::test_strip_title_if_present_strips_leading_h1 ... ok
+test summary::service::tests::test_template_cache_fingerprint_changes_with_rendered_template ... ok
+test summary::summary_engine::client::tests::test_error_response_deserialization ... ok
+test summary::summary_engine::client::tests::test_request_serialization ... ok
+test summary::summary_engine::client::tests::test_response_deserialization ... ok
+test summary::summary_engine::commands::tests::available_summary_model_priority_prefers_qwen_over_gemma ... ok
+test summary::summary_engine::commands::tests::recommended_summary_model_uses_qwen2b_below_effective_16gb_floor ... ok
+test summary::summary_engine::commands::tests::recommended_summary_model_uses_qwen4b_at_effective_16gb_floor ... ok
+test summary::summary_engine::models::tests::gemma3_template_escapes_user_supplied_control_markers ... ok
+test summary::summary_engine::models::tests::gemma_models_use_huggingface_urls_and_gemma3_instruct_sampling ... ok
+test summary::summary_engine::models::tests::qwen35_models_are_registered_with_expected_metadata ... ok
+test summary::summary_engine::models::tests::qwen35_nonthinking_template_formats_prompt ... ok
+test summary::summary_engine::models::tests::qwen35_template_escapes_user_supplied_control_markers ... ok
+test summary::summary_engine::models::tests::sampling_params_sanitize_for_llama_helper_clamps_negative_top_k ... ok
+test summary::summary_engine::models::tests::sampling_params_sanitize_for_llama_helper_keeps_positive_top_k ... ok
+test summary::summary_engine::models::tests::sampling_params_sanitize_for_llama_helper_preserves_zero_top_k ... ok
+test summary::template_commands::tests::test_list_templates ... ok
+test summary::template_commands::tests::test_validate_template_invalid ... ok
+test summary::template_commands::tests::test_validate_template_valid ... ok
+test summary::templates::defaults::tests::test_builtin_templates_valid_json ... ok
+test summary::templates::defaults::tests::test_get_builtin_template ... ok
+test summary::templates::loader::tests::test_get_builtin_template ... ok
+test summary::templates::loader::tests::test_get_nonexistent_template ... ok
+test summary::templates::loader::tests::test_list_template_ids ... ok
+test summary::templates::loader::tests::test_validate_invalid_json ... ok
+test summary::templates::tests::test_module_integration ... ok
+test summary::templates::tests::test_template_metadata ... ok
+test summary::templates::types::tests::test_validate_empty_name ... ok
+test summary::templates::types::tests::test_validate_invalid_format ... ok
+test summary::templates::types::tests::test_validate_valid_template ... ok
+test whisper_engine::acceleration::tests::acceleration_cpu_backend_disables_gpu_and_flash_attention ... ok
+test whisper_engine::acceleration::tests::acceleration_cuda_backend_enables_flash_attention_for_fast_tiers ... ok
+test whisper_engine::acceleration::tests::acceleration_vulkan_backend_ignores_runtime_cuda_flash_attention ... ok
+test whisper_engine::acceleration::tests::acceleration_vulkan_backend_keeps_gpu_without_runtime_gpu_detection ... ok
+test whisper_engine::system_monitor::tests::test_get_current_resources ... ok
+test summary::metadata::tests::concurrent_summary_language_writes_preserve_both_fields ... ok
+test summary::enhancement::evaluation::all_fixture_sources_annotations_and_chunk_coverage ... ok
+test whisper_engine::system_monitor::tests::test_system_monitor_creation ... ok
+test whisper_engine::whisper_engine::tests::cancelling_a_stalled_download_waits_for_cleanup_before_retry_can_start ... ok
+test whisper_engine::whisper_engine::tests::cancelling_an_unresponsive_download_keeps_ownership_reserved ... ok
+test whisper_engine::whisper_engine::tests::discover_models_keeps_active_downloads_downloading_before_a_file_exists ... ok
+test whisper_engine::system_monitor::tests::test_safe_worker_count ... ok
+test whisper_engine::whisper_engine::tests::discover_models_uses_disk_state_after_a_download_is_no_longer_active ... ok
+test whisper_engine::whisper_engine::tests::duplicate_download_reservation_is_rejected_while_the_first_owner_is_active ... ok
+test whisper_engine::whisper_engine::tests::downloaded_model_sends_user_agent_and_rejects_undersized_valid_header ... ok
+test whisper_engine::whisper_engine::tests::finish_download_rejects_invalid_header_and_cleans_file ... ok
+test whisper_engine::whisper_engine::tests::finish_download_publishes_available_after_releasing_active_owner ... ok
+test whisper_engine::whisper_engine::tests::late_cancellation_preserves_a_completed_model_state ... ok
+test whisper_engine::whisper_engine::tests::incomplete_response_cleans_partial_file_and_cache ... ok
+test whisper_engine::whisper_engine::tests::unsupported_download_does_not_leave_an_active_transfer ... ok
+test whisper_engine::whisper_engine::tests::terminal_download_error_releases_the_active_transfer ... ok
+test audio::vad::tests::live_vad_terminal_padding_cannot_publish_past_the_real_endpoint ... ok
+test whisper_engine::whisper_engine::tests::cancelled_finalization_holds_active_ownership_before_discovery ... ok
+test audio::vad::tests::test_vad_large_file_progress ... ok
+test audio::vad::tests::live_vad_natural_endings_do_not_replay_emitted_prefixes ... ok
+test audio::vad::tests::test_vad_400ms_vs_2000ms_segmentation ... ok
+test audio::vad::tests::test_vad_chunked_vs_single_processing ... ok
+test audio::incremental_saver::tests::test_checkpoint_creation ... ok
+test audio::echo_cancellation::tests::echo_cancellation_reduces_delayed_room_echo_and_preserves_double_talk ... ok
+
+test result: ok. 320 passed; 0 failed; 8 ignored; 0 measured; 1 filtered out; finished in 12.14s
+

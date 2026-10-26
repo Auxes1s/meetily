@@ -10,6 +10,14 @@ import { listen, UnlistenFn } from '@tauri-apps/api/event';
 import { TranscriptUpdate, Transcript } from '@/types';
 
 export interface TranscriptionStatus {
+  meeting_id?: string;
+  recording_session_id?: string;
+  pending_audio_seconds?: number;
+  in_memory_audio_bytes?: number;
+  retained_audio_bytes?: number;
+  drained?: boolean;
+  storage_error?: string | null;
+  continuity_repairs?: number;
   chunks_in_queue: number;
   is_processing: boolean;
   last_activity_ms: number;
@@ -31,6 +39,7 @@ export interface ModelDownloadCompletePayload {
  * Singleton service for managing transcription operations and transcript history
  */
 export class TranscriptService {
+  private statusRequest: Promise<TranscriptionStatus> | null = null;
   /**
    * Get transcript history from backend (for reload sync)
    * @returns Promise<Transcript[]>
@@ -43,8 +52,10 @@ export class TranscriptService {
    * Get current transcription queue status
    * @returns Promise with transcription status
    */
-  async getTranscriptionStatus(): Promise<TranscriptionStatus> {
-    return invoke<TranscriptionStatus>('get_transcription_status');
+  getTranscriptionStatus(): Promise<TranscriptionStatus> {
+    this.statusRequest ??= invoke<TranscriptionStatus>('get_transcription_status')
+      .finally(() => { this.statusRequest = null; });
+    return this.statusRequest;
   }
 
   // Event Listeners

@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-15",
+  "frontend": {
+    "tests_passed": 166,
+    "tests_failed": 0,
+    "assertions": 641,
+    "new_regression_tests": 38,
+    "production_build_exit": 0,
+    "standalone_typescript_exit": 0,
+    "standalone_onboarding_exit": 0,
+    "eslint": "prior setup prompt remains unresolved"
+  },
+  "native": {
+    "ok": true,
+    "engine": "macOS arm64 WKWebView",
+    "layout_cases": 91,
+    "design_cases": 34,
+    "interaction_scenarios": [
+      {
+        "drawer_toggles": 100,
+        "editor_identity": true,
+        "native_resizes": 20,
+        "scenario": "toggle-resize-storm",
+        "sidebar_toggles": 100
+      },
+      {
+        "attempted_clicks": 240,
+        "editor_identity": true,
+        "original_restored": true,
+        "scenario": "rapid-document-tabs"
+      },
+      {
+        "attempted_clicks": 50,
+        "edit_retained": true,
+        "injected_failure_caught": true,
+        "native_save_requests_while_held": 1,
+        "retry_persisted": true,
+        "scenario": "delayed-save-tab-switch"
+      },
+      {
+        "attempted_saves": 75,
+        "busy_escape_blocked": true,
+        "export_file_written": false,
+        "idle_escape_and_outside_dismiss": true,
+        "mocked_export_requests": 1,
+        "native_file_dialog": false,
+        "scenario": "export-option-race-save-spam",
+        "stale_options_ignored": true
+      },
+      {
+        "attempted_clicks": 100,
+        "disposable_profile_only": true,
+        "native_draft_requests": 1,
+        "scenario": "new-draft-spam"
+      },
+      {
+        "busy_cancel_blocked": true,
+        "cancellation_recovered": true,
+        "controls_locked": true,
+        "native_requests": 1,
+        "save_persisted": true,
+        "scenario": "metadata-submit-storm",
+        "submit_events": 100
+      },
+      {
+        "controls_reachable": true,
+        "escape_dismissed": true,
+        "meeting_preserved": true,
+        "scenario": "narrow-delete-dismiss"
+      },
+      {
+        "focus_reachable": true,
+        "horizontal_overflow": false,
+        "native_arrow_keyboard": true,
+        "repeated_tab_clicks": 100,
+        "scenario": "settings-click-keyboard-resize"
+      }
+    ],
+    "unhandled_runtime_errors": [],
+    "continuous_resize_steps": 122,
+    "snapshots": 46,
+    "icon_only_audio_channels": true,
+    "native_recording_lifecycle_calls": 0,
+    "export_file_dialogs": 0,
+    "export_files_written": 0,
+    "production_profile_touched": false
+  },
+  "bundle": {
+    "app": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app",
+    "identifier": "com.meetily.ai",
+    "version": "0.4.1",
+    "binary_sha256": "53408f31f259865b26794cbaf34ad7a550f51a5fc908ceedcb10f4f4e113a60a",
+    "binary_format": "/Users/marcignacio/GitHub/meetily/target/release/bundle/macos/Meetily Notepad.app/Contents/MacOS/meetily: Mach-O 64-bit executable arm64",
+    "release_build_exit": 0,
+    "strict_deep_codesign_exit": 0,
+    "signature": "local ad hoc",
+    "notarized": false,
+    "installed_app_replaced": false,
+    "production_app_launched": false
+  },
+  "preservation": {
+    "baseline": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-interaction-stress-20261015-axuwysaz",
+    "baseline_files": 964,
+    "unchanged_files": 944,
+    "intentionally_changed_files": [
+      "docs/audio-sources.md",
+      "docs/plans/ui-design-upgrade.md",
+      "frontend/src-tauri/smoke/responsive.js",
+      "frontend/src/components/AudioSourceBadge.tsx",
+      "frontend/src/components/MeetingLibrary/MeetingLibrary.tsx",
+      "frontend/src/components/MeetingLibrary/MeetingMetadataEditor.tsx",
+      "frontend/src/components/MeetingWorkspace/CustomEnhancementTemplate.tsx",
+      "frontend/src/components/MeetingWorkspace/MeetingDocuments.tsx",
+      "frontend/src/components/MeetingWorkspace/MeetingExportButton.tsx",
+      "frontend/src/components/MeetingWorkspace/MeetingNotesPanel.tsx",
+      "frontend/src/components/MeetingWorkspace/MeetingWorkspace.tsx",
+      "frontend/tests/hooks/meeting-export.test.tsx",
+      "frontend/tests/lib/transcript-audio-source.test.tsx",
+      "frontend/src/components/ImportAudio/ImportAudioDialog.tsx",
+      "frontend/src/components/PreferenceSettings.tsx",
+      "frontend/src/components/RecordingControls.tsx",
+      "frontend/src/components/RecordingSettings.tsx",
+      "frontend/src/components/Sidebar/index.tsx",
+      "frontend/src/components/VirtualizedTranscriptView.tsx",
+      "frontend/src/hooks/useImportAudio.ts"
+    ],
+    "missing_files": [],
+    "whitespace_diagnostics": [],
+    "protected_native_and_dependency_files": 180,
+    "protected_files_unchanged": true,
+    "production_profile_opened_by_test": false,
+    "installed_app_replaced": false,
+    "final_recheck": true
+  },
+  "verified_source_drift": [],
+  "separate_acceptance": [
+    "Windows native rendering and behavior",
+    "Physical audio capture during resizing",
+    "Long recording sessions",
+    "Human aesthetic acceptance"
+  ]
+}

@@ -1,0 +1,456 @@
+{
+  "baseline_file_count": 903,
+  "unchanged_incoming_file_count": 814,
+  "changed_incoming_files": [
+    {
+      "path": "docs/plans/meeting-experience-upgrade.md",
+      "before": "ec483d3925e36aae252558b884f9161785994b690ada6a97501eead357f3149e",
+      "after": "cf7f99e1fee71988e3b681cbefc7974a1f341c4ebf27c0a013c4148321997bfe"
+    },
+    {
+      "path": "frontend/src-tauri/smoke/responsive.js",
+      "before": "6acc3807a49b16e0747d90a009426f5dbf41cb34d86088615db42c81212639ee",
+      "after": "021e6aa133f4e9bdc3ea9a18568f7081d95af65d79bbd276f8bd5399ed55f848"
+    },
+    {
+      "path": "frontend/src/components/AudioSourceBadge.tsx",
+      "before": "20a7dcfd0df935630cbaa5ed2fb79fb25ef1507119f124997c9ffda84621d76f",
+      "after": "a5ccb739e35dfe3135e481b12c5e30732ecddcc082e99ec4f2689ab4a8b6eff8"
+    },
+    {
+      "path": "frontend/src/components/MeetingLibrary/MeetingLibrary.tsx",
+      "before": "6113f2dc856d44e0edf5c867827ae0e9f677ba23d4fcb1ef0951c6651768197e",
+      "after": "a17a68d76ca3187cb4180159f40b8a08b4124b41d3068466b2cf8143ed323f53"
+    },
+    {
+      "path": "frontend/src/components/MeetingLibrary/MeetingMetadataEditor.tsx",
+      "before": "37462f0f438e00995f74de938ebccb8a7a5c348854fd25a5343e447cf3e9ceb6",
+      "after": "7c6d855bafeca2917bf85006b2e77dcd06d0102bb91de19639bc6ad3bf48774a"
+    },
+    {
+      "path": "frontend/src/components/MeetingWorkspace/ClaimSourcePanel.tsx",
+      "before": "2b77b013e4cebcdc5d76306336f77f15db86d686bbf21655d81f4e9ffba90786",
+      "after": "8820f1b57e94ba887b1a20e29a891e82d970148fc496695f5358f53b1539015b"
+    },
+    {
+      "path": "frontend/src/components/MeetingWorkspace/CustomEnhancementTemplate.tsx",
+      "before": "6f1cab4315709036270d5c8c27e213cac32656827a75beb8beebf0a64ce71743",
+      "after": "27bc5dca938e3465576fdf8edff16dc1d2494b438df20a8e20711cc54f5a64f7"
+    },
+    {
+      "path": "frontend/src/components/MeetingWorkspace/EnhancementPanel.tsx",
+      "before": "7b8137438860af9e800efa9d8425b4ce5f0cfc6bc05817e2a3f8b98c0d66abc9",
+      "after": "b863132697b2f37a97a8209b6c9116ed05466d1216fbe6023bf8e5c7f5dad34f"
+    },
+    {
+      "path": "frontend/src/components/MeetingWorkspace/MeetingDocuments.tsx",
+      "before": "dc24b10ccfe02204bc398c3a55e50682bf61dfc565cc7c55df52204088dea2b8",
+      "after": "618c3fe7072ce4b2b74b6d0db9c24dcf121594eafac521da4c89c4386981568f"
+    },
+    {
+      "path": "frontend/src/components/MeetingWorkspace/MeetingExportButton.tsx",
+      "before": "347b0b98d513d6a7e6479027017d41c2420ccf68c7fbfd0f4ca6df1447ae358e",
+      "after": "7ea13a49a4592e6aead5d2378faa33209a1bb8271ddcffccc96c49d7d53dac58"
+    },
+    {
+      "path": "frontend/src/components/MeetingWorkspace/MeetingNotesPanel.tsx",
+      "before": "4a7d395676ec648b3e4a6e96b49c5ae76695099edc55d4b0cdb1824a4b645893",
+      "after": "d385d8381f057f6ba6d35dbbfaab4bfe3b6b23845714c889f2ba996f33bc772f"
+    },
+    {
+      "path": "frontend/src/components/MeetingWorkspace/MeetingWorkspace.tsx",
+      "before": "75fa57d8f8e1b2972a2383db64fbc328e5125272cb7191589932b8460e89823a",
+      "after": "70521c03854cc0f2e2d512d581f89fc2aec48936022a4cf77c048cc154085e63"
+    },
+    {
+      "path": "frontend/src/components/MeetingWorkspace/TranscriptSourceJump.tsx",
+      "before": "9fc97cc9d0c338a5cf0d798992b8fd4a87be565ae41b668dc24004029348d27f",
+      "after": "8e410c50d17843f02bb2d7fb439d24111879b4596073f14d6f3cc247a2a76918"
+    },
+    {
+      "path": "frontend/src/app/_components/SettingsModal.tsx",
+      "before": "8a3b9bcafd74719387356646d63d809a2c67e9dc98927f42fade445acdc34950",
+      "after": "2f4b7931fc3628a40618ebb6a43326befb40199a19e548a232d80fdedf76b170"
+    },
+    {
+      "path": "frontend/src/app/_components/StatusOverlays.tsx",
+      "before": "becf3b2a93c9e0e4fca2730d068781c291e1f20c9bfc20baf0956bb004fa54d1",
+      "after": "0e2754787ecaa9d8d7012cf6177c2985c04efc291606a7af6cc375a274451442"
+    },
+    {
+      "path": "frontend/src/app/_components/TranscriptPanel.tsx",
+      "before": "834fbf4be7eb8f78cbb5fe768b47f3017606034927301bf36cb8078684f42067",
+      "after": "07c2037020a446e3e6906216e595c09e9847de8458660fbc1b0575a9fdc5209f"
+    },
+    {
+      "path": "frontend/src/app/globals.css",
+      "before": "f56c5c4be0492b66aae4dfb001c5343ec9693ca48b0d9889c1e5118fdf5d3a39",
+      "after": "eeb09cce8b95e0536e0393ff6dbf4a268d951572443c71da6f012aa275ecddd8"
+    },
+    {
+      "path": "frontend/src/app/layout.tsx",
+      "before": "cfbb3678e50356409e793842481674405129670573a7feb0d683714704003f39",
+      "after": "525762a4dbac3f26dd1589007b8133598a2cf74339df48cfbb1944def93c54eb"
+    },
+    {
+      "path": "frontend/src/app/meeting-details/page-content.tsx",
+      "before": "edf55f35fc3453821048df6b5c9adc62f3e4c0d14380080e6dec68118cfb5630",
+      "after": "eea2e8c39ccf0c4c3f5b554f4a04784c880f5883289b71977dafab5e9a271f23"
+    },
+    {
+      "path": "frontend/src/app/meeting-details/page.tsx",
+      "before": "7df03a802c1dce6a4d94fd3a0db2c3b057ea36906a1bf873a436e92924ce3e52",
+      "after": "8bf59e8c8d7290188b744e354d7d53d2cbc6250b0a3d6e317f7936778ad3710f"
+    },
+    {
+      "path": "frontend/src/app/notes/[id]/page.tsx",
+      "before": "6cc1813b9b26ef55afa632deb146528c43710449a46435fe7f2aebdf1c213754",
+      "after": "1382b00d4a147f4a9a428d93909b0960e105b3e280577761b7308a633e631c55"
+    },
+    {
+      "path": "frontend/src/app/page.tsx",
+      "before": "bff67be61aacf0bb6dde9e97487835e2b9a487907b6a718d3047d074969209a1",
+      "after": "d6fc4f7f4c69c9c98a0a1610849705005a2f186293aafe83bfaebb7276c2525e"
+    },
+    {
+      "path": "frontend/src/app/settings/page.tsx",
+      "before": "b9a524a2925686ee074b7bde122b50e023edf0fd68be0bb17d87e5d143e4f895",
+      "after": "b64690af76682f9df79b80c81d53030286dbc317b40a8e7de9605b78f46498ea"
+    },
+    {
+      "path": "frontend/src/components/AISummary/Block.tsx",
+      "before": "96bd3ef5ac83849eb004080ec3a0f0f7f4d3800a5b263db2d3b11158f838fe46",
+      "after": "1b54b428177ce6f01ef1aa7681e1dee5c91bf78a14272f2c762e4782ed797727"
+    },
+    {
+      "path": "frontend/src/components/AISummary/BlockNoteSummaryView.tsx",
+      "before": "38bb080ed54cbdb77f900bbbc84b10312ac1a4029267889990b84e3757367b32",
+      "after": "3060fd870bef883a366662645036cd5f0d696220c76a5542aec163e52675f988"
+    },
+    {
+      "path": "frontend/src/components/AISummary/index.tsx",
+      "before": "8df535b0b107df0cd2175d9fd32738167742cbad33e362875bd4bd8a9f2c13da",
+      "after": "9a82f68a584f3a5bd46c13afafea319b63de0991c0b83a946058ce3a92f5753c"
+    },
+    {
+      "path": "frontend/src/components/About.tsx",
+      "before": "394a3ec6e94861ed62a1136d5eb6a794e2edf21abd625af12aaa9a7b58899d2f",
+      "after": "e87f7b73708fbab03e11264e2c22ada62f94012cee0ddb7a24b91a05d134a50b"
+    },
+    {
+      "path": "frontend/src/components/AnalyticsConsentSwitch.tsx",
+      "before": "ddc544ddc4b71a422d4d93c0af82c94a4ad2659052d86166764c92cb78cb1265",
+      "after": "8f7fc03388507492a8930b644147266638f997c923bd0be6ff1b2ed3b8c8e91a"
+    },
+    {
+      "path": "frontend/src/components/AnalyticsDataModal.tsx",
+      "before": "92140bec2583637e9fb01e108f7101ee3274378befc714410539ee9095c23d19",
+      "after": "5110c9121813b05e3fa9db620ba9cef07bda88c44300e93be339ce3a7e894b98"
+    },
+    {
+      "path": "frontend/src/components/AudioBackendSelector.tsx",
+      "before": "a4543f7b397e90bfb84d97108a74e454bc9ad73258f9233fb3f7b1185848de45",
+      "after": "d9819df45f3d478a466d8c6061a5c3076ecbf456256db43e0c7b1e77f89ce397"
+    },
+    {
+      "path": "frontend/src/components/AudioLevelMeter.tsx",
+      "before": "6aa113d226349a5094b3950ab8c7814d00da63743f24f3a71b6c2898d3b5700b",
+      "after": "df1f5c38844398b82b4673870a3530b02dbfb89e2ca2f6ada875b8644bfa42b6"
+    },
+    {
+      "path": "frontend/src/components/BetaSettings.tsx",
+      "before": "1be66eafe38ed59f8f7e116685b1d15c763b87d2000768ed7e8552fd2ddaf7e1",
+      "after": "316eb922afc879fd7e176dbc2b88a0a925ede697ea47f47e5c366742b2875150"
+    },
+    {
+      "path": "frontend/src/components/BlockNoteEditor/Editor.tsx",
+      "before": "5cc0eb6b5de00ebfad9b0ecebacd5cbfb8e39593293bc63ebb931b031ed15d89",
+      "after": "d157f0a6135f1c61d979f3a9d3df87cd93588f2b0cdd6173ced7e611e3796371"
+    },
+    {
+      "path": "frontend/src/components/BuiltInModelManager.tsx",
+      "before": "da9b9358ea228d029dd17cb5a36d220e8f305ca00f2d6a05d356dc7c3fdd8ec3",
+      "after": "1a48650ebdf4dbf63b4a040023411a383bf72f9317c17b5f7a30107b2fe9c735"
+    },
+    {
+      "path": "frontend/src/components/ChunkProgressDisplay.tsx",
+      "before": "6528c5c535339387c778164baf461cd6295238233259cbdd703cbc6a307caca5",
+      "after": "2a7b5de7e4cf39a4bca612a3af4acc9138046366b12c507cce40f30f91a950af"
+    },
+    {
+      "path": "frontend/src/components/ComplianceNotification.tsx",
+      "before": "cff87268aa040012b011f17ef5c80806294ba906553dceff396075fb4f2e0807",
+      "after": "e0dd504d78d3ad73eb31e6eacd4115870cb246ac739c528074ad5636f2d40f7c"
+    },
+    {
+      "path": "frontend/src/components/ConfirmationModel/confirmation-modal.tsx",
+      "before": "82f4580390f678e29ab3280e1e22519a20a6e584c033004d970e934cf973665f",
+      "after": "8d82f9219c56d43433e04ed6925e2d79725bbc4539ce1bcfff44c64c52b52141"
+    },
+    {
+      "path": "frontend/src/components/DatabaseImport/HomebrewDatabaseDetector.tsx",
+      "before": "f65efb4ea6f8e008fa534954bc8db194cfb010b7955c06a7c81f5bf50b0aa28e",
+      "after": "b48ad4d52e8d757a0d21b7f13fd6c458d8a82932b149cffb0c73db07b09b31c6"
+    },
+    {
+      "path": "frontend/src/components/DatabaseImport/LegacyDatabaseImport.tsx",
+      "before": "daa856e03a3f6ff4efd54ee9cdc984b3e00e0f729d4c4ae0c7da9252791314d5",
+      "after": "50d87af32420238cfe7db157f7bc89c805d164de46ea2f87743a86fe51d4c97a"
+    },
+    {
+      "path": "frontend/src/components/DeviceSelection.tsx",
+      "before": "4d766008b20f5f6cf94cd3791ae0b6f7e56c8870bfc1e4b7f1b46222b6e9df06",
+      "after": "d43b8ff89d9f6cab40ff2dc170c715d091c15694735be513d6c521c1160a6824"
+    },
+    {
+      "path": "frontend/src/components/EditableTitle.tsx",
+      "before": "b5cba9a0b7398cfd84542244f9a0ae99d768a4bbc9005f8a44b7eb7e7d4f6852",
+      "after": "bd3e73080289106e9e0f7f3317eab93d54d305114a304204810d8cb8d3955620"
+    },
+    {
+      "path": "frontend/src/components/EmptyStateSummary.tsx",
+      "before": "d3ad6d0297d0a89702a0a3050e4b94f4e9d844a9d7521eb0aec0c18201874449",
+      "after": "6e92a06812687478e8941aff60f4db7725a9ec922e4082e6b31cc4d4a6e9d216"
+    },
+    {
+      "path": "frontend/src/components/ImportAudio/ImportAudioDialog.tsx",
+      "before": "af207c5b519bfecb2b703f028f522142060ab9315f318625bd5b6a7e3eeaeaff",
+      "after": "b0de6decb522d25e5572606b685e0011a3696b637e4a2b76b7348f214f656250"
+    },
+    {
+      "path": "frontend/src/components/ImportAudio/ImportDropOverlay.tsx",
+      "before": "d0eed1353812aac42673130d3f7fc1bb055968c7fb1ab56f481e0e3113de4490",
+      "after": "522f02103e685174d1097bb23473e86ac4bda60add74899f2f5bc421482209a5"
+    },
+    {
+      "path": "frontend/src/components/Info.tsx",
+      "before": "fda8d90327a651251c1d8b08d2ba0c423c00510334625e7c3ddb0857b5a5b7cc",
+      "after": "d59f8d463cdb87ac4c68e16b1691df66ec9d3a5980bb9594a3554673874e3fed"
+    },
+    {
+      "path": "frontend/src/components/LanguagePickerPopover.tsx",
+      "before": "8edd35f2439ff326666530a1aa02aa512727af591357844ec1b48060bba7a288",
+      "after": "7834566b40c2c935eedde860a66b9a41e1f21b5310469323a7409ac996b25aa3"
+    },
+    {
+      "path": "frontend/src/components/LanguageSelection.tsx",
+      "before": "4805041d6d066acfca8eb0870097b95b8c7d6f01bf8b031d1110548b60758fb2",
+      "after": "483ceae8c0ef1e888d99fc656783a88d9ba0712eb76711ed5de7bc5631f1f256"
+    },
+    {
+      "path": "frontend/src/components/Logo.tsx",
+      "before": "fbe41876a756a57a1f2e6ad2cca0de5445a1f0fc14bcc4f2450ad804b76ad214",
+      "after": "9117decac9261e66cedfdd868fa119c35fe4e5f19561a0ad27bfcb9964bc8163"
+    },
+    {
+      "path": "frontend/src/components/MainContent/index.tsx",
+      "before": "86f64243927ba6ae87f36dbed4a751abaf30f45d491374b09dc299d50178a8cf",
+      "after": "1ffee57ae60a40008d64940dffa9b3864c75de57631b644ab2e673d3a6fd33e5"
+    },
+    {
+      "path": "frontend/src/components/MeetingDetails/MeetingDetailsSplitView.tsx",
+      "before": "b803ad977b61c1b371a518e2f07012ab7ed5928c169cdcd03d70e22d4ef05757",
+      "after": "3e443be31d66a315753bd5c0821b73a54c023c881bc946aa50089c523aebd529"
+    },
+    {
+      "path": "frontend/src/components/MeetingDetails/RetranscribeDialog.tsx",
+      "before": "e1b548ba82a2a49084534bad19422c6bbb88c53246cab472981b061acb611330",
+      "after": "4ba40d0abdc26fb3214de8f778eacb781fe79521f7d560c9d170f519de2c6811"
+    },
+    {
+      "path": "frontend/src/components/MeetingDetails/SummaryPanel.tsx",
+      "before": "4a6fbb5b9574b6c7ea082836b8c163497b2a0299e59d914afab873ee46c8c817",
+      "after": "1b19536ec2b7c1f33fc1da81ce377e340ec5bbe8119f6f155211af599d04f450"
+    },
+    {
+      "path": "frontend/src/components/MeetingDetails/TranscriptButtonGroup.tsx",
+      "before": "056887ff36615d3d2372d045198484f711d2e2ce496e48bf9d03c2de1eb0067c",
+      "after": "e75476f9223328865cf4c89f28a8bd247dbe12ee3e8196ededa24869db2d5679"
+    },
+    {
+      "path": "frontend/src/components/MeetingDetails/TranscriptPanel.tsx",
+      "before": "d28d36bf584e1b15cf08a818ed244978acfd65218a18fedd3e20dc0b27af5e06",
+      "after": "8bb5da37159fe9ef1e6a154438b4e408b73070b6a02ae4ef6141189b39f6a18e"
+    },
+    {
+      "path": "frontend/src/components/ModelDownloadProgress.tsx",
+      "before": "a793ddf4095f214a76c83b6d0c52aa0f852e9e2183b0e7b62a38d04130442924",
+      "after": "465bd1288beeab18161beeaaa6ba60efc7d67c397071cc34a61f4429d6174366"
+    },
+    {
+      "path": "frontend/src/components/ModelSettingsModal.tsx",
+      "before": "ab31dc9df18380c3cc82794cb5e0461d5649bd6ce8ac6e4351bdcd35a5ce6fe9",
+      "after": "60ec80a917a599cf24fd214e10c93597552679b049d5838a81048920c684c630"
+    },
+    {
+      "path": "frontend/src/components/ParakeetModelManager.tsx",
+      "before": "499ba5aa6b9175f11f35a20bc250718cdf2dc5e8ad17f0c727b551896e5a4688",
+      "after": "ee9c0d0312f2fda06cf41a9787c01a8025c2d8f0b97bdea54a10358c753b9f4f"
+    },
+    {
+      "path": "frontend/src/components/PermissionWarning.tsx",
+      "before": "6aae453dc1aaa86ae5bd0af0e7157dfeb0438ba967de6b7c258323b051ba334c",
+      "after": "a34f02c07f14db13c071e934bdba50168d56a944d896bb2958c0b31e89da4300"
+    },
+    {
+      "path": "frontend/src/components/PreferenceSettings.tsx",
+      "before": "50f0037473d61680201ec884384cf7d9c725038a782b841f0c4f0c7c2c8e78c4",
+      "after": "0842f4eba072631768c1f014ede66c4d942bbe86f0029ec7fe3b7d43cbc9ac7a"
+    },
+    {
+      "path": "frontend/src/components/RecordingControls.tsx",
+      "before": "35245e209a9a7eec39b97b00c535fb00c0a465b50b565d5be5b946216b906ca1",
+      "after": "87af862e242df47bb891323b53a2eb6c7c6a802b35e73b5c644a3084c5ba68f5"
+    },
+    {
+      "path": "frontend/src/components/RecordingSettings.tsx",
+      "before": "7e8462fdec890ba180b8b98c2564bfe282e69ef89a11e81a5f68168c8ba3d7f8",
+      "after": "b7ec8bafc007e5e83f6813093e97a4dd20e3f87c50cac9a0edf0b5cb5d4ddf27"
+    },
+    {
+      "path": "frontend/src/components/RecordingStatusBar.tsx",
+      "before": "08d36af70627baa4e6993178c5b606668cacce9c586e0003514e39f80621687b",
+      "after": "97ea95ff8fa4956203b4474880a07a067fb80e1b514defa6ac63d2c9c97e315f"
+    },
+    {
+      "path": "frontend/src/components/Sidebar/index.tsx",
+      "before": "c2b1b45e3d78760046d9ccfd8fbe651cdfd1158e1db6925078df486395deface",
+      "after": "fa3637950100605d0933098f7b39ae165827eb7cd1dcb5bf52f79ace9536ffce"
+    },
+    {
+      "path": "frontend/src/components/SummaryLanguageSettings.tsx",
+      "before": "a166585f5bf0d313be9211bdf1c5ef526f384f2d6a560d220d9474798cb6f2ff",
+      "after": "a7aba1126243f0ad1dfc9e2eb0fd5f02de2e9b2c345a910f6ff34dbba33d3708"
+    },
+    {
+      "path": "frontend/src/components/SummaryModelSettings.tsx",
+      "before": "9a249d6761fc91eef13e7634d2a06f4c09979013fc52cdd3c4bfe27daca3f929",
+      "after": "f0623e442c8ec271d20076ab2b6d55551077396cad105ecc5e35011de27dfe86"
+    },
+    {
+      "path": "frontend/src/components/TranscriptSettings.tsx",
+      "before": "63a1f7d3ce0aaf610128caa135ed90f110a51c38f380f833dbbfdfa0e7e564b3",
+      "after": "de56b6a993d4afea07314d1092ec1bad9449b1ca1e64c066aa63f867281318ca"
+    },
+    {
+      "path": "frontend/src/components/TranscriptView.tsx",
+      "before": "8ec736dba6ca289bee80838b2be3c6cc1298be8b401606e293225eaa1b28af85",
+      "after": "d2089c7c62c87c2a1eaade16c804d30488568ce47993c527fb3cf0f64b58ca37"
+    },
+    {
+      "path": "frontend/src/components/UpdateDialog.tsx",
+      "before": "a2566ccf6c7f3c040c11d784ed0c4fa07a5739f973ffb14412ed94b5828a73cc",
+      "after": "af009ac839d682bc2ffd97b3c8c05ed1e0900d93597fe67197febe8ed9ccc1ac"
+    },
+    {
+      "path": "frontend/src/components/UpdateNotification.tsx",
+      "before": "09b7140bee8e01d8fa0cd85f0eb62da0e54de1951e8ecd8bf35b02af7d95c5ad",
+      "after": "a74c0660a81953fb4e6776b00d0f10e2b5ffa0cbc4b177ef6a03bffce30907fd"
+    },
+    {
+      "path": "frontend/src/components/VirtualizedTranscriptView.tsx",
+      "before": "212fb4de8b4df2c8b3fb5b8ffcbffc5ac2b987ed39fe397301cc487ed94eb3da",
+      "after": "d6c07ebcb1ef527ecfc67755fe5f62a1571f806bd2317f6d45a4ef22c3dedb34"
+    },
+    {
+      "path": "frontend/src/components/WhisperModelManager.tsx",
+      "before": "8e068329014e5c230c22818cd9c9c215386ee20326ce013fb6a9286022a03d8c",
+      "after": "eec907631458f622faa6baaaa074ecea0df07f084256d165298aca5dc30002fd"
+    },
+    {
+      "path": "frontend/src/components/onboarding/OnboardingContainer.tsx",
+      "before": "b5ad5c74853e0a013bad64f0d3d49970382df6f5cae25b368ffd1b7fe97076c9",
+      "after": "f161720130c78c6f670e4160d9c4838879049fba390f1e290b622eec168cf3ad"
+    },
+    {
+      "path": "frontend/src/components/onboarding/shared/PermissionRow.tsx",
+      "before": "e1c11366da68c21e000fd810e267cd9100794d217562a81f8fd9ab78f946e1d9",
+      "after": "120fcca61d7389e6077c101168c7039b25f96d161c810cfd084c49db80b407f5"
+    },
+    {
+      "path": "frontend/src/components/onboarding/shared/ProgressIndicator.tsx",
+      "before": "d89ea2176601968e52439c3372eca78c03e1e42afd5babe84c7ff75fe73af5a9",
+      "after": "80d6354a01f512219508a77a021fead84942a0415660d5d2e73ddf455eed177c"
+    },
+    {
+      "path": "frontend/src/components/onboarding/shared/StatusIndicator.tsx",
+      "before": "dbd4668be21783b123fcf63babf66022ff7ff204c176cb4809f285b15900e490",
+      "after": "7acb6b3f7e4d8b0c85b444381ac82fd488c18ae5f1f21e2d6c7f83e4b205be8b"
+    },
+    {
+      "path": "frontend/src/components/onboarding/steps/DownloadProgressStep.tsx",
+      "before": "21b1d6d27789734a88b08f69ad5daa91c914d94173d976e57552bbad2b8c6515",
+      "after": "8b81f0f690597a67eca8385e4355a3ce1589de6f7da8071a61f01613f0b242c5"
+    },
+    {
+      "path": "frontend/src/components/onboarding/steps/PermissionsStep.tsx",
+      "before": "6fb59aaecafe7e6980407f1f7ec166a88f35332b0d5befc7a600189c5c8e5471",
+      "after": "e02be253d4b7dbc4e6c4fde77ef608b6cfb9ae42848949eef3ec7c3a84932a39"
+    },
+    {
+      "path": "frontend/src/components/onboarding/steps/SetupOverviewStep.tsx",
+      "before": "9e01c5a051cd2761eaf36afd3386da796218ff2b40e3b3dcb9af6f36d26fdc62",
+      "after": "24916a2eea9e5d3c63f14b76ee394071227ed0943b3b8d325c0ffbf86d8f12dd"
+    },
+    {
+      "path": "frontend/src/components/onboarding/steps/WelcomeStep.tsx",
+      "before": "ed40cb70053359d02f76f680a8b678f8ef4ad5c6ccf53b6b2f9852bd539a12a4",
+      "after": "1b8eb2333105997de3898dedc48aa4bb820b3eba355591765a9b0c0d6a148bf1"
+    },
+    {
+      "path": "frontend/src/components/shared/DownloadProgressToast.tsx",
+      "before": "054dc635199534fa9e59d79351aa264543ac4bc953a56f96ea0c419b07423bc8",
+      "after": "33df44bf77e5b73559376bb0ff18c371e88cd141b35e31962a76343635c86039"
+    },
+    {
+      "path": "frontend/src/components/ui/button.tsx",
+      "before": "bff289bcbb26b69908979bb84864e507aa570dba8430a6c4e47f3d273d4b0186",
+      "after": "65e7233274f0e3fdbaeff13d2cb35d93bd1061e056130655c86cc6fc8b2a091f"
+    },
+    {
+      "path": "frontend/src/components/ui/dialog.tsx",
+      "before": "cd700135f842439fff1d070dab2bba171453b914c0642ed662419b5757d51f84",
+      "after": "2a26054766ca654216c7988a926706ffa5342c2c25182f76827401acee03831c"
+    },
+    {
+      "path": "frontend/src/components/ui/dropdown-menu.tsx",
+      "before": "dc109123ecd59af01d07aa9f3a8e8a7085bd3f337388c5369799ab1ce6c2d45f",
+      "after": "d81b19719b8c85099f8f6392f5004cc8fb39c1e5bd9a28338e61d3ebd8d7b841"
+    },
+    {
+      "path": "frontend/src/components/ui/input.tsx",
+      "before": "6299a6a387dc55e528aec4342deaea0b83f1ea3a365c135a31a18ee55334f441",
+      "after": "84f18a3430717d69558a80fbd4aa41c2e279fbfeb5db8fe3469d79d08547dff2"
+    },
+    {
+      "path": "frontend/src/components/ui/popover.tsx",
+      "before": "69f74cdd76588a1249522ff8009e044eee6080ad8cf26cb08d7a5fc3281f0255",
+      "after": "7f2ed9d93eda0ca2d4ed388689bcf8cbea42959a27ca65aab1a518ccb69ae0d0"
+    },
+    {
+      "path": "frontend/src/components/ui/select.tsx",
+      "before": "3d93ae07a8f3fe121ba60f4439e26bd7859f247eb8bfcafcf4b4a8a069888eec",
+      "after": "0808eeb167e72f2c7b11d44618482909e501b3f5d9d3070419add983c77ca905"
+    },
+    {
+      "path": "frontend/src/components/ui/sheet.tsx",
+      "before": "363f8e06aa5b53c6475f445117f60fa9294be79e9e4f1f5bf70886800188124e",
+      "after": "fa6d3fe3bb03d8c46d7f98aec44f50e4ceb0c0924c692d9631d282f255b6b52e"
+    },
+    {
+      "path": "frontend/src/components/ui/tabs.tsx",
+      "before": "d41aded0394298102614635e15d709369c6bdae8fe79b918b8341ef39407ee03",
+      "after": "7476b018a77392e6800d8b39a3df64b33a866c5aff2d20dc5825eb140b5eb118"
+    },
+    {
+      "path": "frontend/src/components/ui/textarea.tsx",
+      "before": "ec7c92aaed80f6923a7caa4bfe4eead395b50a7001504fd7fbb0b9381804dae9",
+      "after": "f6df1e44dafc042feb74e2f27b4da672fd411627639e5f46ed0734b77b393016"
+    }
+  ],
+  "missing_incoming_files": [],
+  "unexpected_changes": [],
+  "backend_and_dependency_manifest_hashes_preserved": true,
+  "production_library_accessed": false,
+  "installed_bundles_replaced": false
+}

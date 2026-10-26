@@ -1,0 +1,82 @@
+{
+  "configured": {
+    "provider": "builtin-ai",
+    "model": "qwen3.5:4b",
+    "ollama_endpoint": null
+  },
+  "models": [
+    {
+      "provider": "builtin-ai",
+      "name": "qwen3.5:4b",
+      "file": "/Users/marcignacio/Library/Application Support/com.meetily.ai/models/summary/Qwen3.5-4B-Q4_K_M.gguf",
+      "file_sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+      "bytes": 2740937888,
+      "helper": "/Users/marcignacio/Applications/Meetily Notepad.app/Contents/MacOS/llama-helper",
+      "helper_sha256": "81b75fdcc8e0de3bdde245ba77a4bafda40d7b1e72818f3b92453112f1333041"
+    }
+  ],
+  "not_run": [
+    {
+      "provider": "ollama",
+      "outcome": "not_run",
+      "reason": "'example.invalid' does not appear to be an IPv4 or IPv6 address"
+    },
+    {
+      "provider": "builtin-ai",
+      "name": "qwen3.5:2b",
+      "outcome": "not_run",
+      "reason": "model file or helper unavailable"
+    },
+    {
+      "provider": "builtin-ai",
+      "name": "gemma3:4b",
+      "outcome": "not_run",
+      "reason": "model file or helper unavailable"
+    },
+    {
+      "provider": "builtin-ai",
+      "name": "gemma3:1b",
+      "outcome": "not_run",
+      "reason": "model file or helper unavailable"
+    }
+  ],
+  "ollama_endpoint": null,
+  "environment": {
+    "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "architecture": "arm64",
+    "python": "3.14.7",
+    "git_head": "a2cb62e827da7ef59f65064c97233efb2313878e",
+    "code_sha256": {
+      "frontend/src-tauri/src/summary/enhancement.rs": "752a9cf3251dc2399c5e88fd61431a5eb0e1cbfe4556529a0552c3585c437b08",
+      "frontend/src-tauri/src/summary/grounding.rs": "3a1e068a400ecf0cb80fec7683aaa7df5e0b76411d3f5e8f94bb25de92bb3d3c",
+      "frontend/src-tauri/src/summary/llm_client.rs": "7054f7d7d99ffb53cdcf0dcdbba353163a4c7407a67be38ac0b0723383b8913e",
+      "frontend/src-tauri/src/summary/summary_engine/models.rs": "97c8ffc1fe5ac2527605eafd3fb0e1655d292e2f996ee9916394c889f36b9102",
+      "frontend/src-tauri/src/summary/enhancement/evaluation.rs": "de0cf7ede5e37644e5f0a1116c367dcb846d9c698011228377597b4b3eb1ce09"
+    },
+    "cargo": "cargo 1.99.0 (5f94df478 2026-08-27) (Homebrew)",
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28) (Homebrew)",
+    "network": "macOS sandbox denies non-loopback outbound for evaluator process and children",
+    "os_detail": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+    "cpu": "Apple M5",
+    "ram_bytes": 25769803776,
+    "gpu": "Apple M5 integrated; built-in helper selects GPU layers dynamically"
+  },
+  "protected_before": {
+    "/Users/marcignacio/Library/Application Support/com.meetily.ai/meeting_minutes.sqlite": {
+      "sha256": "899aae5c433ecf2ac75c396da1ddeb886e47e3904837fa67a931522d40199ab1",
+      "bytes": 585728
+    },
+    "/Users/marcignacio/Library/Application Support/com.meetily.ai/meeting_minutes.sqlite-wal": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/Users/marcignacio/Applications/Meetily Notepad.app/Contents/MacOS/llama-helper": {
+      "sha256": "81b75fdcc8e0de3bdde245ba77a4bafda40d7b1e72818f3b92453112f1333041",
+      "bytes": 5183296
+    },
+    "/Users/marcignacio/Library/Application Support/com.meetily.ai/models/summary/Qwen3.5-4B-Q4_K_M.gguf": {
+      "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+      "bytes": 2740937888
+    }
+  }
+}

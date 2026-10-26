@@ -25,6 +25,7 @@ use super::models;
 pub struct SidecarManager {
     /// Child process handle
     child_process: Arc<Mutex<Option<Child>>>,
+    exchange_lock: Arc<Mutex<()>>,
 
     /// Stdin writer for sending requests
     stdin_writer: Arc<Mutex<Option<ChildStdin>>>,
@@ -92,6 +93,7 @@ impl SidecarManager {
 
         Ok(Self {
             child_process: Arc::new(Mutex::new(None)),
+            exchange_lock: Arc::new(Mutex::new(())),
             stdin_writer: Arc::new(Mutex::new(None)),
             stdout_reader: Arc::new(Mutex::new(None)),
             last_activity: Arc::new(RwLock::new(Instant::now())),
@@ -350,6 +352,7 @@ impl SidecarManager {
 
     /// Send a request to the sidecar and wait for response
     pub async fn send_request(&self, request_json: String, timeout: Duration) -> Result<String> {
+        let _exchange = self.exchange_lock.lock().await;
         // Track active request
         let _guard = RequestGuard::new(self.active_request_count.clone());
 
@@ -377,7 +380,11 @@ impl SidecarManager {
                 self.update_activity().await;
                 Ok(response)
             }
-            Ok(Err(e)) => Err(e),
+            Ok(Err(e)) => {
+                self.is_healthy.store(false, Ordering::SeqCst);
+                let _ = self.shutdown().await;
+                Err(e)
+            },
             Err(_) => {
                 // Timeout reached - shutdown sidecar to stop generation
                 log::error!("Request timeout after {:?}, shutting down sidecar", timeout);
@@ -411,6 +418,7 @@ impl SidecarManager {
 
     /// Send ping to keep sidecar alive
     async fn send_ping(&self) -> Result<()> {
+        let Ok(_exchange) = self.exchange_lock.try_lock() else { return Ok(()); };
         let request = serde_json::json!({"type": "ping"}).to_string();
         let timeout = Duration::from_secs(5);
 
@@ -557,6 +565,7 @@ impl SidecarManager {
     fn start_health_check_loop(&self) {
         let manager = Self {
             child_process: self.child_process.clone(),
+            exchange_lock: self.exchange_lock.clone(),
             stdin_writer: self.stdin_writer.clone(),
             stdout_reader: self.stdout_reader.clone(),
             last_activity: self.last_activity.clone(),
@@ -605,6 +614,7 @@ impl SidecarManager {
     fn start_idle_check_loop(&self) {
         let manager = Self {
             child_process: self.child_process.clone(),
+            exchange_lock: self.exchange_lock.clone(),
             stdin_writer: self.stdin_writer.clone(),
             stdout_reader: self.stdout_reader.clone(),
             last_activity: self.last_activity.clone(),
@@ -666,5 +676,43 @@ impl Drop for SidecarManager {
         // Note: Actual cleanup happens in shutdown() method
         // We can't do async work in Drop, so this is best-effort
         log::debug!("SidecarManager dropped");
+    }
+}
+
+#[cfg(all(test, unix))]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn helper_exchanges_do_not_overlap_or_consume_each_others_responses() {
+        let script = r#"import sys,json,select,time
+for line in sys.stdin:
+ value=json.loads(line)
+ time.sleep(.01)
+ if select.select([sys.stdin],[],[],0)[0]:
+  print(json.dumps({'error':'overlapping helper exchange'}),flush=True)
+ else:
+  print(json.dumps(value),flush=True)
+"#;
+        let mut child=tokio::process::Command::new("python3").args(["-u","-c",script])
+            .stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap();
+        let stdin=child.stdin.take().unwrap();let stdout=child.stdout.take().unwrap();
+        let manager=Arc::new(SidecarManager {
+            child_process:Arc::new(Mutex::new(Some(child))),exchange_lock:Arc::new(Mutex::new(())),
+            stdin_writer:Arc::new(Mutex::new(Some(stdin))),stdout_reader:Arc::new(Mutex::new(Some(BufReader::new(stdout)))),
+            last_activity:Arc::new(RwLock::new(Instant::now())),is_healthy:Arc::new(AtomicBool::new(true)),
+            should_shutdown:Arc::new(AtomicBool::new(false)),active_request_count:Arc::new(AtomicUsize::new(0)),
+            helper_binary_path:PathBuf::new(),current_model_path:Arc::new(RwLock::new(None)),idle_timeout_secs:300,
+        });
+        let mut jobs=Vec::new();
+        for id in 0..12 {
+            let manager=manager.clone();jobs.push(tokio::spawn(async move {
+                let request=serde_json::json!({"request_id":id});
+                let response=manager.send_request(request.to_string(),Duration::from_secs(5)).await.unwrap();
+                assert_eq!(serde_json::from_str::<serde_json::Value>(&response).unwrap(),request);
+            }));
+        }
+        for job in jobs {job.await.unwrap();}
+        if let Some(child)=manager.child_process.lock().await.as_mut() {child.kill().await.unwrap();};
     }
 }

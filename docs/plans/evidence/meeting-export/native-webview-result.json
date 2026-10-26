@@ -1,0 +1,22 @@
+{
+  "dialog_cancel": true,
+  "isolated": true,
+  "json_saved": true,
+  "library_export_controls": true,
+  "markdown_saved": true,
+  "meeting_id": "meeting-eeee568d-cfad-45f1-b52f-3a60f157fa69",
+  "native_webview": true,
+  "ok": true,
+  "phase": "finished",
+  "transcript_count": 1207,
+  "parsed_exports_verified": true,
+  "original_json_matches_sqlite": true,
+  "hashes": {
+    "Native export smoke — 日本語.json": "f84e29c8480d3b2392b77920adb441b6cfed55cfcc151526a2eaf64c2b77de74",
+    "Native export smoke — 日本語.md": "e6bda2c2288e49397047e4acb773b4530cfb286f266f0338807be389a628fcbf"
+  },
+  "sizes": {
+    "Native export smoke — 日本語.json": 610152,
+    "Native export smoke — 日本語.md": 178154
+  }
+}

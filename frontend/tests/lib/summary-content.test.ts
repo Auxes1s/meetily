@@ -13,6 +13,8 @@ describe('summary content validation', () => {
   });
 
   test('validates BlockNote and legacy summary content', () => {
+    expect(hasVisibleSummaryContent({ markdown: null, summary_json: [{ content: [{ type: 'text', text: 'JSON survived failed conversion' }] }] })).toBe(true);
+    expect(hasVisibleSummaryContent({ markdown: '', summary_json: [{ content: [{ type: 'text', text: 'JSON is authoritative' }] }] })).toBe(true);
     expect(hasVisibleSummaryContent({ summary_json: [] })).toBe(false);
     expect(hasVisibleSummaryContent({
       summary_json: [{ content: [{ type: 'text', text: 'Visible' }] }],

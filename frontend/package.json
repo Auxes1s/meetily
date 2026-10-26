@@ -25,7 +25,8 @@
         "tauri:build:coreml": "tauri build -- --features coreml",
         "tauri:build:openblas": "tauri build -- --features openblas",
         "tauri:build:hipblas": "tauri build -- --features hipblas",
-        "lint": "next lint"
+        "lint": "next lint",
+        "test": "bun test --isolate tests"
     },
     "dependencies": {
         "@blocknote/core": "0.36.0",
@@ -88,9 +89,9 @@
     },
     "pnpm": {
         "overrides": {
-            "prosemirror-model": "1.25.3",
+            "prosemirror-model": "1.25.8",
             "prosemirror-state": "1.4.3",
-            "prosemirror-view": "1.41.3",
+            "prosemirror-view": "1.42.3",
             "prosemirror-transform": "1.10.4",
             "prosemirror-tables": "1.8.1"
         }
@@ -107,6 +108,8 @@
         "@types/react-test-renderer": "18.3.1",
         "autoprefixer": "^10.0.1",
         "concurrently": "^8.2.2",
+        "eslint": "8.57.1",
+        "eslint-config-next": "14.2.35",
         "postcss": "^8",
         "react-test-renderer": "18.3.1",
         "tailwindcss": "^3.4.1",

@@ -30,6 +30,9 @@ pub struct TemplateDetails {
 
     /// List of section titles in order
     pub sections: Vec<String>,
+
+    /// Editable definitions retain their instructions and formatting hints.
+    pub section_definitions: Vec<templates::TemplateSection>,
 }
 
 /// Lists all available templates
@@ -73,7 +76,10 @@ pub async fn api_get_template_details<R: Runtime>(
     _app: tauri::AppHandle<R>,
     template_id: String,
 ) -> Result<TemplateDetails, String> {
-    info!("api_get_template_details called for template_id: {}", template_id);
+    info!(
+        "api_get_template_details called for template_id: {}",
+        template_id
+    );
 
     let template = templates::get_template(&template_id)?;
 
@@ -88,6 +94,7 @@ pub async fn api_get_template_details<R: Runtime>(
         name: template.name,
         description: template.description,
         sections: section_titles,
+        section_definitions: template.sections,
     };
 
     info!("Retrieved template details for '{}'", details.name);
@@ -164,4 +171,13 @@ mod tests {
         let result = templates::validate_and_parse_template(invalid_json);
         assert!(result.is_err());
     }
+}
+
+/// Save a validated custom template atomically in the local user template store.
+#[tauri::command]
+pub async fn api_save_custom_template(
+    template_id: String,
+    template_json: String,
+) -> Result<templates::Template, String> {
+    templates::save_custom_template(&template_id, &template_json)
 }

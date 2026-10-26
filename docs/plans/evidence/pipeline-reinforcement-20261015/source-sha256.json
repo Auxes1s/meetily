@@ -1,0 +1,20 @@
+{
+  "frontend/src-tauri/src/audio/queue.rs": "087f5d981046f1e059a55e23aa4e309ffa8dd1154cdb42bc653a7e102449029f",
+  "frontend/src-tauri/src/audio/transcription/spool.rs": "cf88fa1c8a7449fc57f24654356f958c59958768a3a8fc3943f1c004226a3887",
+  "frontend/src-tauri/src/audio/transcription/health.rs": "b6c4390a97bb7dcc82a43f5b5365d6066341ddd79cd1cc95cc3947ce9e3d207b",
+  "frontend/src-tauri/src/audio/transcription/live_worker.rs": "b9e51d0a8fa2f10f320a13c68ff516d5fa6777478f59479c17ccb5a075041df8",
+  "frontend/src-tauri/src/audio/transcription/worker.rs": "75e4662b9fd1e81f8c15037af0eeb352a34b45b608af57fd0019439cf46fb196",
+  "frontend/src-tauri/src/audio/transcription/streaming.rs": "e98ed4de59bee2c13468c07e24d8f6c3f207464ec82d918fce9ed48a14afb440",
+  "frontend/src-tauri/src/audio/recording_saver.rs": "8bfe7117f94306f8bb1ebe252283c01f16424d1aa4e73c1cebb2f15f754ae186",
+  "frontend/src-tauri/src/audio/recording_commands.rs": "d0f36fb681788504a338c865b6bdc06440ddf5591d7ede6365c60f4b1c219281",
+  "frontend/src-tauri/src/audio/incremental_saver.rs": "86b7c23dd41b19e46d658ba7922603ac83f247542ad87da63bcd6ab151052f8f",
+  "frontend/src-tauri/src/audio/encode.rs": "409c35ba4d06328f838b0af5612a0a7e66aac8a3efaf546c7c1f349405f938da",
+  "frontend/src-tauri/src/audio/pipeline.rs": "8c20ca7543cd6851b62816f0de87b7dacf077abe84d72c29d28fcbc80bf116b4",
+  "frontend/src/lib/live-transcript-store.ts": "a29d7cda27eaef7da69707e08fc83e247db5e98742126c38832d6b1899475be9",
+  "frontend/src/lib/coalesced-write-queue.ts": "fc9ae7de9fe641d93cafce3f09e59b3d3c19d27c511bfc404373e7e99a33d22b",
+  "frontend/src/contexts/TranscriptContext.tsx": "727c5f4d3d12e5e1fb7555ddc14accd5b47a4e18a5f1a8c129d7e8d71e716485",
+  "frontend/src/components/RecordingControls.tsx": "fc1c10c62a8f7071ae0d9f1248b580a0337514d65ac089a4f8de3e49027b3d2f",
+  "frontend/src/hooks/useRecordingStop.ts": "9aba3dd44fb776debcd2734bdcc8b0ad7c96eb506118b96170c45e9abfec1ac8",
+  "frontend/src/hooks/useAutoScroll.ts": "5f3a9523d82f6982e9b9bee158a130e6211a618dc6ab80582ce1a1fea12cf752",
+  "frontend/src/services/indexedDBService.ts": "2ea6c723f5beb03dde54a38d0c1d21705c654c1b2a355157dd89c345b607ab2c"
+}

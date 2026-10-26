@@ -1,0 +1,127 @@
+{
+  "installed_model_and_bundle_files_checked": 36,
+  "changed_protected_files": [],
+  "preexisting_source_files_checked": 868,
+  "source_files_changed_within_allowlist": [
+    "docs/continuous-transcription.md",
+    "docs/plans/evidence/workflow-automation/README.md",
+    "docs/plans/meeting-experience-upgrade.md",
+    "docs/plans/p0-implementation-handoff.md",
+    "frontend/src-tauri/Cargo.toml",
+    "frontend/src-tauri/smoke/recording.js",
+    "frontend/src-tauri/src/audio/transcription/live_worker.rs",
+    "frontend/src-tauri/src/audio/transcription/mod.rs",
+    "frontend/src-tauri/src/audio/transcription/streaming.rs",
+    "frontend/src-tauri/src/audio/transcription/worker.rs",
+    "frontend/src-tauri/src/lib.rs",
+    "frontend/src-tauri/src/notepad_smoke.rs",
+    "frontend/src-tauri/src/whisper_engine/mod.rs",
+    "frontend/src-tauri/src/whisper_engine/whisper_engine.rs",
+    "frontend/src-tauri/tests/fixtures/.gitignore"
+  ],
+  "unexpected_source_changes": [],
+  "cargo_lock_unchanged": true,
+  "production_tables": {
+    "_sqlx_migrations": {
+      "before_rows": 15,
+      "after_rows": 15,
+      "unchanged": true
+    },
+    "meetings": {
+      "before_rows": 3,
+      "after_rows": 3,
+      "unchanged": true
+    },
+    "transcripts": {
+      "before_rows": 432,
+      "after_rows": 432,
+      "unchanged": true
+    },
+    "summary_processes": {
+      "before_rows": 0,
+      "after_rows": 0,
+      "unchanged": true
+    },
+    "transcript_chunks": {
+      "before_rows": 0,
+      "after_rows": 0,
+      "unchanged": true
+    },
+    "transcript_settings": {
+      "before_rows": 1,
+      "after_rows": 1,
+      "unchanged": true
+    },
+    "settings": {
+      "before_rows": 1,
+      "after_rows": 1,
+      "unchanged": true
+    },
+    "licensing": {
+      "before_rows": 0,
+      "after_rows": 0,
+      "unchanged": true
+    },
+    "meeting_notes": {
+      "before_rows": 3,
+      "after_rows": 3,
+      "unchanged": true
+    },
+    "meeting_note_links": {
+      "before_rows": 0,
+      "after_rows": 0,
+      "unchanged": true
+    },
+    "meeting_enhancement_versions": {
+      "before_rows": 0,
+      "after_rows": 0,
+      "unchanged": true
+    },
+    "meeting_enhancement_settings": {
+      "before_rows": 3,
+      "after_rows": 3,
+      "unchanged": true
+    },
+    "meeting_participants": {
+      "before_rows": 0,
+      "after_rows": 0,
+      "unchanged": true
+    },
+    "meeting_tags": {
+      "before_rows": 0,
+      "after_rows": 0,
+      "unchanged": true
+    },
+    "meeting_search_dirty": {
+      "before_rows": 0,
+      "after_rows": 0,
+      "unchanged": true
+    },
+    "meeting_search_sources": {
+      "before_rows": 438,
+      "after_rows": 438,
+      "unchanged": true
+    },
+    "meeting_deletion_jobs": {
+      "before_rows": 14,
+      "after_rows": 14,
+      "unchanged": true
+    },
+    "meeting_deletion_tombstones": {
+      "before_rows": 14,
+      "after_rows": 14,
+      "unchanged": true
+    },
+    "recording_sessions": {
+      "before_rows": 3,
+      "after_rows": 3,
+      "unchanged": true
+    },
+    "meeting_deletion_sessions": {
+      "before_rows": 7,
+      "after_rows": 7,
+      "unchanged": true
+    }
+  },
+  "production_recording_note": "No intake audio digest was taken for every production recording; all Q02 writer paths were isolated. No whole-library audio hash claim."
+}

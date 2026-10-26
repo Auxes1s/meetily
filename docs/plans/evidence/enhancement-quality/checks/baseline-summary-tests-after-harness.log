@@ -1,0 +1,258 @@
+warning: patch for the non root package will be ignored, specify patch at the workspace root:
+package:   /Users/marcignacio/GitHub/meetily/frontend/src-tauri/Cargo.toml
+workspace: /Users/marcignacio/GitHub/meetily/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /Users/marcignacio/GitHub/meetily/llama-helper/Cargo.toml
+workspace: /Users/marcignacio/GitHub/meetily/Cargo.toml
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+warning: unused import: `std::io::Read`
+   --> frontend/src-tauri/build/ffmpeg.rs:210:9
+    |
+210 |     use std::io::Read;
+    |         ^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `meetily` (build script) generated 1 warning
+   Compiling meetily v0.4.1 (/Users/marcignacio/GitHub/meetily/frontend/src-tauri)
+warning: meetily@0.4.1: 🚀 Building Meetily for: macos
+warning: meetily@0.4.1: ✅ macOS: Metal GPU acceleration ENABLED by default
+warning: meetily@0.4.1: 🎬 Checking FFmpeg binary for target: aarch64-apple-darwin
+warning: meetily@0.4.1: 🔍 Found cached FFmpeg binary: ffmpeg-aarch64-apple-darwin
+warning: meetily@0.4.1: ✅ FFmpeg verification passed: ffmpeg version 8.0 Copyright (c) 2000-2025 the FFmpeg developers
+warning: meetily@0.4.1: ✅ FFmpeg binary already cached and verified: ffmpeg-aarch64-apple-darwin
+warning: unused import: `perf_debug`
+  --> frontend/src-tauri/src/lib.rs:32:16
+   |
+32 | pub(crate) use perf_debug;
+   |                ^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `perf_trace`
+  --> frontend/src-tauri/src/lib.rs:33:16
+   |
+33 | pub(crate) use perf_trace;
+   |                ^^^^^^^^^^
+
+warning: unnecessary parentheses around closure body
+   --> frontend/src-tauri/src/audio/decoder.rs:699:50
+    |
+699 |         let input: Vec<f32> = (0..96000).map(|i| (i as f32 / 96000.0)).collect();
+    |                                                  ^                  ^
+    |
+    = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+help: remove these parentheses
+    |
+699 -         let input: Vec<f32> = (0..96000).map(|i| (i as f32 / 96000.0)).collect();
+699 +         let input: Vec<f32> = (0..96000).map(|i| i as f32 / 96000.0).collect();
+    |
+
+warning: unused import: `cpal::SampleFormat`
+   --> frontend/src-tauri/src/audio/diagnostics.rs:291:9
+    |
+291 |     use cpal::SampleFormat;
+    |         ^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `error` and `info`
+ --> frontend/src-tauri/src/database/repositories/transcript.rs:4:15
+  |
+4 | use tracing::{error, info};
+  |               ^^^^^  ^^^^
+
+warning: unused variable: `device`
+   --> frontend/src-tauri/src/audio/diagnostics.rs:296:13
+    |
+296 |         let device = AudioDevice::new("Test Device".to_string(), DeviceType::Input);
+    |             ^^^^^^ help: if this is intentional, prefix it with an underscore: `_device`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `confidence_str`
+   --> frontend/src-tauri/src/audio/transcription/worker.rs:181:41
+    |
+181 | ...                   let confidence_str = match confidence_opt {
+    |                           ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_confidence_str`
+
+warning: unused variable: `error`
+   --> frontend/src-tauri/src/summary/processor.rs:433:33
+    |
+433 | ...                   Err(error)
+    |                           ^^^^^ help: if this is intentional, prefix it with an underscore: `_error`
+
+warning: unused variable: `error`
+   --> frontend/src-tauri/src/summary/service.rs:625:17
+    |
+625 |             Err(error) if cancellation_token.is_cancelled() => {
+    |                 ^^^^^ help: if this is intentional, prefix it with an underscore: `_error`
+
+warning: field `recording_sender` is never read
+   --> frontend/src-tauri/src/audio/pipeline.rs:246:5
+    |
+239 | pub struct AudioCapture {
+    |            ------------ field in this struct
+...
+246 |     recording_sender: Option<mpsc::UnboundedSender<AudioChunk>>,
+    |     ^^^^^^^^^^^^^^^^
+    |
+    = note: `AudioCapture` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: comparison is useless due to type limits
+   --> frontend/src-tauri/src/audio/system_audio_commands.rs:123:25
+    |
+123 |                 assert!(device_list.len() >= 0); // Should at least not crash
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_comparisons)]` on by default
+
+warning: `meetily` (lib test) generated 11 warnings (run `cargo fix --lib -p meetily --tests` to apply 9 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.54s
+     Running unittests src/lib.rs (target/debug/deps/app_lib-53a970518854789f)
+
+running 123 tests
+test summary::enhancement::evaluation::real_local_models ... ignored, Opt-in installed local-model evaluation; requires MEETILY_E08_MANIFEST
+test summary::commands::tests::summary_start_tokens_are_monotonic_with_identical_clock_inputs ... ok
+test summary::commands::tests::summary_validation_rejects_blank_and_reasoning_content ... ok
+test summary::commands::tests::compatibility_response_binds_double_encoded_document_to_its_displayed_revision ... ok
+test summary::commands::tests::redacts_only_flagged_historical_reasoning ... ok
+test summary::commands::tests::response_redaction_strips_closed_markdown_envelopes ... ok
+
+thread 'summary::grounding::tests::enhancement_schema_rejects_missing_required_fields' (1494330) panicked at frontend/src-tauri/src/summary/grounding.rs:438:13:
+missing status was accepted
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test summary::grounding::tests::references_do_not_imply_confirmation ... ok
+
+thread 'summary::grounding::tests::explicit_uncertainty_survives_valid_citations' (1494331) panicked at frontend/src-tauri/src/summary/grounding.rs:445:9:
+assertion `left == right` failed
+  left: "review_required"
+ right: "uncertain"
+test summary::enhancement::tests::parsed_locality_rejects_deceptive_hosts ... ok
+test summary::grounding::tests::unreferenced_claim_must_be_uncertain ... ok
+test summary::grounding::tests::wrong_source_and_fabricated_owner_rejected ... ok
+test summary::grounding::tests::enhancement_schema_rejects_missing_required_fields ... FAILED
+test summary::grounding::tests::explicit_uncertainty_survives_valid_citations ... FAILED
+test summary::language_detection::tests::transcript_summary_language_never_returns_unsupported_summary_code ... ok
+test summary::language_detection::tests::transcript_summary_language_reports_tie_reason ... ok
+test summary::language_detection::tests::transcript_summary_language_detects_chinese ... ok
+test summary::language_detection::tests::transcript_summary_language_returns_none_for_short_or_unsupported_text ... ok
+test summary::grounding::tests::unicode_chunk_coverage_is_lossless ... ok
+test summary::language_detection::tests::transcript_summary_language_detects_english ... ok
+test summary::llm_client::tests::cancellation_prevents_compatibility_io_from_being_polled ... ok
+test summary::language_detection::tests::transcript_summary_language_uses_weighted_dominant_language ... ok
+test summary::llm_client::tests::claude_response_uses_exact_block_types ... ok
+test summary::llm_client::tests::compatible_reasoning_is_separate_from_visible_content ... ok
+test summary::llm_client::tests::legacy_ollama_rejection_requires_compatible_error ... ok
+test summary::llm_client::tests::only_ollama_disables_reasoning_and_custom_sampling_is_preserved ... ok
+test database::repositories::summary::tests::cancelled_compare_and_set_rejects_stale_start_time ... ok
+test summary::llm_client::tests::cancellation_during_failed_legacy_ollama_retry_body_returns_promptly ... ok
+test summary::llm_client::tests::legacy_ollama_retry_without_reasoning_effort_returns_completion ... ok
+test summary::metadata::tests::summary_language_missing_field_returns_none ... ok
+test database::repositories::summary::tests::terminal_compare_and_set_preserves_first_writer ... ok
+test summary::metadata::tests::summary_language_malformed_metadata_returns_error ... ok
+test summary::metadata::tests::summary_language_temp_path_is_unique_per_write ... ok
+test summary::metadata::tests::detected_summary_language_is_stored_separately_from_user_override ... ok
+test summary::processor::tests::chunk_prompt_forbids_reasoning_output ... ok
+test summary::processor::tests::chunk_retries_once_unless_cancelled ... ok
+test summary::processor::tests::chunk_summary_prompt_forces_english_base_output ... ok
+test summary::processor::tests::chunk_text_keeps_unicode_boundaries ... ok
+test summary::processor::tests::chunk_text_preserves_content_after_early_sentence_boundary ... ok
+test summary::processor::tests::chunk_text_progresses_when_overlap_matches_window ... ok
+test summary::enhancement::tests::enhancement_generation_covers_chunks_and_repairs_once ... ok
+test summary::processor::tests::cleaner_rejects_unterminated_reasoning_markers ... ok
+test summary::metadata::tests::summary_language_rejects_unsupported_code ... ok
+test summary::processor::tests::cleaner_strips_outer_crlf_fence_without_normalizing_inner_markdown ... ok
+test summary::processor::tests::combine_summary_prompt_forces_english_base_output ... ok
+test summary::metadata::tests::summary_language_null_removes_existing_field ... ok
+test summary::processor::tests::empty_cache_with_translation_target_returns_none ... ok
+test summary::processor::tests::english_base_instruction_marks_non_english_prose_invalid_without_bloat ... ok
+test summary::processor::tests::english_target_with_english_transcript_skips_normalization ... ok
+test summary::processor::tests::english_target_with_non_english_transcript_normalizes_to_english ... ok
+test summary::processor::tests::english_target_with_unknown_transcript_normalizes_to_english ... ok
+test summary::processor::tests::final_report_prompt_forbids_reasoning_output ... ok
+test summary::processor::tests::final_report_prompt_forces_english_base_output ... ok
+test summary::processor::tests::no_cache_no_language_returns_none ... ok
+test summary::processor::tests::non_english_target_uses_translation_flow ... ok
+test summary::processor::tests::normalization_fallback_preserves_markdown_and_observed_reasoning ... ok
+test summary::processor::tests::underscore_locale_variant_returns_none ... ok
+test summary::processor::tests::uppercase_english_code_returns_none ... ok
+test summary::processor::tests::uppercase_translation_code_returns_cache ... ok
+test summary::metadata::tests::summary_language_write_preserves_existing_metadata_fields ... ok
+test summary::processor::tests::valid_cache_english_target_returns_none ... ok
+test summary::processor::tests::valid_cache_english_variant_returns_none ... ok
+test summary::processor::tests::reasoning_only_and_empty_fences_fail_visible_content_guard ... ok
+test summary::processor::tests::valid_cache_french_target_returns_cache ... ok
+test summary::processor::tests::valid_cache_no_language_returns_none ... ok
+test summary::processor::tests::valid_cache_unknown_language_returns_none ... ok
+test summary::processor::tests::whitespace_only_cache_returns_none ... ok
+test summary::processor::tests::cleaner_removes_closed_reasoning_envelopes_everywhere ... ok
+test summary::service::tests::result_json_rejects_title_only_display_markdown ... ok
+test summary::service::tests::result_json_never_persists_reasoning_text ... ok
+test summary::service::tests::stale_cleanup_keeps_the_replacement_cancellation_token ... ok
+test summary::service::tests::test_extract_cached_english_from_malformed_json_errors ... ok
+test summary::service::tests::test_legacy_english_markdown_field_is_cache_miss ... ok
+test summary::service::tests::test_changed_token_threshold_rejects_cache ... ok
+test summary::service::tests::test_result_json_strips_display_markdown_but_keeps_cache_title ... ok
+test summary::service::tests::test_changed_summary_inputs_reject_cache ... ok
+test summary::service::tests::test_changed_template_content_rejects_cache ... ok
+test summary::service::tests::test_matching_source_changed_translation_target_reuses_cache ... ok
+test summary::service::tests::test_strip_leading_title_empty_after_heading ... ok
+test summary::service::tests::test_same_language_regeneration_rejects_cache ... ok
+test summary::service::tests::test_strip_leading_title_multiline_body ... ok
+test summary::service::tests::test_strip_leading_title_no_heading ... ok
+test summary::service::tests::test_strip_leading_title_whitespace_after_heading ... ok
+test summary::service::tests::test_strip_leading_title_only ... ok
+test summary::service::tests::test_strip_leading_title_with_body ... ok
+test summary::service::tests::test_strip_title_if_present_hash_no_space_preserved ... ok
+test summary::service::tests::test_strip_title_if_present_leading_whitespace_h1_stripped ... ok
+test summary::service::tests::test_strip_title_if_present_mid_document_h1_preserved ... ok
+test summary::service::tests::test_strip_title_if_present_no_heading_preserved ... ok
+test summary::service::tests::test_strip_title_if_present_preserves_already_stripped ... ok
+test summary::service::tests::test_strip_title_if_present_strips_leading_h1 ... ok
+test summary::service::tests::test_template_cache_fingerprint_changes_with_rendered_template ... ok
+test summary::summary_engine::client::tests::test_error_response_deserialization ... ok
+test summary::summary_engine::client::tests::test_response_deserialization ... ok
+test summary::summary_engine::client::tests::test_request_serialization ... ok
+test summary::summary_engine::commands::tests::recommended_summary_model_uses_qwen2b_below_effective_16gb_floor ... ok
+test summary::summary_engine::commands::tests::available_summary_model_priority_prefers_qwen_over_gemma ... ok
+test summary::summary_engine::commands::tests::recommended_summary_model_uses_qwen4b_at_effective_16gb_floor ... ok
+test summary::summary_engine::models::tests::gemma3_template_escapes_user_supplied_control_markers ... ok
+test summary::summary_engine::models::tests::qwen35_nonthinking_template_formats_prompt ... ok
+test summary::summary_engine::models::tests::qwen35_models_are_registered_with_expected_metadata ... ok
+test summary::summary_engine::models::tests::gemma_models_use_huggingface_urls_and_gemma3_instruct_sampling ... ok
+test summary::summary_engine::models::tests::qwen35_template_escapes_user_supplied_control_markers ... ok
+test summary::summary_engine::models::tests::sampling_params_sanitize_for_llama_helper_clamps_negative_top_k ... ok
+test summary::summary_engine::models::tests::sampling_params_sanitize_for_llama_helper_keeps_positive_top_k ... ok
+test summary::summary_engine::models::tests::sampling_params_sanitize_for_llama_helper_preserves_zero_top_k ... ok
+test summary::template_commands::tests::test_list_templates ... ok
+test summary::template_commands::tests::test_validate_template_valid ... ok
+test summary::templates::defaults::tests::test_get_builtin_template ... ok
+test summary::template_commands::tests::test_validate_template_invalid ... ok
+test summary::templates::loader::tests::test_get_builtin_template ... ok
+test summary::templates::defaults::tests::test_builtin_templates_valid_json ... ok
+test summary::templates::loader::tests::test_get_nonexistent_template ... ok
+test summary::templates::loader::tests::test_list_template_ids ... ok
+test summary::templates::loader::tests::test_validate_invalid_json ... ok
+test summary::templates::types::tests::test_validate_empty_name ... ok
+test summary::templates::types::tests::test_validate_valid_template ... ok
+test summary::templates::types::tests::test_validate_invalid_format ... ok
+test summary::templates::tests::test_template_metadata ... ok
+test summary::templates::tests::test_module_integration ... ok
+test summary::enhancement::evaluation::repair_failure_preserves_originals_approval_and_rejected_evidence ... ok
+test summary::metadata::tests::concurrent_summary_language_writes_preserve_both_fields ... ok
+test summary::llm_client::tests::cancellation_during_successful_legacy_ollama_retry_body_returns_promptly ... ok
+test summary::enhancement::tests::enhancement_local_requests_do_not_follow_redirects ... ok
+test summary::enhancement::evaluation::all_fixture_sources_annotations_and_chunk_coverage ... ok
+
+failures:
+
+failures:
+    summary::grounding::tests::enhancement_schema_rejects_missing_required_fields
+    summary::grounding::tests::explicit_uncertainty_survives_valid_citations
+
+test result: FAILED. 120 passed; 2 failed; 1 ignored; 0 measured; 204 filtered out; finished in 0.18s
+
+error: test failed, to rerun pass `-p meetily --lib`

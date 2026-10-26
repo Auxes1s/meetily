@@ -1,0 +1,876 @@
+{
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-01-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      }
+    },
+    "recalled_expectations": {
+      "fx-01-e1": [
+        "accepted-i1"
+      ],
+      "fx-01-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-01-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-01-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-01-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "The note records offline access and the existing budget as priorities; t1 agrees offline access; t2 names Mina for testing and supplies no deadline."
+      }
+    },
+    "recalled_expectations": {
+      "fx-01-e1": [
+        "accepted-i1"
+      ],
+      "fx-01-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-01-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-01-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-02-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      }
+    },
+    "recalled_expectations": {
+      "fx-02-e1": [
+        "accepted-i1"
+      ],
+      "fx-02-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-02-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-02-p2": [
+        "accepted-i0"
+      ],
+      "fx-02-p3": [
+        "accepted-i0",
+        "accepted-i2"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-02-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The note supplies accessibility, slow-connection and consent priorities; t1 agrees keyboard navigation; t2 requests consent review with no assigned owner or calendar date."
+      }
+    },
+    "recalled_expectations": {
+      "fx-02-e2": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-02-p1": [
+        "accepted-i0"
+      ],
+      "fx-02-p2": [
+        "accepted-i0"
+      ],
+      "fx-02-p3": [
+        "accepted-i0",
+        "accepted-i1"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-03-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "The output invents explicit rejection and a prerequisite for Redis acceptance; the lead only says not accepted and agrees to measure latency first.",
+        "lost_uncertainty": true
+      },
+      "accepted-i0": {
+        "support": "unsupported",
+        "notes": "The output invents explicit rejection and a prerequisite for Redis acceptance; the lead only says not accepted and agrees to measure latency first.",
+        "lost_uncertainty": true
+      }
+    },
+    "recalled_expectations": {
+      "fx-03-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-03-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-03-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "unsupported",
+        "notes": "The output invents explicit rejection and an acceptance prerequisite. Non-acceptance does not establish rejection.",
+        "lost_uncertainty": true
+      },
+      "accepted-i0": {
+        "support": "unsupported",
+        "notes": "The output invents explicit rejection and an acceptance prerequisite. Non-acceptance does not establish rejection.",
+        "lost_uncertainty": true
+      }
+    },
+    "recalled_expectations": {
+      "fx-03-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-03-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-04-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The expansion remains an unapproved proposal; the safety review is explicitly approved. No vote, quorum or resolution number is supplied."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The expansion remains an unapproved proposal; the safety review is explicitly approved. No vote, quorum or resolution number is supplied."
+      }
+    },
+    "recalled_expectations": {
+      "fx-04-e1": [
+        "accepted-i0"
+      ],
+      "fx-04-e2": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-04-p1": [
+        "accepted-i0"
+      ],
+      "fx-04-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-04-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The expansion remains an unapproved proposal; the safety review is explicitly approved. No vote, quorum or resolution number is supplied."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The expansion remains an unapproved proposal; the safety review is explicitly approved. No vote, quorum or resolution number is supplied."
+      }
+    },
+    "recalled_expectations": {
+      "fx-04-e1": [
+        "accepted-i0"
+      ],
+      "fx-04-e2": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-04-p1": [
+        "accepted-i0"
+      ],
+      "fx-04-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-05-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The transcript literally names Ana Cruz, the inventory checklist, and 20 October 2026."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The transcript literally names Ana Cruz, the inventory checklist, and 20 October 2026."
+      }
+    },
+    "recalled_expectations": {
+      "fx-05-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-05-p1": [
+        "accepted-i0"
+      ],
+      "fx-05-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-05-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The transcript literally names Ana Cruz, the inventory checklist, and 20 October 2026."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The transcript literally names Ana Cruz, the inventory checklist, and 20 October 2026."
+      }
+    },
+    "recalled_expectations": {
+      "fx-05-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-05-p1": [
+        "accepted-i0"
+      ],
+      "fx-05-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-06-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The transcript assigns the Procurement Office to the options memo; it names no individual and supplies no deadline. Office identity remains in the generated prose."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The transcript assigns the Procurement Office to the options memo; it names no individual and supplies no deadline. Office identity remains in the generated prose."
+      }
+    },
+    "recalled_expectations": {
+      "fx-06-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-06-p1": [
+        "accepted-i0"
+      ],
+      "fx-06-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-06-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The transcript assigns the Procurement Office to the options memo; it names no individual and supplies no deadline. Office identity remains in the generated prose."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The transcript assigns the Procurement Office to the options memo; it names no individual and supplies no deadline. Office identity remains in the generated prose."
+      }
+    },
+    "recalled_expectations": {
+      "fx-06-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-06-p1": [
+        "accepted-i0"
+      ],
+      "fx-06-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-07-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The note requests documentation of missing owner/date. The transcript agrees to update the risk register but an anonymous offer of help is not an assignment."
+      },
+      "c1-a0-i1": {
+        "support": "unsupported",
+        "notes": "The output adds a requirement to update the register with an identified owner and deadline. The source records neither assignment nor that expanded task."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The note requests documentation of missing owner/date. The transcript agrees to update the risk register but an anonymous offer of help is not an assignment."
+      },
+      "accepted-i1": {
+        "support": "unsupported",
+        "notes": "The output adds a requirement to update the register with an identified owner and deadline. The source records neither assignment nor that expanded task."
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {
+      "fx-07-p1": [
+        "accepted-i0"
+      ],
+      "fx-07-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-07-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The note requests documentation of missing owner/date. The transcript agrees to update the risk register but an anonymous offer of help is not an assignment."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The note requests documentation of missing owner/date. The transcript agrees to update the risk register but an anonymous offer of help is not an assignment."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The note requests documentation of missing owner/date. The transcript agrees to update the risk register but an anonymous offer of help is not an assignment."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The note requests documentation of missing owner/date. The transcript agrees to update the risk register but an anonymous offer of help is not an assignment."
+      }
+    },
+    "recalled_expectations": {
+      "fx-07-e1": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-07-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-07-p2": [
+        "accepted-i0",
+        "accepted-i1"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-08-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The transcript makes the prototype review contingent on data arrival and explicitly not agreed. Next Friday remains an unresolved relative date."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The transcript makes the prototype review contingent on data arrival and explicitly not agreed. Next Friday remains an unresolved relative date."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The transcript makes the prototype review contingent on data arrival and explicitly not agreed. Next Friday remains an unresolved relative date."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The transcript makes the prototype review contingent on data arrival and explicitly not agreed. Next Friday remains an unresolved relative date."
+      }
+    },
+    "recalled_expectations": {
+      "fx-08-e1": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-08-p1": [
+        "accepted-i1"
+      ],
+      "fx-08-p2": [
+        "accepted-i0",
+        "accepted-i1"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-08-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The transcript makes the prototype review contingent on data arrival and explicitly not agreed. Next Friday remains an unresolved relative date."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The transcript makes the prototype review contingent on data arrival and explicitly not agreed. Next Friday remains an unresolved relative date."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The transcript makes the prototype review contingent on data arrival and explicitly not agreed. Next Friday remains an unresolved relative date."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The transcript makes the prototype review contingent on data arrival and explicitly not agreed. Next Friday remains an unresolved relative date."
+      }
+    },
+    "recalled_expectations": {
+      "fx-08-e1": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-08-p1": [
+        "accepted-i1"
+      ],
+      "fx-08-p2": [
+        "accepted-i0",
+        "accepted-i1"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-09-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The board rejects Option A because of offline access, and agrees to Option B."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The board rejects Option A because of offline access, and agrees to Option B."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "The board rejects Option A because of offline access, and agrees to Option B."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The board rejects Option A because of offline access, and agrees to Option B."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The board rejects Option A because of offline access, and agrees to Option B."
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "The board rejects Option A because of offline access, and agrees to Option B."
+      }
+    },
+    "recalled_expectations": {
+      "fx-09-e1": [
+        "accepted-i0"
+      ],
+      "fx-09-e2": [
+        "accepted-i1"
+      ]
+    },
+    "retained_priorities": {
+      "fx-09-p1": [
+        "accepted-i0"
+      ],
+      "fx-09-p2": [
+        "accepted-i1"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-09-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The board rejects Option A because of offline access, and agrees to Option B."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The board rejects Option A because of offline access, and agrees to Option B."
+      }
+    },
+    "recalled_expectations": {
+      "fx-09-e1": [
+        "accepted-i0"
+      ],
+      "fx-09-e2": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-09-p1": [
+        "accepted-i0"
+      ],
+      "fx-09-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-10-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "Both sources and their conflict are retained: notes say approved, transcript says not approved and deferred."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "Both sources and their conflict are retained: notes say approved, transcript says not approved and deferred."
+      }
+    },
+    "recalled_expectations": {
+      "fx-10-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-10-p1": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-10-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "Both sources and their conflict are retained: notes say approved, transcript says not approved and deferred."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "Both sources and their conflict are retained: notes say approved, transcript says not approved and deferred."
+      }
+    },
+    "recalled_expectations": {
+      "fx-10-e1": [
+        "accepted-i0"
+      ]
+    },
+    "retained_priorities": {
+      "fx-10-p1": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-11-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "qualified",
+        "notes": "Within this frozen extraction chunk the early proposal or filler statement is supported. It requires temporal reconciliation or limited scope before inclusion in meeting-wide output."
+      },
+      "c2-a0-i0": {
+        "support": "qualified",
+        "notes": "Within this frozen extraction chunk the early proposal or filler statement is supported. It requires temporal reconciliation or limited scope before inclusion in meeting-wide output."
+      },
+      "c6-a0-i0": {
+        "support": "supported",
+        "notes": "The early passage defines Package Delta as the offline-access checklist and calls it a proposal. The last passage explicitly approves it and assigns preparation to Luis Reyes without a deadline."
+      },
+      "accepted-i0": {
+        "support": "unsupported",
+        "notes": "The delivered present-tense proposal status conflicts with the later explicit approval; subject to connection adds an unsupported condition.",
+        "lost_uncertainty": true
+      },
+      "accepted-i1": {
+        "support": "unsupported",
+        "notes": "All provided passages is overbroad in the delivered document, which also contains actual approval and assignment passages. This statement is only valid for the filler chunk.",
+        "lost_uncertainty": true
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "The early passage defines Package Delta as the offline-access checklist and calls it a proposal. The last passage explicitly approves it and assigns preparation to Luis Reyes without a deadline."
+      }
+    },
+    "recalled_expectations": {
+      "fx-11-e1": [
+        "accepted-i0",
+        "accepted-i2"
+      ],
+      "fx-11-e2": [
+        "accepted-i0",
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-11-p1": [
+        "accepted-i0",
+        "accepted-i2"
+      ],
+      "fx-11-p2": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-11-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The early passage defines Package Delta as the offline-access checklist and calls it a proposal. The last passage explicitly approves it and assigns preparation to Luis Reyes without a deadline."
+      },
+      "c1-a0-i1": {
+        "support": "qualified",
+        "notes": "Within this frozen extraction chunk the early proposal or filler statement is supported. It requires temporal reconciliation or limited scope before inclusion in meeting-wide output."
+      },
+      "c1-a0-i2": {
+        "support": "supported",
+        "notes": "The early passage defines Package Delta as the offline-access checklist and calls it a proposal. The last passage explicitly approves it and assigns preparation to Luis Reyes without a deadline."
+      },
+      "c2-a0-i0": {
+        "support": "qualified",
+        "notes": "Within this frozen extraction chunk the early proposal or filler statement is supported. It requires temporal reconciliation or limited scope before inclusion in meeting-wide output."
+      },
+      "c6-a0-i0": {
+        "support": "supported",
+        "notes": "The early passage defines Package Delta as the offline-access checklist and calls it a proposal. The last passage explicitly approves it and assigns preparation to Luis Reyes without a deadline."
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The early passage defines Package Delta as the offline-access checklist and calls it a proposal. The last passage explicitly approves it and assigns preparation to Luis Reyes without a deadline."
+      },
+      "accepted-i1": {
+        "support": "unsupported",
+        "notes": "Currently only a proposal fails to reconcile the later explicit approval and assignment.",
+        "lost_uncertainty": true
+      },
+      "accepted-i2": {
+        "support": "supported",
+        "notes": "The early passage defines Package Delta as the offline-access checklist and calls it a proposal. The last passage explicitly approves it and assigns preparation to Luis Reyes without a deadline."
+      },
+      "accepted-i3": {
+        "support": "unsupported",
+        "notes": "All reviewed passages containing no substantive content is valid only within a filler chunk, not the delivered meeting-wide findings.",
+        "lost_uncertainty": true
+      },
+      "accepted-i4": {
+        "support": "supported",
+        "notes": "The early passage defines Package Delta as the offline-access checklist and calls it a proposal. The last passage explicitly approves it and assigns preparation to Luis Reyes without a deadline."
+      }
+    },
+    "recalled_expectations": {
+      "fx-11-e1": [
+        "accepted-i1",
+        "accepted-i4"
+      ],
+      "fx-11-e2": [
+        "accepted-i1",
+        "accepted-i4"
+      ]
+    },
+    "retained_priorities": {
+      "fx-11-p1": [
+        "accepted-i0",
+        "accepted-i1",
+        "accepted-i4"
+      ],
+      "fx-11-p2": [
+        "accepted-i1"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-12-r1": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The transcript agrees offline access. The possible safety check and next week remain tentative; Mara/Nara is an uncertain ASR name, not an established disagreement. The note also contains Cafe resume and Delta notation."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The transcript agrees offline access. The possible safety check and next week remain tentative; Mara/Nara is an uncertain ASR name, not an established disagreement. The note also contains Cafe resume and Delta notation."
+      },
+      "c1-a0-i2": {
+        "support": "unsupported",
+        "notes": "The uncertain name is attributed to lack of consensus; the source instead marks ASR uncertainty and an unagreed possible action.",
+        "lost_uncertainty": true
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The transcript agrees offline access. The possible safety check and next week remain tentative; Mara/Nara is an uncertain ASR name, not an established disagreement. The note also contains Cafe resume and Delta notation."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The transcript agrees offline access. The possible safety check and next week remain tentative; Mara/Nara is an uncertain ASR name, not an established disagreement. The note also contains Cafe resume and Delta notation."
+      },
+      "accepted-i2": {
+        "support": "unsupported",
+        "notes": "The uncertain name is attributed to lack of consensus; the source instead marks ASR uncertainty and an unagreed possible action.",
+        "lost_uncertainty": true
+      }
+    },
+    "recalled_expectations": {
+      "fx-12-e1": [
+        "accepted-i1"
+      ],
+      "fx-12-e2": [
+        "accepted-i2"
+      ]
+    },
+    "retained_priorities": {
+      "fx-12-p1": [
+        "accepted-i0",
+        "accepted-i1"
+      ],
+      "fx-12-p2": [
+        "accepted-i2"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  },
+  "summary-fix-v2/builtin-ai-qwen3.5_4b-fx-12-r2": {
+    "reviewer": "Codex source-by-source review; human acceptance pending",
+    "claims": {
+      "c1-a0-i0": {
+        "support": "supported",
+        "notes": "The transcript agrees offline access. The possible safety check and next week remain tentative; Mara/Nara is an uncertain ASR name, not an established disagreement. The note also contains Cafe resume and Delta notation."
+      },
+      "c1-a0-i1": {
+        "support": "supported",
+        "notes": "The transcript agrees offline access. The possible safety check and next week remain tentative; Mara/Nara is an uncertain ASR name, not an established disagreement. The note also contains Cafe resume and Delta notation."
+      },
+      "c1-a0-i2": {
+        "support": "unsupported",
+        "notes": "The output invents disagreement over Mara versus Nara; the source marks an uncertain ASR transcription.",
+        "lost_uncertainty": true
+      },
+      "accepted-i0": {
+        "support": "supported",
+        "notes": "The transcript agrees offline access. The possible safety check and next week remain tentative; Mara/Nara is an uncertain ASR name, not an established disagreement. The note also contains Cafe resume and Delta notation."
+      },
+      "accepted-i1": {
+        "support": "supported",
+        "notes": "The transcript agrees offline access. The possible safety check and next week remain tentative; Mara/Nara is an uncertain ASR name, not an established disagreement. The note also contains Cafe resume and Delta notation."
+      },
+      "accepted-i2": {
+        "support": "unsupported",
+        "notes": "The output invents disagreement over Mara versus Nara; the source marks an uncertain ASR transcription.",
+        "lost_uncertainty": true
+      }
+    },
+    "recalled_expectations": {},
+    "retained_priorities": {
+      "fx-12-p1": [
+        "accepted-i0"
+      ]
+    },
+    "notes": "Structural validity and reference resolution passed; semantic recall requires the recorded agreement and uncertainty qualifiers. Unsupported additions are counted separately even when another part recalls a label."
+  }
+}

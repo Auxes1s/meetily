@@ -1,0 +1,96 @@
+{
+  "checked_at": "2026-10-15T10:58:11.598980+08:00",
+  "original_source_files_checked": 974,
+  "changed_original_source_files": [],
+  "source_snapshot_sha256": "76c86ef30810e026a89872be53080b945a303e017ab946693ff44e3693d65633",
+  "installed_bundle_files_checked": 15,
+  "installed_bundle_unchanged": true,
+  "installed_matches_archived_latest_release": true,
+  "model_files_checked": 6,
+  "model_files_unchanged": true,
+  "production_tables_unchanged": true,
+  "production_tables": {
+    "_sqlx_migrations": {
+      "row_count": 15,
+      "unchanged": true
+    },
+    "meetings": {
+      "row_count": 3,
+      "unchanged": true
+    },
+    "transcripts": {
+      "row_count": 430,
+      "unchanged": true
+    },
+    "summary_processes": {
+      "row_count": 0,
+      "unchanged": true
+    },
+    "transcript_chunks": {
+      "row_count": 0,
+      "unchanged": true
+    },
+    "transcript_settings": {
+      "row_count": 1,
+      "unchanged": true
+    },
+    "settings": {
+      "row_count": 1,
+      "unchanged": true
+    },
+    "licensing": {
+      "row_count": 0,
+      "unchanged": true
+    },
+    "meeting_notes": {
+      "row_count": 2,
+      "unchanged": true
+    },
+    "meeting_note_links": {
+      "row_count": 0,
+      "unchanged": true
+    },
+    "meeting_enhancement_versions": {
+      "row_count": 0,
+      "unchanged": true
+    },
+    "meeting_enhancement_settings": {
+      "row_count": 3,
+      "unchanged": true
+    },
+    "meeting_participants": {
+      "row_count": 0,
+      "unchanged": true
+    },
+    "meeting_tags": {
+      "row_count": 0,
+      "unchanged": true
+    },
+    "meeting_search_dirty": {
+      "row_count": 1,
+      "unchanged": true
+    },
+    "meeting_search_sources": {
+      "row_count": 434,
+      "unchanged": true
+    },
+    "meeting_deletion_jobs": {
+      "row_count": 15,
+      "unchanged": true
+    },
+    "meeting_deletion_tombstones": {
+      "row_count": 15,
+      "unchanged": true
+    },
+    "recording_sessions": {
+      "row_count": 3,
+      "unchanged": true
+    },
+    "meeting_deletion_sessions": {
+      "row_count": 8,
+      "unchanged": true
+    }
+  },
+  "production_integrity": "ok",
+  "production_foreign_key_violations": []
+}

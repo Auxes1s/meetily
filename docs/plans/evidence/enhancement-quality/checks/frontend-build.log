@@ -1,0 +1,40 @@
+
+> meetily@0.4.1 build /Users/marcignacio/GitHub/meetily/frontend
+> next build
+
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/12) ...
+   Generating static pages (3/12) 
+   Generating static pages (6/12) 
+   Generating static pages (9/12) 
+(node:78074) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓ Generating static pages (12/12)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    9.76 kB         250 kB
+├ ○ /_not-found                          884 B          89.5 kB
+├ ○ /library                             16.3 kB         130 kB
+├ ○ /meeting-details                     579 kB          807 kB
+├ ● /notes/[id]                          141 B          88.8 kB
+├   ├ /notes/team-sync-dec-26
+├   ├ /notes/product-review
+├   ├ /notes/project-ideas
+├   └ /notes/action-items
+└ ○ /settings                            5.45 kB         238 kB
++ First Load JS shared by all            88.7 kB
+  ├ chunks/4222-b72cee22438936e2.js      32 kB
+  ├ chunks/dbae917e-19260fe5614eba9f.js  53.7 kB
+  └ other shared chunks (total)          3.03 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses getStaticProps)
+

@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "tables_preserved": {
+    "meetings": true,
+    "transcripts": true,
+    "summary_processes": true,
+    "transcript_chunks": true,
+    "transcript_settings": true,
+    "settings": true,
+    "licensing": true,
+    "meeting_notes": true,
+    "meeting_note_links": true,
+    "meeting_enhancement_versions": true,
+    "meeting_enhancement_settings": true,
+    "meeting_participants": true,
+    "meeting_tags": true,
+    "meeting_deletion_jobs": true,
+    "meeting_deletion_tombstones": true
+  },
+  "session_identity_backfills": 412,
+  "recording_files_preserved": true,
+  "recording_file_count": 9,
+  "app_running": true,
+  "integrity": "ok",
+  "foreign_key_violations": 0,
+  "continuous_whisper_default": true,
+  "installed_bundle_copies": 2,
+  "checks": {
+    "frontend_passed": 128,
+    "rust_passed": 352,
+    "rust_ignored": 8,
+    "rust_excluded_known_baseline": 1,
+    "typescript": "passed",
+    "release_bundle": "passed",
+    "code_signature": "passed",
+    "python_isolation": "passed"
+  }
+}

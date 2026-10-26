@@ -1,0 +1,1768 @@
+{
+  "animations_enabled": true,
+  "cases": [
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 900,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1376,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1376,
+        "width": 1376,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 900,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 710,
+        "clientWidth": 549,
+        "height": 709.5,
+        "scrollHeight": 710,
+        "scrollWidth": 549,
+        "width": 550.390625,
+        "x": 889.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1376,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1376,
+        "width": 1376,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 900,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1184,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1184,
+        "width": 1184,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 900,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 710,
+        "clientWidth": 473,
+        "height": 709.5,
+        "scrollHeight": 710,
+        "scrollWidth": 473,
+        "width": 473.59375,
+        "x": 966.40625,
+        "y": 57
+      },
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1184,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1184,
+        "width": 1184,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 700,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 1036,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 700,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 510,
+        "clientWidth": 413,
+        "height": 509.5,
+        "scrollHeight": 510,
+        "scrollWidth": 413,
+        "width": 414.390625,
+        "x": 685.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 1036,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 700,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 844,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 700,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 510,
+        "clientWidth": 843,
+        "height": 509.5,
+        "scrollHeight": 510,
+        "scrollWidth": 843,
+        "width": 844,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 844,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 836,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 836,
+        "width": 836,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 410,
+        "clientWidth": 835,
+        "height": 409.5,
+        "scrollHeight": 410,
+        "scrollWidth": 835,
+        "width": 836,
+        "x": 64,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 836,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 836,
+        "width": 836,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 644,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 644,
+        "width": 644,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 410,
+        "clientWidth": 643,
+        "height": 409.5,
+        "scrollHeight": 410,
+        "scrollWidth": 643,
+        "width": 644,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 644,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 644,
+        "width": 644,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 704,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 704,
+        "width": 704,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 410,
+        "clientWidth": 703,
+        "height": 409.5,
+        "scrollHeight": 410,
+        "scrollWidth": 703,
+        "width": 704,
+        "x": 64,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 704,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 704,
+        "width": 704,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 512,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 512,
+        "width": 512,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 418,
+        "clientWidth": 511,
+        "height": 417.5,
+        "scrollHeight": 418,
+        "scrollWidth": 511,
+        "width": 512,
+        "x": 256,
+        "y": 49
+      },
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 512,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 512,
+        "width": 512,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 500,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 500,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 327,
+        "clientWidth": 535,
+        "height": 326.984375,
+        "scrollHeight": 327,
+        "scrollWidth": 535,
+        "width": 536,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 500,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 500,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 327,
+        "clientWidth": 535,
+        "height": 326.984375,
+        "scrollHeight": 327,
+        "scrollWidth": 535,
+        "width": 536,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 227,
+        "clientWidth": 415,
+        "height": 227,
+        "scrollHeight": 227,
+        "scrollWidth": 415,
+        "width": 416,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 227,
+        "clientWidth": 415,
+        "height": 227,
+        "scrollHeight": 227,
+        "scrollWidth": 415,
+        "width": 416,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 1036,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 219,
+        "clientWidth": 413,
+        "height": 219,
+        "scrollHeight": 219,
+        "scrollWidth": 413,
+        "width": 414.390625,
+        "x": 685.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 1036,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 844,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 219,
+        "clientWidth": 843,
+        "height": 219,
+        "scrollHeight": 219,
+        "scrollWidth": 843,
+        "width": 844,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 844,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 900,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1376,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1376,
+        "width": 1376,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 900,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 710,
+        "clientWidth": 549,
+        "height": 709.5,
+        "scrollHeight": 710,
+        "scrollWidth": 549,
+        "width": 550.390625,
+        "x": 889.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1376,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1376,
+        "width": 1376,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 900,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1184,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1184,
+        "width": 1184,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 900,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 710,
+        "clientWidth": 473,
+        "height": 709.5,
+        "scrollHeight": 710,
+        "scrollWidth": 473,
+        "width": 473.59375,
+        "x": 966.40625,
+        "y": 57
+      },
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1184,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1184,
+        "width": 1184,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 700,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 1036,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 700,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 510,
+        "clientWidth": 413,
+        "height": 509.5,
+        "scrollHeight": 510,
+        "scrollWidth": 413,
+        "width": 414.390625,
+        "x": 685.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 1036,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 700,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 844,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 700,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 510,
+        "clientWidth": 843,
+        "height": 509.5,
+        "scrollHeight": 510,
+        "scrollWidth": 843,
+        "width": 844,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 844,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 836,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 836,
+        "width": 836,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 410,
+        "clientWidth": 835,
+        "height": 409.5,
+        "scrollHeight": 410,
+        "scrollWidth": 835,
+        "width": 836,
+        "x": 64,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 836,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 836,
+        "width": 836,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 644,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 644,
+        "width": 644,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 410,
+        "clientWidth": 643,
+        "height": 409.5,
+        "scrollHeight": 410,
+        "scrollWidth": 643,
+        "width": 644,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 644,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 644,
+        "width": 644,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 704,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 704,
+        "width": 704,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 410,
+        "clientWidth": 703,
+        "height": 409.5,
+        "scrollHeight": 410,
+        "scrollWidth": 703,
+        "width": 704,
+        "x": 64,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 704,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 704,
+        "width": 704,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 512,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 512,
+        "width": 512,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 418,
+        "clientWidth": 511,
+        "height": 417.5,
+        "scrollHeight": 418,
+        "scrollWidth": 511,
+        "width": 512,
+        "x": 256,
+        "y": 49
+      },
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 512,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 512,
+        "width": 512,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 500,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 500,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 327,
+        "clientWidth": 535,
+        "height": 326.984375,
+        "scrollHeight": 327,
+        "scrollWidth": 535,
+        "width": 536,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 500,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 500,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 327,
+        "clientWidth": 535,
+        "height": 326.984375,
+        "scrollHeight": 327,
+        "scrollWidth": 535,
+        "width": 536,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 227,
+        "clientWidth": 415,
+        "height": 227,
+        "scrollHeight": 227,
+        "scrollWidth": 415,
+        "width": 416,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 227,
+        "clientWidth": 415,
+        "height": 227,
+        "scrollHeight": 227,
+        "scrollWidth": 415,
+        "width": 416,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 1036,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 219,
+        "clientWidth": 413,
+        "height": 219,
+        "scrollHeight": 219,
+        "scrollWidth": 413,
+        "width": 414.390625,
+        "x": 685.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 1036,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 844,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 219,
+        "clientWidth": 843,
+        "height": 219,
+        "scrollHeight": 219,
+        "scrollWidth": 843,
+        "width": 844,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 844,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "height": 900,
+      "route": "workspace-export",
+      "width": 1440
+    },
+    {
+      "height": 700,
+      "route": "workspace-export",
+      "width": 1100
+    },
+    {
+      "height": 600,
+      "route": "workspace-export",
+      "width": 900
+    },
+    {
+      "height": 600,
+      "route": "workspace-export",
+      "width": 768
+    },
+    {
+      "height": 500,
+      "route": "workspace-export",
+      "width": 600
+    },
+    {
+      "height": 400,
+      "route": "workspace-export",
+      "width": 480
+    },
+    {
+      "height": 400,
+      "route": "workspace-export",
+      "width": 1100
+    },
+    {
+      "expanded": false,
+      "height": 900,
+      "route": "library",
+      "width": 1440
+    },
+    {
+      "expanded": false,
+      "height": 900,
+      "route": "library-export",
+      "width": 1440
+    },
+    {
+      "expanded": true,
+      "height": 900,
+      "route": "library",
+      "width": 1440
+    },
+    {
+      "expanded": true,
+      "height": 900,
+      "route": "library-export",
+      "width": 1440
+    },
+    {
+      "expanded": false,
+      "height": 700,
+      "route": "library",
+      "width": 1100
+    },
+    {
+      "expanded": false,
+      "height": 700,
+      "route": "library-export",
+      "width": 1100
+    },
+    {
+      "expanded": true,
+      "height": 700,
+      "route": "library",
+      "width": 1100
+    },
+    {
+      "expanded": true,
+      "height": 700,
+      "route": "library-export",
+      "width": 1100
+    },
+    {
+      "expanded": false,
+      "height": 600,
+      "route": "library",
+      "width": 900
+    },
+    {
+      "expanded": false,
+      "height": 600,
+      "route": "library-export",
+      "width": 900
+    },
+    {
+      "expanded": true,
+      "height": 600,
+      "route": "library",
+      "width": 900
+    },
+    {
+      "expanded": true,
+      "height": 600,
+      "route": "library-export",
+      "width": 900
+    },
+    {
+      "expanded": false,
+      "height": 600,
+      "route": "library",
+      "width": 768
+    },
+    {
+      "expanded": false,
+      "height": 600,
+      "route": "library-export",
+      "width": 768
+    },
+    {
+      "expanded": true,
+      "height": 600,
+      "route": "library",
+      "width": 768
+    },
+    {
+      "expanded": true,
+      "height": 600,
+      "route": "library-export",
+      "width": 768
+    },
+    {
+      "expanded": false,
+      "height": 500,
+      "route": "library",
+      "width": 600
+    },
+    {
+      "expanded": false,
+      "height": 500,
+      "route": "library-export",
+      "width": 600
+    },
+    {
+      "expanded": true,
+      "height": 500,
+      "route": "library",
+      "width": 600
+    },
+    {
+      "expanded": true,
+      "height": 500,
+      "route": "library-export",
+      "width": 600
+    },
+    {
+      "expanded": false,
+      "height": 400,
+      "route": "library",
+      "width": 480
+    },
+    {
+      "expanded": false,
+      "height": 400,
+      "route": "library-export",
+      "width": 480
+    },
+    {
+      "expanded": true,
+      "height": 400,
+      "route": "library",
+      "width": 480
+    },
+    {
+      "expanded": true,
+      "height": 400,
+      "route": "library-export",
+      "width": 480
+    },
+    {
+      "expanded": false,
+      "height": 400,
+      "route": "library",
+      "width": 1100
+    },
+    {
+      "expanded": false,
+      "height": 400,
+      "route": "library-export",
+      "width": 1100
+    },
+    {
+      "expanded": true,
+      "height": 400,
+      "route": "library",
+      "width": 1100
+    },
+    {
+      "expanded": true,
+      "height": 400,
+      "route": "library-export",
+      "width": 1100
+    }
+  ],
+  "continuity": {
+    "continuous_resize_steps": 122,
+    "enhanced_editor_identity": true,
+    "enhanced_undo_redo": true,
+    "note_source_navigation": true,
+    "original_editor_identity": true,
+    "original_undo_redo": true,
+    "pending_saves": true,
+    "physical_recording_tested": false,
+    "recording_lifecycle_calls": 0,
+    "selected_version": true,
+    "transcript_context": true,
+    "transcript_scroll": true
+  },
+  "isolated": true,
+  "meeting_id": "meeting-5be14cab-b1ce-43af-a983-b5373ac7c177",
+  "native_webview": true,
+  "native_wkwebview_snapshots": true,
+  "ok": true,
+  "phase": "finished"
+}

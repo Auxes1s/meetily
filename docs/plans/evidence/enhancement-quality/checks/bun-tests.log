@@ -1,0 +1,321 @@
+bun test v1.3.14 (0d9b296a)
+
+tests/hooks/summary-edit-save.test.tsx:
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+📝 Editor blocks changed: 1
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+💾 Saving BlockNote content...
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+📝 Editor blocks changed: 1
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+✅ Save successful
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+💾 Saving BlockNote content...
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+✅ Save successful
+✅ FORMAT: BLOCKNOTE (summary_json exists)
+🎨 Rendering BLOCKNOTE format (direct)
+(pass) manual summary save acknowledgement > typing during an in-flight save stays dirty and the next save contains the newer edits [4.90ms]
+✅ FORMAT: LEGACY (custom JSON)
+🎨 Rendering LEGACY format
+✅ FORMAT: LEGACY (custom JSON)
+🎨 Rendering LEGACY format
+(pass) manual summary save acknowledgement > legacy rendering excludes revision metadata and unknown extension fields [0.32ms]
+
+tests/hooks/legacy-summary-compatibility.test.tsx:
+[useMeetingData] Syncing summary data from prop: present
+(pass) legacy editor integration > editing metadata-free sections saves the captured displayed version and preserves extensions [2.28ms]
+[useMeetingData] Syncing summary data from prop: present
+(pass) legacy editor integration > an unmounted dirty section editor retains its captured draft for lifecycle flush [0.37ms]
+
+tests/hooks/live-transcript.test.tsx:
+(pass) live transcript delivery through the provider > renders sequence zero with an opaque ID before stop or another event [22.78ms]
+(pass) live transcript delivery through the provider > renders a nonzero starting sequence and gaps in audio-time order [42.64ms]
+(pass) live transcript delivery through the provider > duplicates upsert and a late partial cannot replace a final passage [63.56ms]
+(pass) live transcript delivery through the provider > switching recording identity drops old buffered events and ignores stale sessions [43.27ms]
+(pass) live transcript delivery through the provider > an early event survives recording-started and metadata state updates [21.59ms]
+(pass) live transcript delivery through the provider > late reload history merges without erasing a newer live passage [21.93ms]
+(pass) live transcript delivery through the provider > history from a previous recording cannot leak into a new one [0.43ms]
+(pass) live transcript delivery through the provider > manual final flush updates the synchronous ref and future passages still drain [21.21ms]
+(pass) live transcript delivery through the provider > asynchronous listener registration cleans up even after unmount [0.39ms]
+
+tests/hooks/meeting-library.test.tsx:
+(pass) meeting library request ownership > a slow earlier query cannot replace results of the current query [1.09ms]
+
+tests/hooks/meeting-details-refresh.test.tsx:
+MeetingDetails useEffect triggered - meetingId: meeting-a
+Valid meeting ID found, fetching details for: meeting-a
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+[useMeetingData] Syncing summary data from prop: null
+MeetingDetails useEffect triggered - meetingId: meeting-b
+Valid meeting ID found, fetching details for: meeting-b
+Meeting metadata loaded: {
+  id: "meeting-b",
+  title: "meeting-b",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+[useMeetingData] Syncing summary data from prop: null
+No summary found, checking for auto-generation...
+Not from recording navigation, skipping auto-generation
+(pass) meeting route transcript refresh > navigation waits for the new meeting first transcript page before mounting its view [7.55ms]
+MeetingDetails useEffect triggered - meetingId: meeting-a
+Valid meeting ID found, fetching details for: meeting-a
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+[useMeetingData] Syncing summary data from prop: null
+📊 Fetching all transcripts for meeting: meeting-a
+📊 Total transcripts in database: 1
+✅ Fetched 1 transcripts from database
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+(pass) meeting route transcript refresh > completed regeneration survives refresh without reviving the original pending attempt [2.12ms]
+MeetingDetails useEffect triggered - meetingId: meeting-a
+Valid meeting ID found, fetching details for: meeting-a
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+[useMeetingData] Syncing summary data from prop: null
+📊 Fetching all transcripts for meeting: meeting-a
+📊 Total transcripts in database: 1
+✅ Fetched 1 transcripts from database
+Meeting metadata loaded: {
+  id: "meeting-a",
+  title: "meeting-a",
+  created_at: "2026-09-01",
+  updated_at: "2026-09-01",
+}
+(pass) meeting route transcript refresh > refresh during regeneration keeps the current attempt and its Stop token [1.36ms]
+
+tests/hooks/summary-generation.test.tsx:
+Failed to reload previous summary after generation failure:  98 | }
+ 99 | 
+100 | describe('summary state restored when returning to a meeting', () => {
+101 |   test('repeated recovery read failures end regeneration and retain visible notes', async () => {
+102 |     await show(response({ data: { markdown: 'Previous summary' } }));
+103 |     getSummary = async () => { throw new Error('Database unavailable'); };
+                                               ^
+error: Database unavailable
+      at getSummary (/Users/marcignacio/GitHub/meetily/frontend/tests/hooks/summary-generation.test.tsx:103:42)
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/tests/hooks/summary-generation.test.tsx:32:45)
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/src/hooks/meeting-details/useSummaryGeneration.ts:210:28)
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/src/components/Sidebar/SidebarProvider.tsx:278:17)
+
+(pass) summary state restored when returning to a meeting > repeated recovery read failures end regeneration and retain visible notes [1.03ms]
+Failed to reload summary after cancellation: 111 |   test('failed cancellation recovery ends loading without discarding visible notes', async () => {
+112 |     await show(response({ data: { markdown: 'Previous summary' } }));
+113 |     let reads = 0;
+114 |     getSummary = async () => {
+115 |       if (++reads === 1) return response({ status: 'cancelled' });
+116 |       throw new Error('Database unavailable');
+                      ^
+error: Database unavailable
+      at getSummary (/Users/marcignacio/GitHub/meetily/frontend/tests/hooks/summary-generation.test.tsx:116:17)
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/tests/hooks/summary-generation.test.tsx:32:45)
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/src/hooks/meeting-details/useSummaryGeneration.ts:183:26)
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/src/components/Sidebar/SidebarProvider.tsx:261:15)
+
+(pass) summary state restored when returning to a meeting > failed cancellation recovery ends loading without discarding visible notes [0.31ms]
+Failed to handle summary polling error: 124 |   test.each(['read', 'callback'])('polling stops when %s fails and its error callback also rejects', async (failure) => {
+125 |     function RejectingConsumer() {
+126 |       const { startSummaryPolling } = useSidebar();
+127 |       useEffect(() => {
+128 |         startSummaryPolling('meeting-a', 'attempt-a', async () => {
+129 |           throw new Error('Consumer failed');
+                          ^
+error: Consumer failed
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/tests/hooks/summary-generation.test.tsx:129:21)
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/src/components/Sidebar/SidebarProvider.tsx:278:17)
+
+(pass) summary state restored when returning to a meeting > polling stops when read fails and its error callback also rejects [0.26ms]
+Failed to handle summary polling error: 124 |   test.each(['read', 'callback'])('polling stops when %s fails and its error callback also rejects', async (failure) => {
+125 |     function RejectingConsumer() {
+126 |       const { startSummaryPolling } = useSidebar();
+127 |       useEffect(() => {
+128 |         startSummaryPolling('meeting-a', 'attempt-a', async () => {
+129 |           throw new Error('Consumer failed');
+                          ^
+error: Consumer failed
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/tests/hooks/summary-generation.test.tsx:129:21)
+      at <anonymous> (/Users/marcignacio/GitHub/meetily/frontend/src/components/Sidebar/SidebarProvider.tsx:278:17)
+
+(pass) summary state restored when returning to a meeting > polling stops when callback fails and its error callback also rejects [0.11ms]
+(pass) summary state restored when returning to a meeting > resumes pending generation after leaving and returning, then displays completion [0.38ms]
+(pass) summary state restored when returning to a meeting > keeps regeneration loading with old content and restores content on failure [0.20ms]
+(pass) summary state restored when returning to a meeting > shows a failure that happened while the meeting was closed [0.13ms]
+(pass) summary state restored when returning to a meeting > keeps restored notes and exposes a regeneration failure that happened while away [0.14ms]
+(pass) summary state restored when returning to a meeting > ordinary rerenders keep the existing poll attached [0.26ms]
+(pass) summary state restored when returning to a meeting > hydrates completed and cancelled records without replaying notifications or analytics [0.22ms]
+(pass) summary state restored when returning to a meeting > ignores a response belonging to another meeting [0.11ms]
+(pass) summary state restored when returning to a meeting > Stop uses the restored process token [0.20ms]
+(pass) summary state restored when returning to a meeting > a late completion from meeting A cannot change meeting B [0.28ms]
+📊 Fetching all transcripts for meeting: meeting-a
+📊 Total transcripts in database: 1
+✅ Fetched 1 transcripts from database
+(pass) summary state restored when returning to a meeting > leaving before the start response arrives keeps the backend job running for a later visit [1.39ms]
+📊 Fetching all transcripts for meeting: meeting-a
+📊 Total transcripts in database: 1
+✅ Fetched 1 transcripts from database
+(pass) summary state restored when returning to a meeting > completion analytics retain the model used to start the attempt after settings change [0.49ms]
+(pass) summary state restored when returning to a meeting > old in-flight poll cannot stop a resumed poll for the same process [0.30ms]
+
+tests/hooks/paginated-transcripts.test.tsx:
+(pass) paginated transcript request ownership > ignores late A metadata after B finishes and does not start A transcripts [1.21ms]
+(pass) paginated transcript request ownership > late A transcripts cannot replace B or finish its loading state [0.22ms]
+(pass) paginated transcript request ownership > returning A to B to A does not revive the first A request [0.19ms]
+(pass) paginated transcript request ownership > a stale failure cannot add an error or clear current loading [0.15ms]
+(pass) paginated transcript request ownership > newest refetch wins over an earlier request for the same meeting [0.24ms]
+(pass) paginated transcript request ownership > old loadMore cannot append data or clear the next meeting loadMore lock [0.35ms]
+(pass) paginated transcript request ownership > reset invalidates pending reads and null to same meeting reloads [0.17ms]
+(pass) paginated transcript request ownership > unmount prevents a pending metadata read from starting transcript IPC [0.07ms]
+
+tests/lib/meeting-notes-session.test.ts:
+(pass) acknowledged original-note saves > disposing during a failed in-flight save prevents retries and further writes [1103.11ms]
+(pass) acknowledged original-note saves > serializes overlapping edits and only shows Saved after the last acknowledgment [2.50ms]
+(pass) acknowledged original-note saves > persists authoritative JSON when Markdown conversion hangs [154.72ms]
+(pass) acknowledged original-note saves > retries the same commit after a lost acknowledgment, then saves newer edits [0.28ms]
+(pass) acknowledged original-note saves > retains edits on revision conflict and does not overwrite a newer revision [0.09ms]
+(pass) acknowledged original-note saves > independent queues keep edits attached to their original meeting [0.08ms]
+(pass) acknowledged original-note saves > timestamp metadata survives delete and undo without persisting dangling links [0.14ms]
+(pass) acknowledged original-note saves > continuous editing reaches an acknowledged save within two seconds [2212.81ms]
+(pass) acknowledged original-note saves > plain-text projection includes links and nested blocks [0.10ms]
+
+tests/lib/summary-content.test.ts:
+(pass) summary content validation > accepts visible markdown and rejects whitespace or reasoning markers [0.15ms]
+(pass) summary content validation > validates BlockNote and legacy summary content [0.14ms]
+(pass) summary content validation > parses one historical double-encoded payload [0.05ms]
+
+tests/lib/meeting-deletion.test.ts:
+(pass) managed deletion completion > acknowledges cache cleanup only after its promise completes [1.28ms]
+(pass) managed deletion completion > a cache failure carries pending job identity and never acknowledges completion [0.11ms]
+(pass) managed deletion completion > native file failure remains pending after successful cache cleanup [0.04ms]
+(pass) managed deletion completion > a lost cache acknowledgment retains the durable deletion job for retry [0.06ms]
+(pass) managed deletion completion > failed repeat cache cleanup never carries a completed status [0.05ms]
+(pass) managed deletion completion > startup attempts every pending job and exposes failed cleanup [0.10ms]
+(pass) awaited recovery cache transaction > request deletes alone cannot report completion; aliases and session match without deleting other meetings [1.53ms]
+(pass) awaited recovery cache transaction > transaction abort prevents cache completion and closes the connection [1.19ms]
+(pass) awaited recovery cache transaction > per-identity barriers survive an aggregate overwrite by another WebView [1.21ms]
+(pass) awaited recovery cache transaction > storage failures fail closed for delayed recovery and cleanup [0.07ms]
+(pass) awaited recovery cache transaction > retry remembers legacy aliases after metadata deletion but preference cleanup failure [2.42ms]
+
+tests/lib/blocknote-markdown.test.ts:
+(pass) blocksToMarkdownSafely > returns markdown when conversion succeeds [0.09ms]
+(pass) blocksToMarkdownSafely > returns fallback markdown when conversion throws [0.09ms]
+(pass) blocksToMarkdownSafely > omits markdown when conversion throws without fallback [0.04ms]
+
+tests/lib/legacy-summary-save.test.ts:
+(pass) legacy summary compatibility > section edits retain captured identity and extension fields without rendering metadata [0.13ms]
+(pass) legacy summary compatibility > lost acknowledgment replays its exact payload before committing newer rich text [0.14ms]
+(pass) legacy summary compatibility > an external revision conflict retains the pending commit without advancing its base [0.07ms]
+
+tests/lib/transcription-model-readiness.test.ts:
+(pass) transcription model readiness > uses Whisper commands when Whisper is the configured provider [0.01ms]
+(pass) transcription model readiness > uses Parakeet commands when Parakeet is the configured provider
+(pass) transcription model readiness > does not silently treat an unsupported provider as Parakeet
+(pass) transcription model readiness > recognizes only active downloads [0.05ms]
+
+tests/lib/transcript-source-view.test.tsx:
+(pass) both transcript rendering paths retain passage badges (4 rows) [7.80ms]
+(pass) both transcript rendering paths retain passage badges (12 rows) [2.68ms]
+
+tests/lib/analytics.test.ts:
+Analytics initialized successfully
+Tracking summary generation completed event: {
+  modelProvider: "ollama",
+  modelName: "model",
+  success: true,
+  durationSeconds: 1.999,
+  errorMessage: undefined,
+}
+Summary generation completed event tracked successfully
+Tracking summary generation completed event: {
+  modelProvider: "ollama",
+  modelName: "model",
+  success: false,
+  durationSeconds: undefined,
+  errorMessage: "cancelled",
+}
+Summary generation completed event tracked successfully
+(pass) summary generation analytics > sends whole seconds and preserves an omitted duration [0.24ms]
+Analytics initialized successfully
+Tracking transcription error event: {
+  errorCode: "auth_rejected",
+}
+Tracking transcription error event: {
+  errorCode: "ort_failed",
+}
+Tracking transcription error event: {
+  errorCode: "transcription_failed",
+}
+Transcription error event tracked successfully
+Transcription error event tracked successfully
+Transcription error event tracked successfully
+Tracking transcription error event: {
+  errorCode: "auth_rejected",
+}
+Transcription error event tracked successfully
+(pass) transcription error spike containment [1.52ms]
+
+tests/lib/empty-state-summary.test.tsx:
+(pass) empty summary state > renders a persistent retryable error [0.80ms]
+
+tests/lib/enhancement-session.test.ts:
+(pass) protected enhancement saves > historical rich and twice-encoded summaries retain their readable content [0.17ms]
+(pass) protected enhancement saves > a lost acknowledgment retries the same version commit before saving newer edits [0.33ms]
+(pass) protected enhancement saves > a revision conflict retains edits and stops automatic overwrites [0.09ms]
+
+tests/lib/transcript-audio-source.test.tsx:
+(pass) transcript capture provenance > all sources survive JSON/recovery and display adaptation with timings intact [0.05ms]
+(pass) transcript capture provenance > absent, unsupported and generic Audio provenance never becomes Microphone [0.33ms]
+(pass) transcript capture provenance > partial-to-final and duplicate updates retain source and stable identity [0.02ms]
+(pass) transcript capture provenance > each badge has visible text, an accessible channel label and a decorative icon [0.14ms]
+
+tests/lib/legacy-summary-flush.test.ts:
+(pass) legacy summary lifecycle saves > quit or navigation waits for an edit that arrives during the first save [0.11ms]
+(pass) legacy summary lifecycle saves > detached dirty views retain failed saves for retry and release their callback after acknowledgement [0.06ms]
+(pass) legacy summary lifecycle saves > deletion forgets pending drafts and rejects late view registration [0.04ms]
+
+tests/lib/summary-language-preferences.test.js:
+(pass) summary language local fallback > reads summary language from local fallback when meeting has no folder [0.15ms]
+(pass) summary language local fallback > saves summary language locally when command reports no folder [0.08ms]
+(pass) summary language local fallback > clears local fallback when Auto is saved for a folderless meeting [0.03ms]
+(pass) summary language local fallback > caches detected language locally when meeting has no folder [0.05ms]
+(pass) summary language local fallback > rejects when folderless summary language cannot be persisted locally [0.04ms]
+
+tests/lib/meeting-library.test.ts:
+(pass) meeting library navigation and filter values > source links preserve exact source identity and revision through URL encoding [0.11ms]
+(pass) meeting library navigation and filter values > date boundaries use local calendar midnight and an exclusive next day [0.14ms]
+(pass) meeting library navigation and filter values > manual labels preserve Unicode and unavailable passage time stays explicit [0.05ms]
+
+tests/lib/onboarding-summary-model.test.mjs:
+
+ 97 pass
+ 0 fail
+ 389 expect() calls
+Ran 97 tests across 22 files. [4.13s]

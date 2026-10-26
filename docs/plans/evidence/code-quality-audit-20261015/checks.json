@@ -1,0 +1,315 @@
+{
+  "snapshot": {
+    "utc": "2026-10-15T05:10:11.838582+00:00",
+    "source": "/Users/marcignacio/GitHub/meetily",
+    "snapshot": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+    "commit": "a2cb62e827da7ef59f65064c97233efb2313878e",
+    "files": 1147,
+    "native_target_clone": "APFS copy-on-write clone of existing build artifacts; separate writable target",
+    "node_modules": "Existing dependency directory linked read-only by convention; no dependency installation",
+    "tool_versions": [
+      "v26.7.0",
+      "9.15.9",
+      "1.3.14",
+      "Python 3.14.7",
+      "cargo 1.99.0 (5f94df478 2026-08-27) (Homebrew)",
+      "rustc 1.99.0 (b940084d7 2026-09-28) (Homebrew)",
+      "clippy 0.1.99",
+      "rustfmt 1.10.0"
+    ]
+  },
+  "checks": [
+    {
+      "name": "python-tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/tests"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 0,
+      "seconds": 0.13,
+      "log": "python-tests.txt"
+    },
+    {
+      "name": "portable-ggml-tests",
+      "command": [
+        "node",
+        ".github/verify-portable-ggml.test.cjs"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 0,
+      "seconds": 0.5,
+      "log": "portable-ggml-tests.txt"
+    },
+    {
+      "name": "onboarding-node-tests",
+      "command": [
+        "node",
+        "frontend/tests/lib/onboarding-summary-model.test.mjs"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 0,
+      "seconds": 0.19,
+      "log": "onboarding-node-tests.txt"
+    },
+    {
+      "name": "rustfmt",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 1,
+      "seconds": 1.11,
+      "raw_log": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/rustfmt.log"
+    },
+    {
+      "name": "clippy-diagnostics",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "meetily",
+        "--lib",
+        "--tests",
+        "--message-format=json"
+      ],
+      "exit_code": 101,
+      "seconds": 16.61,
+      "log": "clippy-diagnostics.txt",
+      "raw_diagnostics": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/clippy-diagnostics.jsonl",
+      "evidence_summary": "clippy-summary.json"
+    },
+    {
+      "name": "pnpm-audit",
+      "command": [
+        "pnpm",
+        "audit",
+        "--prod",
+        "--json"
+      ],
+      "exit_code": 1,
+      "seconds": 3.52,
+      "raw_log": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/pnpm-audit.log",
+      "evidence_summary": "dependency-advisories-summary.json"
+    },
+    {
+      "name": "cargo-audit-version",
+      "command": [
+        "cargo",
+        "audit",
+        "--version"
+      ],
+      "exit_code": 101,
+      "seconds": 0.04,
+      "log": "cargo-audit-version.txt"
+    },
+    {
+      "name": "tool-versions",
+      "command": [
+        "sh",
+        "-c",
+        "node --version\npnpm --version\nbun --version\npython3 --version\ncargo --version\nrustc --version\ncargo clippy --version\ncargo fmt --version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.82,
+      "log": "tool-versions.txt"
+    },
+    {
+      "name": "frontend-tests",
+      "command": [
+        "bun",
+        "test",
+        "frontend/tests"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 0,
+      "seconds": 5.21,
+      "log": "frontend-tests.txt"
+    },
+    {
+      "name": "frontend-build",
+      "command": [
+        "pnpm",
+        "--dir",
+        "frontend",
+        "build"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 0,
+      "seconds": 16.25,
+      "log": "frontend-build.txt"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "pnpm",
+        "--dir",
+        "frontend",
+        "exec",
+        "tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 0,
+      "seconds": 3.25,
+      "log": "typecheck.txt"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "pnpm",
+        "--dir",
+        "frontend",
+        "lint"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 1,
+      "seconds": 0.49,
+      "log": "lint.txt"
+    },
+    {
+      "name": "rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "meetily",
+        "--lib"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 101,
+      "seconds": 48.47,
+      "log": "rust-tests.txt"
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "meetily",
+        "--lib",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": 101,
+      "seconds": 3.2,
+      "log": "clippy.txt"
+    },
+    {
+      "name": "audit-probes-complete",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "meetily",
+        "--lib",
+        "audit_probe",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "seconds": 9.56,
+      "log": "audit-probes-complete.txt",
+      "patch": "disposable-audit-probes.patch",
+      "purpose": "Assertions confirm existing defects in disposable source; no application fixes"
+    },
+    {
+      "name": "audit-probes",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "meetily",
+        "--lib",
+        "audit_probe",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "seconds": 19.45,
+      "patch": "disposable-audit-probes.patch",
+      "purpose": "Assertions confirm existing defects; no repository code changed",
+      "raw_log": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/audit-probes.log"
+    },
+    {
+      "name": "local-research",
+      "command": [
+        "repo-research",
+        "--path",
+        "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src-tauri/src",
+        "--mode",
+        "evidence",
+        "--depth",
+        "quick",
+        "--output-budget",
+        "compact",
+        "--question",
+        "Locate native stop/finalization and recovery paths that ignore persistence errors, and deletion writer lease lifetimes. Return exact source spans and distinguish implementation from tests.",
+        "--fresh",
+        "--json"
+      ],
+      "cwd": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source",
+      "exit_code": null,
+      "seconds": 300.01,
+      "error": "Command '['repo-research', '--path', '/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src-tauri/src', '--mode', 'evidence', '--depth', 'quick', '--output-budget', 'compact', '--question', 'Locate native stop/finalization and recovery paths that ignore persistence errors, and deletion writer lease lifetimes. Return exact source spans and distinguish implementation from tests.', '--fresh', '--json']' timed out after 300 seconds",
+      "raw_log": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/local-research.log"
+    }
+  ],
+  "counts": {
+    "frontend": {
+      "passed": 183,
+      "failed": 0,
+      "files": 41
+    },
+    "rust": {
+      "passed": 371,
+      "failed": 1,
+      "ignored": 8
+    },
+    "python": 12,
+    "portable_node": 14,
+    "disposable_defect_probes": 4,
+    "rustfmt_affected_files": 134,
+    "clippy_unique": {
+      "warning": 195,
+      "error": 4
+    }
+  },
+  "preservation": {
+    "files_checked": 1147,
+    "changed": [],
+    "missing": [],
+    "final_receipt": "preservation.json"
+  },
+  "boundaries": [
+    "No duration, physical capture, installed app, Windows, live egress or model-semantic acceptance performed",
+    "Clippy diagnostics cover library/tests and build script; strict invocation stopped in build script",
+    "Local repository research timed out after 300 seconds; no model evidence used",
+    "Rust dependency advisory audit unavailable: cargo-audit not installed"
+  ]
+}

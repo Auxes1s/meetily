@@ -62,6 +62,7 @@ interface OnboardingContextType {
   setPermissionStatus: (permission: keyof OnboardingPermissions, status: PermissionStatus) => void;
   setPermissionsSkipped: (skipped: boolean) => void;
   completeOnboarding: () => Promise<void>;
+  completeNotesOnlySetup: () => Promise<void>;
   startBackgroundDownloads: (options: StartBackgroundDownloadsOptions) => Promise<void>;
   retryParakeetDownload: () => Promise<void>;
 }
@@ -77,6 +78,7 @@ const OnboardingContext = createContext<OnboardingContextType | undefined>(undef
 export function OnboardingProvider({ children }: { children: React.ReactNode }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [completed, setCompleted] = useState(false);
+  const [statusLoaded, setStatusLoaded] = useState(false);
   const [parakeetDownloaded, setParakeetDownloaded] = useState(false);
   const [parakeetProgress, setParakeetProgress] = useState(0);
   const [parakeetProgressInfo, setParakeetProgressInfo] = useState<ParakeetProgressInfo>({
@@ -215,6 +217,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
   };
 
   const isCompletingRef = useRef(false);
+  const statusSaveFlight = useRef<Promise<unknown> | null>(null);
+  const completionFlight = useRef<Promise<void> | null>(null);
 
   // Auto-save on state change (debounced)
   useEffect(() => {
@@ -222,7 +226,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
 
     // Don't auto-save if completed (to avoid overwriting completion status)
     // Also don't auto-save if we are currently in the process of completing
-    if (completed || isCompletingRef.current) return;
+    if (!statusLoaded || completed || isCompletingRef.current) return;
 
     saveTimeoutRef.current = setTimeout(() => {
       saveOnboardingStatus();
@@ -231,7 +235,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     return () => {
       if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
     };
-  }, [currentStep, parakeetDownloaded, summaryModelDownloaded, completed]);
+  }, [currentStep, parakeetDownloaded, summaryModelDownloaded, selectedSummaryModel, completed, statusLoaded]);
 
   // Listen to Parakeet download progress
   useEffect(() => {
@@ -342,6 +346,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
   const loadOnboardingStatus = async () => {
     try {
       const status = await invoke<OnboardingStatus | null>('get_onboarding_status');
+      // A user may choose notes-only while the stored status is still loading.
+      if (isCompletingRef.current) return;
       if (status) {
         console.log('[OnboardingContext] Loaded saved status:', status);
 
@@ -354,11 +360,13 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
             setSelectedSummaryModel(status.model_status.selected_summary_model);
           }
           console.log('[OnboardingContext] Restored completed onboarding status without model verification');
+          setStatusLoaded(true);
           return;
         }
 
         // Don't trust saved status - verify actual model status on disk
         const verifiedStatus = await verifyModelStatus(status);
+        if (isCompletingRef.current) return;
 
         setCurrentStep(verifiedStatus.currentStep);
         setCompleted(verifiedStatus.completed);
@@ -375,6 +383,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       } else {
         await initializeSummaryModelSelection();
       }
+      setStatusLoaded(true);
     } catch (error) {
       console.error('[OnboardingContext] Failed to load onboarding status:', error);
     }
@@ -450,7 +459,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     }
 
     try {
-      await invoke('save_onboarding_status_cmd', {
+      const snapshot = {
         status: {
           version: '1.0',
           completed: completed,
@@ -462,23 +471,43 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
           },
           last_updated: new Date().toISOString(),
         },
-      });
+      };
+      // Serialize progress writes so a slow older snapshot cannot land last.
+      const save = (statusSaveFlight.current ?? Promise.resolve())
+        .catch(() => {})
+        .then(() => {
+          if (!isCompletingRef.current) return invoke('save_onboarding_status_cmd', snapshot);
+        });
+      statusSaveFlight.current = save;
+      await save;
     } catch (error) {
       console.error('[OnboardingContext] Failed to save onboarding status:', error);
     }
   };
 
-  const completeOnboarding = async () => {
+  const finishSetup = (complete: () => Promise<void>) => {
+    if (completionFlight.current) return completionFlight.current;
+    if (isCompletingRef.current) return Promise.resolve();
+    isCompletingRef.current = true;
+    if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+    const flight = Promise.resolve().then(async () => {
+      await statusSaveFlight.current?.catch(() => {});
+      await complete();
+      setCompleted(true);
+    }).catch(error => {
+      isCompletingRef.current = false;
+      throw error;
+    }).finally(() => { completionFlight.current = null; });
+    completionFlight.current = flight;
+    return flight;
+  };
+
+  const completeNotesOnlySetup = () => finishSetup(async () => {
+    await invoke('complete_notes_only_setup');
+  });
+
+  const completeOnboarding = () => finishSetup(async () => {
     try {
-      // Set completion flag to prevent race conditions with auto-save
-      isCompletingRef.current = true;
-
-      // Clear any pending auto-saves
-      if (saveTimeoutRef.current) {
-        clearTimeout(saveTimeoutRef.current);
-        saveTimeoutRef.current = undefined;
-      }
-
       let modelToSave = selectedSummaryModel;
       if (!modelToSave) {
         modelToSave = await invoke<string>('builtin_ai_get_recommended_model');
@@ -498,17 +527,12 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
       await invoke('complete_onboarding', {
         model: modelToSave,
       });
-      setCompleted(true);
       console.log('[OnboardingContext] Onboarding completed with model:', modelToSave);
-
-      // Reset the flag so subsequent state updates can be saved
-      isCompletingRef.current = false;
     } catch (error) {
       console.error('[OnboardingContext] Failed to complete onboarding:', error);
-      isCompletingRef.current = false; // Reset flag on error
       throw error; // Re-throw so PermissionsStep can handle it
     }
-  };
+  });
 
   // Start background downloads for models.
   const startBackgroundDownloads = async ({
@@ -634,6 +658,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         setPermissionStatus,
         setPermissionsSkipped,
         completeOnboarding,
+        completeNotesOnlySetup,
         startBackgroundDownloads,
         retryParakeetDownload,
       }}

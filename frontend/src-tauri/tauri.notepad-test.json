@@ -1,0 +1,7 @@
+{
+  "productName": "Meetily Notepad Test",
+  "identifier": "com.meetily.notepad.test",
+  "app": { "windows": [{ "title": "Meetily Notepad Test", "width": 1100, "height": 700 }] },
+  "bundle": { "targets": ["app"], "createUpdaterArtifacts": false },
+  "plugins": { "updater": { "endpoints": [] } }
+}

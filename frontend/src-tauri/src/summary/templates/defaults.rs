@@ -9,6 +9,10 @@ pub const DAILY_STANDUP: &str = include_str!("../../../templates/daily_standup.j
 /// Standard meeting notes template
 pub const STANDARD_MEETING: &str = include_str!("../../../templates/standard_meeting.json");
 
+pub const HIGHLIGHTS: &str = include_str!("../../../templates/highlights.json");
+pub const TECHNICAL_CONSULTATION: &str = include_str!("../../../templates/technical_consultation.json");
+pub const PROJECT_BOARD: &str = include_str!("../../../templates/project_board.json");
+
 /// Registry of all built-in templates
 ///
 /// Maps template identifiers to their embedded JSON content
@@ -16,6 +20,9 @@ pub fn get_builtin_templates() -> Vec<(&'static str, &'static str)> {
     vec![
         ("daily_standup", DAILY_STANDUP),
         ("standard_meeting", STANDARD_MEETING),
+        ("highlights", HIGHLIGHTS),
+        ("technical_consultation", TECHNICAL_CONSULTATION),
+        ("project_board", PROJECT_BOARD),
     ]
 }
 
@@ -30,13 +37,16 @@ pub fn get_builtin_template(id: &str) -> Option<&'static str> {
     match id {
         "daily_standup" => Some(DAILY_STANDUP),
         "standard_meeting" => Some(STANDARD_MEETING),
+        "highlights" => Some(HIGHLIGHTS),
+        "technical_consultation" => Some(TECHNICAL_CONSULTATION),
+        "project_board" => Some(PROJECT_BOARD),
         _ => None,
     }
 }
 
 /// List all built-in template identifiers
 pub fn list_builtin_template_ids() -> Vec<&'static str> {
-    vec!["daily_standup", "standard_meeting"]
+    vec!["daily_standup", "standard_meeting", "highlights", "technical_consultation", "project_board"]
 }
 
 #[cfg(test)]

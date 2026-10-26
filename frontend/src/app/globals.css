@@ -78,26 +78,31 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
+    color-scheme: light;
+    --background: 42.86 28% 95.1%;
+    --foreground: 140 6.25% 18.82%;
+    --card: 45 100% 99.22%;
+    --card-foreground: var(--foreground);
+    --popover: var(--card);
+    --popover-foreground: var(--foreground);
+    --primary: 137.14 15.05% 36.47%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 68.57 17.95% 92.35%;
+    --secondary-foreground: 132.86 18.18% 30.2%;
+    --muted: var(--secondary);
+    --muted-foreground: 120 4.39% 40.2%;
+    --accent: 102 21.74% 90.98%;
+    --accent-foreground: 132.86 18.18% 30.2%;
+    --destructive: 3.75 56.14% 44.71%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --radius: 0.5rem;
+    --border: 84 15.15% 87.06%;
+    --input: 99 8.33% 52.94%;
+    --ring: var(--primary);
+    --radius: 0.75rem;
+    --glass-fill: rgb(255 254 251 / 82%);
+    --glass-edge: rgb(255 255 255 / 90%);
+    --shadow-surface: 0 2px 8px rgb(45 51 47 / 3%);
+    --shadow-floating: 0 8px 28px rgb(45 51 47 / 9%), inset 0 1px 0 var(--glass-edge);
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -138,11 +143,30 @@
     @apply border-border;
   }
 
-  /* html, */
+  html,
   body {
     @apply bg-background text-foreground;
     overflow: hidden;
     height: 100%;
+  }
+
+  body {
+    font-size: 14px;
+    background-image: radial-gradient(ellipse at 0% 0%, rgb(209 223 204 / 45%), transparent 55%);
+  }
+
+  ::selection {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  :where(button, a, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+
+  :where(button, input, select, textarea) {
+    accent-color: hsl(var(--primary));
   }
 
   /* Make the window draggable */
@@ -166,18 +190,18 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #d1d5db;
+    background: hsl(var(--input));
     border-radius: 3px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+    background: hsl(var(--muted-foreground));
   }
 
   /* Firefox scrollbar */
   .custom-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: #d1d5db transparent;
+    scrollbar-color: hsl(var(--input)) transparent;
   }
 
   /* BlockNote Editor - Override fixed dimensions for responsive layout */
@@ -210,5 +234,397 @@
   /* Disable scrolling on any BlockNote wrapper elements */
   [data-node-type] {
     overflow: visible !important;
+  }
+}
+
+/* Layout changes only affect presentation; editors and capture stay mounted. */
+.meeting-workspace {
+  container: workspace / inline-size;
+}
+
+.notes-panel {
+  container: notes / inline-size;
+}
+
+.workspace-panes[data-transcript-open="true"] > .workspace-notes {
+  display: none;
+}
+
+@container workspace (min-width: 960px) {
+  .workspace-panes[data-transcript-open="true"] > .workspace-notes {
+    display: block;
+  }
+
+  .workspace-transcript {
+    flex: 0 0 40%;
+  }
+}
+
+@container workspace (max-width: 700px) {
+  .workspace-summary-label {
+    display: none;
+  }
+}
+
+@container workspace (max-width: 560px) {
+  .workspace-header {
+    padding: 8px;
+  }
+}
+
+@container notes (max-width: 560px) {
+  .notes-title {
+    flex-basis: 100%;
+  }
+
+  .notes-action-label {
+    display: none;
+  }
+
+  .notes-toolbar {
+    padding: 8px;
+  }
+}
+
+.meeting-details-layout {
+  container: meeting-details / inline-size;
+  width: 100%;
+}
+
+@container meeting-details (min-width: 900px) {
+  .details-tabs {
+    display: none;
+  }
+
+  .details-panes {
+    flex-direction: row;
+  }
+
+  .details-transcript {
+    flex: none;
+    width: var(--transcript-pane-width);
+  }
+
+  .details-separator,
+  .details-panes > [data-state="inactive"] {
+    display: flex;
+  }
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+/* Below this width navigation overlays the rail, leaving a usable notes pane.
+   The user's expanded/collapsed preference is retained when resizing. */
+@media (max-width: 700px) {
+  .app-main {
+    margin-left: 64px;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgb(0 0 0 / 20%);
+  }
+}
+
+.sidebar-surface {
+  max-width: calc(100vw - 48px);
+}
+
+.sidebar-navigation {
+  min-height: 180px;
+}
+
+.app-sidebar[data-expanded="false"] .sidebar-navigation {
+  overflow-y: auto;
+}
+
+.meeting-library {
+  container: library / inline-size;
+}
+
+.library-filters {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+
+.library-filters > label,
+.library-filters input,
+.library-filters select {
+  min-width: 0;
+}
+
+@container library (max-width: 560px) {
+  .library-result-title {
+    flex-basis: 100%;
+  }
+}
+
+.notes-panel,
+.enhancement-panel,
+.meeting-library,
+.transcript-panel,
+.meetily-dialog {
+  overflow-wrap: anywhere;
+}
+
+.meetily-dialog {
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+  min-width: 0;
+}
+
+/* Keep long paragraphs and URLs in the editor width. Tables and code keep
+   their natural width and scroll locally rather than enlarging the app. */
+.note-editor-shell {
+  container: note-editor / inline-size;
+}
+
+.bn-block,
+.bn-block-content,
+.bn-inline-content {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.bn-inline-content {
+  overflow-wrap: anywhere;
+}
+
+.bn-block-content[data-content-type="table"],
+.bn-block-content[data-content-type="codeBlock"] {
+  overflow-x: auto !important;
+}
+
+.bn-block-content[data-content-type="table"] table {
+  flex-shrink: 0;
+  min-width: max-content;
+}
+
+@container note-editor (max-width: 560px) {
+  .bn-editor {
+    padding-left: 36px;
+    padding-right: 16px;
+  }
+}
+
+.transcript-scroll {
+  overflow-wrap: anywhere;
+}
+
+/* Materials belong to bounded chrome. Never filter a shell/editor/virtualizer
+   ancestor: fixed controls, portals and transcript measurements depend on it. */
+.glass-surface {
+  background: var(--glass-fill);
+  border: 1px solid hsl(var(--border) / 75%);
+  box-shadow: var(--shadow-floating);
+  -webkit-backdrop-filter: blur(16px) saturate(115%);
+  backdrop-filter: blur(16px) saturate(115%);
+}
+
+.paper-surface {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  box-shadow: var(--shadow-surface);
+}
+
+.page-heading {
+  font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: hsl(var(--foreground));
+}
+
+.eyebrow {
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+}
+
+.workspace-header {
+  border-width: 0 0 1px;
+  box-shadow: none;
+}
+
+.document-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding: 4px;
+  border-radius: 12px;
+  background: hsl(var(--muted));
+}
+
+.document-tab {
+  border-radius: 9px;
+  color: hsl(var(--muted-foreground));
+  box-shadow: none;
+}
+
+.document-tab[aria-selected="true"],
+.document-tab[data-state="active"] {
+  background: hsl(var(--card));
+  color: hsl(var(--accent-foreground));
+  box-shadow: var(--shadow-surface);
+}
+
+.notes-toolbar {
+  padding: 22px clamp(16px, 3vw, 40px) 12px;
+}
+
+.notes-title {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.note-editor-shell,
+.summary-editor-shell {
+  width: 100%;
+  max-width: calc(72ch + 108px);
+  margin-inline: auto;
+  font-size: 16px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  transform: translateY(calc(-100% - 16px));
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+/* BlockNote scopes a second shadcn palette to editors and portalled menus.
+   Inherit the application tokens there so menus and documents agree. */
+.bn-shadcn:not(.dark) {
+  --background: inherit;
+  --foreground: inherit;
+  --card: inherit;
+  --card-foreground: inherit;
+  --popover: inherit;
+  --popover-foreground: inherit;
+  --primary: inherit;
+  --primary-foreground: inherit;
+  --secondary: inherit;
+  --secondary-foreground: inherit;
+  --muted: inherit;
+  --muted-foreground: inherit;
+  --accent: inherit;
+  --accent-foreground: inherit;
+  --destructive: inherit;
+  --destructive-foreground: inherit;
+  --border: inherit;
+  --input: inherit;
+  --ring: inherit;
+  --radius: inherit;
+}
+
+.bn-container[data-color-scheme="light"] {
+  --bn-colors-editor-background: hsl(var(--card));
+  --bn-colors-editor-text: hsl(var(--foreground));
+  --bn-colors-menu-background: hsl(var(--popover));
+  --bn-colors-menu-text: hsl(var(--foreground));
+  --bn-colors-hovered-background: hsl(var(--accent));
+  --bn-colors-hovered-text: hsl(var(--accent-foreground));
+  --bn-colors-selected-background: hsl(var(--primary));
+  --bn-colors-selected-text: hsl(var(--primary-foreground));
+  --bn-colors-border: hsl(var(--border));
+  --bn-font-family: var(--font-source-sans-3), sans-serif;
+}
+
+.bn-container[data-color-scheme="light"] .bn-editor {
+  font-family: var(--font-source-sans-3), sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+}
+
+.recording-dock {
+  border-radius: 999px;
+  padding: 7px 12px;
+  gap: 12px;
+}
+
+[data-sonner-toast] {
+  font-family: var(--font-source-sans-3), sans-serif;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-surface { background: hsl(var(--card)); }
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .glass-surface {
+    background: hsl(var(--card));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-color: hsl(var(--input));
+  }
+}
+
+@media (forced-colors: active) {
+  .glass-surface, .paper-surface {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-height: 500px) {
+  .transcript-toolbar {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+
+  .transcript-context {
+    padding: 6px 8px;
+  }
+
+  .details-tabs [role="tab"] {
+    padding-block: 8px;
+  }
+
+  .notes-scroll {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .workspace-recording {
+    padding: 4px 8px;
+  }
+
+  .workspace-recording > p {
+    font-size: 10px;
+  }
+
+  .transcript-context textarea {
+    height: 48px;
+    max-height: 64px;
   }
 }

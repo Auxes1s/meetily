@@ -58,7 +58,7 @@ pub fn build_openai_compat_chat_body(
     let (max_tokens_val, temperature_val, top_p_val) = if *provider == LLMProvider::CustomOpenAI {
         (max_tokens, temperature, top_p)
     } else {
-        (None, None, None)
+        (max_tokens, None, None)
     };
 
     serde_json::json!(ChatRequest {
@@ -137,14 +137,18 @@ impl ClaudeChatResponse {
             reasoning_stripped: self.content.iter().any(|block| {
                 matches!(block.block_type.as_str(), "thinking" | "redacted_thinking")
             }),
+            ..Default::default()
         })
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub(crate) struct LlmCompletion {
     pub content: String,
     pub reasoning_stripped: bool,
+    pub finish_reason: Option<String>,
+    pub prompt_tokens: Option<u64>,
+    pub generated_tokens: Option<u64>,
 }
 
 impl ChatResponse {
@@ -165,6 +169,7 @@ impl ChatResponse {
                 .into_iter()
                 .flatten()
                 .any(|reasoning| !reasoning.trim().is_empty()),
+            ..Default::default()
         })
     }
 }
@@ -271,6 +276,32 @@ pub(crate) async fn generate_summary(
     app_data_dir: Option<&PathBuf>,
     cancellation_token: Option<&CancellationToken>,
 ) -> Result<LlmCompletion, String> {
+    generate_summary_observed(client, provider, model_name, api_key, system_prompt, user_prompt,
+        ollama_endpoint, custom_openai_endpoint, max_tokens, temperature, top_p,
+        app_data_dir, cancellation_token, None).await
+}
+
+/// Opt-in evaluator capture. Ordinary generation never records source payloads.
+pub(crate) async fn generate_summary_observed(
+    client: &Client, provider: &LLMProvider, model_name: &str, api_key: &str,
+    system_prompt: &str, user_prompt: &str, ollama_endpoint: Option<&str>,
+    custom_openai_endpoint: Option<&str>, max_tokens: Option<u32>,
+    temperature: Option<f32>, top_p: Option<f32>, app_data_dir: Option<&PathBuf>,
+    cancellation_token: Option<&CancellationToken>, audit: Option<&mut Vec<serde_json::Value>>,
+) -> Result<LlmCompletion, String> {
+    generate_summary_with_grammar(client, provider, model_name, api_key, system_prompt, user_prompt,
+        ollama_endpoint, custom_openai_endpoint, max_tokens, temperature, top_p,
+        app_data_dir, cancellation_token, audit, None).await
+}
+
+pub(crate) async fn generate_summary_with_grammar(
+    client: &Client, provider: &LLMProvider, model_name: &str, api_key: &str,
+    system_prompt: &str, user_prompt: &str, ollama_endpoint: Option<&str>,
+    custom_openai_endpoint: Option<&str>, max_tokens: Option<u32>,
+    temperature: Option<f32>, top_p: Option<f32>, app_data_dir: Option<&PathBuf>,
+    cancellation_token: Option<&CancellationToken>, mut audit: Option<&mut Vec<serde_json::Value>>,
+    grammar: Option<&str>,
+) -> Result<LlmCompletion, String> {
     // Check if cancelled before starting
     if let Some(token) = cancellation_token {
         if token.is_cancelled() {
@@ -283,19 +314,16 @@ pub(crate) async fn generate_summary(
         let app_data_dir = app_data_dir
             .ok_or_else(|| "app_data_dir is required for BuiltInAI provider".to_string())?;
 
-        return crate::summary::summary_engine::generate_with_builtin(
-            app_data_dir,
-            model_name,
-            system_prompt,
-            user_prompt,
-            cancellation_token,
-        )
-        .await
-        .map(|content| LlmCompletion {
-            content,
-            reasoning_stripped: false,
-        })
-        .map_err(|e| e.to_string());
+        let result = crate::summary::summary_engine::client::generate_with_builtin_options(
+            app_data_dir, model_name, system_prompt, user_prompt, cancellation_token, grammar, max_tokens,
+        ).await.map_err(|e| e.to_string());
+        if let Some(audit) = audit.as_mut() {
+            audit.push(match &result {
+                Ok(response) => serde_json::json!({"raw_content":response.content}),
+                Err(error) => serde_json::json!({"error":error}),
+            });
+        }
+        return result;
     }
 
     let (api_url, mut headers) = match provider {
@@ -383,7 +411,7 @@ pub(crate) async fn generate_summary(
             model: model_name.to_string(),
             // Shared budget: on models with thinking enabled by default this
             // covers thinking tokens as well as the answer.
-            max_tokens: 8192,
+            max_tokens: max_tokens.unwrap_or(8192),
             messages: vec![ChatMessage {
                 role: "user".to_string(),
                 content: user_prompt.to_string(),
@@ -440,11 +468,11 @@ pub(crate) async fn generate_summary(
         let error_body = await_or_cancel(response.text(), cancellation_token)
             .await?
             .unwrap_or_else(|error| format!("Failed to read LLM error response body: {error}"));
+        if let Some(audit) = audit.as_mut() {
+            audit.push(serde_json::json!({"http_status":status.as_u16(),"raw_body":error_body}));
+        }
         if provider != &LLMProvider::Ollama || !ollama_rejects_reasoning_effort(status, &error_body) {
-            return Err(format!(
-                "LLM API request failed with status {}: {}",
-                status, error_body
-            ));
+            return Err(format!("LLM API request failed with status {} (response body redacted)",status));
         }
 
         warn!("Ollama rejected reasoning_effort; retrying once without it");
@@ -478,19 +506,22 @@ pub(crate) async fn generate_summary(
         let error_body = await_or_cancel(response.text(), cancellation_token)
             .await?
             .unwrap_or_else(|error| format!("Failed to read LLM error response body: {error}"));
-        return Err(format!(
-            "LLM API request failed with status {}: {}",
-            status, error_body
-        ));
+        if let Some(audit) = audit.as_mut() {
+            audit.push(serde_json::json!({"http_status":status.as_u16(),"raw_body":error_body}));
+        }
+        return Err(format!("LLM API request failed with status {} (response body redacted)",status));
     }
 
+    // Preserve the complete wire response (including reasoning/finish reason) only
+    // when explicitly requested by the synthetic evaluator.
+    let raw = await_or_cancel(response.text(), cancellation_token).await?
+        .map_err(|e| format!("Failed to read LLM response: {e}"))?;
+    if let Some(audit) = audit.as_mut() {
+        audit.push(serde_json::json!({"http_status":200,"raw_body":raw}));
+    }
     // Parse response based on provider
     if provider == &LLMProvider::Claude {
-        let chat_response = await_or_cancel(
-            response.json::<ClaudeChatResponse>(),
-            cancellation_token,
-        )
-        .await?
+        let chat_response = serde_json::from_str::<ClaudeChatResponse>(&raw)
         .map_err(|e| format!("Failed to parse LLM response: {}", e))?;
 
         info!("🐞 LLM Response received from Claude");
@@ -498,17 +529,19 @@ pub(crate) async fn generate_summary(
         let completion = chat_response
             .completion()
             .ok_or("No text content in LLM response")?;
-        Ok(completion)
+        Ok(LlmCompletion { finish_reason: serde_json::from_str::<serde_json::Value>(&raw).ok()
+            .and_then(|v| v["stop_reason"].as_str().map(|r| if r == "max_tokens" { "length".into() } else { r.into() })), ..completion })
     } else {
-        let chat_response = await_or_cancel(
-            response.json::<ChatResponse>(),
-            cancellation_token,
-        )
-        .await?
+        let chat_response = serde_json::from_str::<ChatResponse>(&raw)
         .map_err(|e| format!("Failed to parse LLM response: {}", e))?;
 
         info!("🐞 LLM Response received from {}", provider_name(provider));
-        chat_response.completion()
+        let mut completion = chat_response.completion()?;
+        let metadata: serde_json::Value = serde_json::from_str(&raw).map_err(|_| "Invalid inference response metadata")?;
+        completion.finish_reason = metadata["choices"][0]["finish_reason"].as_str().map(str::to_owned);
+        completion.prompt_tokens = metadata["usage"]["prompt_tokens"].as_u64();
+        completion.generated_tokens = metadata["usage"]["completion_tokens"].as_u64();
+        Ok(completion)
     }
 }
 
@@ -603,6 +636,7 @@ mod tests {
                 LlmCompletion {
                     content: String::new(),
                     reasoning_stripped: true,
+                ..Default::default()
                 }
             );
         }
@@ -888,6 +922,7 @@ mod tests {
             LlmCompletion {
                 content: "Meeting summary.".to_string(),
                 reasoning_stripped: false,
+            ..Default::default()
             }
         );
     }
@@ -907,6 +942,7 @@ mod tests {
             Some(LlmCompletion {
                 content: "Meeting summary.".to_string(),
                 reasoning_stripped: true,
+            ..Default::default()
             })
         );
     }

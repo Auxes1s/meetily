@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "id": "fx-10",
+  "category": "conflicting-notes-transcript",
+  "meeting_id": "e08-fx-10",
+  "template_id": "standard_meeting",
+  "summary_language": "en",
+  "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+  "notes": [
+    {
+      "id": "fx-10-n1",
+      "text": "Priority: resolve the conflict. My notes say the launch was approved."
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "fx-10-t1",
+      "text": "The launch was discussed but not approved. We deferred the decision.",
+      "audio_start_time": 0.0,
+      "audio_end_time": 9.0,
+      "audio_source": "unknown"
+    }
+  ],
+  "annotations": {
+    "relevant_decisions_actions": [
+      {
+        "id": "fx-10-e1",
+        "kind": "decision",
+        "text": "Launch approval is disputed: notes say approved, transcript says deferred.",
+        "agreement_status": "conflict",
+        "owner": null,
+        "deadline": null,
+        "uncertainty": "conflicting notes and transcript",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-10-n1",
+            "excerpt": "Priority: resolve the conflict. My notes say the launch was approved."
+          },
+          {
+            "source_id": "transcript:fx-10-t1",
+            "excerpt": "The launch was discussed but not approved. We deferred the decision."
+          }
+        ]
+      }
+    ],
+    "user_priorities": [
+      {
+        "id": "fx-10-p1",
+        "topic": "approval conflict",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-10-n1",
+            "excerpt": "Priority: resolve the conflict. My notes say the launch was approved."
+          },
+          {
+            "source_id": "transcript:fx-10-t1",
+            "excerpt": "The launch was discussed but not approved. We deferred the decision."
+          }
+        ]
+      }
+    ],
+    "forbidden_inferences": [
+      "Unqualified approved launch",
+      "Silently discarding either source"
+    ]
+  }
+}

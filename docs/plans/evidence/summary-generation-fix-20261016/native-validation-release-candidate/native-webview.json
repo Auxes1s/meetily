@@ -1,0 +1,12 @@
+{
+  "enhanced_notes_button": true,
+  "enhanced_version": "2503b1d4-d61c-4ad4-a2b9-f59b544882c0",
+  "native_webview": true,
+  "notes_only": true,
+  "ok": true,
+  "originals_preserved": true,
+  "real_model": "qwen3.5:4b",
+  "summary_button": true,
+  "summary_version": "aae8ecf0-76d3-4836-94a2-737c3005c678",
+  "taglish_unicode": true
+}

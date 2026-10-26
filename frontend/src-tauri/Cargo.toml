@@ -6,7 +6,7 @@ authors = ["Sujith S"]
 license = "MIT"
 repository = "https://github.com/Zackriya-Solutions/meeting-minutes"
 edition = "2021"
-rust-version = "1.77"
+rust-version = "1.91"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -40,6 +40,9 @@ default = ["platform-default"]  # Automatically enables best backend per platfor
 
 # Platform-appropriate defaults - see target-specific dependencies below
 platform-default = []
+
+# Explicitly isolated native acceptance harness; never enabled in shipped builds.
+q02-validation = []
 
 # Manual GPU acceleration options (for power users to override defaults)
 metal = ["whisper-rs/metal"]       # macOS: Apple Metal GPU (Auto-enabled on macOS)
@@ -96,6 +99,9 @@ ebur128 = "0.1"
 
 # Noise suppression - RNNoise-based neural network noise reduction
 nnnoiseless = "0.5"
+
+# WebRTC AEC3, pure Rust: cancel speaker playback from the microphone before ASR.
+sonora = "=0.2.0"
 
 # Speech recognition and async utilities
 # NOTE: whisper-rs is declared in platform-specific sections below (macOS/Windows/Linux)
@@ -201,6 +207,7 @@ whisper-rs = { version = "0.13.2", features = ["raw-api"] }
 futures-channel = "0.3.31"
 
 [dev-dependencies]
+tauri = { version = "2.6.2", features = ["test"] }
 tempfile = "3.3.0"
 infer = "0.15"
 criterion = { version = "0.5.1", features = ["async_tokio"] }

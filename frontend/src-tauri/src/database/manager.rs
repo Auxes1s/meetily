@@ -1,4 +1,5 @@
-use sqlx::{migrate::MigrateDatabase, Result, Sqlite, SqlitePool, Transaction};
+use sqlx::{sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions, SqliteSynchronous}, Result, Sqlite, SqlitePool, Transaction};
+use std::{str::FromStr, time::Duration};
 use std::fs;
 use std::path::Path;
 use tauri::Manager;
@@ -10,111 +11,71 @@ pub struct DatabaseManager {
 
 impl DatabaseManager {
     pub async fn new(tauri_db_path: &str, backend_db_path: &str) -> Result<Self> {
-        if let Some(parent_dir) = Path::new(tauri_db_path).parent() {
-            if !parent_dir.exists() {
-                fs::create_dir_all(parent_dir).map_err(|e| sqlx::Error::Io(e))?;
-            }
+        let path = Path::new(tauri_db_path);
+        if let Some(parent) = path.parent() { fs::create_dir_all(parent)?; }
+        // SQLite snapshots include committed WAL pages; a raw filesystem copy does not.
+        if !path.exists() && Path::new(backend_db_path).exists() {
+            let legacy = SqlitePool::connect_with(SqliteConnectOptions::from_str(backend_db_path)?.read_only(true)).await?;
+            sqlx::query("VACUUM INTO ?").bind(tauri_db_path).execute(&legacy).await?;
+            legacy.close().await;
         }
-
-        if !Path::new(tauri_db_path).exists() {
-            if Path::new(backend_db_path).exists() {
-                log::info!(
-                    "Copying database from {} to {}",
-                    backend_db_path,
-                    tauri_db_path
-                );
-                fs::copy(backend_db_path, tauri_db_path).map_err(|e| sqlx::Error::Io(e))?;
-            } else {
-                log::info!("Creating database at {}", tauri_db_path);
-                Sqlite::create_database(tauri_db_path).await?;
-            }
+        let existed = path.exists();
+        let options = SqliteConnectOptions::from_str(tauri_db_path)?
+            .create_if_missing(true).foreign_keys(true).busy_timeout(Duration::from_secs(5))
+            .journal_mode(SqliteJournalMode::Wal).synchronous(SqliteSynchronous::Full);
+        // Check the source before changing its connection/journal policy.
+        if existed {
+            let read = SqlitePool::connect_with(SqliteConnectOptions::from_str(tauri_db_path)?.read_only(true)).await?;
+            let integrity: String = sqlx::query_scalar("PRAGMA integrity_check").fetch_one(&read).await?;
+            if integrity != "ok" { return Err(sqlx::Error::Protocol("Database integrity check failed; source files preserved".into())); }
+            read.close().await;
         }
-
-        let pool = SqlitePool::connect(tauri_db_path).await?;
-
-        sqlx::migrate!("./migrations").run(&pool).await?;
-
+        let pool = SqlitePoolOptions::new().max_connections(4).connect_with(options).await?;
+        let migrator = sqlx::migrate!("./migrations");
+        let has_migrations: i64 = sqlx::query_scalar("SELECT COUNT(*) FROM sqlite_master WHERE name = '_sqlx_migrations'").fetch_one(&pool).await?;
+        let versions: Vec<i64> = if has_migrations > 0 {
+            sqlx::query_scalar("SELECT version FROM _sqlx_migrations WHERE success = 1").fetch_all(&pool).await?
+        } else { Vec::new() };
+        let pending = migrator.iter().any(|m| !versions.contains(&m.version));
+        let backup_dir = path.with_extension("sqlite.backups");
+        if existed && pending {
+            fs::create_dir_all(&backup_dir)?;
+            let stem = format!("{}-{}", chrono::Utc::now().format("%Y%m%dT%H%M%S"), uuid::Uuid::new_v4());
+            let partial = backup_dir.join(format!("{stem}.partial"));
+            sqlx::query("VACUUM INTO ?").bind(partial.to_string_lossy().as_ref()).execute(&pool).await?;
+            let snapshot = SqlitePool::connect_with(SqliteConnectOptions::from_str(partial.to_string_lossy().as_ref())?.read_only(true)).await?;
+            let integrity: String = sqlx::query_scalar("PRAGMA integrity_check").fetch_one(&snapshot).await?;
+            snapshot.close().await;
+            if integrity != "ok" { return Err(sqlx::Error::Protocol("Migration backup integrity check failed".into())); }
+            fs::File::open(&partial)?.sync_all()?;
+            fs::rename(&partial, backup_dir.join(format!("{stem}.sqlite")))?;
+            // Windows cannot open a directory with the standard File API.
+            // The snapshot itself has already been synced before atomic rename.
+            #[cfg(unix)]
+            fs::File::open(&backup_dir)?.sync_all()?;
+        }
+        migrator.run(&pool).await?;
+        crate::summary::enhancement::recover_interrupted_enhancements(&pool).await
+            .map_err(sqlx::Error::Protocol)?;
+        // A previous process cannot still own a live recording after this process starts.
+        sqlx::query("UPDATE meetings SET status = 'interrupted' WHERE status IN ('recording', 'finalizing')").execute(&pool).await?;
+        sqlx::query("UPDATE recording_sessions SET status='interrupted' WHERE status IN ('starting','recording','finalizing')").execute(&pool).await?;
+        if pending && backup_dir.exists() {
+            let mut backups: Vec<_> = fs::read_dir(&backup_dir)?.filter_map(|e| e.ok())
+                .map(|e| e.path()).filter(|p| p.extension().is_some_and(|x| x == "sqlite")).collect();
+            backups.sort();
+            let excess = backups.len().saturating_sub(3);
+            for backup in backups.into_iter().take(excess) { fs::remove_file(backup)?; }
+        }
         Ok(DatabaseManager { pool })
     }
 
-    // NOTE: So for the first time users they needs to start the application
-    // after they can just delete the existing .sqlite file and then copy the existing .db file to
-    // the current app dir, So the system detects legacy db and copy it and starts with that data
-    // (Newly created .sqlite with the copied content from .db)
     pub async fn new_from_app_handle(app_handle: &tauri::AppHandle) -> Result<Self> {
-        // Resolve the app's data directory
-        let app_data_dir = app_handle
-            .path()
-            .app_data_dir()
-            .expect("failed to get app data dir");
-        if !app_data_dir.exists() {
-            fs::create_dir_all(&app_data_dir).map_err(|e| sqlx::Error::Io(e))?;
-        }
-
-        // Define database paths
-        let tauri_db_path = app_data_dir
-            .join("meeting_minutes.sqlite")
-            .to_string_lossy()
-            .to_string();
-        // Legacy backend DB path (for auto-migration if exists)
-        let backend_db_path = app_data_dir
-            .join("meeting_minutes.db")
-            .to_string_lossy()
-            .to_string();
-
-        // WAL file paths for defensive cleanup
-        let wal_path = app_data_dir.join("meeting_minutes.sqlite-wal");
-        let shm_path = app_data_dir.join("meeting_minutes.sqlite-shm");
-
-        log::info!("Tauri DB path: {}", tauri_db_path);
-        log::info!("Legacy backend DB path: {}", backend_db_path);
-
-        // Try to open database with defensive WAL handling
-        match Self::new(&tauri_db_path, &backend_db_path).await {
-            Ok(db_manager) => {
-                log::info!("Database opened successfully");
-                Ok(db_manager)
-            }
-            Err(e) => {
-                // Check if error is due to corrupted WAL file
-                let error_msg = e.to_string();
-                if error_msg.contains("malformed") || error_msg.contains("corrupt") {
-                    log::warn!("Database appears corrupted, likely due to orphaned WAL file. Attempting recovery...");
-                    log::warn!("Error details: {}", error_msg);
-
-                    // Delete potentially corrupted WAL/SHM files
-                    if wal_path.exists() {
-                        match fs::remove_file(&wal_path) {
-                            Ok(_) => log::info!("Removed orphaned WAL file: {:?}", wal_path),
-                            Err(e) => log::warn!("Failed to remove WAL file: {}", e),
-                        }
-                    }
-                    if shm_path.exists() {
-                        match fs::remove_file(&shm_path) {
-                            Ok(_) => log::info!("Removed orphaned SHM file: {:?}", shm_path),
-                            Err(e) => log::warn!("Failed to remove SHM file: {}", e),
-                        }
-                    }
-
-                    // Retry connection without WAL files
-                    log::info!("Retrying database connection after WAL cleanup...");
-                    match Self::new(&tauri_db_path, &backend_db_path).await {
-                        Ok(db_manager) => {
-                            log::info!("Database opened successfully after WAL recovery");
-                            Ok(db_manager)
-                        }
-                        Err(retry_err) => {
-                            log::error!("Database connection failed even after WAL cleanup: {}", retry_err);
-                            Err(retry_err)
-                        }
-                    }
-                } else {
-                    // Not a WAL-related error, propagate original error
-                    log::error!("Database connection failed: {}", error_msg);
-                    Err(e)
-                }
-            }
-        }
+        let app_data_dir = app_handle.path().app_data_dir().map_err(|e| sqlx::Error::Protocol(e.to_string()))?;
+        Self::new(
+            app_data_dir.join("meeting_minutes.sqlite").to_string_lossy().as_ref(),
+            app_data_dir.join("meeting_minutes.db").to_string_lossy().as_ref(),
+        ).await
     }
 
     /// Check if this is the first launch (sqlite database doesn't exist yet)
@@ -151,7 +112,13 @@ impl DatabaseManager {
             target_legacy_path.display()
         );
 
-        fs::copy(legacy_db_path, &target_legacy_path).map_err(|e| sqlx::Error::Io(e))?;
+        if target_legacy_path.exists() {
+            return Err(sqlx::Error::Protocol("An imported database already exists; it has been preserved".into()));
+        }
+        let source = SqlitePool::connect_with(SqliteConnectOptions::from_str(legacy_db_path)?.read_only(true)).await?;
+        let snapshot = sqlx::query("VACUUM INTO ?").bind(target_legacy_path.to_string_lossy().as_ref()).execute(&source).await;
+        source.close().await;
+        snapshot?;
 
         // Now use the standard initialization which will detect and migrate the legacy db
         Self::new_from_app_handle(app_handle).await

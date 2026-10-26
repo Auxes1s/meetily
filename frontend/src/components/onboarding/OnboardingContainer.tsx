@@ -43,8 +43,8 @@ export function OnboardingContainer({
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-50 flex items-center justify-center z-50 overflow-hidden">
-      <div className={cn('w-full max-w-2xl h-full max-h-screen flex flex-col px-6 py-6', className)}>
+    <div className="fixed inset-0 bg-background flex items-center justify-center z-50 overflow-hidden">
+      <div className={cn('w-full max-w-2xl h-full max-h-screen min-h-0 flex flex-col px-4 py-6 sm:px-8 sm:py-10', className)}>
         {/* Progress Indicator with Navigation - Fixed */}
         {step && !hideProgress && (
           <div className="mb-2 relative flex-shrink-0">
@@ -52,12 +52,13 @@ export function OnboardingContainer({
             {showNavigation && (
               <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none">
                 <button
+                  aria-label="Previous setup step"
                   onClick={handlePrevious}
                   disabled={!canGoPrevious || step === 1}
                   className={cn(
-                    'pointer-events-auto w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200',
+                    'pointer-events-auto w-9 h-9 rounded-xl bg-card border border-border flex items-center justify-center transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                     canGoPrevious && step !== 1
-                      ? 'hover:bg-gray-50 hover:shadow-md hover:scale-110 text-gray-700'
+                      ? 'hover:bg-muted text-foreground'
                       : 'opacity-0 cursor-not-allowed'
                   )}
                 >
@@ -65,12 +66,13 @@ export function OnboardingContainer({
                 </button>
 
                 <button
+                  aria-label="Next setup step"
                   onClick={handleNext}
                   disabled={!canGoNext || step === totalSteps}
                   className={cn(
-                    'pointer-events-auto w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200',
+                    'pointer-events-auto w-9 h-9 rounded-xl bg-card border border-border flex items-center justify-center transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                     canGoNext && step !== totalSteps
-                      ? 'hover:bg-gray-50 hover:shadow-md hover:scale-110 text-gray-700'
+                      ? 'hover:bg-muted text-foreground'
                       : 'opacity-0 cursor-not-allowed'
                   )}
                 >
@@ -85,17 +87,17 @@ export function OnboardingContainer({
         )}
 
         {/* Header - Fixed */}
-        <div className="mb-4 text-center space-y-3 flex-shrink-0">
-          <h1 className="text-4xl font-semibold text-gray-900 animate-fade-in-up">{title}</h1>
+        <div className="mb-7 text-center space-y-3 flex-shrink-0">
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground animate-fade-in-up">{title}</h1>
           {description && (
-            <p className="text-base text-gray-600 max-w-md mx-auto animate-fade-in-up delay-75">
+            <p className="text-sm sm:text-base leading-relaxed text-muted-foreground max-w-md mx-auto animate-fade-in-up delay-75">
               {description}
             </p>
           )}
         </div>
 
         {/* Content - Scrollable */}
-        <div className="flex-1 overflow-y-auto pr-2">
+        <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar px-1 pb-4">
           <div className="space-y-6">{children}</div>
         </div>
       </div>

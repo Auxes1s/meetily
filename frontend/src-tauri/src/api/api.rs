@@ -130,6 +130,8 @@ pub struct MeetingTranscript {
     pub id: String,
     pub text: String,
     pub timestamp: String,
+    #[serde(default)]
+    pub audio_source: Option<crate::audio::source::AudioSource>,
     // Recording-relative timestamps for audio-transcript synchronization
     #[serde(skip_serializing_if = "Option::is_none")]
     pub audio_start_time: Option<f64>,
@@ -137,6 +139,9 @@ pub struct MeetingTranscript {
     pub audio_end_time: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub duration: Option<f64>,
+    pub recording_session_id: Option<String>,
+    pub sequence_id: Option<i64>,
+    pub timeline_offset: f64,
 }
 
 /// Meeting metadata without transcripts (for pagination)
@@ -148,6 +153,8 @@ pub struct MeetingMetadata {
     pub updated_at: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub folder_path: Option<String>,
+    pub status: String,
+    pub recording_session_id: Option<String>,
 }
 
 /// Paginated transcripts response with total count
@@ -181,6 +188,8 @@ pub struct TranscriptSegment {
     pub id: String,
     pub text: String,
     pub timestamp: String,
+    #[serde(default)]
+    pub audio_source: Option<crate::audio::source::AudioSource>,
     // NEW: Recording-relative timestamps for playback synchronization
     #[serde(skip_serializing_if = "Option::is_none")]
     pub audio_start_time: Option<f64>,
@@ -188,6 +197,8 @@ pub struct TranscriptSegment {
     pub audio_end_time: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub duration: Option<f64>,
+    #[serde(default)]
+    pub sequence_id: Option<i64>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -323,6 +334,7 @@ pub async fn api_get_meetings<R: Runtime>(
     _app: AppHandle<R>,
     state: tauri::State<'_, AppState>,
     auth_token: Option<String>,
+    limit: Option<i64>,
 ) -> Result<Vec<Meeting>, String> {
     log_info!(
         "api_get_meetings called with auth_token(native) : {}",
@@ -330,7 +342,10 @@ pub async fn api_get_meetings<R: Runtime>(
     );
     let pool = state.db_manager.pool();
     let meetings: Result<Vec<MeetingModel>, sqlx::Error> =
-        MeetingsRepository::get_meetings(pool).await;
+        match limit {
+            Some(limit) => MeetingsRepository::get_recent_meetings(pool, limit).await,
+            None => MeetingsRepository::get_meetings(pool).await,
+        };
 
     match meetings {
         Ok(meeting_models) => {
@@ -360,8 +375,7 @@ pub async fn api_search_transcripts<R: Runtime>(
     auth_token: Option<String>,
 ) -> Result<Vec<TranscriptSearchResult>, String> {
     log_info!(
-        "api_search_transcripts called with query: '{}', auth_token: {}",
-        query,
+        "api_search_transcripts called, auth_token: {}",
         auth_token.is_some()
     );
 
@@ -376,7 +390,7 @@ pub async fn api_search_transcripts<R: Runtime>(
             Ok(results)
         }
         Err(e) => {
-            log_error!("Error searching transcripts for query '{}': {}", query, e);
+            log_error!("Transcript search failed");
             Err(format!("Failed to search transcripts: {}", e))
         }
     }
@@ -747,34 +761,14 @@ pub async fn api_delete_meeting<R: Runtime>(
     meeting_id: String,
     auth_token: Option<String>,
 ) -> Result<serde_json::Value, String> {
-    log_info!(
-        "api_delete_meeting called for meeting_id(native): {}, auth_token: {}",
-        meeting_id,
-        auth_token.is_some()
-    );
-
-    let pool = state.db_manager.pool();
-
-    match MeetingsRepository::delete_meeting(pool, &meeting_id).await {
-        Ok(true) => {
-            log_info!("Successfully deleted meeting {}", meeting_id);
-            Ok(serde_json::json!({
-                "status": "success",
-                "message": "Meeting deleted successfully"
-            }))
-        }
-        Ok(false) => {
-            log_warn!("Meeting not found or already deleted: {}", meeting_id);
-            Err(format!(
-                "Meeting not found or could not be deleted: {}",
-                meeting_id
-            ))
-        }
-        Err(e) => {
-            log_error!("Error deleting meeting {}: {}", meeting_id, e);
-            Err(format!("Failed to delete meeting: {}", e))
-        }
-    }
+    let _ = auth_token;
+    let deletion = crate::database::deletion::api_begin_meeting_deletion(_app, state, meeting_id).await?;
+    // Legacy callers must also acknowledge WebView cleanup before completion.
+    Ok(serde_json::json!({
+        "status": if deletion.state == "complete" { "success" } else { "pending" },
+        "message": if deletion.state == "complete" { "Managed meeting data removed" } else { "Meeting deletion is pending cache acknowledgment or cleanup retry" },
+        "deletion": deletion,
+    }))
 }
 
 #[tauri::command]
@@ -828,6 +822,8 @@ pub async fn api_get_meeting_metadata<R: Runtime>(
                 created_at: meeting.created_at.0.to_rfc3339(),
                 updated_at: meeting.updated_at.0.to_rfc3339(),
                 folder_path: meeting.folder_path,
+                status: meeting.status,
+                recording_session_id: meeting.recording_session_id,
             })
         }
         Ok(None) => {
@@ -875,9 +871,13 @@ pub async fn api_get_meeting_transcripts<R: Runtime>(
                     id: t.id,
                     text: t.transcript,
                     timestamp: t.timestamp,
+                    audio_source: Some(crate::audio::source::AudioSource::from_storage(t.speaker.as_deref())),
                     audio_start_time: t.audio_start_time,
                     audio_end_time: t.audio_end_time,
                     duration: t.duration,
+                    recording_session_id:t.recording_session_id,
+                    sequence_id:t.sequence_id,
+                    timeline_offset:t.timeline_offset,
                 })
                 .collect::<Vec<_>>();
 
@@ -933,6 +933,8 @@ pub async fn api_save_transcript<R: Runtime>(
     meeting_title: String,
     transcripts: Vec<serde_json::Value>,
     folder_path: Option<String>,
+    meeting_id: Option<String>,
+    recording_session_id: Option<String>,
     auth_token: Option<String>,
 ) -> Result<serde_json::Value, String> {
     log_info!(
@@ -942,14 +944,6 @@ pub async fn api_save_transcript<R: Runtime>(
         folder_path,
         auth_token.is_some()
     );
-
-    // Log first transcript for debugging
-    if let Some(first) = transcripts.first() {
-        log_debug!(
-            "First transcript data: {}",
-            serde_json::to_string_pretty(first).unwrap_or_default()
-        );
-    }
 
     // Convert serde_json::Value to TranscriptSegment
     let transcripts_to_save: Vec<TranscriptSegment> = transcripts
@@ -961,15 +955,6 @@ pub async fn api_save_transcript<R: Runtime>(
             format!("Invalid transcript data format: {}. Please check the data structure.", e)
         })?;
 
-    // Log parsed segments count and first segment details
-    if let Some(first_seg) = transcripts_to_save.first() {
-        log_debug!("First parsed segment: text='{}', audio_start_time={:?}, audio_end_time={:?}, duration={:?}",
-                   first_seg.text.chars().take(50).collect::<String>(),
-                   first_seg.audio_start_time,
-                   first_seg.audio_end_time,
-                   first_seg.duration);
-    }
-
     let pool = state.db_manager.pool();
 
     // Now, call the repository with the correctly typed data.
@@ -978,6 +963,8 @@ pub async fn api_save_transcript<R: Runtime>(
         &meeting_title,
         &transcripts_to_save,
         folder_path,
+        meeting_id,
+        recording_session_id,
     )
     .await
     {
@@ -1016,7 +1003,7 @@ pub async fn open_meeting_folder<R: Runtime>(
 
     // Get meeting with folder_path
     let meeting: Option<MeetingModel> = sqlx::query_as(
-        "SELECT id, title, created_at, updated_at, folder_path FROM meetings WHERE id = ?",
+        "SELECT id, title, created_at, updated_at, folder_path,status,recording_session_id FROM meetings WHERE id = ? AND status <> 'deleting'",
     )
     .bind(&meeting_id)
     .fetch_optional(pool)

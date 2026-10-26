@@ -7,6 +7,10 @@ pub mod whisper_provider;
 pub mod parakeet_provider;
 pub mod engine;
 pub mod worker;
+pub mod streaming;
+pub mod preferences;
+mod live_worker;
+mod scheduling;
 
 // Re-export commonly used types
 pub use provider::{TranscriptionError, TranscriptionProvider, TranscriptResult};
@@ -23,3 +27,6 @@ pub use worker::{
     reset_speech_detected_flag,
     TranscriptUpdate
 };
+
+pub(crate) mod health;
+mod spool;

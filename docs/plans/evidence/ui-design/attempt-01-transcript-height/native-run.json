@@ -1,0 +1,37 @@
+{
+  "app": "/Users/marcignacio/GitHub/meetily/target/debug/bundle/macos/Meetily Responsive Test.app",
+  "identifier": "com.meetily.responsive.test",
+  "profile": "/Users/marcignacio/Library/Application Support/com.meetily.responsive.test",
+  "retained_test_profile_backup": "/Users/marcignacio/Library/Application Support/meetily-ui-design-test-backup-20b7_124/com.meetily.responsive.test",
+  "production_profile_touched": false,
+  "physical_recording_tested": false,
+  "snapshots": [
+    {
+      "filename": "onboarding-welcome-1100x700.png",
+      "fixture": "fresh isolated profile",
+      "capture_started": false
+    },
+    {
+      "filename": "onboarding-welcome-480x400.png",
+      "fixture": "fresh isolated profile",
+      "capture_started": false
+    },
+    {
+      "filename": "workspace-1440x900-transcript.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "workspace-480x400-original.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    },
+    {
+      "filename": "native-failure.png",
+      "fixture": "stress responsive fixture",
+      "capture_started": false
+    }
+  ],
+  "started_at": "2026-10-15T09:31:12+0800",
+  "pid": 49568
+}

@@ -25,6 +25,8 @@ use super::sidecar::SidecarManager;
 enum Request {
     Generate {
         prompt: String,
+        request_id: Option<String>,
+        grammar: Option<String>,
         max_tokens: Option<i32>,
         context_size: Option<u32>,
         model_path: Option<String>,
@@ -43,8 +45,29 @@ enum Request {
 #[derive(Debug, Deserialize)]
 #[serde(tag = "type", rename_all = "snake_case")]
 enum Response {
-    Response { text: String, error: Option<String> },
+    Response { text: String, error: Option<String>,
+        #[serde(default)] request_id: Option<String>,
+        #[serde(default)] finish_reason: Option<String>,
+        #[serde(default)] prompt_tokens: Option<u64>,
+        #[serde(default)] generated_tokens: Option<u64>,
+    },
     Error { message: String },
+}
+
+impl Response {
+    fn validate_structured(&self, expected_id: &str) -> Result<()> {
+        let Self::Response { request_id, error, finish_reason, prompt_tokens, generated_tokens, .. } = self else {
+            return Err(anyhow!("helper_incompatible: Invalid structured helper response"));
+        };
+        if request_id.as_deref() != Some(expected_id) {
+            return Err(anyhow!("helper_incompatible: Helper response identity mismatch"));
+        }
+        if error.is_none() && (!matches!(finish_reason.as_deref(), Some("stop" | "length" | "context_limit"))
+            || prompt_tokens.is_none() || generated_tokens.is_none()) {
+            return Err(anyhow!("helper_incompatible: Helper completion metadata is incomplete"));
+        }
+        Ok(())
+    }
 }
 
 // ============================================================================
@@ -137,6 +160,19 @@ pub async fn generate_with_builtin(
     user_prompt: &str,
     cancellation_token: Option<&CancellationToken>,
 ) -> Result<String> {
+    generate_with_builtin_options(app_data_dir, model_name, system_prompt, user_prompt, cancellation_token, None, None).await.map(|r| r.content)
+}
+
+static GENERATION_LOCK: Mutex<()> = Mutex::const_new(());
+
+pub(crate) async fn generate_with_builtin_options(
+    app_data_dir: &PathBuf, model_name: &str, system_prompt: &str, user_prompt: &str,
+    cancellation_token: Option<&CancellationToken>, grammar: Option<&str>, max_tokens: Option<u32>,
+) -> Result<crate::summary::llm_client::LlmCompletion> {
+    // Own startup, model selection and cancellation as one serialized exchange.
+    let _generation = if let Some(token) = cancellation_token {
+        tokio::select! { lock = GENERATION_LOCK.lock() => lock, _ = token.cancelled() => return Err(anyhow!("Generation cancelled")) }
+    } else { GENERATION_LOCK.lock().await };
     // Check cancellation at start
     if let Some(token) = cancellation_token {
         if token.is_cancelled() {
@@ -178,11 +214,21 @@ pub async fn generate_with_builtin(
         }
     }
 
+    if grammar.is_some() {
+        let capabilities = manager.send_request(serde_json::json!({"type":"capabilities"}).to_string(), Duration::from_secs(5)).await?;
+        let capabilities: serde_json::Value = serde_json::from_str(&capabilities).context("Invalid helper capabilities")?;
+        if capabilities["protocol_version"] != 2 || capabilities["structured_generation"] != true {
+            return Err(anyhow!("helper_incompatible: This build needs its matching structured-generation helper. Reinstall the complete application bundle."));
+        }
+    }
+    let request_id = uuid::Uuid::new_v4().to_string();
     // Prepare generation request with model-specific sampling parameters
     let sampling = model_def.sampling.sanitize_for_llama_helper();
     let request = Request::Generate {
         prompt: formatted_prompt,
-        max_tokens: Some(models::DEFAULT_MAX_TOKENS),
+        request_id: Some(request_id.clone()),
+        grammar: grammar.map(str::to_owned),
+        max_tokens: Some(max_tokens.unwrap_or(models::DEFAULT_MAX_TOKENS as u32) as i32),
         context_size: Some(model_def.context_size),
         model_path: Some(model_path.to_string_lossy().to_string()),
         temperature: Some(sampling.temperature),
@@ -230,15 +276,16 @@ pub async fn generate_with_builtin(
 
     // Parse response
     let response: Response = serde_json::from_str(&response_json)
-        .with_context(|| format!("Failed to parse response: {}", response_json))?;
+        .context("Failed to parse helper response")?;
+    if grammar.is_some() { response.validate_structured(&request_id)?; }
 
     match response {
-        Response::Response { text, error } => {
+        Response::Response { text, error, finish_reason, prompt_tokens, generated_tokens, .. } => {
             if let Some(err_msg) = error {
                 Err(anyhow!("Generation failed: {}", err_msg))
             } else {
                 log::info!("Generation completed: {} chars", text.len());
-                Ok(text)
+                Ok(crate::summary::llm_client::LlmCompletion { content: text, reasoning_stripped: false, finish_reason, prompt_tokens, generated_tokens })
             }
         }
         Response::Error { message } => Err(anyhow!("Sidecar error: {}", message)),
@@ -303,9 +350,24 @@ mod tests {
     use super::*;
 
     #[test]
+    fn structured_helper_rejects_wrong_identity_and_missing_completion_metadata() {
+        let complete = serde_json::json!({"type":"response","text":"{}","error":null,"request_id":"job-1",
+            "finish_reason":"length","prompt_tokens":100,"generated_tokens":4096});
+        let response:Response=serde_json::from_value(complete.clone()).unwrap();
+        response.validate_structured("job-1").unwrap();
+        assert!(response.validate_structured("job-2").unwrap_err().to_string().contains("identity"));
+        let mut missing=complete; missing.as_object_mut().unwrap().remove("finish_reason");
+        let response:Response=serde_json::from_value(missing).unwrap();
+        assert!(response.validate_structured("job-1").unwrap_err().to_string().contains("metadata"));
+        let old:Response=serde_json::from_str(r#"{"type":"response","text":"{}","error":null}"#).unwrap();
+        assert!(old.validate_structured("job-1").is_err());
+    }
+
+    #[test]
     fn test_request_serialization() {
         let request = Request::Generate {
             prompt: "test prompt".to_string(),
+            request_id: None, grammar: None,
             max_tokens: Some(512),
             context_size: Some(2048),
             model_path: Some("/path/to/model.gguf".to_string()),
@@ -336,7 +398,7 @@ mod tests {
         let response: Response = serde_json::from_str(json).unwrap();
 
         match response {
-            Response::Response { text, error } => {
+            Response::Response { text, error, .. } => {
                 assert_eq!(text, "generated text");
                 assert!(error.is_none());
             }

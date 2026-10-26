@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "id": "fx-07",
+  "category": "missing-owner-deadline",
+  "meeting_id": "e08-fx-07",
+  "template_id": "standard_meeting",
+  "summary_language": "en",
+  "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+  "notes": [
+    {
+      "id": "fx-07-n1",
+      "text": "Priority: document the missing owner and due date for the risk register."
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "fx-07-t1",
+      "text": "We agreed to update the risk register. Someone said, I can help. No name or deadline was stated.",
+      "audio_start_time": 0.0,
+      "audio_end_time": 9.0,
+      "audio_source": "unknown"
+    }
+  ],
+  "annotations": {
+    "relevant_decisions_actions": [
+      {
+        "id": "fx-07-e1",
+        "kind": "action",
+        "text": "Update the risk register.",
+        "agreement_status": "agreed",
+        "owner": null,
+        "deadline": null,
+        "uncertainty": "owner and deadline missing; unnamed I is ambiguous",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-07-t1",
+            "excerpt": "We agreed to update the risk register. Someone said, I can help. No name or deadline was stated."
+          }
+        ]
+      }
+    ],
+    "user_priorities": [
+      {
+        "id": "fx-07-p1",
+        "topic": "risk register",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-07-n1",
+            "excerpt": "Priority: document the missing owner and due date for the risk register."
+          },
+          {
+            "source_id": "transcript:fx-07-t1",
+            "excerpt": "We agreed to update the risk register. Someone said, I can help. No name or deadline was stated."
+          }
+        ]
+      },
+      {
+        "id": "fx-07-p2",
+        "topic": "missing owner and deadline",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-07-n1",
+            "excerpt": "Priority: document the missing owner and due date for the risk register."
+          },
+          {
+            "source_id": "transcript:fx-07-t1",
+            "excerpt": "We agreed to update the risk register. Someone said, I can help. No name or deadline was stated."
+          }
+        ]
+      }
+    ],
+    "forbidden_inferences": [
+      "Resolving I to a person or office",
+      "Inferring an owner from microphone/system provenance"
+    ]
+  }
+}

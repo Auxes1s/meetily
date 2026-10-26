@@ -1,0 +1,41 @@
+
+> meetily@0.4.1 build /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend
+> next build
+
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/12) ...
+   Generating static pages (3/12) 
+   Generating static pages (6/12) 
+   Generating static pages (9/12) 
+(node:19738) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓ Generating static pages (12/12)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    9.83 kB         254 kB
+├ ○ /_not-found                          880 B          89.5 kB
+├ ○ /library                             16.7 kB         146 kB
+├ ○ /meeting-details                     572 kB          817 kB
+├ ● /notes/[id]                          141 B          88.8 kB
+├   ├ /notes/team-sync-dec-26
+├   ├ /notes/product-review
+├   ├ /notes/project-ideas
+├   └ /notes/action-items
+└ ○ /settings                            7.62 kB         241 kB
++ First Load JS shared by all            88.7 kB
+  ├ chunks/2905-1e7c4dc935e94324.js      32 kB
+  ├ chunks/f7e5d993-e2516ebea3a28355.js  53.7 kB
+  └ other shared chunks (total)          2.99 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses getStaticProps)
+

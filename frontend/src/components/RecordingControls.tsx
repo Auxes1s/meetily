@@ -2,21 +2,22 @@
 
 import { invoke } from '@tauri-apps/api/core';
 import { appDataDir } from '@tauri-apps/api/path';
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef, useSyncExternalStore } from 'react';
 import { Play, Pause, Square, Mic, AlertCircle, X } from 'lucide-react';
 import { ProcessRequest, SummaryResponse } from '@/types/summary';
 import { listen } from '@tauri-apps/api/event';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Analytics from '@/lib/analytics';
-import { useRecordingState } from '@/contexts/RecordingStateContext';
+import { useRecordingControls, RecordingStatus } from '@/contexts/RecordingStateContext';
 import type { TranscriptionErrorPayload } from '@/services/transcriptService';
+import { recordingService } from '@/services/recordingService';
 
 interface RecordingControlsProps {
   isRecording: boolean;
   barHeights: string[];
-  onRecordingStop: (callApi?: boolean) => void;
-  onRecordingStart: () => void;
+  onRecordingStop: (callApi?: boolean, recordingSessionId?: string | null) => void | Promise<void>;
+  onRecordingStart: () => void | Promise<void>;
   onTranscriptReceived: (summary: SummaryResponse) => void;
   onTranscriptionError?: (message: string) => void;
   onStopInitiated?: () => void; // Called immediately when stop button is clicked
@@ -43,7 +44,8 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
   meetingName,
 }) => {
   // Use global recording state context for pause state (syncs with tray operations)
-  const recordingState = useRecordingState();
+  const recordingState = useRecordingControls();
+  const sharedPending = useSyncExternalStore(recordingService.subscribeLifecycle, recordingService.getLifecyclePending, recordingService.getLifecyclePending);
   const isPaused = recordingState.isPaused;
   const isStartingRecording = recordingState.isStartingRecording;
 
@@ -60,6 +62,9 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
   const [isValidatingModel, setIsValidatingModel] = useState(false);
   const [speechDetected, setSpeechDetected] = useState(false);
   const [deviceError, setDeviceError] = useState<{ title: string, message: string } | null>(null);
+  // DOM disabled state is committed on the next render. Admit only one native
+  // lifecycle action synchronously, including competing pause/stop clicks.
+  const pendingAction = useRef<'start' | 'stop' | 'pause' | 'resume' | null>(null);
 
   const currentTime = 0;
   const duration = 0;
@@ -86,7 +91,9 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
   }, []);
 
   const handleStartRecording = useCallback(async () => {
-    if (isStarting || isValidatingModel || isStartingRecording) return;
+    if (pendingAction.current || recordingService.getLifecyclePending() || isRecording || isRecordingDisabled || isParentProcessing || recordingState.isStopping || isStarting || isValidatingModel || isStartingRecording) return;
+    pendingAction.current = 'start';
+    setIsStarting(true);
     console.log('Starting recording...');
     console.log('Selected devices:', selectedDevices);
     console.log('Meeting name:', meetingName);
@@ -95,6 +102,7 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
     setShowPlayback(false);
     setTranscript(''); // Clear any previous transcript
     setSpeechDetected(false); // Reset speech detection on new recording
+    setDeviceError(null);
 
     try {
       // Call the validation callback which will:
@@ -133,111 +141,106 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
       } else {
         setDeviceError({
           title: 'Recording Failed',
-          message: 'Unable to start recording. Please check your audio device settings and try again.'
+          message: errorMsg
         });
       }
+    } finally {
+      pendingAction.current = null;
+      setIsStarting(false);
     }
-  }, [onRecordingStart, isStarting, isValidatingModel, selectedDevices, meetingName, isRecording]);
+  }, [onRecordingStart, isStarting, isValidatingModel, isStartingRecording, selectedDevices, meetingName, isRecording, isRecordingDisabled, isParentProcessing, recordingState.isStopping]);
 
   const stopRecordingAction = useCallback(async () => {
-    console.log('Executing stop recording...');
+    setIsProcessing(true);
+    const recordingSessionId = globalThis.sessionStorage?.getItem('recording_session_id');
     try {
-      setIsProcessing(true);
-      const dataDir = await appDataDir();
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const savePath = `${dataDir}/recording-${timestamp}.wav`;
-      console.log('Saving recording to:', savePath);
-      console.log('About to call stop_recording command');
-      const result = await invoke('stop_recording', {
-        args: {
-          save_path: savePath
-        }
-      });
-      console.log('stop_recording command completed successfully:', result);
-      setRecordingPath(savePath);
-      // setShowPlayback(true);
-      setIsProcessing(false);
-      // Track successful transcription
-      Analytics.trackTranscriptionSuccess();
-      onRecordingStop(true);
-    } catch (error) {
-      console.error('Failed to stop recording:', error);
-      if (error instanceof Error) {
-        console.error('Error details:', {
-          message: error.message,
-          name: error.name,
-          stack: error.stack,
-        });
-        if (error.message.includes('No recording in progress')) {
-          return;
-        }
-      } else if (typeof error === 'string' && error.includes('No recording in progress')) {
-        return;
-      } else if (error && typeof error === 'object' && 'toString' in error) {
-        if (error.toString().includes('No recording in progress')) {
-          return;
-        }
+      await recordingService.runLifecycleAction(async () => {
+      let stoppedNatively = false;
+      try {
+        const dataDir = await appDataDir();
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const savePath = `${dataDir}/recording-${timestamp}.wav`;
+        await invoke('stop_recording', { args: { save_path: savePath, recording_session_id: recordingSessionId } });
+        setRecordingPath(savePath);
+        stoppedNatively = true;
+        Analytics.trackTranscriptionSuccess();
+      } catch (error) {
+        console.error('Failed to stop recording:', error);
       }
-      setIsProcessing(false);
-      onRecordingStop(false);
+      // Reconcile even if native capture already stopped. Finalize at most once,
+      // and keep the controls busy until the parent's durable save settles.
+      await onRecordingStop(stoppedNatively, recordingSessionId);
+      });
     } finally {
+      setIsProcessing(false);
       setIsStopping(false);
     }
   }, [onRecordingStop]);
 
   const handleStopRecording = useCallback(async () => {
     console.log('handleStopRecording called - isRecording:', isRecording, 'isStarting:', isStarting, 'isStopping:', isStopping, 'isStartingRecording:', isStartingRecording);
-    if (!isRecording || isStarting || isStopping || isStartingRecording) {
+    if (pendingAction.current || recordingService.getLifecyclePending() || !isRecording || isStarting || isStopping || isStartingRecording) {
       console.log('Early return from handleStopRecording due to state check');
       return;
     }
 
     console.log('Stopping recording...');
 
-    // Notify parent immediately (for UI state updates)
-    onStopInitiated?.();
-
-    setIsStopping(true);
-
-    // Immediately trigger the stop action
-    await stopRecordingAction();
+    pendingAction.current = 'stop';
+    try {
+      // Notify parent immediately (for UI state updates)
+      onStopInitiated?.();
+      setIsStopping(true);
+      await stopRecordingAction();
+    } catch (error) {
+      setDeviceError({ title: 'Recording could not be finalized', message: String(error) });
+    } finally {
+      pendingAction.current = null;
+      setIsStopping(false);
+    }
   }, [isRecording, isStarting, isStopping, isStartingRecording, stopRecordingAction, onStopInitiated]);
 
   const handlePauseRecording = useCallback(async () => {
-    if (!isRecording || isPaused || isPausing) return;
+    if (pendingAction.current || recordingService.getLifecyclePending() || !isRecording || isPaused || isPausing || isStopping || recordingState.isStopping) return;
+    pendingAction.current = 'pause';
 
     console.log('Pausing recording...');
     setIsPausing(true);
 
     try {
-      await invoke('pause_recording');
+      const recordingSessionId = globalThis.sessionStorage?.getItem('recording_session_id');
+      await recordingService.runLifecycleAction(() => invoke('pause_recording', { recordingSessionId }));
       // isPaused state now managed by RecordingStateContext via events
       console.log('Recording paused successfully');
     } catch (error) {
       console.error('Failed to pause recording:', error);
       alert('Failed to pause recording. Please check the console for details.');
     } finally {
+      pendingAction.current = null;
       setIsPausing(false);
     }
-  }, [isRecording, isPaused, isPausing]);
+  }, [isRecording, isPaused, isPausing, isStopping, recordingState.isStopping]);
 
   const handleResumeRecording = useCallback(async () => {
-    if (!isRecording || !isPaused || isResuming) return;
+    if (pendingAction.current || recordingService.getLifecyclePending() || !isRecording || !isPaused || isResuming || isStopping || recordingState.isStopping) return;
+    pendingAction.current = 'resume';
 
     console.log('Resuming recording...');
     setIsResuming(true);
 
     try {
-      await invoke('resume_recording');
+      const recordingSessionId = globalThis.sessionStorage?.getItem('recording_session_id');
+      await recordingService.runLifecycleAction(() => invoke('resume_recording', { recordingSessionId }));
       // isPaused state now managed by RecordingStateContext via events
       console.log('Recording resumed successfully');
     } catch (error) {
       console.error('Failed to resume recording:', error);
       alert('Failed to resume recording. Please check the console for details.');
     } finally {
+      pendingAction.current = null;
       setIsResuming(false);
     }
-  }, [isRecording, isPaused, isResuming]);
+  }, [isRecording, isPaused, isResuming, isStopping, recordingState.isStopping]);
 
   useEffect(() => {
     return () => {
@@ -247,7 +250,9 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
 
   useEffect(() => {
     console.log('Setting up recording event listeners');
-    let unsubscribes: (() => void)[] = [];
+    const unsubscribes: (() => void)[] = [];
+    let disposed = false;
+    const retain = (unlisten: () => void) => { if (disposed) unlisten(); else unsubscribes.push(unlisten); };
 
     const setupListeners = async () => {
       try {
@@ -272,6 +277,8 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
             onTranscriptionError(errorMessage);
           }
         });
+
+        retain(transcriptErrorUnsubscribe);
 
         // Transcription error listener - handles structured error objects with actionable flag
         const transcriptionErrorUnsubscribe = await listen<TranscriptionErrorPayload>('transcription-error', (event) => {
@@ -303,16 +310,13 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
         // No need for duplicate listeners here
 
         // Speech detected listener - for UX feedback when VAD detects speech
+        retain(transcriptionErrorUnsubscribe);
         const speechDetectedUnsubscribe = await listen('speech-detected', (event) => {
           console.log('speech-detected event received:', event);
           setSpeechDetected(true);
         });
 
-        unsubscribes = [
-          transcriptErrorUnsubscribe,
-          transcriptionErrorUnsubscribe,
-          speechDetectedUnsubscribe
-        ];
+        retain(speechDetectedUnsubscribe);
         console.log('Recording event listeners set up successfully');
       } catch (error) {
         console.error('Failed to set up recording event listeners:', error);
@@ -322,6 +326,7 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
     setupListeners();
 
     return () => {
+      disposed = true;
       console.log('Cleaning up recording event listeners');
       unsubscribes.forEach(unsubscribe => {
         if (unsubscribe && typeof unsubscribe === 'function') {
@@ -333,12 +338,12 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
 
   return (
     <TooltipProvider>
-      <div className="flex flex-col space-y-2">
-        <div className="flex items-center space-x-2 bg-white rounded-full shadow-lg px-4 py-2">
+      <div role="group" aria-label="Recording controls" className="min-w-0 max-w-full flex flex-col space-y-2">
+        <div className="recording-dock glass-surface flex flex-wrap justify-center items-center">
           {isProcessing && !isParentProcessing ? (
             <div className="flex items-center space-x-2">
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
-              <span className="text-sm text-gray-600">Processing recording...</span>
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary"></div>
+              <span className="text-sm text-muted-foreground">Processing recording...</span>
             </div>
           ) : (
             <>
@@ -346,32 +351,33 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
                 <>
                   <button
                     onClick={handleStartRecording}
-                    className="w-10 h-10 flex items-center justify-center bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors"
+                    aria-label="Start another recording"
+                    className="w-10 h-10 flex items-center justify-center bg-primary rounded-full text-primary-foreground hover:bg-primary/90 transition-colors"
                   >
                     <Mic size={16} />
                   </button>
 
-                  <div className="w-px h-6 bg-gray-200 mx-1" />
+                  <div className="w-px h-6 bg-border mx-1" />
 
                   <div className="flex items-center space-x-1 mx-2">
-                    <div className="text-sm text-gray-600 min-w-[40px]">
+                    <div className="text-sm text-muted-foreground min-w-[40px]">
                       {formatTime(currentTime)}
                     </div>
                     <div
-                      className="relative w-24 h-1 bg-gray-200 rounded-full"
+                      className="relative w-24 h-1 bg-border rounded-full"
                     >
                       <div
-                        className="absolute h-full bg-blue-500 rounded-full"
+                        className="absolute h-full bg-primary rounded-full"
                         style={{ width: `${progress}%` }}
                       />
                     </div>
-                    <div className="text-sm text-gray-600 min-w-[40px]">
+                    <div className="text-sm text-muted-foreground min-w-[40px]">
                       {formatTime(duration)}
                     </div>
                   </div>
 
                   <button
-                    className="w-10 h-10 flex items-center justify-center bg-gray-300 rounded-full text-white cursor-not-allowed"
+                    className="w-10 h-10 flex items-center justify-center bg-input rounded-full text-white cursor-not-allowed"
                     disabled
                   >
                     <Play size={16} />
@@ -388,8 +394,9 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
                             Analytics.trackButtonClick('start_recording', 'recording_controls');
                             handleStartRecording();
                           }}
-                          disabled={isStarting || isProcessing || isRecordingDisabled || isValidatingModel || isStartingRecording}
-                          className={`w-12 h-12 flex items-center justify-center ${isStarting || isProcessing || isValidatingModel || isStartingRecording ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'
+                          disabled={sharedPending || isStarting || isStopping || recordingState.isStopping || isProcessing || isParentProcessing || isRecordingDisabled || isValidatingModel || isStartingRecording}
+                          aria-label="Start recording"
+                          className={`w-12 h-12 shrink-0 flex items-center justify-center ${isStarting || isProcessing || isValidatingModel || isStartingRecording ? 'bg-muted-foreground' : 'bg-primary hover:bg-primary/90'
                             } rounded-full text-white transition-colors relative`}
                         >
                           {isValidatingModel || isStartingRecording ? (
@@ -418,15 +425,16 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
                                 handlePauseRecording();
                               }
                             }}
-                            disabled={isPausing || isResuming || isStopping}
-                            className={`w-10 h-10 flex items-center justify-center ${isPausing || isResuming || isStopping
-                              ? 'bg-gray-200 border-2 border-gray-300 text-gray-400'
-                              : 'bg-white border-2 border-gray-300 text-gray-600 hover:border-gray-400 hover:bg-gray-50'
+                            disabled={sharedPending || isPausing || isResuming || isStopping}
+                            aria-label={isPaused ? 'Resume recording' : 'Pause recording'}
+                            className={`w-10 h-10 shrink-0 flex items-center justify-center ${isPausing || isResuming || isStopping
+                              ? 'bg-border border-2 border-input text-muted-foreground'
+                              : 'bg-card border-2 border-input text-muted-foreground hover:border-input hover:bg-background'
                               } rounded-full transition-colors relative`}
                           >
                             {isPaused ? <Play size={16} /> : <Pause size={16} />}
                             {(isPausing || isResuming) && (
-                              <div className="absolute -top-8 text-gray-600 font-medium text-xs">
+                              <div className="absolute -top-8 text-muted-foreground font-medium text-xs">
                                 {isPausing ? 'Pausing...' : 'Resuming...'}
                               </div>
                             )}
@@ -444,13 +452,14 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
                               Analytics.trackButtonClick('stop_recording', 'recording_controls');
                               handleStopRecording();
                             }}
-                            disabled={isStopping || isPausing || isResuming || isStartingRecording}
-                            className={`w-10 h-10 flex items-center justify-center ${isStopping || isPausing || isResuming || isStartingRecording ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'
+                            disabled={sharedPending || isStopping || isPausing || isResuming || isStartingRecording}
+                            aria-label="Stop recording"
+                            className={`w-10 h-10 shrink-0 flex items-center justify-center ${isStopping || isPausing || isResuming || isStartingRecording ? 'bg-muted-foreground' : 'bg-red-500 hover:bg-red-600'
                               } rounded-full text-white transition-colors relative`}
                           >
                             <Square size={16} />
                             {isStopping && (
-                              <div className="absolute -top-8 text-gray-600 font-medium text-xs">
+                              <div className="absolute -top-8 text-muted-foreground font-medium text-xs">
                                 Stopping...
                               </div>
                             )}
@@ -463,11 +472,14 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
                     </>
                   )}
 
-                  <div className="flex items-center space-x-1 mx-4">
+                  <span className="text-xs font-medium text-foreground" role="status">
+                    {recordingState.status === RecordingStatus.ERROR ? 'Check recording status' : recordingState.isStopping || isStopping ? 'Stopping…' : isParentProcessing ? recordingState.isSaving ? 'Saving…' : 'Finishing…' : isStartingRecording ? 'Starting…' : isRecording ? isPaused ? 'Paused' : 'Recording' : 'Ready to record'}
+                  </span>
+                  <div className="flex items-center space-x-1 mx-1" aria-hidden="true">
                     {barHeights.map((height, index) => (
                       <div
                         key={index}
-                        className={`w-1 rounded-full transition-all duration-200 ${isPaused ? 'bg-orange-500' : 'bg-red-500'
+                        className={`w-1 rounded-full transition-all duration-200 ${isRecording ? isPaused ? 'bg-orange-500' : 'bg-red-500' : 'bg-primary/50'
                           }`}
                         style={{
                           height: isRecording && !isPaused ? height : '4px',
@@ -484,12 +496,25 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
 
         {/* Show validation status only */}
         {isValidatingModel && (
-          <div className="text-xs text-gray-600 text-center mt-2">
+          <div className="text-xs text-muted-foreground text-center mt-2">
             Validating speech recognition...
           </div>
         )}
 
         {/* Device error alert */}
+        {isStartingRecording && <button className="text-sm underline mt-2" onClick={async () => {
+          if (recordingService.cancelPendingStart()) return;
+          try {
+            const native = await recordingService.getRecordingState();
+            if (native.recording_session_id) await recordingService.cancelRecordingStart(native.recording_session_id);
+            recordingState.setStatus(RecordingStatus.ERROR, 'Cancellation requested. Check status before retrying.');
+          } catch (error) { recordingState.setStatus(RecordingStatus.ERROR, String(error)); }
+        }}>Cancel start</button>}
+        {recordingState.status === 'error' && recordingState.statusMessage && !deviceError && (
+          <Alert variant="destructive" className="mt-2"><AlertTitle>Recording could not start</AlertTitle><AlertDescription>{recordingState.statusMessage}</AlertDescription>
+            <button className="mt-2 underline text-sm" onClick={() => window.dispatchEvent(new Event('recording-state-refresh'))}>Check status</button>
+          </Alert>
+        )}
         {deviceError && (
           <Alert variant="destructive" className="mt-4 border-red-300 bg-red-50">
             <AlertCircle className="h-5 w-5 text-red-600" />
@@ -514,7 +539,7 @@ export const RecordingControls: React.FC<RecordingControlsProps> = ({
         )}
 
         {/* {showPlayback && recordingPath && (
-        <div className="text-sm text-gray-600 px-4">
+        <div className="text-sm text-muted-foreground px-4">
           Recording saved to: {recordingPath}
         </div>
       )} */}

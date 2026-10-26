@@ -1,0 +1,258 @@
+{
+  "audio_seconds": 90.112,
+  "input_pcm_sha256": "17f6663681fec5356ed3841e0683fcc8539c8edfcba17188a6f592a5123b7dd1",
+  "physical_capture": false,
+  "paced_replay": true,
+  "virtual_capture_clock": false,
+  "continuous_window": {
+    "target_seconds": 5,
+    "overlap_seconds": 3,
+    "max_unresolved_seconds": 20
+  },
+  "performance_gate_passed": false,
+  "independent_fidelity_acceptance": false,
+  "runs": {
+    "legacy": {
+      "performance": {
+        "inference_seconds": 52.641162834000006,
+        "inference_rtf": 0.5841748361372515,
+        "decode_count": 21,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 1.9499999999999993,
+        "p95_decode_backlog_seconds": 1.490000000000002,
+        "middle_p95_backlog_seconds": 1.490000000000002,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 3.7958997080000003,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      "native": {
+        "stop_to_commit_seconds": 3.496280709000004,
+        "capture_wall_seconds": 90.115389958,
+        "max_replay_lateness_seconds": 1.0915968750000005,
+        "effective_whisper_settings": {
+          "beam_size": 3,
+          "effective_threads": 4,
+          "language": "auto",
+          "max_len": 200,
+          "no_context": true,
+          "no_speech_threshold": 0.55,
+          "no_timestamps": true,
+          "patience": 1,
+          "single_segment": false,
+          "temperature": 0.20000000298023224,
+          "token_timestamps": true,
+          "translate": false
+        },
+        "final_segments": 19,
+        "source_checkpoint_deliveries_verified": 0,
+        "source_deliveries": 21
+      },
+      "ui": {
+        "capture_to_display_ms": {
+          "n": 11,
+          "p95": 3815.9324999999953,
+          "max": 3815.9324999999953
+        },
+        "capture_to_event_ms": {
+          "n": 19,
+          "p95": 3795.900416000002,
+          "max": 3795.900416000002
+        },
+        "event_to_paint_ms": {
+          "n": 15,
+          "p95": 614,
+          "max": 614
+        },
+        "foreground_input_to_paint_ms": {
+          "n": 0,
+          "p95": null,
+          "max": null
+        },
+        "observed_save_ms": {
+          "n": 19,
+          "p95": 855,
+          "max": 855
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 15,
+          "p95": 661,
+          "max": 661
+        }
+      },
+      "foreground_samples": 0,
+      "paint_timeouts": 8,
+      "resources": {
+        "native_rss_kib": {
+          "n": 93,
+          "p95": 3655392,
+          "max": 3656240
+        },
+        "attributed_tree_rss_kib": {
+          "n": 93,
+          "p95": 3705424,
+          "max": 3706896
+        },
+        "attributed_tree_cpu_percent": {
+          "n": 93,
+          "p95": 121.9,
+          "max": 134.0
+        }
+      },
+      "exact_source_audio_retention": true,
+      "final_source_text_timing_manifest_verified": true,
+      "host_gpu": {
+        "scope": "host-wide; no per-process GPU or power attribution",
+        "statistics": {
+          "Device Utilization %": {
+            "n": 93,
+            "p95": 100,
+            "max": 100
+          },
+          "Renderer Utilization %": {
+            "n": 93,
+            "p95": 100,
+            "max": 100
+          },
+          "Tiler Utilization %": {
+            "n": 93,
+            "p95": 0,
+            "max": 0
+          },
+          "Alloc system memory": {
+            "n": 93,
+            "p95": 6265831424,
+            "max": 6283755520
+          },
+          "In use system memory": {
+            "n": 93,
+            "p95": 3994173440,
+            "max": 4007018496
+          }
+        }
+      }
+    },
+    "continuous": {
+      "performance": {
+        "inference_seconds": 79.325923836,
+        "inference_rtf": 0.8803036647283381,
+        "decode_count": 23,
+        "p95_decode_window_seconds": 20.0,
+        "max_decode_backlog_seconds": 12.0,
+        "p95_decode_backlog_seconds": 12.0,
+        "middle_p95_backlog_seconds": 4.440000000000005,
+        "late_p95_backlog_seconds": 12.0,
+        "p95_capture_to_native_event_seconds": 14.013502083999995,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      "native": {
+        "stop_to_commit_seconds": 5.794159334,
+        "capture_wall_seconds": 90.116068708,
+        "max_replay_lateness_seconds": 0.005336583000001838,
+        "effective_whisper_settings": {
+          "beam_size": 3,
+          "effective_threads": 4,
+          "language": "auto",
+          "max_len": 200,
+          "no_context": true,
+          "no_speech_threshold": 0.55,
+          "no_timestamps": true,
+          "patience": 1,
+          "single_segment": false,
+          "temperature": 0.20000000298023224,
+          "token_timestamps": true,
+          "translate": false
+        },
+        "final_segments": 14,
+        "source_checkpoint_deliveries_verified": 43,
+        "source_deliveries": 43
+      },
+      "ui": {
+        "capture_to_display_ms": {
+          "n": 12,
+          "p95": 16619.907416999995,
+          "max": 16619.907416999995
+        },
+        "capture_to_event_ms": {
+          "n": 27,
+          "p95": 14013.50275,
+          "max": 16425.320375000003
+        },
+        "event_to_paint_ms": {
+          "n": 21,
+          "p95": 512,
+          "max": 512
+        },
+        "foreground_input_to_paint_ms": {
+          "n": 0,
+          "p95": null,
+          "max": null
+        },
+        "observed_save_ms": {
+          "n": 19,
+          "p95": 848,
+          "max": 848
+        },
+        "synthetic_input_to_paint_ms": {
+          "n": 15,
+          "p95": 757,
+          "max": 757
+        }
+      },
+      "foreground_samples": 0,
+      "paint_timeouts": 10,
+      "resources": {
+        "native_rss_kib": {
+          "n": 96,
+          "p95": 3683008,
+          "max": 3683056
+        },
+        "attributed_tree_rss_kib": {
+          "n": 96,
+          "p95": 3735344,
+          "max": 3735712
+        },
+        "attributed_tree_cpu_percent": {
+          "n": 96,
+          "p95": 126.3,
+          "max": 136.2
+        }
+      },
+      "exact_source_audio_retention": true,
+      "final_source_text_timing_manifest_verified": true,
+      "host_gpu": {
+        "scope": "host-wide; no per-process GPU or power attribution",
+        "statistics": {
+          "Device Utilization %": {
+            "n": 96,
+            "p95": 100,
+            "max": 100
+          },
+          "Renderer Utilization %": {
+            "n": 96,
+            "p95": 100,
+            "max": 100
+          },
+          "Tiler Utilization %": {
+            "n": 96,
+            "p95": 0,
+            "max": 0
+          },
+          "Alloc system memory": {
+            "n": 96,
+            "p95": 6325813248,
+            "max": 6355730432
+          },
+          "In use system memory": {
+            "n": 96,
+            "p95": 3983163392,
+            "max": 4018077696
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "productName": "Meetily Recording Test",
+  "identifier": "com.meetily.recording.test",
+  "build": { "beforeBuildCommand": "" },
+  "app": { "windows": [{ "title": "Meetily Recording Test", "width": 1100, "height": 700 }] },
+  "bundle": { "targets": ["app"], "createUpdaterArtifacts": false },
+  "plugins": { "updater": { "endpoints": [] } }
+}

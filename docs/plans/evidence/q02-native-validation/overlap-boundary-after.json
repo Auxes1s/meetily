@@ -1,0 +1,22 @@
+{
+  "native_case": "anchored-alternating",
+  "seconds": 30.25975,
+  "native_source_clock_and_manifest_verified": true,
+  "diagnostic": {
+    "reference_words": 33,
+    "output_words": 33,
+    "word_edit_distance": 2,
+    "diagnostic_word_error_rate": 0.06060606060606061,
+    "reference_audio_matches": true,
+    "independent_audio_review_complete": false,
+    "repeated_yes_retained": true,
+    "repeated_repeat_retained": true,
+    "utf8_replacement_characters": 0,
+    "accuracy_acceptance": false,
+    "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+    "known_failure": "Extra yes yes prefix remains despite repeat repeat retention; independent source review pending"
+  },
+  "before_repeated_repeat_retained": false,
+  "after_repeated_repeat_retained": true,
+  "accuracy_acceptance": false
+}

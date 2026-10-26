@@ -1,0 +1,779 @@
+[
+  {
+    "case": "whisper-microphone-overlapping",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "localWhisper",
+    "source": "microphone",
+    "seconds": 15.129875,
+    "final_segments": [
+      2,
+      2
+    ],
+    "source_labels": [
+      "microphone"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      8,
+      8
+    ],
+    "two_sessions": true,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 16,
+        "p95": 1792.5472090000003,
+        "max": 1792.5472090000003
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 7,
+        "p95": 2103,
+        "max": 2103
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "ui_paint_timeouts": 22,
+    "performance": [
+      {
+        "inference_seconds": 10.358200873,
+        "inference_rtf": 0.6846190647972967,
+        "decode_count": 8,
+        "p95_decode_window_seconds": 7.62,
+        "max_decode_backlog_seconds": 0,
+        "p95_decode_backlog_seconds": 0,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 1.7874212499999995,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      {
+        "inference_seconds": 10.417130876,
+        "inference_rtf": 0.6885140079478514,
+        "decode_count": 8,
+        "p95_decode_window_seconds": 7.62,
+        "max_decode_backlog_seconds": 0,
+        "p95_decode_backlog_seconds": 0,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 1.7925457090000005,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  },
+  {
+    "case": "whisper-system-overlapping",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "localWhisper",
+    "source": "system",
+    "seconds": 15.129875,
+    "final_segments": [
+      2
+    ],
+    "source_labels": [
+      "system"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      7
+    ],
+    "two_sessions": false,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 7,
+        "p95": 9205.495125,
+        "max": 9205.495125
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 3,
+        "p95": 2005,
+        "max": 2005
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "ui_paint_timeouts": 9,
+    "performance": [
+      {
+        "inference_seconds": 8.499982082999999,
+        "inference_rtf": 0.5618012100562628,
+        "decode_count": 6,
+        "p95_decode_window_seconds": 10.0,
+        "max_decode_backlog_seconds": 0,
+        "p95_decode_backlog_seconds": 0,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 9.205495,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  },
+  {
+    "case": "whisper-overlap-overlapping",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "localWhisper",
+    "source": "overlap",
+    "seconds": 15.129875,
+    "final_segments": [
+      4
+    ],
+    "source_labels": [
+      "microphone",
+      "system"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      15
+    ],
+    "two_sessions": false,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 13,
+        "p95": 3313.7018340000013,
+        "max": 3313.7018340000013
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 4,
+        "p95": 2004,
+        "max": 2004
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "ui_paint_timeouts": 17,
+    "performance": [
+      {
+        "inference_seconds": 16.195961417,
+        "inference_rtf": 1.0704623413610488,
+        "decode_count": 13,
+        "p95_decode_window_seconds": 7.62,
+        "max_decode_backlog_seconds": 5.24,
+        "p95_decode_backlog_seconds": 5.24,
+        "middle_p95_backlog_seconds": 4.0,
+        "late_p95_backlog_seconds": 4.690000000000001,
+        "p95_capture_to_native_event_seconds": 3.3137017500000017,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  },
+  {
+    "case": "whisper-alternating-overlapping",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "localWhisper",
+    "source": "alternating",
+    "seconds": 30.25975,
+    "final_segments": [
+      5
+    ],
+    "source_labels": [
+      "microphone",
+      "system"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      15
+    ],
+    "two_sessions": false,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 3,
+        "p95": 12352.996917,
+        "max": 12352.996917
+      },
+      "capture_to_event_ms": {
+        "n": 17,
+        "p95": 13270.553,
+        "max": 13270.553
+      },
+      "event_to_paint_ms": {
+        "n": 3,
+        "p95": 1913,
+        "max": 1913
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 6,
+        "p95": 858,
+        "max": 858
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 1,
+        "p95": 768,
+        "max": 768
+      }
+    },
+    "ui_paint_timeouts": 19,
+    "performance": [
+      {
+        "inference_seconds": 20.067586290999998,
+        "inference_rtf": 0.6631775309115243,
+        "decode_count": 14,
+        "p95_decode_window_seconds": 12.76,
+        "max_decode_backlog_seconds": 16.91,
+        "p95_decode_backlog_seconds": 16.91,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 13.270552709,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  },
+  {
+    "case": "parakeet-microphone-overlapping",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "parakeet",
+    "source": "microphone",
+    "seconds": 15.129875,
+    "final_segments": [
+      3,
+      3
+    ],
+    "source_labels": [
+      "microphone"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      0,
+      0
+    ],
+    "two_sessions": true,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 2,
+        "p95": 1063.489375000001,
+        "max": 1063.489375000001
+      },
+      "capture_to_event_ms": {
+        "n": 6,
+        "p95": 754.2624999999994,
+        "max": 754.2624999999994
+      },
+      "event_to_paint_ms": {
+        "n": 2,
+        "p95": 304,
+        "max": 304
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 6,
+        "p95": 847,
+        "max": 847
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 2,
+        "p95": 818,
+        "max": 818
+      }
+    },
+    "ui_paint_timeouts": 8,
+    "performance": [
+      {
+        "inference_seconds": 0.5244841250000001,
+        "inference_rtf": 0.03466546319781228,
+        "decode_count": 4,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 0,
+        "p95_decode_backlog_seconds": 0,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": null,
+        "p95_capture_to_native_event_seconds": 0.47325700000000026,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      },
+      {
+        "inference_seconds": 0.902495416,
+        "inference_rtf": 0.0596498924148415,
+        "decode_count": 4,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 0.12987500000000018,
+        "p95_decode_backlog_seconds": 0.12987500000000018,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": null,
+        "p95_capture_to_native_event_seconds": 0.7542615420000001,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  },
+  {
+    "case": "parakeet-system-overlapping",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "parakeet",
+    "source": "system",
+    "seconds": 15.129875,
+    "final_segments": [
+      3
+    ],
+    "source_labels": [
+      "system"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      0
+    ],
+    "two_sessions": false,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 3,
+        "p95": 237.58195799999984,
+        "max": 237.58195799999984
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 3,
+        "p95": 851,
+        "max": 851
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "ui_paint_timeouts": 6,
+    "performance": [
+      {
+        "inference_seconds": 0.44946191599999996,
+        "inference_rtf": 0.02970691535785986,
+        "decode_count": 3,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 0,
+        "p95_decode_backlog_seconds": 0,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 0.2375814579999993,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  },
+  {
+    "case": "parakeet-overlap-overlapping",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "parakeet",
+    "source": "overlap",
+    "seconds": 15.129875,
+    "final_segments": [
+      6
+    ],
+    "source_labels": [
+      "microphone",
+      "system"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      0
+    ],
+    "two_sessions": false,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 6,
+        "p95": 622.2869160000002,
+        "max": 622.2869160000002
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 3,
+        "p95": 846,
+        "max": 846
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "ui_paint_timeouts": 9,
+    "performance": [
+      {
+        "inference_seconds": 0.9170323749999999,
+        "inference_rtf": 0.06061070398797081,
+        "decode_count": 7,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 5.0,
+        "p95_decode_backlog_seconds": 5.0,
+        "middle_p95_backlog_seconds": 5.0,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 0.6222867910000005,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  },
+  {
+    "case": "parakeet-alternating-overlapping",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "parakeet",
+    "source": "alternating",
+    "seconds": 30.25975,
+    "final_segments": [
+      6
+    ],
+    "source_labels": [
+      "microphone",
+      "system"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      0
+    ],
+    "two_sessions": false,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 6,
+        "p95": 469.2301669999992,
+        "max": 469.2301669999992
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 5,
+        "p95": 2009,
+        "max": 2009
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "ui_paint_timeouts": 11,
+    "performance": [
+      {
+        "inference_seconds": 1.185760375,
+        "inference_rtf": 0.03918605986500219,
+        "decode_count": 7,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 0,
+        "p95_decode_backlog_seconds": 0,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 0.4692297500000002,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  },
+  {
+    "case": "whisper-microphone-legacy",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "localWhisper",
+    "source": "microphone",
+    "seconds": 15.129875,
+    "final_segments": [
+      3
+    ],
+    "source_labels": [
+      "microphone"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      0
+    ],
+    "two_sessions": false,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 3,
+        "p95": 1453.8927499999995,
+        "max": 1453.8927499999995
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 3,
+        "p95": 2009,
+        "max": 2009
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "ui_paint_timeouts": 5,
+    "performance": [
+      {
+        "inference_seconds": 4.122937,
+        "inference_rtf": 0.27250304447326895,
+        "decode_count": 4,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 0.12987500000000018,
+        "p95_decode_backlog_seconds": 0.12987500000000018,
+        "middle_p95_backlog_seconds": 0,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 1.453892583,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  },
+  {
+    "case": "relocated-package-preservation",
+    "runner_exit": 0,
+    "native_ipc": true,
+    "paced_replay": true,
+    "physical_capture": false,
+    "provider": "parakeet",
+    "source": "overlap",
+    "seconds": 15.129875,
+    "final_segments": [
+      6
+    ],
+    "source_labels": [
+      "microphone",
+      "system"
+    ],
+    "all_final_source_text_timing_match_export": true,
+    "exact_supplied_source_pcm_retained": true,
+    "checkpoint_deliveries_verified": [
+      0
+    ],
+    "two_sessions": false,
+    "notes_preserved": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": [],
+    "ui_summary": {
+      "capture_to_display_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "capture_to_event_ms": {
+        "n": 6,
+        "p95": 382.1555419999996,
+        "max": 382.1555419999996
+      },
+      "event_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "foreground_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      },
+      "observed_save_ms": {
+        "n": 3,
+        "p95": 846,
+        "max": 846
+      },
+      "synthetic_input_to_paint_ms": {
+        "n": 0,
+        "p95": null,
+        "max": null
+      }
+    },
+    "ui_paint_timeouts": 9,
+    "performance": [
+      {
+        "inference_seconds": 0.9447111669999998,
+        "inference_rtf": 0.06244011711927559,
+        "decode_count": 7,
+        "p95_decode_window_seconds": 5.0,
+        "max_decode_backlog_seconds": 5.0,
+        "p95_decode_backlog_seconds": 5.0,
+        "middle_p95_backlog_seconds": 5.0,
+        "late_p95_backlog_seconds": 0,
+        "p95_capture_to_native_event_seconds": 0.3821554169999999,
+        "backlog_definition": "sum of latest source-VAD delivery end minus completed decode end, per source; unresolved final hypotheses are separate",
+        "sustained_gate_passed": false,
+        "fidelity_gate_passed": false
+      }
+    ]
+  }
+]

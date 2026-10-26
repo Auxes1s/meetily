@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 import { listen } from '@tauri-apps/api/event';
-import { useRecordingStop } from '@/hooks/useRecordingStop';
 
 /**
  * RecordingPostProcessingProvider
@@ -18,15 +17,6 @@ import { useRecordingStop } from '@/hooks/useRecordingStop';
  * regardless of which page the user is currently on.
  */
 export function RecordingPostProcessingProvider({ children }: { children: React.ReactNode }) {
-  // No-op functions since the global RecordingStateContext already handles state updates
-  // These are only needed for the hook's local component state management
-  const setIsRecording = () => { };
-  const setIsRecordingDisabled = () => { };
-
-  const {
-    handleRecordingStop,
-  } = useRecordingStop(setIsRecording, setIsRecordingDisabled);
-
   useEffect(() => {
     let unlistenFn: (() => void) | undefined;
 
@@ -38,7 +28,7 @@ export function RecordingPostProcessingProvider({ children }: { children: React.
 
           // Call the post-processing handler
           // event.payload is the callApi boolean (true for normal stops)
-          handleRecordingStop(event.payload);
+          (window as any).handleRecordingStop?.(event.payload);
         });
 
         console.log('[RecordingPostProcessing] Event listener set up successfully');
@@ -55,7 +45,7 @@ export function RecordingPostProcessingProvider({ children }: { children: React.
         unlistenFn();
       }
     };
-  }, [handleRecordingStop]);
+  }, []);
 
   return <>{children}</>;
 }

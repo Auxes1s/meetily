@@ -1,0 +1,75 @@
+name: V0 candidate
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['v0/**']
+
+concurrency:
+  group: v0-candidate-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    name: Frontend and portable build checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.14'
+      - run: pnpm install --frozen-lockfile
+        working-directory: frontend
+      - run: pnpm test
+        working-directory: frontend
+      - run: node tests/lib/onboarding-summary-model.test.mjs
+        working-directory: frontend
+      - run: node --test .github/verify-portable-ggml.test.cjs
+      - run: python3 -m unittest discover -s scripts/qa/tests
+      - run: pnpm lint
+        working-directory: frontend
+      - run: pnpm build
+        working-directory: frontend
+        env:
+          NEXT_PUBLIC_MEETILY_LOCAL_BUILD: '1'
+      - run: pnpm exec tsc --noEmit --incremental false
+        working-directory: frontend
+
+  packages:
+    name: ${{ matrix.target }} candidate installers
+    needs: frontend
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-14
+            target: aarch64-apple-darwin
+            args: --target aarch64-apple-darwin --config src-tauri/tauri.v0-candidate.json --bundles app,dmg
+          - platform: windows-2022
+            target: x86_64-pc-windows-msvc
+            args: --config src-tauri/tauri.v0-candidate.json --bundles msi,nsis
+    uses: ./.github/workflows/build.yml
+    with:
+      platform: ${{ matrix.platform }}
+      target: ${{ matrix.target }}
+      build-args: ${{ matrix.args }}
+      sign-binaries: false
+      windows-native-smoke: true
+      asset-prefix: meetily-v0-candidate
+      upload-artifacts: true
+
+  # These are reviewable candidates. Publishing remains gated on native
+  # Windows 11/macOS acceptance and the feature gates in docs/v0-release.md.

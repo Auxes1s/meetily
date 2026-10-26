@@ -8,14 +8,16 @@ import type { MeetingSummary, SummaryProcessResponse } from '../../src/types';
 const originalAnalytics = { ...await import('../../src/lib/analytics') };
 const originalPreferences = { ...await import('../../src/lib/summary-language-preferences') };
 const originalToast = { ...await import('sonner') };
+const originalRecordingState = { ...await import('../../src/contexts/RecordingStateContext') };
 afterAll(() => {
   mock.module('../../src/lib/analytics', () => originalAnalytics);
   mock.module('../../src/lib/summary-language-preferences', () => originalPreferences);
   mock.module('sonner', () => originalToast);
+  mock.module('../../src/contexts/RecordingStateContext', () => originalRecordingState);
 });
 
 mock.module('next/navigation', () => ({ usePathname: () => '/meeting-details', useRouter: () => ({}) }));
-mock.module('../../src/contexts/RecordingStateContext', () => ({ useRecordingState: () => ({ isRecording: false }) }));
+mock.module('../../src/contexts/RecordingStateContext', () => ({ ...originalRecordingState, useRecordingControls: () => ({ isRecording: false }), useRecordingState: () => ({ isRecording: false }) }));
 const notify = mock(() => {});
 mock.module('sonner', () => ({ toast: { info: notify, error: notify, success: notify, warning: notify } }));
 const trackCompletion = mock(async (..._args: Parameters<typeof originalAnalytics.default.trackSummaryGenerationCompleted>) => {});
@@ -96,6 +98,21 @@ async function tick() {
 }
 
 describe('summary state restored when returning to a meeting', () => {
+  test('retry passes the failed version and restores saved progress after reopening', async () => {
+    await show(response({ status: 'failed', error: 'Part 2 failed', generation_progress: {
+      completed_chunks: 1, total_chunks: 9, failed_chunk: 2, error_code: 'invalid_structure', retryable: true,
+    } }));
+    expect(state.summaryStatus).toBe('error');
+    await act(async () => { await state.handleGenerateSummary(); });
+    const start=invoke.mock.calls.filter(([command]) => command==='api_process_transcript').at(-1);
+    expect(start?.[1]?.retryOfVersionId).toBe('attempt-a');
+    await show(null);
+    await show(response({ generation_progress: {
+      completed_chunks: 4, total_chunks: 9, failed_chunk: null, error_code: null, retryable: false,
+    } }));
+    expect(state.getSummaryStatusMessage(state.summaryStatus)).toContain('4 of 9 parts');
+  });
+
   test('repeated recovery read failures end regeneration and retain visible notes', async () => {
     await show(response({ data: { markdown: 'Previous summary' } }));
     getSummary = async () => { throw new Error('Database unavailable'); };

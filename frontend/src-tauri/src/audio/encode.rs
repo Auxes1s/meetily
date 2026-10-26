@@ -21,11 +21,13 @@ pub fn encode_single_audio(
     channels: u16,
     output_path: &PathBuf,
 ) -> anyhow::Result<()> {
-    debug!("Starting FFmpeg process for {} bytes of audio data", data.len());
+    encode_audio_slices(std::iter::once(data), sample_rate, channels, output_path)
+}
 
-    if data.is_empty() {
-        return Err(anyhow::anyhow!("No audio data provided for encoding"));
-    }
+/// Stream owned batch slices without a second flattened PCM allocation.
+pub fn encode_audio_slices<'a>(
+    slices: impl IntoIterator<Item=&'a [u8]>, sample_rate:u32, channels:u16, output_path:&PathBuf,
+) -> anyhow::Result<()> {
 
     let ffmpeg_path = find_ffmpeg_path().ok_or_else(|| {
         anyhow::anyhow!("FFmpeg not found. Please install FFmpeg to save recordings.")
@@ -71,16 +73,17 @@ pub fn encode_single_audio(
     debug!("FFmpeg command: {:?}", command);
 
     #[allow(clippy::zombie_processes)]
-    let mut ffmpeg = command.spawn().expect("Failed to spawn FFmpeg process");
+    let mut ffmpeg = command.spawn()?;
     debug!("FFmpeg process spawned");
-    let mut stdin = ffmpeg.stdin.take().expect("Failed to open stdin");
+    let mut stdin = ffmpeg.stdin.take().ok_or_else(||anyhow::anyhow!("FFmpeg stdin unavailable"))?;
 
-    stdin.write_all(data)?;
+    let written = (|| -> std::io::Result<()> { for slice in slices { stdin.write_all(slice)?; } Ok(()) })();
+    if let Err(error) = written { let _ = ffmpeg.kill(); let _ = ffmpeg.wait(); return Err(error.into()); }
 
     debug!("Dropping stdin");
     drop(stdin);
     debug!("Waiting for FFmpeg process to exit");
-    let output = ffmpeg.wait_with_output().unwrap();
+    let output = ffmpeg.wait_with_output()?;
     let status = output.status;
     let stdout = String::from_utf8_lossy(&output.stdout);
     let stderr = String::from_utf8_lossy(&output.stderr);

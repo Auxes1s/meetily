@@ -1,5 +1,8 @@
 "use client";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
+import { useRecordingControls } from '@/contexts/RecordingStateContext';
+import { useTranscriptRows } from '@/contexts/TranscriptContext';
+import { transcriptToSegment } from '@/lib/transcript-audio-source';
 import { motion } from 'framer-motion';
 import { MeetingSummary, SummaryProcessResponse } from '@/types';
 import { useSidebar } from '@/components/Sidebar/SidebarProvider';
@@ -58,7 +61,11 @@ export default function PageContent({
 
   // State
   const [customPrompt, setCustomPrompt] = useState<string>('');
-  const isRecording = false;
+  const recording = useRecordingControls();
+  const live = useTranscriptRows();
+  const ownsLiveTranscript = live.currentMeetingId === meeting.id;
+  const isRecording = recording.isRecording && ownsLiveTranscript;
+  const liveSegments = useMemo(() => ownsLiveTranscript ? live.ids.map(id => transcriptToSegment(live.store.get(id)!)) : segments, [ownsLiveTranscript, live.ids, live.store, segments]);
   const [activeTab, setActiveTab] = useState<MeetingDetailsTab>('transcript');
 
   // Ref to store the modal open function from SummaryGeneratorButtonGroup
@@ -190,9 +197,9 @@ export default function PageContent({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
-      className="flex flex-col h-screen min-w-0 bg-gray-50"
+      className="flex flex-col h-full min-h-0 min-w-0 bg-background"
     >
-      <div className="flex flex-1 min-w-0 overflow-hidden">
+      <div className="flex flex-1 min-h-0 min-w-0 overflow-hidden">
         <MeetingDetailsSplitView
           activeTab={activeTab}
           onTabChange={(tab) => {
@@ -204,16 +211,17 @@ export default function PageContent({
               transcripts={meetingData.transcripts}
               customPrompt={customPrompt}
               onPromptChange={setCustomPrompt}
-              onCopyTranscript={copyOperations.handleCopyTranscript}
+              onCopyTranscript={ownsLiveTranscript ? live.copyTranscript : copyOperations.handleCopyTranscript}
               onOpenMeetingFolder={meetingOperations.handleOpenMeetingFolder}
               isRecording={isRecording}
               disableAutoScroll={true}
               usePagination={true}
-              segments={segments}
-              hasMore={hasMore}
+              segments={liveSegments}
+              liveStore={ownsLiveTranscript ? live.store : undefined}
+              hasMore={ownsLiveTranscript ? false : hasMore}
               isLoadingMore={isLoadingMore}
-              totalCount={totalCount}
-              loadedCount={loadedCount}
+              totalCount={ownsLiveTranscript ? live.ids.length : totalCount}
+              loadedCount={ownsLiveTranscript ? live.ids.length : loadedCount}
               onLoadMore={onLoadMore}
               meetingId={meeting.id}
               meetingFolderPath={meeting.folder_path}

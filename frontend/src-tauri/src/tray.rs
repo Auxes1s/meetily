@@ -80,6 +80,7 @@ fn toggle_recording_handler<R: Runtime>(app: &AppHandle<R>) {
                 app_clone.clone(),
                 crate::audio::recording_commands::RecordingArgs {
                     save_path: save_path.to_string_lossy().to_string(),
+                    recording_session_id: None,
                 },
             )
             .await;
@@ -120,7 +121,7 @@ fn pause_recording_handler<R: Runtime>(app: &AppHandle<R>) {
 
     let app_clone = app.clone();
     tauri::async_runtime::spawn(async move {
-        if let Err(e) = crate::audio::recording_commands::pause_recording(app_clone.clone()).await {
+        if let Err(e) = crate::audio::recording_commands::pause_recording(app_clone.clone(), None).await {
             log::error!("Failed to pause recording from tray: {}", e);
             // Revert to current state on error
             update_tray_menu_async(&app_clone).await;
@@ -137,7 +138,7 @@ fn resume_recording_handler<R: Runtime>(app: &AppHandle<R>) {
 
     let app_clone = app.clone();
     tauri::async_runtime::spawn(async move {
-        if let Err(e) = crate::audio::recording_commands::resume_recording(app_clone.clone()).await
+        if let Err(e) = crate::audio::recording_commands::resume_recording(app_clone.clone(), None).await
         {
             log::error!("Failed to resume recording from tray: {}", e);
             // Revert to current state on error
@@ -176,6 +177,7 @@ fn stop_recording_handler<R: Runtime>(app: &AppHandle<R>) {
             app_clone.clone(),
             crate::audio::recording_commands::RecordingArgs {
                 save_path: save_path.to_string_lossy().to_string(),
+                    recording_session_id: None,
             },
         )
         .await;

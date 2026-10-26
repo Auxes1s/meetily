@@ -5,6 +5,7 @@
  * Provides functionality to detect, preview, and recover meetings from IndexedDB.
  */
 
+import { normalizeAudioSource } from '@/lib/transcript-audio-source';
 import { useState, useCallback } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import { indexedDBService, MeetingMetadata, StoredTranscript } from '@/services/indexedDBService';
@@ -115,12 +116,15 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
       if (!metadata) {
         throw new Error('Meeting metadata not found');
       }
+      if (!metadata.canonicalMeetingId) {
+        const stable = await invoke<{ meeting_id: string; recording_session_id: string }>('api_ensure_recovery_meeting', { recoveryKey: meetingId, title: metadata.title });
+        metadata.canonicalMeetingId = stable.meeting_id;
+        metadata.recordingSessionId = stable.recording_session_id;
+        await indexedDBService.saveMeetingMetadata(metadata);
+      }
 
       // 2. Load all transcripts
-      const transcripts = await loadMeetingTranscripts(meetingId);
-      if (transcripts.length === 0) {
-        throw new Error('No transcripts found for this meeting');
-      }
+      let transcripts = await loadMeetingTranscripts(meetingId);
 
       // 3. Check for folder path
       let folderPath = metadata.folderPath;
@@ -135,13 +139,31 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
         }
       }
 
+      // Native final passages can be newer than the WebView recovery cache.
+      // Reconcile them before acknowledging recovery or cleaning checkpoints.
+      if (folderPath) {
+        const finalPassages = await invoke<Array<{ id: string; text: string; display_time: string; sequence_id: number; confidence: number; audio_source?: string; audio_start_time: number; audio_end_time: number; duration: number }>>('recover_transcript_history', {
+          meetingFolder: folderPath, meetingId: metadata.canonicalMeetingId,
+        });
+        const merged = new Map(transcripts.map((row, index) => [row.sequence_id ?? row.sequenceId ?? index, row]));
+        for (const passage of finalPassages) {
+          const prior = merged.get(passage.sequence_id);
+          merged.set(passage.sequence_id, { ...prior, ...passage, meetingId, sequenceId: passage.sequence_id,
+            timestamp: passage.display_time, storedAt: prior?.storedAt ?? Date.now(), is_partial: false,
+            audio_source: normalizeAudioSource(passage.audio_source) === 'unknown' && prior ? prior.audio_source : normalizeAudioSource(passage.audio_source),
+          });
+        }
+        transcripts = [...merged.values()].sort((a, b) => a.sequenceId - b.sequenceId);
+      }
+      if (transcripts.length === 0) throw new Error('No transcripts found for this meeting');
+
       // 4. Attempt audio recovery if folder path exists
       let audioRecoveryStatus: AudioRecoveryStatus | null = null;
       if (folderPath) {
         try {
           audioRecoveryStatus = await invoke<AudioRecoveryStatus>(
             'recover_audio_from_checkpoints',
-            { meetingFolder: folderPath, sampleRate: 48000 }
+            { meetingFolder: folderPath, meetingId: metadata.canonicalMeetingId, sampleRate: 48000 }
           );
         } catch (error) {
           console.error('Audio recovery failed:', error);
@@ -166,7 +188,8 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
         id: t.id?.toString() || `${Date.now()}-${index}`,
         text: t.text,
         timestamp: t.timestamp,
-        sequence_id: t.sequenceId || index,
+        sequence_id: t.sequence_id ?? t.sequenceId ?? index,
+        audio_source: normalizeAudioSource(t.audio_source),
         chunk_start_time: (t as any).chunk_start_time,
         is_partial: (t as any).is_partial || false,
         confidence: t.confidence,
@@ -179,7 +202,9 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
       const saveResponse = await storageService.saveMeeting(
         metadata.title,
         formattedTranscripts,
-        folderPath ?? null
+        folderPath ?? null,
+        metadata.canonicalMeetingId ?? null,
+        metadata.recordingSessionId ?? null,
       );
 
       const savedMeetingId = saveResponse.meeting_id;
@@ -198,7 +223,7 @@ export function useTranscriptRecovery(): UseTranscriptRecoveryReturn {
 
 
       // 8. Clean up checkpoint files
-      if (folderPath) {
+      if (folderPath && audioRecoveryStatus?.status === 'success') {
         try {
           await invoke('cleanup_checkpoints', { meetingFolder: folderPath });
         } catch (error) {

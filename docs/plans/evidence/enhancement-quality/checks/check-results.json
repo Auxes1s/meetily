@@ -1,0 +1,65 @@
+{
+  "native_final": {
+    "passed": 320,
+    "failed": 0,
+    "ignored": 8,
+    "filtered": 1,
+    "exit_code": 0
+  },
+  "native_baseline_mic": {
+    "passed": 0,
+    "failed": 1,
+    "exit_code": 101,
+    "reason": "Wired versus expected Unknown"
+  },
+  "summary_focused": {
+    "passed": 124,
+    "failed": 0,
+    "ignored": 1,
+    "filtered": 204,
+    "exit_code": 0
+  },
+  "bun": {
+    "passed": 97,
+    "failed": 0,
+    "assertions": 389,
+    "files": 22,
+    "exit_code": 0
+  },
+  "portable_ggml_node": {
+    "passed": 14,
+    "exit_code": 0
+  },
+  "onboarding_node": {
+    "exit_code": 0
+  },
+  "python_producer_review": {
+    "passed": 8,
+    "exit_code": 0
+  },
+  "frontend_build": {
+    "exit_code": 0
+  },
+  "frontend_tsc": {
+    "exit_code": 0,
+    "after_build": true
+  },
+  "lint": {
+    "exit_code": 1,
+    "reason": "ESLint setup prompt"
+  },
+  "codex_quality_gate": {
+    "exit_code": 1,
+    "model_passes": 0,
+    "human_acceptance": "pending"
+  },
+  "real_model_producers": {
+    "phases": 2,
+    "jobs": 96,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  "scope": "macOS native Rust synthetic evaluation; existing user app not deployed or launched"
+}

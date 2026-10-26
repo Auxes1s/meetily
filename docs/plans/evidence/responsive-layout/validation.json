@@ -1,0 +1,63 @@
+{
+  "frontend_tests": {
+    "passed": 111,
+    "failed": 0,
+    "assertions": 455,
+    "files": 26,
+    "exit_code": 0
+  },
+  "typescript": {
+    "command": "pnpm exec tsc --noEmit --incremental false",
+    "exit_code": 0
+  },
+  "production_frontend_build": {
+    "command": "pnpm build",
+    "exit_code": 0
+  },
+  "macos_release_build": {
+    "command": "./scripts/meetily-notepad.sh build",
+    "exit_code": 0
+  },
+  "native_macos": {
+    "architecture": "arm64",
+    "macos_version": "27.0.1",
+    "native_webview": true,
+    "animations_enabled": true,
+    "layout_and_dialog_cases": 91,
+    "continuous_resize_steps": 122,
+    "window_sizes": [
+      [
+        1440,
+        900
+      ],
+      [
+        1100,
+        700
+      ],
+      [
+        900,
+        600
+      ],
+      [
+        768,
+        600
+      ],
+      [
+        600,
+        500
+      ],
+      [
+        480,
+        400
+      ],
+      [
+        1100,
+        400
+      ]
+    ],
+    "physical_recording_during_resize_tested": false
+  },
+  "windows_native_tested": false,
+  "both_installed_copies_verified": true,
+  "normal_launch_verified": true
+}

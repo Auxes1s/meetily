@@ -32,7 +32,7 @@ interface SummaryGeneratorButtonGroupProps {
   availableTemplates: Array<{ id: string, name: string, description: string }>;
   selectedTemplate: string;
   onTemplateSelect: (templateId: string, templateName: string) => void;
-  hasTranscripts?: boolean;
+  retryAvailable?: boolean;
   hasSummary?: boolean;
   isModelConfigLoading?: boolean;
   onOpenModelSettings?: (openFn: () => void) => void;
@@ -49,7 +49,7 @@ export function SummaryGeneratorButtonGroup({
   availableTemplates,
   selectedTemplate,
   onTemplateSelect,
-  hasTranscripts = true,
+  retryAvailable = false,
   hasSummary = false,
   isModelConfigLoading = false,
   onOpenModelSettings,
@@ -73,10 +73,6 @@ export function SummaryGeneratorButtonGroup({
       onOpenModelSettings(openDialog);
     }
   }, [onOpenModelSettings]);
-
-  if (!hasTranscripts) {
-    return null;
-  }
 
   const isGenerating = summaryStatus === 'processing' || summaryStatus === 'summarizing' || summaryStatus === 'regenerating';
 
@@ -121,7 +117,7 @@ export function SummaryGeneratorButtonGroup({
           ) : (
             <>
               <Sparkles size={18} />
-              <span className="hidden @[24rem]:inline">{hasSummary ? 'Regenerate Summary' : 'Generate Summary'}</span>
+              <span className="hidden @[24rem]:inline">{retryAvailable ? 'Retry summary' : hasSummary ? 'Regenerate Summary' : 'Generate Summary'}</span>
             </>
           )}
         </Button>

@@ -1,0 +1,675 @@
+{
+  "verified_at": "2026-10-15T10:58:11.598980+08:00",
+  "scope": "macOS Apple Silicon automated-only; no application changes",
+  "overall": "partial acceptance: routing/persistence/controls/append pass, human microphone speech and transcript accuracy remain unaccepted",
+  "installed_release": {
+    "identifier": "com.meetily.ai",
+    "binary_sha256": "53408f31f259865b26794cbaf34ad7a550f51a5fc908ceedcb10f4f4e113a60a",
+    "all_15_files_match_latest_archived_release": true,
+    "direct_runtime_capture_of_installed_release": false
+  },
+  "hardware_package": {
+    "identifier": "com.meetily.recording.test",
+    "bundle": "/Users/marcignacio/GitHub/meetily/target/debug/bundle/macos/Meetily Recording Test.app",
+    "native_binary_sha256": "c1c281397559622f9313ec976ddb94c58bd18488a0919c09ac958648b29d2f1d",
+    "frontend_index_sha256": "cb87afab6b3938380ae4c358b2a4397b54f35391cf268a247c8cfff80963a20b",
+    "built_at": "2026-10-15T10:49:36.212445+08:00",
+    "evidence_class": "isolated debug build from current source; installed release is preserved"
+  },
+  "replay_package": {
+    "binary_sha256": "87fc731c1ca93a0e89124dddef40f959d45c45bb9a88735947ae58284c485985",
+    "evidence_class": "isolated release validation build from current source",
+    "identifier": "com.meetily.q02.test"
+  },
+  "hardware_results": [
+    {
+      "provider": "whisper",
+      "report": {
+        "cancelled_start_admission": true,
+        "capture_sources": [
+          {
+            "microphone": true,
+            "system": true
+          },
+          {
+            "microphone": true,
+            "system": true
+          }
+        ],
+        "captured_channels": [
+          "system",
+          "microphone"
+        ],
+        "continuous_timeline": true,
+        "model": "large-v3",
+        "model_failure_recovery": true,
+        "native_device_pause_resume": true,
+        "native_hide_reopen": true,
+        "native_webview": true,
+        "notes_preserved": true,
+        "ok": true,
+        "provider": "localWhisper",
+        "rapid_click_admission": true,
+        "repeated_start_stop": true,
+        "same_meeting": true,
+        "screenshot": "recording-completed.png",
+        "separate_audio_files": true,
+        "session_count": 2,
+        "title_preserved": true,
+        "transcript_count": 3,
+        "tray_control_tested": false
+      },
+      "native_binary_sha256": "c1c281397559622f9313ec976ddb94c58bd18488a0919c09ac958648b29d2f1d"
+    },
+    {
+      "provider": "parakeet",
+      "report": {
+        "cancelled_start_admission": true,
+        "capture_sources": [
+          {
+            "microphone": true,
+            "system": true
+          },
+          {
+            "microphone": true,
+            "system": true
+          }
+        ],
+        "captured_channels": [
+          "system",
+          "microphone"
+        ],
+        "continuous_timeline": true,
+        "model": "parakeet-tdt-0.6b-v3-int8",
+        "model_failure_recovery": false,
+        "native_device_pause_resume": true,
+        "native_hide_reopen": true,
+        "native_webview": true,
+        "notes_preserved": true,
+        "ok": true,
+        "provider": "parakeet",
+        "rapid_click_admission": true,
+        "repeated_start_stop": true,
+        "same_meeting": true,
+        "screenshot": "recording-completed.png",
+        "separate_audio_files": true,
+        "session_count": 2,
+        "title_preserved": true,
+        "transcript_count": 3,
+        "tray_control_tested": false
+      },
+      "native_binary_sha256": "c1c281397559622f9313ec976ddb94c58bd18488a0919c09ac958648b29d2f1d"
+    }
+  ],
+  "hardware_persistence": [
+    {
+      "provider": "whisper",
+      "integrity": "ok",
+      "foreign_key_violations": [],
+      "sessions": [
+        {
+          "index": 1,
+          "status": "completed",
+          "duration_seconds": 5.024,
+          "timeline_offset": 0.0,
+          "passage_count": 2,
+          "sources": [
+            "microphone",
+            "system"
+          ],
+          "all_passages_in_capture_clock": true,
+          "known_system_phrase_retained": true,
+          "saved_manifest_count": 2,
+          "saved_manifest_matches_reopened_database": true,
+          "metadata_meeting_and_session_match": true,
+          "audio_decode_exit_code": 0,
+          "decoded_audio_seconds": 5.056
+        },
+        {
+          "index": 2,
+          "status": "completed",
+          "duration_seconds": 5.002,
+          "timeline_offset": 5.024,
+          "passage_count": 1,
+          "sources": [
+            "system"
+          ],
+          "all_passages_in_capture_clock": true,
+          "known_system_phrase_retained": true,
+          "saved_manifest_count": 1,
+          "saved_manifest_matches_reopened_database": true,
+          "metadata_meeting_and_session_match": true,
+          "audio_decode_exit_code": 0,
+          "decoded_audio_seconds": 5.034667
+        }
+      ]
+    },
+    {
+      "provider": "parakeet",
+      "integrity": "ok",
+      "foreign_key_violations": [],
+      "sessions": [
+        {
+          "index": 1,
+          "status": "completed",
+          "duration_seconds": 5.024,
+          "timeline_offset": 0.0,
+          "passage_count": 2,
+          "sources": [
+            "microphone",
+            "system"
+          ],
+          "all_passages_in_capture_clock": true,
+          "known_system_phrase_retained": true,
+          "saved_manifest_count": 2,
+          "saved_manifest_matches_reopened_database": true,
+          "metadata_meeting_and_session_match": true,
+          "audio_decode_exit_code": 0,
+          "decoded_audio_seconds": 5.056
+        },
+        {
+          "index": 2,
+          "status": "completed",
+          "duration_seconds": 5.088,
+          "timeline_offset": 5.024,
+          "passage_count": 1,
+          "sources": [
+            "system"
+          ],
+          "all_passages_in_capture_clock": true,
+          "known_system_phrase_retained": true,
+          "saved_manifest_count": 1,
+          "saved_manifest_matches_reopened_database": true,
+          "metadata_meeting_and_session_match": true,
+          "audio_decode_exit_code": 0,
+          "decoded_audio_seconds": 5.12
+        }
+      ]
+    }
+  ],
+  "paced_replay": [
+    {
+      "provider": "whisper",
+      "source": "microphone",
+      "exit_code": 0,
+      "ok": true,
+      "export_session_count": 2,
+      "export_transcript_count": 4,
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "physical_capture": false,
+      "exact_source_audio_retention_verified": true,
+      "native_pause_button_test": false,
+      "vad_pause_boundary_replay": true,
+      "all_native_final_manifest_checkpoints_verified": true,
+      "stop_to_commit_seconds": [
+        1.4419835419999991,
+        1.4484794999999997
+      ],
+      "independent_audio_accuracy_acceptance": false,
+      "fidelity_diagnostics": [
+        {
+          "reference_words": 33,
+          "output_words": 33,
+          "word_edit_distance": 2,
+          "diagnostic_word_error_rate": 0.06060606060606061,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": true,
+          "repeated_repeat_retained": true,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "microphone",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        },
+        {
+          "reference_words": 33,
+          "output_words": 33,
+          "word_edit_distance": 2,
+          "diagnostic_word_error_rate": 0.06060606060606061,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": true,
+          "repeated_repeat_retained": true,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 2,
+          "channel": "microphone",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        }
+      ],
+      "database_reopened_after_process_exit": true
+    },
+    {
+      "provider": "whisper",
+      "source": "system",
+      "exit_code": 0,
+      "ok": true,
+      "export_session_count": 1,
+      "export_transcript_count": 2,
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "physical_capture": false,
+      "exact_source_audio_retention_verified": true,
+      "native_pause_button_test": false,
+      "vad_pause_boundary_replay": true,
+      "all_native_final_manifest_checkpoints_verified": true,
+      "stop_to_commit_seconds": [
+        0.0189524590000012
+      ],
+      "independent_audio_accuracy_acceptance": false,
+      "fidelity_diagnostics": [
+        {
+          "reference_words": 27,
+          "output_words": 28,
+          "word_edit_distance": 3,
+          "diagnostic_word_error_rate": 0.1111111111111111,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": false,
+          "repeated_repeat_retained": false,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "system",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        }
+      ],
+      "database_reopened_after_process_exit": true
+    },
+    {
+      "provider": "whisper",
+      "source": "overlap",
+      "exit_code": 0,
+      "ok": true,
+      "export_session_count": 1,
+      "export_transcript_count": 4,
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "physical_capture": false,
+      "exact_source_audio_retention_verified": true,
+      "native_pause_button_test": false,
+      "vad_pause_boundary_replay": true,
+      "all_native_final_manifest_checkpoints_verified": true,
+      "stop_to_commit_seconds": [
+        2.4904273329999977
+      ],
+      "independent_audio_accuracy_acceptance": false,
+      "fidelity_diagnostics": [
+        {
+          "reference_words": 33,
+          "output_words": 33,
+          "word_edit_distance": 2,
+          "diagnostic_word_error_rate": 0.06060606060606061,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": true,
+          "repeated_repeat_retained": true,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "microphone",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        },
+        {
+          "reference_words": 27,
+          "output_words": 28,
+          "word_edit_distance": 3,
+          "diagnostic_word_error_rate": 0.1111111111111111,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": false,
+          "repeated_repeat_retained": false,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "system",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        }
+      ],
+      "database_reopened_after_process_exit": true
+    },
+    {
+      "provider": "whisper",
+      "source": "alternating",
+      "exit_code": 0,
+      "ok": true,
+      "export_session_count": 1,
+      "export_transcript_count": 4,
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "physical_capture": false,
+      "exact_source_audio_retention_verified": true,
+      "native_pause_button_test": false,
+      "vad_pause_boundary_replay": true,
+      "all_native_final_manifest_checkpoints_verified": true,
+      "stop_to_commit_seconds": [
+        0.06775891699999903
+      ],
+      "independent_audio_accuracy_acceptance": false,
+      "fidelity_diagnostics": [
+        {
+          "reference_words": 33,
+          "output_words": 33,
+          "word_edit_distance": 2,
+          "diagnostic_word_error_rate": 0.06060606060606061,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": true,
+          "repeated_repeat_retained": true,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "microphone",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        },
+        {
+          "reference_words": 27,
+          "output_words": 27,
+          "word_edit_distance": 3,
+          "diagnostic_word_error_rate": 0.1111111111111111,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": false,
+          "repeated_repeat_retained": false,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "system",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        }
+      ],
+      "database_reopened_after_process_exit": true
+    },
+    {
+      "provider": "parakeet",
+      "source": "microphone",
+      "exit_code": 0,
+      "ok": true,
+      "export_session_count": 2,
+      "export_transcript_count": 6,
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "physical_capture": false,
+      "exact_source_audio_retention_verified": true,
+      "native_pause_button_test": false,
+      "vad_pause_boundary_replay": true,
+      "all_native_final_manifest_checkpoints_verified": null,
+      "stop_to_commit_seconds": [
+        0.0588612089999998,
+        0.03580308399999943
+      ],
+      "independent_audio_accuracy_acceptance": false,
+      "fidelity_diagnostics": [
+        {
+          "reference_words": 33,
+          "output_words": 33,
+          "word_edit_distance": 3,
+          "diagnostic_word_error_rate": 0.09090909090909091,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": true,
+          "repeated_repeat_retained": true,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "microphone",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        },
+        {
+          "reference_words": 33,
+          "output_words": 33,
+          "word_edit_distance": 3,
+          "diagnostic_word_error_rate": 0.09090909090909091,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": true,
+          "repeated_repeat_retained": true,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 2,
+          "channel": "microphone",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        }
+      ],
+      "database_reopened_after_process_exit": true
+    },
+    {
+      "provider": "parakeet",
+      "source": "system",
+      "exit_code": 0,
+      "ok": true,
+      "export_session_count": 1,
+      "export_transcript_count": 3,
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "physical_capture": false,
+      "exact_source_audio_retention_verified": true,
+      "native_pause_button_test": false,
+      "vad_pause_boundary_replay": true,
+      "all_native_final_manifest_checkpoints_verified": null,
+      "stop_to_commit_seconds": [
+        0.018282375000000073
+      ],
+      "independent_audio_accuracy_acceptance": false,
+      "fidelity_diagnostics": [
+        {
+          "reference_words": 27,
+          "output_words": 27,
+          "word_edit_distance": 2,
+          "diagnostic_word_error_rate": 0.07407407407407407,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": false,
+          "repeated_repeat_retained": false,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "system",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        }
+      ],
+      "database_reopened_after_process_exit": true
+    },
+    {
+      "provider": "parakeet",
+      "source": "overlap",
+      "exit_code": 0,
+      "ok": true,
+      "export_session_count": 1,
+      "export_transcript_count": 6,
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "physical_capture": false,
+      "exact_source_audio_retention_verified": true,
+      "native_pause_button_test": false,
+      "vad_pause_boundary_replay": true,
+      "all_native_final_manifest_checkpoints_verified": null,
+      "stop_to_commit_seconds": [
+        0.05178529199999993
+      ],
+      "independent_audio_accuracy_acceptance": false,
+      "fidelity_diagnostics": [
+        {
+          "reference_words": 33,
+          "output_words": 33,
+          "word_edit_distance": 3,
+          "diagnostic_word_error_rate": 0.09090909090909091,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": true,
+          "repeated_repeat_retained": true,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "microphone",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        },
+        {
+          "reference_words": 27,
+          "output_words": 27,
+          "word_edit_distance": 2,
+          "diagnostic_word_error_rate": 0.07407407407407407,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": false,
+          "repeated_repeat_retained": false,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "system",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        }
+      ],
+      "database_reopened_after_process_exit": true
+    },
+    {
+      "provider": "parakeet",
+      "source": "alternating",
+      "exit_code": 0,
+      "ok": true,
+      "export_session_count": 1,
+      "export_transcript_count": 6,
+      "live_export_source_timing_manifest_verified": true,
+      "sqlite_integrity": "ok",
+      "foreign_key_violations": [],
+      "physical_capture": false,
+      "exact_source_audio_retention_verified": true,
+      "native_pause_button_test": false,
+      "vad_pause_boundary_replay": true,
+      "all_native_final_manifest_checkpoints_verified": null,
+      "stop_to_commit_seconds": [
+        0.017139499999998975
+      ],
+      "independent_audio_accuracy_acceptance": false,
+      "fidelity_diagnostics": [
+        {
+          "reference_words": 33,
+          "output_words": 33,
+          "word_edit_distance": 3,
+          "diagnostic_word_error_rate": 0.09090909090909091,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": true,
+          "repeated_repeat_retained": true,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "microphone",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        },
+        {
+          "reference_words": 27,
+          "output_words": 27,
+          "word_edit_distance": 2,
+          "diagnostic_word_error_rate": 0.07407407407407407,
+          "reference_audio_matches": true,
+          "independent_audio_review_complete": false,
+          "repeated_yes_retained": false,
+          "repeated_repeat_retained": false,
+          "utf8_replacement_characters": 0,
+          "accuracy_acceptance": false,
+          "comparison_policy": "NFC and casefold; punctuation excluded; accents retained; source audio review required",
+          "authored_negative_qualifier_retained": true,
+          "authored_final_word_retained": true,
+          "expected_repetitions_retained": true,
+          "session": 1,
+          "channel": "system",
+          "reference_scope": "one authored passage per active source, with silence for alternating input; exact full-stream retention checked separately"
+        }
+      ],
+      "database_reopened_after_process_exit": true
+    }
+  ],
+  "checks": {
+    "frontend": {
+      "passed": 52,
+      "failed": 0,
+      "files": 9,
+      "command": "bun test tests/lib/recording-start.test.ts tests/hooks/recording-lifecycle.test.tsx tests/hooks/recording-controls-interaction.test.tsx tests/hooks/live-transcript.test.tsx tests/hooks/paginated-transcripts.test.tsx tests/lib/transcript-audio-source.test.tsx tests/lib/transcript-source-view.test.tsx tests/lib/meeting-export.test.ts tests/hooks/meeting-details-refresh.test.tsx"
+    },
+    "native": {
+      "passed": 361,
+      "failed": 1,
+      "ignored": 8,
+      "command": "CMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE CARGO_NET_OFFLINE=true cargo test -p meetily --lib --locked",
+      "failure": "audio::device_detection::tests::test_builtin_mic_detection: actual Wired, expected Unknown"
+    },
+    "validation_tooling": {
+      "passed": 9,
+      "command": "python3 -m unittest discover -s scripts/tests -p 'test_q02*.py' -v"
+    },
+    "fresh_debug_capture_build": true,
+    "fresh_release_replay_build": true,
+    "fresh_frontend_build_typescript_lint": false
+  },
+  "limits": [
+    "No human microphone speech reference or independently reviewed room input",
+    "No distinct simultaneous physical microphone/system voices",
+    "Hardware pause is a 300 ms state transition before playback, not an extended speech-exclusion check",
+    "Authored-reference differences persist; independent audio review pending",
+    "No direct capture test of the preserved installed production executable",
+    "No Windows, long-session or full release acceptance"
+  ],
+  "private_raw_evidence_directory": "/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-capture-verify-20261015-1r4n4l5r"
+}

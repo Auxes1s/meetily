@@ -1,0 +1,2107 @@
+{
+  "cases": [
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 900,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1376,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1376,
+        "width": 1376,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 900,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 699,
+        "clientWidth": 549,
+        "height": 698.5,
+        "scrollHeight": 699,
+        "scrollWidth": 549,
+        "width": 550.390625,
+        "x": 889.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1376,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1376,
+        "width": 1376,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 900,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1184,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1184,
+        "width": 1184,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 900,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 699,
+        "clientWidth": 473,
+        "height": 698.5,
+        "scrollHeight": 699,
+        "scrollWidth": 473,
+        "width": 473.59375,
+        "x": 966.40625,
+        "y": 57
+      },
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1184,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1184,
+        "width": 1184,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 700,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 1036,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 700,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 499,
+        "clientWidth": 413,
+        "height": 498.5,
+        "scrollHeight": 499,
+        "scrollWidth": 413,
+        "width": 414.390625,
+        "x": 685.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 1036,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 700,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 844,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 700,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 499,
+        "clientWidth": 843,
+        "height": 498.5,
+        "scrollHeight": 499,
+        "scrollWidth": 843,
+        "width": 844,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 844,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 836,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 836,
+        "width": 836,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 399,
+        "clientWidth": 835,
+        "height": 398.5,
+        "scrollHeight": 399,
+        "scrollWidth": 835,
+        "width": 836,
+        "x": 64,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 836,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 836,
+        "width": 836,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 644,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 644,
+        "width": 644,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 399,
+        "clientWidth": 643,
+        "height": 398.5,
+        "scrollHeight": 399,
+        "scrollWidth": 643,
+        "width": 644,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 644,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 644,
+        "width": 644,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 704,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 704,
+        "width": 704,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 399,
+        "clientWidth": 703,
+        "height": 398.5,
+        "scrollHeight": 399,
+        "scrollWidth": 703,
+        "width": 704,
+        "x": 64,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 704,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 704,
+        "width": 704,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 512,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 512,
+        "width": 512,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 407,
+        "clientWidth": 511,
+        "height": 406.5,
+        "scrollHeight": 407,
+        "scrollWidth": 511,
+        "width": 512,
+        "x": 256,
+        "y": 49
+      },
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 512,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 512,
+        "width": 512,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 500,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 500,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 324,
+        "clientWidth": 535,
+        "height": 323.984375,
+        "scrollHeight": 324,
+        "scrollWidth": 535,
+        "width": 536,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 500,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 500,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 324,
+        "clientWidth": 535,
+        "height": 323.984375,
+        "scrollHeight": 324,
+        "scrollWidth": 535,
+        "width": 536,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 224,
+        "clientWidth": 415,
+        "height": 224,
+        "scrollHeight": 224,
+        "scrollWidth": 415,
+        "width": 416,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 224,
+        "clientWidth": 415,
+        "height": 224,
+        "scrollHeight": 224,
+        "scrollWidth": 415,
+        "width": 416,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 1036,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 216,
+        "clientWidth": 413,
+        "height": 216,
+        "scrollHeight": 216,
+        "scrollWidth": 413,
+        "width": 414.390625,
+        "x": 685.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 1036,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 844,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "My notes",
+      "transcript": {
+        "clientHeight": 216,
+        "clientWidth": 843,
+        "height": 216,
+        "scrollHeight": 216,
+        "scrollWidth": 843,
+        "width": 844,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 844,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 900,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1376,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1376,
+        "width": 1376,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 900,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 699,
+        "clientWidth": 549,
+        "height": 698.5,
+        "scrollHeight": 699,
+        "scrollWidth": 549,
+        "width": 550.390625,
+        "x": 889.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1376,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1376,
+        "width": 1376,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 900,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1184,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1184,
+        "width": 1184,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 900,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 699,
+        "clientWidth": 473,
+        "height": 698.5,
+        "scrollHeight": 699,
+        "scrollWidth": 473,
+        "width": 473.59375,
+        "x": 966.40625,
+        "y": 57
+      },
+      "viewport": {
+        "height": 868,
+        "width": 1440
+      },
+      "width": 1440,
+      "workspace": {
+        "clientHeight": 868,
+        "clientWidth": 1184,
+        "height": 868,
+        "scrollHeight": 868,
+        "scrollWidth": 1184,
+        "width": 1184,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 700,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 1036,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 700,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 499,
+        "clientWidth": 413,
+        "height": 498.5,
+        "scrollHeight": 499,
+        "scrollWidth": 413,
+        "width": 414.390625,
+        "x": 685.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 1036,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 700,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 844,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 700,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 499,
+        "clientWidth": 843,
+        "height": 498.5,
+        "scrollHeight": 499,
+        "scrollWidth": 843,
+        "width": 844,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 668,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 668,
+        "clientWidth": 844,
+        "height": 668,
+        "scrollHeight": 668,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 836,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 836,
+        "width": 836,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 399,
+        "clientWidth": 835,
+        "height": 398.5,
+        "scrollHeight": 399,
+        "scrollWidth": 835,
+        "width": 836,
+        "x": 64,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 836,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 836,
+        "width": 836,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 644,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 644,
+        "width": 644,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 399,
+        "clientWidth": 643,
+        "height": 398.5,
+        "scrollHeight": 399,
+        "scrollWidth": 643,
+        "width": 644,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 900
+      },
+      "width": 900,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 644,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 644,
+        "width": 644,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 704,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 704,
+        "width": 704,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 399,
+        "clientWidth": 703,
+        "height": 398.5,
+        "scrollHeight": 399,
+        "scrollWidth": 703,
+        "width": 704,
+        "x": 64,
+        "y": 57
+      },
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 704,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 704,
+        "width": 704,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 512,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 512,
+        "width": 512,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 600,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 407,
+        "clientWidth": 511,
+        "height": 406.5,
+        "scrollHeight": 407,
+        "scrollWidth": 511,
+        "width": 512,
+        "x": 256,
+        "y": 49
+      },
+      "viewport": {
+        "height": 568,
+        "width": 768
+      },
+      "width": 768,
+      "workspace": {
+        "clientHeight": 568,
+        "clientWidth": 512,
+        "height": 568,
+        "scrollHeight": 568,
+        "scrollWidth": 512,
+        "width": 512,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 500,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 500,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 324,
+        "clientWidth": 535,
+        "height": 323.984375,
+        "scrollHeight": 324,
+        "scrollWidth": 535,
+        "width": 536,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 500,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 500,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 324,
+        "clientWidth": 535,
+        "height": 323.984375,
+        "scrollHeight": 324,
+        "scrollWidth": 535,
+        "width": 536,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 468,
+        "width": 600
+      },
+      "width": 600,
+      "workspace": {
+        "clientHeight": 468,
+        "clientWidth": 536,
+        "height": 467.984375,
+        "scrollHeight": 468,
+        "scrollWidth": 536,
+        "width": 536,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 224,
+        "clientWidth": 415,
+        "height": 224,
+        "scrollHeight": 224,
+        "scrollWidth": 415,
+        "width": 416,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 224,
+        "clientWidth": 415,
+        "height": 224,
+        "scrollHeight": 224,
+        "scrollWidth": 415,
+        "width": 416,
+        "x": 64,
+        "y": 49
+      },
+      "viewport": {
+        "height": 368,
+        "width": 480
+      },
+      "width": 480,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 416,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 416,
+        "width": 416,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 1036,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": false,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 216,
+        "clientWidth": 413,
+        "height": 216,
+        "scrollHeight": 216,
+        "scrollWidth": 413,
+        "width": 414.390625,
+        "x": 685.609375,
+        "y": 57
+      },
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 1036,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 1036,
+        "width": 1036,
+        "x": 64,
+        "y": 0
+      }
+    },
+    {
+      "drawer": false,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": null,
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 844,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "drawer": true,
+      "expanded": true,
+      "height": 400,
+      "route": "workspace",
+      "tab": "Enhanced notes",
+      "transcript": {
+        "clientHeight": 216,
+        "clientWidth": 843,
+        "height": 216,
+        "scrollHeight": 216,
+        "scrollWidth": 843,
+        "width": 844,
+        "x": 256,
+        "y": 57
+      },
+      "viewport": {
+        "height": 368,
+        "width": 1100
+      },
+      "width": 1100,
+      "workspace": {
+        "clientHeight": 368,
+        "clientWidth": 844,
+        "height": 368,
+        "scrollHeight": 368,
+        "scrollWidth": 844,
+        "width": 844,
+        "x": 256,
+        "y": 0
+      }
+    },
+    {
+      "height": 900,
+      "route": "workspace-export",
+      "width": 1440
+    },
+    {
+      "height": 700,
+      "route": "workspace-export",
+      "width": 1100
+    },
+    {
+      "height": 600,
+      "route": "workspace-export",
+      "width": 900
+    },
+    {
+      "height": 600,
+      "route": "workspace-export",
+      "width": 768
+    },
+    {
+      "height": 500,
+      "route": "workspace-export",
+      "width": 600
+    },
+    {
+      "height": 400,
+      "route": "workspace-export",
+      "width": 480
+    },
+    {
+      "height": 400,
+      "route": "workspace-export",
+      "width": 1100
+    },
+    {
+      "expanded": false,
+      "height": 900,
+      "route": "library",
+      "width": 1440
+    },
+    {
+      "expanded": false,
+      "height": 900,
+      "route": "library-export",
+      "width": 1440
+    },
+    {
+      "expanded": true,
+      "height": 900,
+      "route": "library",
+      "width": 1440
+    },
+    {
+      "expanded": true,
+      "height": 900,
+      "route": "library-export",
+      "width": 1440
+    },
+    {
+      "expanded": false,
+      "height": 700,
+      "route": "library",
+      "width": 1100
+    },
+    {
+      "expanded": false,
+      "height": 700,
+      "route": "library-export",
+      "width": 1100
+    },
+    {
+      "expanded": true,
+      "height": 700,
+      "route": "library",
+      "width": 1100
+    },
+    {
+      "expanded": true,
+      "height": 700,
+      "route": "library-export",
+      "width": 1100
+    },
+    {
+      "expanded": false,
+      "height": 600,
+      "route": "library",
+      "width": 900
+    },
+    {
+      "expanded": false,
+      "height": 600,
+      "route": "library-export",
+      "width": 900
+    },
+    {
+      "expanded": true,
+      "height": 600,
+      "route": "library",
+      "width": 900
+    },
+    {
+      "expanded": true,
+      "height": 600,
+      "route": "library-export",
+      "width": 900
+    },
+    {
+      "expanded": false,
+      "height": 600,
+      "route": "library",
+      "width": 768
+    },
+    {
+      "expanded": false,
+      "height": 600,
+      "route": "library-export",
+      "width": 768
+    },
+    {
+      "expanded": true,
+      "height": 600,
+      "route": "library",
+      "width": 768
+    },
+    {
+      "expanded": true,
+      "height": 600,
+      "route": "library-export",
+      "width": 768
+    },
+    {
+      "expanded": false,
+      "height": 500,
+      "route": "library",
+      "width": 600
+    },
+    {
+      "expanded": false,
+      "height": 500,
+      "route": "library-export",
+      "width": 600
+    },
+    {
+      "expanded": true,
+      "height": 500,
+      "route": "library",
+      "width": 600
+    },
+    {
+      "expanded": true,
+      "height": 500,
+      "route": "library-export",
+      "width": 600
+    },
+    {
+      "expanded": false,
+      "height": 400,
+      "route": "library",
+      "width": 480
+    },
+    {
+      "expanded": false,
+      "height": 400,
+      "route": "library-export",
+      "width": 480
+    },
+    {
+      "expanded": true,
+      "height": 400,
+      "route": "library",
+      "width": 480
+    },
+    {
+      "expanded": true,
+      "height": 400,
+      "route": "library-export",
+      "width": 480
+    },
+    {
+      "expanded": false,
+      "height": 400,
+      "route": "library",
+      "width": 1100
+    },
+    {
+      "expanded": false,
+      "height": 400,
+      "route": "library-export",
+      "width": 1100
+    },
+    {
+      "expanded": true,
+      "height": 400,
+      "route": "library",
+      "width": 1100
+    },
+    {
+      "expanded": true,
+      "height": 400,
+      "route": "library-export",
+      "width": 1100
+    }
+  ],
+  "continuity": {
+    "continuous_resize_steps": 122,
+    "enhanced_editor_identity": true,
+    "enhanced_undo_redo": true,
+    "note_source_navigation": true,
+    "original_editor_identity": true,
+    "original_undo_redo": true,
+    "pending_saves": true,
+    "physical_recording_tested": false,
+    "recording_lifecycle_calls": 0,
+    "selected_version": true,
+    "transcript_context": true,
+    "transcript_scroll": true
+  },
+  "design_cases": [
+    {
+      "background": "rgb(255, 254, 251)",
+      "font": "__Source_Sans_3_41e5b4, __Source_Sans_3_Fallback_41e5b4, sans-serif",
+      "icon_only_audio_channels": true,
+      "paper_background_matches": true,
+      "route": "editor-materials"
+    },
+    {
+      "actions_reachable": true,
+      "height": 400,
+      "route": "note-actions",
+      "width": 480
+    },
+    {
+      "capture_started": false,
+      "height": 900,
+      "route": "recording-fixture",
+      "status": "idle",
+      "width": 1440
+    },
+    {
+      "capture_started": false,
+      "height": 400,
+      "route": "recording-fixture",
+      "status": "idle",
+      "width": 480
+    },
+    {
+      "capture_started": false,
+      "height": 900,
+      "route": "recording-fixture",
+      "status": "recording",
+      "width": 1440
+    },
+    {
+      "capture_started": false,
+      "height": 400,
+      "route": "recording-fixture",
+      "status": "recording",
+      "width": 480
+    },
+    {
+      "capture_started": false,
+      "height": 900,
+      "route": "recording-fixture",
+      "status": "paused",
+      "width": 1440
+    },
+    {
+      "capture_started": false,
+      "height": 400,
+      "route": "recording-fixture",
+      "status": "paused",
+      "width": 480
+    },
+    {
+      "capture_started": false,
+      "height": 900,
+      "route": "recording-fixture",
+      "status": "stopping",
+      "width": 1440
+    },
+    {
+      "capture_started": false,
+      "height": 400,
+      "route": "recording-fixture",
+      "status": "stopping",
+      "width": 480
+    },
+    {
+      "capture_started": false,
+      "height": 900,
+      "route": "recording-fixture",
+      "status": "processing",
+      "width": 1440
+    },
+    {
+      "capture_started": false,
+      "height": 400,
+      "route": "recording-fixture",
+      "status": "processing",
+      "width": 480
+    },
+    {
+      "capture_started": false,
+      "height": 900,
+      "route": "recording-fixture",
+      "status": "saving",
+      "width": 1440
+    },
+    {
+      "capture_started": false,
+      "height": 400,
+      "route": "recording-fixture",
+      "status": "saving",
+      "width": 480
+    },
+    {
+      "capture_started": false,
+      "height": 900,
+      "route": "recording-fixture",
+      "status": "error",
+      "width": 1440
+    },
+    {
+      "capture_started": false,
+      "height": 400,
+      "route": "recording-fixture",
+      "status": "error",
+      "width": 480
+    },
+    {
+      "blur_disabled": true,
+      "method": "shipped media rules activated via CSSOM",
+      "opaque": true,
+      "os_preference_tested": false,
+      "reduced_motion": true,
+      "route": "accessibility-materials"
+    },
+    {
+      "deletion_cancelled": true,
+      "height": 900,
+      "meeting_preserved": true,
+      "metadata_cancelled": true,
+      "route": "library-metadata-delete",
+      "width": 1440
+    },
+    {
+      "deletion_cancelled": true,
+      "height": 400,
+      "meeting_preserved": true,
+      "metadata_cancelled": true,
+      "route": "library-metadata-delete",
+      "width": 480
+    },
+    {
+      "category_reachable": true,
+      "height": 900,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "General",
+      "width": 1440
+    },
+    {
+      "category_reachable": true,
+      "height": 900,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Recordings",
+      "width": 1440
+    },
+    {
+      "category_reachable": true,
+      "height": 900,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Transcription",
+      "width": 1440
+    },
+    {
+      "category_reachable": true,
+      "height": 900,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Summary",
+      "width": 1440
+    },
+    {
+      "category_reachable": true,
+      "height": 900,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Beta",
+      "width": 1440
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "General",
+      "width": 480
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Recordings",
+      "width": 480
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Transcription",
+      "width": 480
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Summary",
+      "width": 480
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Beta",
+      "width": 480
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "General",
+      "width": 1100
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Recordings",
+      "width": 1100
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Transcription",
+      "width": 1100
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Summary",
+      "width": 1100
+    },
+    {
+      "category_reachable": true,
+      "height": 400,
+      "no_horizontal_overflow": true,
+      "route": "settings",
+      "tab": "Beta",
+      "width": 1100
+    }
+  ],
+  "expected_fixture_failures": [
+    "Expected fixture save failure handled by note-save and document-tab UI"
+  ],
+  "export_file_dialogs": 0,
+  "export_files_written": 0,
+  "interaction_cases": [
+    {
+      "drawer_toggles": 100,
+      "editor_identity": true,
+      "native_resizes": 20,
+      "scenario": "toggle-resize-storm",
+      "sidebar_toggles": 100
+    },
+    {
+      "attempted_clicks": 240,
+      "editor_identity": true,
+      "original_restored": true,
+      "scenario": "rapid-document-tabs"
+    },
+    {
+      "attempted_clicks": 50,
+      "edit_retained": true,
+      "injected_failure_caught": true,
+      "native_save_requests_while_held": 1,
+      "retry_persisted": true,
+      "scenario": "delayed-save-tab-switch"
+    },
+    {
+      "attempted_saves": 75,
+      "busy_escape_blocked": true,
+      "export_file_written": false,
+      "idle_escape_and_outside_dismiss": true,
+      "mocked_export_requests": 1,
+      "native_file_dialog": false,
+      "scenario": "export-option-race-save-spam",
+      "stale_options_ignored": true
+    },
+    {
+      "attempted_clicks": 100,
+      "disposable_profile_only": true,
+      "native_draft_requests": 1,
+      "scenario": "new-draft-spam"
+    },
+    {
+      "busy_cancel_blocked": true,
+      "cancellation_recovered": true,
+      "controls_locked": true,
+      "native_requests": 1,
+      "save_persisted": true,
+      "scenario": "metadata-submit-storm",
+      "submit_events": 100
+    },
+    {
+      "controls_reachable": true,
+      "escape_dismissed": true,
+      "meeting_preserved": true,
+      "scenario": "narrow-delete-dismiss"
+    },
+    {
+      "focus_reachable": true,
+      "horizontal_overflow": false,
+      "native_arrow_keyboard": true,
+      "repeated_tab_clicks": 100,
+      "scenario": "settings-click-keyboard-resize"
+    }
+  ],
+  "isolated": true,
+  "native_recording_lifecycle_calls": 0,
+  "native_webview": true,
+  "ok": true,
+  "phase": "finished",
+  "recording_visual_fixtures": {
+    "capture_started": false,
+    "fixture_method": "debug-only existing React context lookup, native events, mocked get_recording_state transport",
+    "native_lifecycle_calls": [],
+    "physical_recording_tested": false,
+    "states": [
+      "idle",
+      "recording",
+      "paused",
+      "stopping",
+      "processing",
+      "saving",
+      "error"
+    ]
+  },
+  "runtime_errors": [],
+  "synthetic_content": true,
+  "windows_tested": false
+}

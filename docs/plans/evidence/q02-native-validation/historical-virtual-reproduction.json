@@ -1,0 +1,40 @@
+{
+  "benchmark_only": true,
+  "clipped_input_samples": 0,
+  "default_enabled": false,
+  "gpu_utilization_measured": false,
+  "model": "large-v3",
+  "ok": true,
+  "phase": "finished",
+  "physical_capture": false,
+  "results": [
+    {
+      "audio_seconds": 90.112,
+      "decode_count": 21,
+      "decoded_tokens": 0,
+      "final_text_hash": "f2e9b5c0d8cc34c2:1310",
+      "first_update_seconds": 3.8890097910000003,
+      "inference_rtf": 0.5225132390802557,
+      "inference_seconds": 47.084713,
+      "p95_update_interval_seconds": 7.189058542000001,
+      "routing": "legacy",
+      "simulated_final_backlog_seconds": 3.374747541000005,
+      "timed_tokens": 0
+    },
+    {
+      "audio_seconds": 90.112,
+      "decode_count": 21,
+      "decoded_tokens": 1242,
+      "final_text_hash": "bfcb9df43a0ee7f9:1254",
+      "first_update_seconds": 3.871988792,
+      "inference_rtf": 1.0370349634454903,
+      "inference_seconds": 93.44929462600001,
+      "p95_update_interval_seconds": 14.384788375,
+      "routing": "overlapping",
+      "simulated_final_backlog_seconds": 19.69946691600002,
+      "timed_tokens": 753
+    }
+  ],
+  "transcript_fidelity_acceptance": false,
+  "virtual_capture_clock": true
+}

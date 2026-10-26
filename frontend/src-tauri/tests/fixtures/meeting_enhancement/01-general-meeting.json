@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "id": "fx-01",
+  "category": "general-meeting",
+  "meeting_id": "e08-fx-01",
+  "template_id": "standard_meeting",
+  "summary_language": "en",
+  "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+  "notes": [
+    {
+      "id": "fx-01-n1",
+      "text": "Priority: the pilot must protect offline access and stay within the existing budget."
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "fx-01-t1",
+      "text": "The group agreed to keep offline access in the pilot.",
+      "audio_start_time": 0.0,
+      "audio_end_time": 9.0,
+      "audio_source": "unknown"
+    },
+    {
+      "id": "fx-01-t2",
+      "text": "Mina will test the offline checklist. No due date was set.",
+      "audio_start_time": 10.0,
+      "audio_end_time": 19.0,
+      "audio_source": "unknown"
+    }
+  ],
+  "annotations": {
+    "relevant_decisions_actions": [
+      {
+        "id": "fx-01-e1",
+        "kind": "decision",
+        "text": "Keep offline access in the pilot.",
+        "agreement_status": "agreed",
+        "owner": null,
+        "deadline": null,
+        "uncertainty": "none",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-01-t1",
+            "excerpt": "The group agreed to keep offline access in the pilot."
+          }
+        ]
+      },
+      {
+        "id": "fx-01-e2",
+        "kind": "action",
+        "text": "Test the offline checklist.",
+        "agreement_status": "agreed",
+        "owner": "Mina",
+        "deadline": null,
+        "uncertainty": "deadline missing",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-01-t2",
+            "excerpt": "Mina will test the offline checklist. No due date was set."
+          }
+        ]
+      }
+    ],
+    "user_priorities": [
+      {
+        "id": "fx-01-p1",
+        "topic": "offline access",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-01-n1",
+            "excerpt": "Priority: the pilot must protect offline access and stay within the existing budget."
+          },
+          {
+            "source_id": "transcript:fx-01-t1",
+            "excerpt": "The group agreed to keep offline access in the pilot."
+          }
+        ]
+      },
+      {
+        "id": "fx-01-p2",
+        "topic": "existing budget",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-01-n1",
+            "excerpt": "Priority: the pilot must protect offline access and stay within the existing budget."
+          }
+        ]
+      }
+    ],
+    "forbidden_inferences": [
+      "Inventing a budget amount",
+      "Inventing a deadline"
+    ]
+  }
+}

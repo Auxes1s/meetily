@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "sidecar": {
+    "elapsed_seconds": 7.736775417,
+    "enhancement_quality_acceptance": false,
+    "installed_model": "qwen3.5:4b",
+    "native_packaged_sidecar": true,
+    "nonempty_response": true
+  },
+  "package": {
+    "binary_sha256": "65c1482707433e955faf2ca17a5146f48f25e18960e7bccb769d9e0606920dfc",
+    "platform": "darwin",
+    "identifier": "com.meetily.q02.test",
+    "physical_capture": false,
+    "instrumented_validation_package": true,
+    "ffmpeg": "ffmpeg version 8.0 Copyright (c) 2000-2025 the FFmpeg developers",
+    "helper": 0,
+    "ffmpeg_sha256": "2ea8ef6c3ed3b4ee2276208d205d87e6c3dbfae049dfd97045a212b6e9a50266",
+    "helper_sha256": "81b75fdcc8e0de3bdde245ba77a4bafda40d7b1e72818f3b92453112f1333041"
+  },
+  "model_quality_acceptance": false,
+  "native_export_source_manifest": true
+}

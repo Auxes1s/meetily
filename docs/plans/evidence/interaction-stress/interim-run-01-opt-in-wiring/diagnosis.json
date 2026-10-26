@@ -1,0 +1,8 @@
+{
+  "driver_result": "rejected_missing_interaction_scenarios",
+  "cause": "FS plugin is not initialized, so exists command rejects; catch(false) suppressed it",
+  "existing_responsive_cases": 91,
+  "existing_design_cases": 34,
+  "interaction_cases": 0,
+  "production_profile_touched": false
+}

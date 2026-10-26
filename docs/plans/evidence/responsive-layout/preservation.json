@@ -1,0 +1,23 @@
+{
+  "baseline_files": 345,
+  "preserved_files": 332,
+  "changed_existing_files": [
+    "frontend/src-tauri/src/notepad_smoke.rs",
+    "frontend/src/components/MeetingLibrary/MeetingLibrary.tsx",
+    "frontend/src/components/MeetingLibrary/MeetingMetadataEditor.tsx",
+    "frontend/src/components/MeetingWorkspace/EnhancementPanel.tsx",
+    "frontend/src/components/MeetingWorkspace/MeetingDocuments.tsx",
+    "frontend/src/components/MeetingWorkspace/MeetingNotesPanel.tsx",
+    "frontend/src/components/MeetingWorkspace/MeetingWorkspace.tsx",
+    "frontend/src/app/_components/TranscriptPanel.tsx",
+    "frontend/src/app/layout.tsx",
+    "frontend/src/components/BlockNoteEditor/Editor.tsx",
+    "frontend/src/components/MeetingDetails/TranscriptPanel.tsx",
+    "frontend/src/components/Sidebar/index.tsx",
+    "frontend/src/components/VirtualizedTranscriptView.tsx"
+  ],
+  "missing_files": [],
+  "unchanged_audio_and_persistence_sources": true,
+  "baseline_backup_directory": "/tmp/meetily-responsive-nm4ufsje",
+  "incoming_changes_preserved_by_layered_edits": true
+}

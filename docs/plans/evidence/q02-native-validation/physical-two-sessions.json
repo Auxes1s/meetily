@@ -1,0 +1,38 @@
+{
+  "cancelled_start_admission": true,
+  "capture_sources": [
+    {
+      "microphone": true,
+      "system": true
+    },
+    {
+      "microphone": true,
+      "system": true
+    }
+  ],
+  "captured_channels": [
+    "system"
+  ],
+  "continuous_timeline": true,
+  "model_failure_recovery": true,
+  "native_webview": true,
+  "notes_preserved": true,
+  "ok": true,
+  "rapid_click_admission": true,
+  "repeated_start_stop": true,
+  "same_meeting": true,
+  "screenshot": "recording-completed.png",
+  "separate_audio_files": true,
+  "session_count": 2,
+  "title_preserved": true,
+  "transcript_count": 2,
+  "platform": "macOS arm64",
+  "instrumented_debug_package": true,
+  "physical_capture": true,
+  "whisper_model": "large-v3",
+  "continuous_default": true,
+  "microphone_speech_acceptance": false,
+  "transcript_fidelity_acceptance": false,
+  "tray_stop_quit_tested": false,
+  "device_permission_failure_tested": false
+}

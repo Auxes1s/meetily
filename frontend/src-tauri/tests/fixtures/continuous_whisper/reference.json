@@ -1,0 +1,14 @@
+{
+  "source": "Locally authored synthetic speech, created before decoder evaluation",
+  "voice": "macOS Samantha",
+  "rate_words_per_minute": 150,
+  "text": "Yes yes. Repeat repeat. Each transcript passage keeps its capture source. The microphone and system audio remain separate. The café budget is provisional. No decision was approved. José will review the notes tomorrow.",
+  "wav_sha256": "2ba1ec8bcd6d29f034a62dfb378e3aa8cdb65b67e6d276d28e05f5a924f85046",
+  "pcm_sha256": "b599dd7ec0d5e9dcf8680e8c8b3ecf1684f4b845b6f5910d9b49171714336453",
+  "seconds": 15.129875,
+  "independent_audio_review": {
+    "status": "pending",
+    "reviewer": null
+  },
+  "purpose": "Diagnostic repetition, boundary, final Stop, named accents and Unicode preservation; independent audio review is required for accuracy acceptance."
+}

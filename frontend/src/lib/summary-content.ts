@@ -51,8 +51,8 @@ export function hasVisibleSummaryContent(value: unknown): value is MeetingSummar
   if (!object || containsReasoningMarker(value)) {
     return false;
   }
-  if ('markdown' in object) {
-    return typeof object.markdown === 'string' && object.markdown.trim().length > 0;
+  if (typeof object.markdown === 'string' && object.markdown.trim().length > 0) {
+    return true;
   }
   if ('summary_json' in object) {
     return hasBlockText(object.summary_json);

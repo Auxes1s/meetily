@@ -7,6 +7,7 @@ const originalCore = { ...await import('@tauri-apps/api/core') };
 const originalAnalytics = { ...await import('../../src/lib/analytics') };
 const originalPreferences = { ...await import('../../src/lib/summary-language-preferences') };
 const originalToast = { ...await import('sonner') };
+const originalRecordingState = { ...await import('../../src/contexts/RecordingStateContext') };
 const originalNavigation = { ...await import('next/navigation') };
 const originalConfig = { ...await import('../../src/contexts/ConfigContext') };
 afterAll(() => {
@@ -14,6 +15,7 @@ afterAll(() => {
   mock.module('../../src/lib/analytics', () => originalAnalytics);
   mock.module('../../src/lib/summary-language-preferences', () => originalPreferences);
   mock.module('sonner', () => originalToast);
+  mock.module('../../src/contexts/RecordingStateContext', () => originalRecordingState);
   mock.module('next/navigation', () => originalNavigation);
   mock.module('../../src/contexts/ConfigContext', () => originalConfig);
 });
@@ -23,7 +25,7 @@ mock.module('next/navigation', () => ({
   usePathname: () => '/meeting-details', useRouter: () => ({}),
   useSearchParams: () => new URLSearchParams({ id: selectedMeeting }),
 }));
-mock.module('../../src/contexts/RecordingStateContext', () => ({ useRecordingState: () => ({ isRecording: false }) }));
+mock.module('../../src/contexts/RecordingStateContext', () => ({ ...originalRecordingState, useRecordingControls: () => ({ isRecording: false }), useRecordingState: () => ({ isRecording: false }) }));
 mock.module('../../src/contexts/ConfigContext', () => ({ useConfig: () => ({ isAutoSummary: false }) }));
 const notify = mock(() => {});
 mock.module('sonner', () => ({ toast: { info: notify, error: notify, success: notify, warning: notify } }));

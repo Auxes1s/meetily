@@ -1,0 +1,56 @@
+warning: patch for the non root package will be ignored, specify patch at the workspace root:
+package:   /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src-tauri/Cargo.toml
+workspace: /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/llama-helper/Cargo.toml
+workspace: /private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/Cargo.toml
+   Compiling tauri v2.11.1
+    Checking h2 v0.3.27
+    Checking futures-executor v0.3.32
+    Checking tower v0.5.3
+    Checking hyper-util v0.1.20
+    Checking sqlx-core v0.8.6
+   Compiling meetily v0.4.1 (/private/var/folders/jg/m_tfjwz93mx0ly301ldl6gz00000gn/T/meetily-code-quality-20261015-67y7971m/source/frontend/src-tauri)
+    Checking silero v0.1.0 (https://github.com/emotechlab/silero-rs?rev=26a6460#26a64600)
+    Checking sysinfo v0.32.1
+    Checking futures v0.3.32
+   Compiling tauri-plugin-fs v2.5.1
+   Compiling tauri-plugin-notification v2.3.3
+   Compiling tauri-plugin-store v2.4.3
+   Compiling tauri-plugin-dialog v2.7.1
+   Compiling tauri-plugin-log v2.8.0
+    Checking tower-http v0.6.10
+   Compiling tauri-plugin-process v2.3.1
+   Compiling tauri-plugin-updater v2.10.1
+    Checking criterion v0.5.1
+    Checking hyper-rustls v0.27.9
+    Checking reqwest v0.13.3
+    Checking sqlx-sqlite v0.8.6
+    Checking hyper v0.14.32
+    Checking sqlx v0.8.6
+    Checking hyper-tls v0.5.0
+    Checking hyper-rustls v0.24.2
+    Checking reqwest v0.11.27
+warning: meetily@0.4.1: 🚀 Building Meetily for: macos
+warning: meetily@0.4.1: ✅ macOS: Metal GPU acceleration ENABLED by default
+warning: meetily@0.4.1: 🎬 Checking FFmpeg binary for target: aarch64-apple-darwin
+warning: meetily@0.4.1: 🔍 Found cached FFmpeg binary: ffmpeg-aarch64-apple-darwin
+warning: meetily@0.4.1: ✅ FFmpeg verification passed: ffmpeg version 8.0 Copyright (c) 2000-2025 the FFmpeg developers
+warning: meetily@0.4.1: ✅ FFmpeg binary already cached and verified: ffmpeg-aarch64-apple-darwin
+    Checking posthog-rs v0.3.7
+    Checking tauri-plugin-single-instance v2.3.7
+warning: meetily@0.4.1: 🚀 Building Meetily for: macos
+warning: meetily@0.4.1: ✅ macOS: Metal GPU acceleration ENABLED by default
+warning: meetily@0.4.1: 🎬 Checking FFmpeg binary for target: aarch64-apple-darwin
+warning: meetily@0.4.1: 🔍 Found cached FFmpeg binary: ffmpeg-aarch64-apple-darwin
+warning: meetily@0.4.1: ✅ FFmpeg verification passed: ffmpeg version 8.0 Copyright (c) 2000-2025 the FFmpeg developers
+warning: meetily@0.4.1: ✅ FFmpeg binary already cached and verified: ffmpeg-aarch64-apple-darwin
+error: could not compile `meetily` (lib) due to 1 previous error; 180 warnings emitted
+warning: build failed, waiting for other jobs to finish...
+warning: meetily@0.4.1: 🚀 Building Meetily for: macos
+warning: meetily@0.4.1: ✅ macOS: Metal GPU acceleration ENABLED by default
+warning: meetily@0.4.1: 🎬 Checking FFmpeg binary for target: aarch64-apple-darwin
+warning: meetily@0.4.1: 🔍 Found cached FFmpeg binary: ffmpeg-aarch64-apple-darwin
+warning: meetily@0.4.1: ✅ FFmpeg verification passed: ffmpeg version 8.0 Copyright (c) 2000-2025 the FFmpeg developers
+warning: meetily@0.4.1: ✅ FFmpeg binary already cached and verified: ffmpeg-aarch64-apple-darwin
+error: could not compile `meetily` (lib test) due to 4 previous errors; 197 warnings emitted

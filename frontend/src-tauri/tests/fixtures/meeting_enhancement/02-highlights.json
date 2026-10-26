@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "id": "fx-02",
+  "category": "highlights",
+  "meeting_id": "e08-fx-02",
+  "template_id": "highlights",
+  "summary_language": "en",
+  "instructions": "Prioritize the topics marked as priorities in original notes. Keep proposals, rejections, uncertainty and conflicts explicit. Do not infer names from audio channels.",
+  "notes": [
+    {
+      "id": "fx-02-n1",
+      "text": "Priority: accessibility, slow connections, and unresolved consent wording."
+    }
+  ],
+  "transcripts": [
+    {
+      "id": "fx-02-t1",
+      "text": "We agreed to add keyboard navigation.",
+      "audio_start_time": 0.0,
+      "audio_end_time": 9.0,
+      "audio_source": "unknown"
+    },
+    {
+      "id": "fx-02-t2",
+      "text": "Review consent wording before rollout; nobody was assigned and no date was set.",
+      "audio_start_time": 10.0,
+      "audio_end_time": 19.0,
+      "audio_source": "unknown"
+    }
+  ],
+  "annotations": {
+    "relevant_decisions_actions": [
+      {
+        "id": "fx-02-e1",
+        "kind": "decision",
+        "text": "Add keyboard navigation.",
+        "agreement_status": "agreed",
+        "owner": null,
+        "deadline": null,
+        "uncertainty": "none",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-02-t1",
+            "excerpt": "We agreed to add keyboard navigation."
+          }
+        ]
+      },
+      {
+        "id": "fx-02-e2",
+        "kind": "action",
+        "text": "Review consent wording before rollout.",
+        "agreement_status": "agreed",
+        "owner": null,
+        "deadline": null,
+        "uncertainty": "owner and calendar date missing",
+        "supporting_passages": [
+          {
+            "source_id": "transcript:fx-02-t2",
+            "excerpt": "Review consent wording before rollout; nobody was assigned and no date was set."
+          }
+        ]
+      }
+    ],
+    "user_priorities": [
+      {
+        "id": "fx-02-p1",
+        "topic": "accessibility and keyboard navigation",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-02-n1",
+            "excerpt": "Priority: accessibility, slow connections, and unresolved consent wording."
+          },
+          {
+            "source_id": "transcript:fx-02-t1",
+            "excerpt": "We agreed to add keyboard navigation."
+          }
+        ]
+      },
+      {
+        "id": "fx-02-p2",
+        "topic": "slow connections",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-02-n1",
+            "excerpt": "Priority: accessibility, slow connections, and unresolved consent wording."
+          }
+        ]
+      },
+      {
+        "id": "fx-02-p3",
+        "topic": "unresolved consent wording",
+        "supporting_passages": [
+          {
+            "source_id": "note:fx-02-n1",
+            "excerpt": "Priority: accessibility, slow connections, and unresolved consent wording."
+          },
+          {
+            "source_id": "transcript:fx-02-t2",
+            "excerpt": "Review consent wording before rollout; nobody was assigned and no date was set."
+          }
+        ]
+      }
+    ],
+    "forbidden_inferences": [
+      "Treating rollout as a calendar deadline",
+      "Inventing an assignee"
+    ]
+  }
+}
