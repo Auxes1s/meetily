@@ -106,6 +106,9 @@ export CMAKE_BUILD_PARALLEL_LEVEL="$CARGO_BUILD_JOBS"
 export CMAKE_GENERATOR=Ninja
 export CMAKE_PROJECT_INCLUDE="$WORK/.github/force-portable-ggml.cmake"
 export CMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE
+# llama.cpp's C prefetch calls pass block pointers to a char-pointer intrinsic.
+# Keep this Clang diagnostic nonfatal; other compiler errors remain fatal.
+export CFLAGS="${CFLAGS:-} -Wno-error=incompatible-pointer-types"
 export RUSTFLAGS='-C target-cpu=x86-64-v2'
 export NEXT_PUBLIC_MEETILY_LOCAL_BUILD=1
 export LIBCLANG_PATH="$(llvm-config --libdir)"
