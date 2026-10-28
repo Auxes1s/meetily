@@ -19,6 +19,17 @@ sudo apt-get install -y --no-install-recommends \
   build-essential clang llvm lld libclang-dev cmake ninja-build nsis \
   pkg-config libssl-dev curl ca-certificates git unzip python3 python3-venv \
   cabextract wine64
+LLVM_VERSION="${LLVM_VERSION:-23}"
+if [[ ! -x "/usr/lib/llvm-$LLVM_VERSION/bin/clang-cl" ]]; then
+  curl --proto '=https' --tlsv1.2 -fsSL https://apt.llvm.org/llvm.sh -o "$OUT/install-llvm.sh"
+  sudo bash "$OUT/install-llvm.sh" "$LLVM_VERSION"
+fi
+sudo apt-get install -y "clang-$LLVM_VERSION" "llvm-$LLVM_VERSION" "lld-$LLVM_VERSION" "libclang-$LLVM_VERSION-dev"
+export PATH="/usr/lib/llvm-$LLVM_VERSION/bin:$PATH"
+clang-cl --version
+[[ "$(clang-cl --version | head -1 | sed -E 's/.*version ([0-9]+).*/\1/')" -ge 19 ]] || {
+  echo 'Microsoft STL requires Clang 19 or newer.'; exit 1;
+}
 export PATH="$HOME/.cargo/bin:$PATH"
 if ! command -v rustup >/dev/null; then
   curl --proto '=https' --tlsv1.2 -fsS https://sh.rustup.rs -o "$OUT/rustup-init.sh"
@@ -26,6 +37,7 @@ if ! command -v rustup >/dev/null; then
 fi
 rustup toolchain install stable --profile minimal
 export RUSTUP_TOOLCHAIN=stable
+rustup component add rustfmt --toolchain stable
 rustup target add x86_64-pc-windows-msvc
 
 python3 -m venv "$OUT/tools"
@@ -38,12 +50,18 @@ else
   PNPM=(npx --yes pnpm@9.15.9)
 fi
 
-WORK="$(mktemp -d "${TMPDIR:-/tmp}/meetily-windows.XXXXXXXX")"
+WORK="${WORK_DIR:-$(mktemp -d "${TMPDIR:-/tmp}/meetily-windows.XXXXXXXX")}"
 echo "Disposable source checkout: $WORK"
+if [[ -d "$WORK/.git" ]]; then
+  [[ "$(git -C "$WORK" rev-parse HEAD)" == "$SOURCE_REF" ]] || {
+    echo 'Resume checkout does not match the requested source commit.'; exit 1;
+  }
+else
 git -C "$WORK" init -q
 git -C "$WORK" remote add origin "$REPO_URL"
 git -C "$WORK" fetch --depth 1 origin "$SOURCE_REF"
 git -C "$WORK" checkout --detach FETCH_HEAD
+fi
 cd "$WORK"
 git rev-parse HEAD > "$OUT/source-commit.txt"
 
@@ -64,8 +82,11 @@ new = '''let cross_windows = std::env::var("TARGET").unwrap_or_default().contain
         std::process::Command::new(path)
     };
     match command.arg("-version").output()'''
-assert s.count(old) == 1, 'FFmpeg verifier changed; review the cross-build adaptation.'
-p.write_text(s.replace(old, new))
+if old in s:
+    assert s.count(old) == 1, 'FFmpeg verifier changed; review the cross-build adaptation.'
+    p.write_text(s.replace(old, new))
+else:
+    assert new in s, 'FFmpeg verifier changed; review the cross-build adaptation.'
 PY
 git diff > "$OUT/cross-build.patch"
 
