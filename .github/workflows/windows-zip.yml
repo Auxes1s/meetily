@@ -1,0 +1,23 @@
+name: Windows ZIP build
+
+on:
+  push:
+    branches: [build/windows-zip-20261028]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    permissions:
+      contents: write
+    uses: ./.github/workflows/build.yml
+    with:
+      platform: windows-2022
+      target: x86_64-pc-windows-msvc
+      build-args: --config src-tauri/tauri.v0-candidate.json --bundles msi,nsis
+      sign-binaries: false
+      upload-artifacts: true
+      windows-native-smoke: false
+      asset-prefix: meetily-windows-zip
