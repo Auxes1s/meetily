@@ -106,9 +106,16 @@ export CMAKE_BUILD_PARALLEL_LEVEL="$CARGO_BUILD_JOBS"
 export CMAKE_GENERATOR=Ninja
 export CMAKE_PROJECT_INCLUDE="$WORK/.github/force-portable-ggml.cmake"
 export CMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE
-# llama.cpp's C prefetch calls pass block pointers to a char-pointer intrinsic.
-# Keep this Clang diagnostic nonfatal; other compiler errors remain fatal.
-export CFLAGS="${CFLAGS:-} -Wno-error=incompatible-pointer-types"
+# The cmake crate can reuse its configured native build without refreshing
+# CFLAGS. Updating its existing project hook also makes Ninja regenerate.
+if ! grep -q 'CODESPACES_PREFETCH_COMPAT' "$CMAKE_PROJECT_INCLUDE"; then
+  cat >> "$CMAKE_PROJECT_INCLUDE" <<'CMAKE'
+
+# CODESPACES_PREFETCH_COMPAT: llama.cpp passes block pointers to _mm_prefetch.
+add_compile_options("$<$<COMPILE_LANGUAGE:C>:-Wno-error=incompatible-pointer-types>")
+CMAKE
+fi
+git diff > "$OUT/cross-build.patch"
 export RUSTFLAGS='-C target-cpu=x86-64-v2'
 export NEXT_PUBLIC_MEETILY_LOCAL_BUILD=1
 export LIBCLANG_PATH="$(llvm-config --libdir)"
