@@ -10,6 +10,7 @@ use rubato::{Resampler, SincFixedIn, SincInterpolationParameters, SincInterpolat
 
 use super::devices::AudioDevice;
 use super::recording_state::{AudioChunk, AudioError, RecordingState, DeviceType};
+use super::recording_levels::{self, RecordingLevelCallback, RecordingLevelMonitor};
 use super::audio_processing::{audio_to_mono, LoudnessNormalizer, NoiseSuppressionProcessor, HighPassFilter};
 use super::vad::{ContinuousVadProcessor};
 
@@ -707,6 +708,7 @@ pub struct AudioPipeline {
     mixer: ProfessionalAudioMixer,
     // Recording sender for pre-mixed audio
     recording_sender_for_mixed: Option<mpsc::UnboundedSender<AudioChunk>>,
+    level_monitor: Option<RecordingLevelMonitor>,
 }
 
 impl AudioPipeline {
@@ -785,6 +787,7 @@ impl AudioPipeline {
             ring_buffer,
             mixer,
             recording_sender_for_mixed: None,  // Will be set by manager
+            level_monitor: None,
         })
     }
 
@@ -797,6 +800,12 @@ impl AudioPipeline {
         // Previous bug: Loop checked `while self.state.is_recording()` which caused early exit when
         // stop_recording() was called, losing flush signals and remaining chunks in the pipeline
         loop {
+            // The receive timeout also lets silent/stalled sources decay to zero.
+            if recording_levels::monitoring_enabled() {
+                if let Some(monitor) = &mut self.level_monitor {
+                    monitor.update(self.state.is_active(), recording_levels::window_revision());
+                }
+            }
             // Receive audio chunks with timeout
             match tokio::time::timeout(
                 std::time::Duration::from_millis(50), // Shorter timeout for responsiveness
@@ -820,6 +829,18 @@ impl AudioPipeline {
                     if let Some(ref batcher) = self.metrics_batcher {
                         let avg_level = chunk.data.iter().map(|&x| x.abs()).sum::<f32>() / chunk.data.len() as f32;
                         let duration_ms = chunk.data.len() as f64 / chunk.sample_rate as f64 * 1000.0;
+
+                        // Reuse this existing metric for the decorative bars.
+                        // No extra per-sample scan, RMS calculation, or peak detection.
+                        if recording_levels::monitoring_enabled() && self.state.is_active() {
+                            if let Some(monitor) = &mut self.level_monitor {
+                                monitor.observe(
+                                    &chunk.device_type,
+                                    avg_level,
+                                    recording_levels::window_revision(),
+                                );
+                            }
+                        }
 
                         batch_audio_metric!(
                             Some(batcher),
@@ -969,6 +990,7 @@ impl AudioPipeline {
 pub struct AudioPipelineManager {
     pipeline_handle: Option<JoinHandle<Result<()>>>,
     audio_sender: Option<mpsc::UnboundedSender<AudioChunk>>,
+    level_callback: Option<RecordingLevelCallback>,
 }
 
 impl AudioPipelineManager {
@@ -976,7 +998,12 @@ impl AudioPipelineManager {
         Self {
             pipeline_handle: None,
             audio_sender: None,
+            level_callback: None,
         }
+    }
+
+    pub fn set_level_callback(&mut self, callback: RecordingLevelCallback) {
+        self.level_callback = Some(callback);
     }
 
     /// Start the audio pipeline with device information for adaptive buffering
@@ -1018,6 +1045,7 @@ impl AudioPipelineManager {
         // CRITICAL FIX: Connect recording sender to receive pre-mixed audio
         // This ensures both mic AND system audio are captured in recordings
         pipeline.recording_sender_for_mixed = recording_sender;
+        pipeline.level_monitor = self.level_callback.clone().map(RecordingLevelMonitor::new);
 
         let handle = tokio::spawn(async move {
             pipeline.run().await

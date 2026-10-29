@@ -400,6 +400,11 @@ pub async fn start_recording_with_meeting_name<R: Runtime>(
         let _ = app_for_error.emit("recording-error", error.user_message());
     });
 
+    let app_for_levels = app.clone();
+    manager.set_level_callback(move |levels| {
+        let _ = app_for_levels.emit("recording-audio-level", levels);
+    });
+
     // Start recording with resolved devices (replaces start_recording_with_defaults_and_auto_save call)
     let transcription_receiver = manager
         .start_recording(microphone_device, system_device, auto_save)
@@ -585,6 +590,11 @@ pub async fn start_recording_with_devices_and_meeting<R: Runtime>(
     let app_for_error = app.clone();
     manager.set_error_callback(move |error| {
         let _ = app_for_error.emit("recording-error", error.user_message());
+    });
+
+    let app_for_levels = app.clone();
+    manager.set_level_callback(move |levels| {
+        let _ = app_for_levels.emit("recording-audio-level", levels);
     });
 
     // Start recording with specified devices and auto_save setting
@@ -1095,6 +1105,12 @@ pub async fn stop_recording<R: Runtime>(
 
     info!("🎉 Recording stopped successfully with ZERO transcript chunks lost");
     Ok(())
+}
+
+/// Enable cosmetic meter events only while the recording controls are visible.
+#[tauri::command]
+pub fn set_recording_level_monitoring(enabled: bool) {
+    super::recording_levels::set_monitoring_enabled(enabled);
 }
 
 /// Check if recording is active

@@ -177,6 +177,8 @@ impl RecordingState {
         }
 
         self.is_paused.store(true, Ordering::SeqCst);
+        // Invalidate cosmetic meter history even for a pause shorter than a pipeline tick.
+        super::recording_levels::invalidate_window();
         *self.pause_start.lock().unwrap() = Some(Instant::now());
         log::info!("Recording paused");
         Ok(())

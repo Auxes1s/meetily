@@ -496,6 +496,14 @@ impl RecordingManager {
         self.stream_manager.active_stream_count()
     }
 
+    /// Observe recording levels without opening another capture stream.
+    pub fn set_level_callback<F>(&mut self, callback: F)
+    where
+        F: Fn(super::recording_levels::RecordingAudioLevel) + Send + Sync + 'static,
+    {
+        self.pipeline_manager.set_level_callback(Arc::new(callback));
+    }
+
     /// Set error callback for handling errors
     pub fn set_error_callback<F>(&self, callback: F)
     where
